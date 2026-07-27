@@ -1,7 +1,8 @@
 {
+  "title": "WorkplaceHQ | Enterprise Transformation & Career Services",
   "description": "This dual-brand platform offers corporate training and career services, empowering businesses and job seekers in Africa with frictionless access to valuable resources.",
   "robots": {
-    "index": false
+    "index": true
   },
   "accessibility": {
     "addBypassLinks": false,
