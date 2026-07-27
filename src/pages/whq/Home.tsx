@@ -256,14 +256,7 @@ export default function WHQHome() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="px-6 py-10 border-t" style={{ borderColor: '#E5E1D8' }}>
-        <div className="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <span className="font-display font-700" style={{ color: '#0B3C2D' }}>WorkplaceHQ</span>
-          <p className="text-sm" style={{ color: '#9CA3AF' }}>© 2025 WorkplaceHQ. All rights reserved.</p>
-          <Link to="/lagos-jobs" className="text-sm font-semibold" style={{ color: '#10B981' }}>Lagos Job →</Link>
-        </div>
-      </footer>
+  
 
       {/* Consultation Modal */}
       {modalOpen && (
