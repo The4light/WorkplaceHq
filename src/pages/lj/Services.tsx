@@ -1,144 +1,93 @@
 import { Link } from 'react-router-dom'
+import { FileText, Link2, Palette, Globe, User, Briefcase, ArrowRight } from 'lucide-react'
 
 const services = [
   {
-    title: 'CV / Resume Optimisation',
-    desc: 'A professional rewrite of your CV — structured for ATS, tuned for the roles you want, and written to make a strong first impression.',
-    process: ['Fill a short brief about your experience and target roles', 'Our writers craft a polished, targeted CV', 'Receive your optimised CV by email within 24 hours'],
-    includes: ['Full CV rewrite', 'ATS-friendly formatting', 'Role-specific tailoring', 'Unlimited format versions (PDF, Word)'],
-    cta: 'Optimise my CV',
+    icon: FileText,
+    title: 'CV & Resume Optimisation',
+    desc: 'AI-powered resume analysis that benchmarks against ATS systems and real hiring manager preferences. Get keyword gap analysis, format scoring, and instant rewrite suggestions for your target role.',
+    tool: 'cv',
+    outcomes: ['ATS Score 85+', '3× more recruiter responses', 'Role-specific keyword mapping'],
   },
   {
-    title: 'LinkedIn Optimisation',
-    desc: 'A complete LinkedIn profile overhaul — from headline and about section to skills, featured, and experience — designed to attract recruiters and opportunities.',
-    process: ['Share your LinkedIn URL and target role information', 'We audit your profile and write updated copy', 'Receive a detailed report and all text within 48 hours'],
-    includes: ['Profile headline and about section rewrite', 'Experience summary optimisation', 'Skills and endorsement recommendations', 'Featured section guidance'],
-    cta: 'Optimise my LinkedIn',
+    icon: Link2,
+    title: 'LinkedIn Profile Optimisation',
+    desc: 'Transform your LinkedIn from a digital CV into a talent magnet. Headline generation, about section refining, and a visual profile impact score.',
+    tool: 'linkedin',
+    outcomes: ['Profile views +220%', 'Recruiter InMail +180%', 'Search ranking boost'],
   },
   {
+    icon: Palette,
     title: 'Portfolio Creator',
-    desc: 'A clean, professional portfolio that showcases your projects and work — built and emailed to you, ready to share with anyone.',
-    process: ['Describe your projects, skills, and goals in the brief form', 'We build a structured, professional portfolio', 'Receive your portfolio link via email'],
-    includes: ['Professionally structured portfolio page', 'Mobile-responsive design', 'Project showcase with descriptions', 'Contact and downloadable CV section'],
-    cta: 'Create my portfolio',
+    desc: 'Instantly generate a visual portfolio layout from your project inputs. Built for designers, engineers, marketers, and writers who need to show their work, not just describe it.',
+    tool: 'portfolio',
+    outcomes: ['Interview conversation starter', 'Work showcased instantly', 'Zero technical setup'],
   },
   {
-    title: 'Personal Website Creation',
-    desc: 'Your own professional website — a polished, career-ready personal site delivered without any technical setup on your part.',
-    process: ['Fill a brief: about you, your work, your goals, your style preference', 'We set up and populate your personal site', 'Receive your live site URL and management instructions by email'],
-    includes: ['Custom personal domain consultation', 'Professional template, populated with your content', 'Bio, experience, and contact page', 'Mobile-responsive and SEO-ready'],
-    cta: 'Get my website',
+    icon: Globe,
+    title: 'Personal Website Creator',
+    desc: 'A personal site preview generated from your bio, work history, and link selections. Desktop and mobile ready.',
+    tool: 'website',
+    outcomes: ['Professional online presence', 'No code required', 'Custom link hub'],
   },
   {
-    title: 'Personal Branding',
-    desc: 'A strategic branding document that defines who you are professionally, how to communicate it, and where to show up — built for people who want to be findable.',
-    process: ['Answer questions about your career, values, and goals', 'We develop a complete personal branding strategy', 'Receive your strategy document within 48 hours'],
-    includes: ['Professional identity statement', 'Tone of voice and communication guidelines', 'Platform strategy (LinkedIn, portfolio, networking)', 'Elevator pitch and bio variations'],
-    cta: 'Build my brand',
+    icon: User,
+    title: 'Personal Branding Guide',
+    desc: 'Automated positioning generator that produces content pillars, bio hooks, and platform strategy based on your industry and core strengths.',
+    tool: 'branding',
+    outcomes: ['Content pillars defined', 'Bio hooks generated', 'Platform strategy'],
+  },
+  {
+    icon: Briefcase,
+    title: 'Job Listings Engine',
+    desc: 'A curated, filterable job board with real-time role filtering, salary range tags, and 1-click application forms. Lagos-focused, Africa-first.',
+    tool: 'jobs',
+    outcomes: ['14,000+ live roles', 'Salary transparency', '1-click applications'],
   },
 ]
 
 export default function LJServices() {
   return (
-    <main>
-      <section className="bg-paper py-24">
-        <div className="max-w-7xl mx-auto px-6">
-          <p className="text-[11px] font-semibold tracking-[0.18em] uppercase mb-5" style={{ fontFamily: 'Inter, sans-serif', color: '#0F6B5C' }}>Services</p>
-          <h1 className="text-5xl font-bold text-ink mb-6" style={{ letterSpacing: '-0.03em' }}>
-            Everything you need<br />to land the right role.
-          </h1>
-          <p className="text-xl max-w-2xl leading-relaxed" style={{ color: '#545454' }}>
-            Five professional career services. No account. No login. Fill a short form, and we deliver your result.
-          </p>
+    <div style={{ backgroundColor: '#F4F7F6', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
+      <div className="relative pt-32 pb-12 px-6 overflow-hidden">
+        <div className="pointer-events-none absolute -top-16 -right-16 w-[450px] h-[450px] rounded-full" style={{ background: '#FF5A36', filter: 'blur(140px)', opacity: 0.2 }} />
+        <div className="pointer-events-none absolute -bottom-24 -left-24 w-[550px] h-[550px] rounded-full" style={{ background: '#06B6D4', filter: 'blur(160px)', opacity: 0.15 }} />
+        <div className="max-w-[1440px] mx-auto relative z-10">
+          <h1 className="font-display font-700 text-[clamp(2rem,4vw,3.5rem)] leading-tight mb-4" style={{ color: '#0D131A' }}>Career Acceleration Services</h1>
+          <p className="text-lg max-w-xl" style={{ color: '#6B7280' }}>Six tools. One purpose: getting you hired faster, better, and on your terms.</p>
         </div>
-      </section>
+      </div>
 
-      <section className="bg-paper pb-24">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col gap-0">
-          {services.map((s, i) => (
-            <div
-              key={s.title}
-              className="grid grid-cols-1 lg:grid-cols-12 gap-12 py-16"
-              style={{ borderTop: '1px solid #E6E5E0' }}
-            >
-              <div className="lg:col-span-4">
-                <span className="text-[11px] font-semibold text-lj-teal mb-3 block" style={{ fontFamily: 'Inter, sans-serif' }}>
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <h2 className="text-2xl font-bold text-ink mb-4" style={{ letterSpacing: '-0.03em' }}>{s.title}</h2>
-                <p className="text-base leading-relaxed mb-6" style={{ color: '#545454' }}>{s.desc}</p>
-
-                <p className="text-[11px] font-semibold tracking-wider uppercase mb-3 text-slate" style={{ fontFamily: 'Inter, sans-serif' }}>How it works</p>
-                <ol className="flex flex-col gap-2.5 mb-6">
-                  {s.process.map((step, j) => (
-                    <li key={j} className="text-[13px] flex gap-3" style={{ color: '#545454' }}>
-                      <span style={{ color: '#0F6B5C', fontFamily: 'Inter, sans-serif', fontSize: '11px', fontWeight: 600, marginTop: '2px', flexShrink: 0 }}>
-                        {j + 1}
-                      </span>
-                      {step}
-                    </li>
+      <section className="px-6 pb-20">
+        <div className="max-w-[1440px] mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {services.map(s => {
+            const Icon = s.icon
+            return (
+              <div key={s.title} className="p-7 rounded-2xl flex flex-col gap-5 group" style={{ backgroundColor: '#FFFFFF', border: '1px solid #D6E2E0' }}>
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ backgroundColor: 'rgba(6,182,212,0.1)' }}>
+                  <Icon className="w-6 h-6" style={{ color: '#06B6D4' }} />
+                </div>
+                <div>
+                  <h3 className="font-display font-700 text-lg mb-2" style={{ color: '#0D131A' }}>{s.title}</h3>
+                  <p className="text-sm leading-relaxed" style={{ color: '#6B7280' }}>{s.desc}</p>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {s.outcomes.map(o => (
+                    <span key={o} className="px-2.5 py-1 rounded-full text-xs" style={{ backgroundColor: 'rgba(15,44,52,0.06)', color: '#0F2C34', border: '1px solid #D6E2E0' }}>{o}</span>
                   ))}
-                </ol>
-
+                </div>
                 <Link
-                  to="/lagos-jobs/tools"
-                  className="inline-block text-[13px] font-semibold text-paper py-3 px-6 hover:opacity-90 transition-opacity"
-                  style={{ fontFamily: 'Inter, sans-serif', background: '#0F6B5C', borderRadius: '3px' }}
+                  to={`/lagos-jobs/tools?tab=${s.tool}`}
+                  className="mt-auto flex items-center gap-1.5 text-sm font-semibold"
+                  style={{ color: '#FF5A36', fontFamily: 'var(--font-display)' }}
                 >
-                  {s.cta}
+                  Launch Tool <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
-
-              <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <p className="text-[11px] font-semibold tracking-wider uppercase mb-4 text-slate" style={{ fontFamily: 'Inter, sans-serif' }}>What's included</p>
-                  <ul className="flex flex-col gap-3">
-                    {s.includes.map((inc) => (
-                      <li key={inc} className="text-[14px] flex gap-3" style={{ color: '#545454' }}>
-                        <span style={{ color: '#0F6B5C', flexShrink: 0 }}>✓</span>
-                        {inc}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div
-                  className="p-6"
-                  style={{ background: '#F0EFE9', border: '1px solid #E6E5E0', borderRadius: '3px' }}
-                >
-                  <p className="text-[13px] font-semibold text-ink mb-2" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>No account needed.</p>
-                  <p className="text-[13px] leading-relaxed mb-4" style={{ color: '#545454' }}>
-                    Fill a short form. We'll do the work and deliver your result by email. That's it.
-                  </p>
-                  <Link
-                    to="/lagos-jobs/tools"
-                    className="text-[12px] font-semibold hover:opacity-80 transition-opacity"
-                    style={{ color: '#0F6B5C', fontFamily: 'Inter, sans-serif' }}
-                  >
-                    Open the tool →
-                  </Link>
-                </div>
-              </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </section>
-
-      <section style={{ background: '#0F6B5C' }} className="py-20">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
-          <div>
-            <h2 className="text-3xl font-bold text-paper mb-3" style={{ letterSpacing: '-0.03em' }}>Ready to get started?</h2>
-            <p style={{ color: 'rgba(244,243,239,0.75)' }}>Choose a tool and fill a short form. Results arrive by email.</p>
-          </div>
-          <Link
-            to="/lagos-jobs/tools"
-            className="flex-shrink-0 text-[13px] font-semibold bg-paper text-ink px-8 py-4 hover:opacity-90 transition-opacity"
-            style={{ fontFamily: 'Inter, sans-serif', borderRadius: '3px' }}
-          >
-            Go to Tools Hub
-          </Link>
-        </div>
-      </section>
-    </main>
+    </div>
   )
 }

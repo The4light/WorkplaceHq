@@ -1,252 +1,183 @@
 import { Link } from 'react-router-dom'
-
-const stats = [
-  { value: '5,200+', label: 'CVs optimised' },
-  { value: '3,400+', label: 'LinkedIn profiles transformed' },
-  { value: '8,100+', label: 'Successful placements' },
-  { value: '4.9/5', label: 'Average client rating' },
-]
+import { ArrowRight, FileText, Link2, Globe, Palette, User, Briefcase, Zap } from 'lucide-react'
 
 const tools = [
-  { title: 'CV Optimiser', desc: 'Get your CV rewritten by professionals who know what recruiters actually look for.', icon: '📄' },
-  { title: 'LinkedIn Optimiser', desc: 'Turn your LinkedIn into a magnet for the right roles and the right people.', icon: '💼' },
-  { title: 'Portfolio Creator', desc: 'A professional portfolio that shows your work — not just your title.', icon: '🗂️' },
-  { title: 'Personal Website', desc: 'Your own career site, set up and sent to you. No code. No accounts.', icon: '🌐' },
-  { title: 'Personal Branding', desc: 'A strategy document that defines your professional identity and how to communicate it.', icon: '✦' },
+  { icon: FileText, label: 'CV Optimiser', desc: 'ATS-proof your resume', to: '/lagos-jobs/tools?tab=cv' },
+  { icon: Link2, label: 'LinkedIn Optimiser', desc: 'Boost your profile impact', to: '/lagos-jobs/tools?tab=linkedin' },
+  { icon: Palette, label: 'Portfolio Creator', desc: 'Showcase your best work', to: '/lagos-jobs/tools?tab=portfolio' },
+  { icon: Globe, label: 'Website Creator', desc: 'Personal site in minutes', to: '/lagos-jobs/tools?tab=website' },
+  { icon: User, label: 'Personal Branding', desc: 'Define your positioning', to: '/lagos-jobs/tools?tab=branding' },
+  { icon: Briefcase, label: 'Job Listings', desc: 'Curated Lagos roles', to: '/lagos-jobs/tools?tab=jobs' },
 ]
 
-const testimonials = [
-  {
-    quote: "I submitted my CV on a Thursday, received the optimised version Friday morning, and had three interview calls by the following week. This is the real deal.",
-    author: 'Tobi A.',
-    role: 'Product Manager, Lagos',
-  },
-  {
-    quote: "The LinkedIn optimisation service completely changed my visibility. I went from 50 profile views a week to over 600 in 30 days.",
-    author: 'Funmilayo O.',
-    role: 'HR Business Partner',
-  },
-  {
-    quote: "My personal branding strategy document was the most useful thing I've received in my career. Clear, specific, and immediately actionable.",
-    author: 'Chukwuemeka D.',
-    role: 'Senior Engineer, Abuja',
-  },
+const stats = [
+  { value: '14,200+', label: 'Active Job Listings' },
+  { value: '38K+', label: 'Careers Accelerated' },
+  { value: '92%', label: 'Interview Success Rate' },
+  { value: '4.8★', label: 'User Rating' },
 ]
 
-const listings = [
-  { title: 'Product Manager', company: 'TresBonTech', location: 'Lagos · Hybrid', type: 'Full-time' },
-  { title: 'Senior UX Designer', company: 'Posh Accent', location: 'Remote', type: 'Full-time' },
-  { title: 'HR Business Partner', company: 'Confidential', location: 'Lagos · Onsite', type: 'Full-time' },
-  { title: 'Marketing Manager', company: 'Lagos Fintech Group', location: 'Lagos · Hybrid', type: 'Full-time' },
-  { title: 'Business Analyst', company: 'AfriCapital', location: 'Abuja · Hybrid', type: 'Contract' },
-  { title: 'Data Scientist', company: 'TresBonTech', location: 'Remote', type: 'Full-time' },
+const stories = [
+  { name: 'Adaeze K.', role: 'Product Designer → Senior PM, Flutterwave', quote: 'The CV tool transformed my resume in 20 minutes. I landed 3 interviews that week.' },
+  { name: 'Tunde B.', role: 'Unemployed → Backend Engineer, MTN', quote: 'Lagos Job\'s tools helped me package 2 years of freelance into a story employers wanted to hire.' },
+  { name: 'Fatimah Y.', role: 'Graduate → Marketing Lead, Sterling Bank', quote: 'I used the Personal Branding guide to define my niche. Changed everything.' },
 ]
 
 export default function LJHome() {
   return (
-    <main>
+    <div style={{ backgroundColor: '#F4F7F6', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
       {/* Hero */}
-      <section className="bg-paper">
-        <div className="max-w-7xl mx-auto px-6 pt-16 pb-0 grid grid-cols-1 lg:grid-cols-2 gap-16 items-end">
-          <div className="pb-20">
-            <p
-              className="mb-5 text-[11px] font-semibold tracking-[0.18em] uppercase"
-              style={{ fontFamily: 'Inter, sans-serif', color: '#0F6B5C' }}
-            >
-              Career tools · No account needed
-            </p>
-            <h1
-              className="text-5xl md:text-6xl font-bold text-ink leading-[1.04] mb-6"
-              style={{ letterSpacing: '-0.03em', fontFamily: 'Space Grotesk, sans-serif' }}
-            >
-              Your next role<br />starts here.
+      <section className="relative pt-32 pb-24 px-6 overflow-hidden">
+        <div className="pointer-events-none absolute -top-16 -right-16 w-[450px] h-[450px] rounded-full" style={{ background: '#FF5A36', filter: 'blur(140px)', opacity: 0.22 }} />
+        <div className="pointer-events-none absolute -bottom-24 -left-24 w-[550px] h-[550px] rounded-full" style={{ background: '#06B6D4', filter: 'blur(160px)', opacity: 0.18 }} />
+
+        <div className="max-w-[1440px] mx-auto relative z-10">
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-6" style={{ backgroundColor: 'rgba(6,182,212,0.12)', color: '#06B6D4', border: '1px solid rgba(6,182,212,0.25)' }}>
+              <Zap className="w-3 h-3" /> Africa's Career Acceleration Engine
+            </div>
+            <h1 className="font-display font-700 text-[clamp(2.5rem,6vw,5rem)] leading-[1.05] tracking-tight mb-6" style={{ color: '#0D131A' }}>
+              Your Next Role<br />
+              <span style={{ color: '#FF5A36' }}>Starts</span>{' '}
+              <span style={{ color: '#06B6D4' }}>Here.</span>
             </h1>
-            <p
-              className="text-lg leading-relaxed mb-10 max-w-lg"
-              style={{ color: '#545454', fontFamily: 'DM Sans, sans-serif' }}
-            >
-              Professional CV writing, LinkedIn optimisation, portfolio creation, personal branding, and live job listings — all without creating an account.
+            <p className="text-lg leading-relaxed mb-10 max-w-xl" style={{ color: '#4B5563' }}>
+              Six powerful tools. Zero logins. From resume to job offer — Lagos Job gives you everything you need to land your next career move, fast.
             </p>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-4">
               <Link
                 to="/lagos-jobs/tools"
-                className="inline-block text-[13px] font-semibold text-paper py-3.5 px-7 transition-colors hover:opacity-90"
-                style={{ fontFamily: 'Inter, sans-serif', background: '#0F6B5C', borderRadius: '3px' }}
+                className="flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm text-white transition-all hover:-translate-y-0.5"
+                style={{ backgroundColor: '#FF5A36', fontFamily: 'var(--font-display)', boxShadow: '0 4px 24px rgba(255,90,54,0.35)' }}
               >
-                Use a tool
+                Launch Tools Hub <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
-                to="/lagos-jobs/jobs"
-                className="inline-block text-[13px] font-semibold text-ink px-7 py-3.5 transition-colors hover:bg-silver"
-                style={{ fontFamily: 'Inter, sans-serif', border: '1px solid #191919', borderRadius: '3px' }}
+                to="/lagos-jobs/listings"
+                className="flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm transition-all hover:-translate-y-0.5"
+                style={{ backgroundColor: '#FFFFFF', color: '#0D131A', border: '1px solid #D6E2E0', fontFamily: 'var(--font-display)' }}
               >
-                Browse jobs
+                Browse Job Listings
               </Link>
             </div>
           </div>
 
-          <div className="relative h-[420px] lg:h-[520px] overflow-hidden bg-silver">
-            <img
-              src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=900&h=700&fit=crop&auto=format"
-              alt="Professional working on career materials"
-              className="w-full h-full object-cover"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Stats */}
-      <section style={{ background: '#0F6B5C' }}>
-        <div className="max-w-7xl mx-auto px-6 py-10 grid grid-cols-2 lg:grid-cols-4 gap-8">
-          {stats.map((s) => (
-            <div key={s.label}>
-              <p className="text-3xl font-bold text-paper mb-1" style={{ fontFamily: 'Space Grotesk, sans-serif', letterSpacing: '-0.04em' }}>
-                {s.value}
-              </p>
-              <p className="text-[13px]" style={{ color: 'rgba(244,243,239,0.6)', fontFamily: 'DM Sans, sans-serif' }}>{s.label}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Tools overview */}
-      <section className="bg-paper py-24">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-end justify-between mb-12">
-            <div>
-              <p className="text-[11px] font-semibold tracking-[0.18em] uppercase mb-3" style={{ fontFamily: 'Inter, sans-serif', color: '#0F6B5C' }}>Tools Hub</p>
-              <h2 className="text-4xl font-bold text-ink" style={{ letterSpacing: '-0.03em' }}>Five tools. Zero friction.</h2>
-            </div>
-            <Link
-              to="/lagos-jobs/tools"
-              className="text-[13px] font-semibold text-slate hover:text-ink transition-colors hidden md:block"
-              style={{ fontFamily: 'Inter, sans-serif' }}
-            >
-              All tools →
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {tools.map((t) => (
-              <Link
-                key={t.title}
-                to="/lagos-jobs/tools"
-                className="group bg-paper p-8 transition-all hover:shadow-sm"
-                style={{ border: '1px solid #E6E5E0' }}
-              >
-                <div className="mb-5">
-                  <span className="text-2xl">{t.icon}</span>
-                </div>
-                <p className="text-[1rem] font-semibold text-ink mb-2 group-hover:text-lj-teal transition-colors" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-                  {t.title}
-                </p>
-                <p className="text-[14px] leading-relaxed mb-4" style={{ color: '#545454' }}>{t.desc}</p>
-                <span className="text-[13px] font-semibold" style={{ color: '#0F6B5C', fontFamily: 'Inter, sans-serif' }}>
-                  Use this tool →
-                </span>
-              </Link>
-            ))}
-
-            {/* Job listings card */}
-            <Link
-              to="/lagos-jobs/jobs"
-              className="group bg-ink p-8 transition-all"
-              style={{ border: '1px solid #191919' }}
-            >
-              <div className="mb-5">
-                <span className="text-2xl">🔍</span>
-              </div>
-              <p className="text-[1rem] font-semibold text-paper mb-2" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-                Job Listings
-              </p>
-              <p className="text-[14px] leading-relaxed mb-4" style={{ color: '#8a8a8a' }}>Browse curated roles from top companies across Nigeria and beyond.</p>
-              <span className="text-[13px] font-semibold" style={{ color: '#0F6B5C', fontFamily: 'Inter, sans-serif' }}>
-                Browse roles →
-              </span>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section style={{ background: '#F0EFE9' }} className="py-24">
-        <div className="max-w-7xl mx-auto px-6">
-          <p className="text-[11px] font-semibold tracking-[0.18em] uppercase mb-12" style={{ fontFamily: 'Inter, sans-serif', color: '#888' }}>What people say</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((t) => (
-              <div key={t.author} style={{ borderTop: '2px solid #E6E5E0', paddingTop: '1.5rem' }}>
-                <p className="text-[1rem] font-medium text-ink leading-relaxed mb-6" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-                  "{t.quote}"
-                </p>
-                <p className="text-[14px] font-semibold text-ink" style={{ fontFamily: 'Inter, sans-serif' }}>{t.author}</p>
-                <p className="text-[13px]" style={{ color: '#888', fontFamily: 'DM Sans, sans-serif' }}>{t.role}</p>
+          {/* Stats */}
+          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4">
+            {stats.map(s => (
+              <div key={s.label} className="p-5 rounded-2xl" style={{ backgroundColor: '#FFFFFF', border: '1px solid #D6E2E0' }}>
+                <div className="font-display font-700 text-3xl mb-1" style={{ color: '#FF5A36' }}>{s.value}</div>
+                <div className="text-sm" style={{ color: '#6B7280' }}>{s.label}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Listings preview */}
-      <section className="bg-paper py-24">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-end justify-between mb-10">
+      {/* Tools slider */}
+      <section className="px-6 py-20">
+        <div className="max-w-[1440px] mx-auto">
+          <div className="flex items-end justify-between mb-8">
             <div>
-              <p className="text-[11px] font-semibold tracking-[0.18em] uppercase mb-3" style={{ fontFamily: 'Inter, sans-serif', color: '#0F6B5C' }}>Live now</p>
-              <h2 className="text-3xl font-bold text-ink" style={{ letterSpacing: '-0.03em' }}>Latest opportunities</h2>
+              <h2 className="font-display font-700 text-[clamp(1.75rem,3vw,2.5rem)] mb-2" style={{ color: '#0D131A' }}>The Tools Hub</h2>
+              <p className="text-base" style={{ color: '#6B7280' }}>Six zero-auth career tools built for Africa's job market.</p>
             </div>
-            <Link to="/lagos-jobs/jobs" className="text-[13px] font-semibold text-slate hover:text-ink transition-colors hidden md:block" style={{ fontFamily: 'Inter, sans-serif' }}>
-              All jobs →
+            <Link to="/lagos-jobs/tools" className="flex items-center gap-1.5 text-sm font-semibold" style={{ color: '#06B6D4', fontFamily: 'var(--font-display)' }}>
+              Open All Tools <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-            {listings.map((l) => (
-              <Link
-                key={l.title + l.company}
-                to="/lagos-jobs/jobs"
-                className="flex items-center justify-between p-5 bg-paper group hover:bg-silver transition-colors"
-                style={{ border: '1px solid #E6E5E0', borderRadius: '3px' }}
-              >
-                <div>
-                  <p className="text-[15px] font-semibold text-ink mb-1 group-hover:text-lj-teal transition-colors" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-                    {l.title}
-                  </p>
-                  <p className="text-[13px]" style={{ color: '#888', fontFamily: 'DM Sans, sans-serif' }}>{l.company} · {l.location}</p>
-                </div>
-                <span
-                  className="text-[11px] font-medium px-2.5 py-1"
-                  style={{ fontFamily: 'Inter, sans-serif', background: '#E6E5E0', color: '#545454', borderRadius: '2px', flexShrink: 0 }}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            {tools.map(t => {
+              const Icon = t.icon
+              return (
+                <Link
+                  key={t.label}
+                  to={t.to}
+                  className="p-5 rounded-2xl flex flex-col gap-3 group transition-all hover:-translate-y-1 hover:shadow-lg"
+                  style={{ backgroundColor: '#FFFFFF', border: '1px solid #D6E2E0' }}
                 >
-                  {l.type}
-                </span>
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: 'rgba(6,182,212,0.1)' }}>
+                    <Icon className="w-5 h-5" style={{ color: '#06B6D4' }} />
+                  </div>
+                  <div>
+                    <div className="font-display font-600 text-sm mb-0.5" style={{ color: '#0D131A' }}>{t.label}</div>
+                    <div className="text-xs" style={{ color: '#9CA3AF' }}>{t.desc}</div>
+                  </div>
+                </Link>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Live job counter widget */}
+      <section className="px-6 py-10">
+        <div className="max-w-[1440px] mx-auto">
+          <div className="relative p-8 rounded-2xl overflow-hidden" style={{ backgroundColor: '#0F2C34', border: '1px solid rgba(6,182,212,0.2)' }}>
+            <div className="pointer-events-none absolute -top-8 -right-8 w-48 h-48 rounded-full" style={{ background: '#FF5A36', filter: 'blur(80px)', opacity: 0.25 }} />
+            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+              <div>
+                <div className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: 'rgba(255,255,255,0.4)' }}>Live counter</div>
+                <div className="font-display font-700 text-5xl text-white mb-1">14,247</div>
+                <div className="text-sm" style={{ color: '#06B6D4' }}>active roles across Lagos, Abuja & remote</div>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-2.5 h-2.5 rounded-full animate-pulse" style={{ backgroundColor: '#10B981' }} />
+                <span className="text-sm" style={{ color: 'rgba(255,255,255,0.6)' }}>Updated every 6 hours</span>
+              </div>
+              <Link
+                to="/lagos-jobs/listings"
+                className="flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm text-white shrink-0"
+                style={{ backgroundColor: '#FF5A36', fontFamily: 'var(--font-display)' }}
+              >
+                Browse All Jobs <ArrowRight className="w-4 h-4" />
               </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Success stories */}
+      <section className="px-6 py-20">
+        <div className="max-w-[1440px] mx-auto">
+          <h2 className="font-display font-700 text-[clamp(1.75rem,3vw,2.5rem)] mb-8" style={{ color: '#0D131A' }}>Success Stories</h2>
+          <div className="grid md:grid-cols-3 gap-5">
+            {stories.map(s => (
+              <div key={s.name} className="p-7 rounded-2xl" style={{ backgroundColor: '#FFFFFF', border: '1px solid #D6E2E0' }}>
+                <p className="text-base leading-relaxed mb-5" style={{ color: '#0D131A' }}>"{s.quote}"</p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm" style={{ backgroundColor: '#0F2C34', color: '#06B6D4' }}>
+                    {s.name[0]}
+                  </div>
+                  <div>
+                    <div className="font-semibold text-sm" style={{ color: '#0D131A' }}>{s.name}</div>
+                    <div className="text-xs" style={{ color: '#9CA3AF' }}>{s.role}</div>
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
-
-          <Link to="/lagos-jobs/jobs" className="text-[13px] font-semibold text-slate hover:text-ink transition-colors block md:hidden" style={{ fontFamily: 'Inter, sans-serif' }}>
-            All jobs →
-          </Link>
         </div>
       </section>
 
       {/* CTA */}
-      <section style={{ background: '#0F6B5C' }} className="py-20">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <h2 className="text-4xl font-bold text-paper mb-5" style={{ letterSpacing: '-0.03em' }}>
-            Your career, professionally packaged.
-          </h2>
-          <p className="text-lg mb-8 max-w-xl mx-auto" style={{ color: 'rgba(244,243,239,0.75)' }}>
-            Pick a tool, fill a short form, and receive your result by email. No account. No friction. Just results.
-          </p>
-          <Link
-            to="/lagos-jobs/tools"
-            className="inline-block text-[13px] font-semibold bg-paper text-ink px-8 py-4 hover:opacity-90 transition-opacity"
-            style={{ fontFamily: 'Inter, sans-serif', borderRadius: '3px' }}
-          >
-            Start with a tool
-          </Link>
+      <section className="px-6 pb-20">
+        <div className="max-w-[1440px] mx-auto">
+          <div className="relative p-12 rounded-2xl overflow-hidden text-center" style={{ backgroundColor: '#0F2C34' }}>
+            <div className="pointer-events-none absolute -top-12 -right-12 w-64 h-64 rounded-full" style={{ background: '#FF5A36', filter: 'blur(80px)', opacity: 0.25 }} />
+            <div className="pointer-events-none absolute -bottom-12 -left-12 w-64 h-64 rounded-full" style={{ background: '#06B6D4', filter: 'blur(100px)', opacity: 0.2 }} />
+            <div className="relative z-10">
+              <h2 className="font-display font-700 text-[clamp(1.75rem,3vw,2.75rem)] text-white mb-4">Your dream role is 6 tools away.</h2>
+              <p className="text-base mb-8" style={{ color: 'rgba(255,255,255,0.65)' }}>No account. No credit card. Just results.</p>
+              <Link to="/lagos-jobs/tools" className="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg font-semibold text-sm text-white" style={{ backgroundColor: '#FF5A36', fontFamily: 'var(--font-display)' }}>
+                Launch Free Tools <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
-    </main>
+
+      
+    </div>
   )
 }

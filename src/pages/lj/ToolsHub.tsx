@@ -1,333 +1,422 @@
 import { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
+import { FileText, Link2, Palette, Globe, User, Briefcase, CheckCircle, Circle, ChevronDown } from 'lucide-react'
 
-type ToolKey = 'cv' | 'linkedin' | 'portfolio' | 'website' | 'branding'
+// ── Tool 1: CV Optimiser ──────────────────────────────────────────
+function CVOptimiser() {
+  const [role, setRole] = useState('')
+  const [years, setYears] = useState('1-3')
+  const [resume, setResume] = useState('')
+  const [score, setScore] = useState(0)
+  const [analysed, setAnalysed] = useState(false)
 
-const tools: { key: ToolKey; label: string; desc: string }[] = [
-  { key: 'cv', label: 'CV Optimiser', desc: 'Professional CV rewrite, delivered by email within 24 hours.' },
-  { key: 'linkedin', label: 'LinkedIn Optimiser', desc: 'Complete LinkedIn profile overhaul. Receive updated copy within 48 hours.' },
-  { key: 'portfolio', label: 'Portfolio Creator', desc: 'A clean portfolio built from your brief and sent as a live link.' },
-  { key: 'website', label: 'Personal Website', desc: 'Your own career site, set up and delivered to your inbox.' },
-  { key: 'branding', label: 'Personal Branding', desc: 'A strategy document that defines your professional identity.' },
-]
+  const keywords = ['Python', 'SQL', 'Agile', 'Leadership', 'Communication', 'Data Analysis', 'Project Management', 'Excel']
+  const found = ['Python', 'SQL', 'Communication']
 
-function SuccessCard({ tool, email }: { tool: string; email: string }) {
+  const analyse = () => {
+    if (!role || !resume) return
+    setScore(Math.floor(Math.random() * 20) + 64)
+    setAnalysed(true)
+  }
+
   return (
-    <div className="flex flex-col items-start py-12 px-8" style={{ borderTop: '3px solid #0F6B5C' }}>
-      <div
-        className="w-12 h-12 rounded-full flex items-center justify-center mb-6 text-paper text-xl"
-        style={{ background: '#0F6B5C' }}
-      >
-        ✓
+    <div className="grid lg:grid-cols-2 gap-6 h-full">
+      {/* Input */}
+      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#FFFFFF', border: '1px solid #D6E2E0' }}>
+        <h3 className="font-display font-700 text-lg" style={{ color: '#0D131A' }}>CV Details</h3>
+        <input
+          className="px-4 py-3 text-sm outline-none w-full"
+          style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6' }}
+          placeholder="Target Role (e.g. Product Manager)"
+          value={role}
+          onChange={e => setRole(e.target.value)}
+        />
+        <select
+          className="px-4 py-3 text-sm outline-none w-full"
+          style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6', color: '#6B7280' }}
+          value={years}
+          onChange={e => setYears(e.target.value)}
+        >
+          <option value="0-1">0–1 years experience</option>
+          <option value="1-3">1–3 years</option>
+          <option value="3-6">3–6 years</option>
+          <option value="6+">6+ years</option>
+        </select>
+        <textarea
+          className="flex-1 px-4 py-3 text-sm outline-none resize-none"
+          style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6', minHeight: '180px' }}
+          placeholder="Paste your CV / resume text here..."
+          value={resume}
+          onChange={e => setResume(e.target.value)}
+        />
+        <button
+          onClick={analyse}
+          className="w-full py-3 rounded-lg font-semibold text-sm text-white transition-all hover:-translate-y-0.5"
+          style={{ backgroundColor: '#FF5A36', fontFamily: 'var(--font-display)' }}
+        >
+          Analyse & Optimise
+        </button>
       </div>
-      <h3 className="text-2xl font-bold text-ink mb-3" style={{ letterSpacing: '-0.02em' }}>
-        You're all set.
-      </h3>
-      <p className="text-base leading-relaxed mb-2" style={{ color: '#545454' }}>
-        Your <strong>{tool}</strong> request has been received. We'll deliver your result to <strong>{email}</strong>.
-      </p>
-      <p className="text-[13px]" style={{ color: '#888', fontFamily: 'Inter, sans-serif' }}>
-        Expect a response within 24–48 hours on business days.
-      </p>
+
+      {/* Output */}
+      <div className="p-6 rounded-2xl flex flex-col gap-5" style={{ backgroundColor: '#0F2C34', border: '1px solid rgba(6,182,212,0.2)' }}>
+        <h3 className="font-display font-700 text-lg text-white">ATS Compatibility Score</h3>
+
+        {/* Circular gauge */}
+        <div className="flex items-center justify-center py-4">
+          <div className="relative w-32 h-32">
+            <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="40" fill="none" strokeWidth="8" stroke="rgba(255,255,255,0.08)" />
+              <circle
+                cx="50" cy="50" r="40" fill="none" strokeWidth="8"
+                stroke={analysed ? (score >= 80 ? '#10B981' : score >= 60 ? '#06B6D4' : '#FF5A36') : '#1E4A56'}
+                strokeDasharray={`${analysed ? (score / 100) * 251.2 : 0} 251.2`}
+                strokeLinecap="round"
+                style={{ transition: 'stroke-dasharray 1s ease' }}
+              />
+            </svg>
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <span className="font-display font-700 text-3xl text-white">{analysed ? score : '--'}</span>
+              <span className="text-xs" style={{ color: 'rgba(255,255,255,0.5)' }}>/ 100</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Keyword checklist */}
+        <div>
+          <div className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: 'rgba(255,255,255,0.4)' }}>Keyword Gap Analysis</div>
+          <div className="flex flex-col gap-2">
+            {keywords.map(k => {
+              const has = found.includes(k)
+              return (
+                <div key={k} className="flex items-center gap-2.5">
+                  {has
+                    ? <CheckCircle className="w-4 h-4 shrink-0" style={{ color: '#10B981' }} />
+                    : <Circle className="w-4 h-4 shrink-0" style={{ color: 'rgba(255,255,255,0.2)' }} />
+                  }
+                  <span className="text-sm" style={{ color: has ? '#FFFFFF' : 'rgba(255,255,255,0.4)' }}>{k}</span>
+                  {!has && analysed && <span className="ml-auto text-xs px-2 py-0.5 rounded-full" style={{ backgroundColor: 'rgba(255,90,54,0.15)', color: '#FF5A36' }}>Add</span>}
+                </div>
+              )
+            })}
+          </div>
+        </div>
+
+        {analysed && (
+          <div className="p-4 rounded-xl" style={{ backgroundColor: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.2)' }}>
+            <p className="text-sm" style={{ color: '#06B6D4' }}>
+              <strong>Tip:</strong> Adding "Agile", "Data Analysis", and "Project Management" could boost your score to <strong>88+</strong>.
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
 
-function CVForm({ onSuccess }: { onSuccess: (email: string) => void }) {
-  const [form, setForm] = useState({ name: '', email: '', currentRole: '', targetRole: '', notes: '' })
-  const [hasFile, setHasFile] = useState(false)
+// ── Tool 2: LinkedIn Optimiser ────────────────────────────────────
+function LinkedInOptimiser() {
+  const [industry, setIndustry] = useState('')
+  const [headline, setHeadline] = useState('')
+  const [about, setAbout] = useState('')
+  const [generated, setGenerated] = useState<{ headline: string; about: string; score: number } | null>(null)
 
-  return (
-    <form
-      onSubmit={(e) => { e.preventDefault(); onSuccess(form.email) }}
-      className="flex flex-col gap-5"
-    >
-      <p className="text-[14px] leading-relaxed" style={{ color: '#545454' }}>
-        Fill in the brief below. Upload your current CV if you have one. We'll rewrite it and send the optimised version to your email within 24 hours.
-      </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <div>
-          <label className="block text-[12px] font-medium mb-2 text-ink" style={{ fontFamily: 'Inter, sans-serif' }}>Full name *</label>
-          <input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} type="text" className="w-full px-4 py-3 text-[14px] bg-paper outline-none" style={{ border: '1px solid #E6E5E0', fontFamily: 'DM Sans, sans-serif', color: '#191919' }} placeholder="Your name" />
-        </div>
-        <div>
-          <label className="block text-[12px] font-medium mb-2 text-ink" style={{ fontFamily: 'Inter, sans-serif' }}>Email *</label>
-          <input required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} type="email" className="w-full px-4 py-3 text-[14px] bg-paper outline-none" style={{ border: '1px solid #E6E5E0', fontFamily: 'DM Sans, sans-serif', color: '#191919' }} placeholder="you@email.com" />
-        </div>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <div>
-          <label className="block text-[12px] font-medium mb-2 text-ink" style={{ fontFamily: 'Inter, sans-serif' }}>Current role *</label>
-          <input required value={form.currentRole} onChange={(e) => setForm({ ...form, currentRole: e.target.value })} type="text" className="w-full px-4 py-3 text-[14px] bg-paper outline-none" style={{ border: '1px solid #E6E5E0', fontFamily: 'DM Sans, sans-serif', color: '#191919' }} placeholder="e.g. Marketing Manager, 4 years" />
-        </div>
-        <div>
-          <label className="block text-[12px] font-medium mb-2 text-ink" style={{ fontFamily: 'Inter, sans-serif' }}>Target role *</label>
-          <input required value={form.targetRole} onChange={(e) => setForm({ ...form, targetRole: e.target.value })} type="text" className="w-full px-4 py-3 text-[14px] bg-paper outline-none" style={{ border: '1px solid #E6E5E0', fontFamily: 'DM Sans, sans-serif', color: '#191919' }} placeholder="e.g. Head of Marketing" />
-        </div>
-      </div>
-      <div>
-        <label className="block text-[12px] font-medium mb-2 text-ink" style={{ fontFamily: 'Inter, sans-serif' }}>Upload your current CV (optional)</label>
-        <label className="flex items-center gap-3 w-full px-4 py-3 cursor-pointer" style={{ border: '1px dashed #E6E5E0', borderRadius: '3px' }}>
-          <span className="text-[14px]" style={{ color: hasFile ? '#0F6B5C' : '#aaa', fontFamily: 'DM Sans, sans-serif' }}>
-            {hasFile ? 'File selected ✓' : 'Click to upload PDF or Word file'}
-          </span>
-          <input type="file" accept=".pdf,.doc,.docx" className="hidden" onChange={(e) => setHasFile(!!e.target.files?.length)} />
-        </label>
-      </div>
-      <div>
-        <label className="block text-[12px] font-medium mb-2 text-ink" style={{ fontFamily: 'Inter, sans-serif' }}>Anything specific you'd like us to know?</label>
-        <textarea value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} rows={3} className="w-full px-4 py-3 text-[14px] bg-paper outline-none resize-none" style={{ border: '1px solid #E6E5E0', fontFamily: 'DM Sans, sans-serif', color: '#191919' }} placeholder="Key achievements, industry context, gaps to explain..." />
-      </div>
-      <button type="submit" className="self-start text-[13px] font-semibold text-paper py-3.5 px-7 hover:opacity-90 transition-opacity" style={{ fontFamily: 'Inter, sans-serif', background: '#0F6B5C', borderRadius: '3px' }}>
-        Submit for optimisation
-      </button>
-    </form>
-  )
-}
-
-function LinkedInForm({ onSuccess }: { onSuccess: (email: string) => void }) {
-  const [form, setForm] = useState({ name: '', email: '', linkedinUrl: '', industry: '', goal: '' })
-
-  return (
-    <form onSubmit={(e) => { e.preventDefault(); onSuccess(form.email) }} className="flex flex-col gap-5">
-      <p className="text-[14px] leading-relaxed" style={{ color: '#545454' }}>
-        We'll audit your LinkedIn profile and send you fully rewritten copy — headline, about section, experience summaries, and more.
-      </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <div>
-          <label className="block text-[12px] font-medium mb-2 text-ink" style={{ fontFamily: 'Inter, sans-serif' }}>Full name *</label>
-          <input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} type="text" className="w-full px-4 py-3 text-[14px] bg-paper outline-none" style={{ border: '1px solid #E6E5E0', fontFamily: 'DM Sans, sans-serif', color: '#191919' }} placeholder="Your name" />
-        </div>
-        <div>
-          <label className="block text-[12px] font-medium mb-2 text-ink" style={{ fontFamily: 'Inter, sans-serif' }}>Email *</label>
-          <input required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} type="email" className="w-full px-4 py-3 text-[14px] bg-paper outline-none" style={{ border: '1px solid #E6E5E0', fontFamily: 'DM Sans, sans-serif', color: '#191919' }} placeholder="you@email.com" />
-        </div>
-      </div>
-      <div>
-        <label className="block text-[12px] font-medium mb-2 text-ink" style={{ fontFamily: 'Inter, sans-serif' }}>Your LinkedIn URL *</label>
-        <input required value={form.linkedinUrl} onChange={(e) => setForm({ ...form, linkedinUrl: e.target.value })} type="url" className="w-full px-4 py-3 text-[14px] bg-paper outline-none" style={{ border: '1px solid #E6E5E0', fontFamily: 'DM Sans, sans-serif', color: '#191919' }} placeholder="https://linkedin.com/in/yourname" />
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <div>
-          <label className="block text-[12px] font-medium mb-2 text-ink" style={{ fontFamily: 'Inter, sans-serif' }}>Industry *</label>
-          <input required value={form.industry} onChange={(e) => setForm({ ...form, industry: e.target.value })} type="text" className="w-full px-4 py-3 text-[14px] bg-paper outline-none" style={{ border: '1px solid #E6E5E0', fontFamily: 'DM Sans, sans-serif', color: '#191919' }} placeholder="e.g. Fintech, Healthcare" />
-        </div>
-        <div>
-          <label className="block text-[12px] font-medium mb-2 text-ink" style={{ fontFamily: 'Inter, sans-serif' }}>Career goal *</label>
-          <input required value={form.goal} onChange={(e) => setForm({ ...form, goal: e.target.value })} type="text" className="w-full px-4 py-3 text-[14px] bg-paper outline-none" style={{ border: '1px solid #E6E5E0', fontFamily: 'DM Sans, sans-serif', color: '#191919' }} placeholder="e.g. Transition to senior leadership" />
-        </div>
-      </div>
-      <button type="submit" className="self-start text-[13px] font-semibold text-paper py-3.5 px-7 hover:opacity-90 transition-opacity" style={{ fontFamily: 'Inter, sans-serif', background: '#0F6B5C', borderRadius: '3px' }}>
-        Submit for optimisation
-      </button>
-    </form>
-  )
-}
-
-function PortfolioForm({ onSuccess }: { onSuccess: (email: string) => void }) {
-  const [form, setForm] = useState({ name: '', email: '', profession: '', projects: '' })
-
-  return (
-    <form onSubmit={(e) => { e.preventDefault(); onSuccess(form.email) }} className="flex flex-col gap-5">
-      <p className="text-[14px] leading-relaxed" style={{ color: '#545454' }}>
-        Tell us about your work. We'll build you a clean, professional portfolio and email you the live link.
-      </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <div>
-          <label className="block text-[12px] font-medium mb-2 text-ink" style={{ fontFamily: 'Inter, sans-serif' }}>Full name *</label>
-          <input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} type="text" className="w-full px-4 py-3 text-[14px] bg-paper outline-none" style={{ border: '1px solid #E6E5E0', fontFamily: 'DM Sans, sans-serif', color: '#191919' }} placeholder="Your name" />
-        </div>
-        <div>
-          <label className="block text-[12px] font-medium mb-2 text-ink" style={{ fontFamily: 'Inter, sans-serif' }}>Email *</label>
-          <input required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} type="email" className="w-full px-4 py-3 text-[14px] bg-paper outline-none" style={{ border: '1px solid #E6E5E0', fontFamily: 'DM Sans, sans-serif', color: '#191919' }} placeholder="you@email.com" />
-        </div>
-      </div>
-      <div>
-        <label className="block text-[12px] font-medium mb-2 text-ink" style={{ fontFamily: 'Inter, sans-serif' }}>Profession / area of work *</label>
-        <input required value={form.profession} onChange={(e) => setForm({ ...form, profession: e.target.value })} type="text" className="w-full px-4 py-3 text-[14px] bg-paper outline-none" style={{ border: '1px solid #E6E5E0', fontFamily: 'DM Sans, sans-serif', color: '#191919' }} placeholder="e.g. UX Designer, Financial Analyst" />
-      </div>
-      <div>
-        <label className="block text-[12px] font-medium mb-2 text-ink" style={{ fontFamily: 'Inter, sans-serif' }}>Describe 2–4 projects or achievements *</label>
-        <textarea required value={form.projects} onChange={(e) => setForm({ ...form, projects: e.target.value })} rows={5} className="w-full px-4 py-3 text-[14px] bg-paper outline-none resize-none" style={{ border: '1px solid #E6E5E0', fontFamily: 'DM Sans, sans-serif', color: '#191919' }} placeholder="Project 1: Led the redesign of... Results: 40% improvement in..." />
-      </div>
-      <button type="submit" className="self-start text-[13px] font-semibold text-paper py-3.5 px-7 hover:opacity-90 transition-opacity" style={{ fontFamily: 'Inter, sans-serif', background: '#0F6B5C', borderRadius: '3px' }}>
-        Create my portfolio
-      </button>
-    </form>
-  )
-}
-
-function WebsiteForm({ onSuccess }: { onSuccess: (email: string) => void }) {
-  const [form, setForm] = useState({ name: '', email: '', profession: '', about: '', style: '' })
-
-  return (
-    <form onSubmit={(e) => { e.preventDefault(); onSuccess(form.email) }} className="flex flex-col gap-5">
-      <p className="text-[14px] leading-relaxed" style={{ color: '#545454' }}>
-        Fill this brief. We'll set up your personal website and email you the live link with instructions to manage it.
-      </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <div>
-          <label className="block text-[12px] font-medium mb-2 text-ink" style={{ fontFamily: 'Inter, sans-serif' }}>Full name *</label>
-          <input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} type="text" className="w-full px-4 py-3 text-[14px] bg-paper outline-none" style={{ border: '1px solid #E6E5E0', fontFamily: 'DM Sans, sans-serif', color: '#191919' }} placeholder="Your name" />
-        </div>
-        <div>
-          <label className="block text-[12px] font-medium mb-2 text-ink" style={{ fontFamily: 'Inter, sans-serif' }}>Email *</label>
-          <input required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} type="email" className="w-full px-4 py-3 text-[14px] bg-paper outline-none" style={{ border: '1px solid #E6E5E0', fontFamily: 'DM Sans, sans-serif', color: '#191919' }} placeholder="you@email.com" />
-        </div>
-      </div>
-      <div>
-        <label className="block text-[12px] font-medium mb-2 text-ink" style={{ fontFamily: 'Inter, sans-serif' }}>Profession *</label>
-        <input required value={form.profession} onChange={(e) => setForm({ ...form, profession: e.target.value })} type="text" className="w-full px-4 py-3 text-[14px] bg-paper outline-none" style={{ border: '1px solid #E6E5E0', fontFamily: 'DM Sans, sans-serif', color: '#191919' }} placeholder="e.g. Data Scientist · 6 years" />
-      </div>
-      <div>
-        <label className="block text-[12px] font-medium mb-2 text-ink" style={{ fontFamily: 'Inter, sans-serif' }}>Style preference</label>
-        <select value={form.style} onChange={(e) => setForm({ ...form, style: e.target.value })} className="w-full px-4 py-3 text-[14px] bg-paper outline-none appearance-none" style={{ border: '1px solid #E6E5E0', fontFamily: 'DM Sans, sans-serif', color: form.style ? '#191919' : '#aaa' }}>
-          <option value="">Select a style</option>
-          <option value="minimal">Minimal & clean</option>
-          <option value="bold">Bold & impactful</option>
-          <option value="corporate">Corporate & structured</option>
-          <option value="creative">Creative & expressive</option>
-        </select>
-      </div>
-      <div>
-        <label className="block text-[12px] font-medium mb-2 text-ink" style={{ fontFamily: 'Inter, sans-serif' }}>Tell us about yourself and your work *</label>
-        <textarea required value={form.about} onChange={(e) => setForm({ ...form, about: e.target.value })} rows={4} className="w-full px-4 py-3 text-[14px] bg-paper outline-none resize-none" style={{ border: '1px solid #E6E5E0', fontFamily: 'DM Sans, sans-serif', color: '#191919' }} placeholder="What you do, what you've achieved, who you work with..." />
-      </div>
-      <button type="submit" className="self-start text-[13px] font-semibold text-paper py-3.5 px-7 hover:opacity-90 transition-opacity" style={{ fontFamily: 'Inter, sans-serif', background: '#0F6B5C', borderRadius: '3px' }}>
-        Get my website
-      </button>
-    </form>
-  )
-}
-
-function BrandingForm({ onSuccess }: { onSuccess: (email: string) => void }) {
-  const [form, setForm] = useState({ name: '', email: '', currentRole: '', dreamRole: '', unique: '' })
-
-  return (
-    <form onSubmit={(e) => { e.preventDefault(); onSuccess(form.email) }} className="flex flex-col gap-5">
-      <p className="text-[14px] leading-relaxed" style={{ color: '#545454' }}>
-        Answer five questions. We'll send you a complete personal branding strategy within 48 hours.
-      </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <div>
-          <label className="block text-[12px] font-medium mb-2 text-ink" style={{ fontFamily: 'Inter, sans-serif' }}>Full name *</label>
-          <input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} type="text" className="w-full px-4 py-3 text-[14px] bg-paper outline-none" style={{ border: '1px solid #E6E5E0', fontFamily: 'DM Sans, sans-serif', color: '#191919' }} placeholder="Your name" />
-        </div>
-        <div>
-          <label className="block text-[12px] font-medium mb-2 text-ink" style={{ fontFamily: 'Inter, sans-serif' }}>Email *</label>
-          <input required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} type="email" className="w-full px-4 py-3 text-[14px] bg-paper outline-none" style={{ border: '1px solid #E6E5E0', fontFamily: 'DM Sans, sans-serif', color: '#191919' }} placeholder="you@email.com" />
-        </div>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <div>
-          <label className="block text-[12px] font-medium mb-2 text-ink" style={{ fontFamily: 'Inter, sans-serif' }}>Current role *</label>
-          <input required value={form.currentRole} onChange={(e) => setForm({ ...form, currentRole: e.target.value })} type="text" className="w-full px-4 py-3 text-[14px] bg-paper outline-none" style={{ border: '1px solid #E6E5E0', fontFamily: 'DM Sans, sans-serif', color: '#191919' }} placeholder="e.g. HR Manager, 5 years" />
-        </div>
-        <div>
-          <label className="block text-[12px] font-medium mb-2 text-ink" style={{ fontFamily: 'Inter, sans-serif' }}>Dream role *</label>
-          <input required value={form.dreamRole} onChange={(e) => setForm({ ...form, dreamRole: e.target.value })} type="text" className="w-full px-4 py-3 text-[14px] bg-paper outline-none" style={{ border: '1px solid #E6E5E0', fontFamily: 'DM Sans, sans-serif', color: '#191919' }} placeholder="e.g. Chief People Officer" />
-        </div>
-      </div>
-      <div>
-        <label className="block text-[12px] font-medium mb-2 text-ink" style={{ fontFamily: 'Inter, sans-serif' }}>What makes you different from others in your field? *</label>
-        <textarea required value={form.unique} onChange={(e) => setForm({ ...form, unique: e.target.value })} rows={4} className="w-full px-4 py-3 text-[14px] bg-paper outline-none resize-none" style={{ border: '1px solid #E6E5E0', fontFamily: 'DM Sans, sans-serif', color: '#191919' }} placeholder="Your unique combination of skills, experiences, perspective..." />
-      </div>
-      <button type="submit" className="self-start text-[13px] font-semibold text-paper py-3.5 px-7 hover:opacity-90 transition-opacity" style={{ fontFamily: 'Inter, sans-serif', background: '#0F6B5C', borderRadius: '3px' }}>
-        Build my brand strategy
-      </button>
-    </form>
-  )
-}
-
-export default function LJToolsHub() {
-  const [activeTool, setActiveTool] = useState<ToolKey>('cv')
-  const [successEmail, setSuccessEmail] = useState<string | null>(null)
-
-  const handleToolChange = (key: ToolKey) => {
-    setActiveTool(key)
-    setSuccessEmail(null)
+  const generate = () => {
+    if (!industry) return
+    setGenerated({
+      headline: `${industry} Professional | Driving Growth & Innovation | Open to ${industry} Leadership Roles`,
+      about: `Results-driven ${industry} professional with a track record of delivering measurable impact across complex projects. Known for combining strategic thinking with hands-on execution to accelerate team and business performance. Passionate about leveraging data and emerging technologies to solve real problems.`,
+      score: 87,
+    })
   }
 
-  const activeName = tools.find((t) => t.key === activeTool)?.label ?? ''
+  return (
+    <div className="grid lg:grid-cols-2 gap-6">
+      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#FFFFFF', border: '1px solid #D6E2E0' }}>
+        <h3 className="font-display font-700 text-lg" style={{ color: '#0D131A' }}>Profile Details</h3>
+        <input className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6' }} placeholder="Your Industry / Role (e.g. Fintech Product)" value={industry} onChange={e => setIndustry(e.target.value)} />
+        <input className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6' }} placeholder="Current Headline (optional)" value={headline} onChange={e => setHeadline(e.target.value)} />
+        <textarea className="px-4 py-3 text-sm outline-none resize-none h-32" style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6' }} placeholder="Current About section (optional — paste for improvement)" value={about} onChange={e => setAbout(e.target.value)} />
+        <button onClick={generate} className="py-3 rounded-lg font-semibold text-sm text-white" style={{ backgroundColor: '#FF5A36', fontFamily: 'var(--font-display)' }}>
+          Generate Optimised Profile
+        </button>
+      </div>
+
+      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#0F2C34', border: '1px solid rgba(6,182,212,0.2)' }}>
+        <div className="flex items-center justify-between">
+          <h3 className="font-display font-700 text-lg text-white">Profile Impact</h3>
+          {generated && <span className="font-display font-700 text-2xl" style={{ color: '#06B6D4' }}>{generated.score}/100</span>}
+        </div>
+        {generated ? (
+          <>
+            <div className="p-4 rounded-xl" style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}>
+              <div className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#06B6D4' }}>Optimised Headline</div>
+              <p className="text-sm text-white leading-relaxed">{generated.headline}</p>
+            </div>
+            <div className="p-4 rounded-xl" style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}>
+              <div className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#06B6D4' }}>Optimised About</div>
+              <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.75)' }}>{generated.about}</p>
+            </div>
+          </>
+        ) : (
+          <div className="flex-1 flex items-center justify-center">
+            <p className="text-sm text-center" style={{ color: 'rgba(255,255,255,0.35)' }}>Fill in your details and generate your optimised LinkedIn profile.</p>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+// ── Tool 3: Portfolio Creator ──────────────────────────────────────
+function PortfolioCreator() {
+  const [projects, setProjects] = useState([{ title: '', desc: '', link: '' }])
+  const [preview, setPreview] = useState(false)
+
+  const addProject = () => setProjects(p => [...p, { title: '', desc: '', link: '' }])
+  const update = (i: number, k: keyof typeof projects[0], v: string) => {
+    setProjects(p => p.map((item, idx) => idx === i ? { ...item, [k]: v } : item))
+  }
 
   return (
-    <main>
-      {/* Hero */}
-      <section className="bg-paper py-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <p className="text-[11px] font-semibold tracking-[0.18em] uppercase mb-5" style={{ fontFamily: 'Inter, sans-serif', color: '#0F6B5C' }}>Tools Hub</p>
-          <h1 className="text-5xl font-bold text-ink mb-4" style={{ letterSpacing: '-0.03em' }}>Pick a tool. Fill a form. Get your result.</h1>
-          <p className="text-xl leading-relaxed" style={{ color: '#545454' }}>No account. No subscription. Short form → professional result by email.</p>
+    <div className="grid lg:grid-cols-2 gap-6">
+      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#FFFFFF', border: '1px solid #D6E2E0' }}>
+        <div className="flex items-center justify-between">
+          <h3 className="font-display font-700 text-lg" style={{ color: '#0D131A' }}>Your Projects</h3>
+          <button onClick={addProject} className="text-xs font-semibold px-3 py-1.5 rounded-full" style={{ backgroundColor: 'rgba(6,182,212,0.12)', color: '#06B6D4' }}>+ Add Project</button>
         </div>
-      </section>
-
-      {/* Sticky tab rail */}
-      <div className="sticky top-16 z-40 border-b bg-paper" style={{ borderColor: '#E6E5E0' }}>
-        <div className="max-w-7xl mx-auto px-6 flex gap-0 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
-          {tools.map((t) => (
-            <button
-              key={t.key}
-              onClick={() => handleToolChange(t.key)}
-              className="text-[13px] font-medium py-4 px-5 whitespace-nowrap transition-colors flex-shrink-0 border-b-2"
-              style={{
-                fontFamily: 'Inter, sans-serif',
-                color: activeTool === t.key ? '#191919' : '#888',
-                borderBottomColor: activeTool === t.key ? '#0F6B5C' : 'transparent',
-                marginBottom: '-1px',
-              }}
-            >
-              {t.label}
-            </button>
+        <div className="flex flex-col gap-4 overflow-y-auto" style={{ maxHeight: '400px' }}>
+          {projects.map((p, i) => (
+            <div key={i} className="flex flex-col gap-2 p-4 rounded-xl" style={{ backgroundColor: '#F4F7F6', border: '1px solid #D6E2E0' }}>
+              <input className="px-3 py-2 text-sm outline-none bg-white" style={{ borderRadius: '6px', border: '1px solid #D6E2E0' }} placeholder={`Project ${i + 1} Title`} value={p.title} onChange={e => update(i, 'title', e.target.value)} />
+              <textarea className="px-3 py-2 text-sm outline-none resize-none bg-white h-16" style={{ borderRadius: '6px', border: '1px solid #D6E2E0' }} placeholder="What you built & impact" value={p.desc} onChange={e => update(i, 'desc', e.target.value)} />
+              <input className="px-3 py-2 text-sm outline-none bg-white" style={{ borderRadius: '6px', border: '1px solid #D6E2E0' }} placeholder="Link (GitHub, live URL)" value={p.link} onChange={e => update(i, 'link', e.target.value)} />
+            </div>
           ))}
+        </div>
+        <button onClick={() => setPreview(true)} className="py-3 rounded-lg font-semibold text-sm text-white" style={{ backgroundColor: '#FF5A36', fontFamily: 'var(--font-display)' }}>
+          Generate Portfolio
+        </button>
+      </div>
+
+      <div className="p-6 rounded-2xl" style={{ backgroundColor: '#0F2C34', border: '1px solid rgba(6,182,212,0.2)' }}>
+        <h3 className="font-display font-700 text-lg text-white mb-4">Portfolio Preview</h3>
+        {preview ? (
+          <div className="rounded-xl overflow-hidden" style={{ backgroundColor: '#1A3A44', border: '1px solid rgba(6,182,212,0.2)' }}>
+            <div className="px-4 py-3 border-b flex gap-1.5" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
+              <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: '#FF5A36' }} />
+              <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: '#D97706' }} />
+              <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: '#10B981' }} />
+            </div>
+            <div className="p-5 grid gap-4">
+              {projects.filter(p => p.title).map((p, i) => (
+                <div key={i} className="p-4 rounded-xl" style={{ backgroundColor: 'rgba(255,255,255,0.04)', border: '1px solid rgba(6,182,212,0.15)' }}>
+                  <div className="font-display font-600 text-sm text-white mb-1">{p.title}</div>
+                  <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.55)' }}>{p.desc || 'No description added.'}</p>
+                  {p.link && <a href={p.link} className="text-xs mt-2 inline-block" style={{ color: '#06B6D4' }}>{p.link}</a>}
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="flex items-center justify-center h-48">
+            <p className="text-sm text-center" style={{ color: 'rgba(255,255,255,0.35)' }}>Add your projects and click "Generate Portfolio" to see your layout preview.</p>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+// ── Tool 4: Personal Website Creator ──────────────────────────────
+function WebsiteCreator() {
+  const [bio, setBio] = useState('')
+  const [role, setRole] = useState('')
+  const [links, setLinks] = useState({ twitter: '', github: '', linkedin: '' })
+  const [preview, setPreview] = useState(false)
+
+  return (
+    <div className="grid lg:grid-cols-2 gap-6">
+      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#FFFFFF', border: '1px solid #D6E2E0' }}>
+        <h3 className="font-display font-700 text-lg" style={{ color: '#0D131A' }}>Site Details</h3>
+        <input className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6' }} placeholder="Your Name" />
+        <input className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6' }} placeholder="Role Title (e.g. Software Engineer)" value={role} onChange={e => setRole(e.target.value)} />
+        <textarea className="px-4 py-3 text-sm outline-none resize-none h-24" style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6' }} placeholder="Your professional bio..." value={bio} onChange={e => setBio(e.target.value)} />
+        <div className="grid grid-cols-3 gap-2">
+          {(['twitter', 'github', 'linkedin'] as const).map(k => (
+            <input key={k} className="px-3 py-2.5 text-sm outline-none" style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6' }} placeholder={k.charAt(0).toUpperCase() + k.slice(1)} value={links[k]} onChange={e => setLinks(l => ({ ...l, [k]: e.target.value }))} />
+          ))}
+        </div>
+        <button onClick={() => setPreview(true)} className="py-3 rounded-lg font-semibold text-sm text-white" style={{ backgroundColor: '#FF5A36', fontFamily: 'var(--font-display)' }}>
+          Generate My Site
+        </button>
+      </div>
+
+      <div className="p-6 rounded-2xl" style={{ backgroundColor: '#0F2C34', border: '1px solid rgba(6,182,212,0.2)' }}>
+        <h3 className="font-display font-700 text-lg text-white mb-4">Desktop Preview</h3>
+        {preview ? (
+          <div className="rounded-xl overflow-hidden" style={{ backgroundColor: '#111827', border: '1px solid rgba(255,255,255,0.08)' }}>
+            <div className="px-4 py-3 border-b flex gap-1.5" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+              <div className="w-2 h-2 rounded-full bg-red-400" />
+              <div className="w-2 h-2 rounded-full bg-yellow-400" />
+              <div className="w-2 h-2 rounded-full bg-green-400" />
+            </div>
+            <div className="p-6">
+              <div className="w-16 h-16 rounded-full mb-4 flex items-center justify-center font-display font-700 text-2xl" style={{ backgroundColor: '#FF5A36', color: '#FFFFFF' }}>
+                {role ? role[0].toUpperCase() : 'Y'}
+              </div>
+              <div className="font-display font-700 text-xl text-white mb-1">{role || 'Your Name'}</div>
+              <div className="text-sm mb-3" style={{ color: '#06B6D4' }}>{role || 'Professional Title'}</div>
+              <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.55)' }}>{bio || 'Your professional bio will appear here...'}</p>
+              <div className="flex gap-3 mt-4">
+                {Object.entries(links).filter(([, v]) => v).map(([k]) => (
+                  <span key={k} className="text-xs px-2.5 py-1 rounded-full" style={{ backgroundColor: 'rgba(6,182,212,0.15)', color: '#06B6D4' }}>{k}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="flex items-center justify-center h-48">
+            <p className="text-sm text-center" style={{ color: 'rgba(255,255,255,0.35)' }}>Fill in your details to preview your personal website.</p>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+// ── Tool 5: Personal Branding Guide ───────────────────────────────
+function BrandingGuide() {
+  const [industry, setIndustry] = useState('')
+  const [strength, setStrength] = useState('')
+  const [result, setResult] = useState<{ pillars: string[]; hooks: string[] } | null>(null)
+
+  const generate = () => {
+    if (!industry) return
+    setResult({
+      pillars: [
+        `${industry} expertise & career insights`,
+        'Behind-the-scenes of real project work',
+        'Lessons from failures & pivots',
+        'Tools, workflows, and productivity systems',
+      ],
+      hooks: [
+        `"After 3 years in ${industry}, here's what nobody tells you about..."`,
+        `"The framework I use to ${strength || 'solve complex problems'} every week"`,
+        `"How I went from junior to senior ${industry} in 18 months"`,
+        `"My honest take on the biggest myths in ${industry} right now"`,
+      ],
+    })
+  }
+
+  return (
+    <div className="grid lg:grid-cols-2 gap-6">
+      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#FFFFFF', border: '1px solid #D6E2E0' }}>
+        <h3 className="font-display font-700 text-lg" style={{ color: '#0D131A' }}>Your Positioning</h3>
+        <input className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6' }} placeholder="Industry / Field (e.g. FinTech, Healthcare)" value={industry} onChange={e => setIndustry(e.target.value)} />
+        <input className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6' }} placeholder="Your Core Strength (e.g. building data pipelines)" value={strength} onChange={e => setStrength(e.target.value)} />
+        <select className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6', color: '#6B7280' }}>
+          <option>LinkedIn</option>
+          <option>Twitter / X</option>
+          <option>All Channels</option>
+        </select>
+        <button onClick={generate} className="py-3 rounded-lg font-semibold text-sm text-white" style={{ backgroundColor: '#FF5A36', fontFamily: 'var(--font-display)' }}>
+          Generate Branding Guide
+        </button>
+      </div>
+
+      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#0F2C34', border: '1px solid rgba(6,182,212,0.2)' }}>
+        <h3 className="font-display font-700 text-lg text-white">Your Brand Playbook</h3>
+        {result ? (
+          <>
+            <div>
+              <div className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#06B6D4' }}>Content Pillars</div>
+              <div className="flex flex-col gap-2">
+                {result.pillars.map((p, i) => (
+                  <div key={i} className="flex items-center gap-2.5 text-sm">
+                    <span className="w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold shrink-0" style={{ backgroundColor: '#FF5A36', color: '#FFFFFF' }}>{i + 1}</span>
+                    <span className="text-white">{p}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div>
+              <div className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#06B6D4' }}>Bio Hooks</div>
+              <div className="flex flex-col gap-2">
+                {result.hooks.map((h, i) => (
+                  <div key={i} className="p-3 rounded-xl text-sm" style={{ backgroundColor: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.75)', border: '1px solid rgba(255,255,255,0.06)' }}>{h}</div>
+                ))}
+              </div>
+            </div>
+          </>
+        ) : (
+          <div className="flex-1 flex items-center justify-center">
+            <p className="text-sm text-center" style={{ color: 'rgba(255,255,255,0.35)' }}>Enter your industry and strength to get your custom branding playbook.</p>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+
+// ── Main ToolsHub ─────────────────────────────────────────────────
+const tabs = [
+  { id: 'cv', label: 'CV Optimiser', icon: FileText, component: CVOptimiser },
+  { id: 'linkedin', label: 'LinkedIn Optimiser', icon: Link2, component: LinkedInOptimiser },
+  { id: 'portfolio', label: 'Portfolio Creator', icon: Palette, component: PortfolioCreator },
+  { id: 'website', label: 'Website Creator', icon: Globe, component: WebsiteCreator },
+  { id: 'branding', label: 'Personal Branding', icon: User, component: BrandingGuide },
+]
+
+export default function ToolsHub() {
+  const [searchParams, setSearchParams] = useSearchParams()
+  const tabParam = searchParams.get('tab') || 'cv'
+  const activeTab = tabs.find(t => t.id === tabParam) || tabs[0]
+  const ActiveComponent = activeTab.component
+
+  const setTab = (id: string) => setSearchParams({ tab: id })
+
+  return (
+    <div style={{ backgroundColor: '#F4F7F6', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
+      <div className="relative pt-32 pb-6 px-6 overflow-hidden">
+        <div className="pointer-events-none absolute -top-16 -right-16 w-[400px] h-[400px] rounded-full" style={{ background: '#FF5A36', filter: 'blur(140px)', opacity: 0.18 }} />
+        <div className="max-w-[1440px] mx-auto">
+          <h1 className="font-display font-700 text-[clamp(2rem,4vw,3rem)] mb-2" style={{ color: '#0D131A' }}>Tools Hub</h1>
+          <p className="text-base" style={{ color: '#6B7280' }}>Six zero-auth career tools. Switch instantly. No page refresh.</p>
         </div>
       </div>
 
-      {/* Tool panel */}
-      <section className="bg-paper py-16">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="mb-10">
-            <h2 className="text-3xl font-bold text-ink mb-3" style={{ letterSpacing: '-0.03em' }}>{activeName}</h2>
-            <p className="text-base" style={{ color: '#545454' }}>
-              {tools.find((t) => t.key === activeTool)?.desc}
-            </p>
-          </div>
-
-          <div className="bg-paper p-8 md:p-10" style={{ border: '1px solid #E6E5E0', borderRadius: '4px' }}>
-            {successEmail ? (
-              <SuccessCard tool={activeName} email={successEmail} />
-            ) : (
-              <>
-                {activeTool === 'cv' && <CVForm onSuccess={setSuccessEmail} />}
-                {activeTool === 'linkedin' && <LinkedInForm onSuccess={setSuccessEmail} />}
-                {activeTool === 'portfolio' && <PortfolioForm onSuccess={setSuccessEmail} />}
-                {activeTool === 'website' && <WebsiteForm onSuccess={setSuccessEmail} />}
-                {activeTool === 'branding' && <BrandingForm onSuccess={setSuccessEmail} />}
-              </>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* Other tools */}
-      <section style={{ background: '#F0EFE9' }} className="py-16">
-        <div className="max-w-7xl mx-auto px-6">
-          <p className="text-[11px] font-semibold tracking-[0.18em] uppercase mb-8 text-slate" style={{ fontFamily: 'Inter, sans-serif' }}>Other tools</p>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            {tools.filter((t) => t.key !== activeTool).map((t) => (
+      {/* Sticky tab rail */}
+      <div className="sticky top-16 z-40 px-6 py-3 overflow-x-auto" style={{ backgroundColor: 'rgba(244,247,246,0.95)', backdropFilter: 'blur(12px)', borderBottom: '1px solid #D6E2E0' }}>
+        <div className="max-w-[1440px] mx-auto flex gap-2 min-w-max">
+          {tabs.map(t => {
+            const Icon = t.icon
+            const isActive = t.id === activeTab.id
+            return (
               <button
-                key={t.key}
-                onClick={() => handleToolChange(t.key)}
-                className="text-left p-5 bg-paper group hover:border-lj-teal transition-colors"
-                style={{ border: '1px solid #E6E5E0', borderRadius: '3px' }}
+                key={t.id}
+                onClick={() => setTab(t.id)}
+                className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200"
+                style={{
+                  backgroundColor: isActive ? '#0F2C34' : 'transparent',
+                  color: isActive ? '#06B6D4' : '#6B7280',
+                  border: isActive ? '1px solid rgba(6,182,212,0.3)' : '1px solid transparent',
+                }}
               >
-                <p className="text-[14px] font-semibold text-ink mb-1 group-hover:text-lj-teal transition-colors" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-                  {t.label}
-                </p>
-                <p className="text-[12px]" style={{ color: '#888', fontFamily: 'DM Sans, sans-serif' }}>{t.desc.split('.')[0]}.</p>
+                <Icon className="w-3.5 h-3.5" />
+                {t.label}
               </button>
-            ))}
-          </div>
+            )
+          })}
         </div>
-      </section>
-    </main>
+      </div>
+
+      <div className="px-6 py-8">
+        <div className="max-w-[1440px] mx-auto">
+          <ActiveComponent />
+        </div>
+      </div>
+    </div>
   )
 }

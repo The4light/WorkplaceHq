@@ -1,8 +1,8 @@
-import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom'
-import WHQNavbar from './components/WHQNavbar'
-import WHQFooter from './components/WHQFooter'
-import LJNavbar from './components/LJNavbar'
-import LJFooter from './components/LJFooter'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
+import WorkplaceHQNav from './components/WorkplaceHQNav'
+import LagosJobNav from './components/LagosJobNav'
+import Footer from './components/Footer'
 
 import WHQHome from './pages/whq/Home'
 import WHQAbout from './pages/whq/About'
@@ -16,27 +16,31 @@ import WHQContact from './pages/whq/Contact'
 
 import LJHome from './pages/lj/Home'
 import LJServices from './pages/lj/Services'
-import LJToolsHub from './pages/lj/ToolsHub'
-import LJJobListings from './pages/lj/JobListings'
+import ToolsHub from './pages/lj/ToolsHub'
+import LJListings from './pages/lj/Listings'
 import LJAbout from './pages/lj/About'
 import LJContact from './pages/lj/Contact'
 
-function WHQLayout() {
+function WHQLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-paper">
-      <WHQNavbar />
-      <Outlet />
-      <WHQFooter />
+    <div className="min-h-screen flex flex-col justify-between">
+      <div>
+        <WorkplaceHQNav />
+        {children}
+      </div>
+      <Footer />
     </div>
   )
 }
 
-function LJLayout() {
+function LJLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-paper">
-      <LJNavbar />
-      <Outlet />
-      <LJFooter />
+    <div className="min-h-screen flex flex-col justify-between">
+      <div>
+        <LagosJobNav />
+        {children}
+      </div>
+      <Footer />
     </div>
   )
 }
@@ -45,25 +49,24 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<WHQLayout />}>
-          <Route path="/" element={<WHQHome />} />
-          <Route path="/about" element={<WHQAbout />} />
-          <Route path="/services" element={<WHQServices />} />
-          <Route path="/training-programs" element={<WHQTraining />} />
-          <Route path="/workshops" element={<WHQWorkshops />} />
-          <Route path="/consulting" element={<WHQConsulting />} />
-          <Route path="/resources" element={<WHQResources />} />
-          <Route path="/insights" element={<WHQInsights />} />
-          <Route path="/contact" element={<WHQContact />} />
-        </Route>
-        <Route element={<LJLayout />}>
-          <Route path="/lagos-jobs" element={<LJHome />} />
-          <Route path="/lagos-jobs/services" element={<LJServices />} />
-          <Route path="/lagos-jobs/tools" element={<LJToolsHub />} />
-          <Route path="/lagos-jobs/jobs" element={<LJJobListings />} />
-          <Route path="/lagos-jobs/about" element={<LJAbout />} />
-          <Route path="/lagos-jobs/contact" element={<LJContact />} />
-        </Route>
+        {/* WorkplaceHQ routes */}
+        <Route path="/" element={<WHQLayout><WHQHome /></WHQLayout>} />
+        <Route path="/about" element={<WHQLayout><WHQAbout /></WHQLayout>} />
+        <Route path="/services" element={<WHQLayout><WHQServices /></WHQLayout>} />
+        <Route path="/training" element={<WHQLayout><WHQTraining /></WHQLayout>} />
+        <Route path="/workshops" element={<WHQLayout><WHQWorkshops /></WHQLayout>} />
+        <Route path="/consulting" element={<WHQLayout><WHQConsulting /></WHQLayout>} />
+        <Route path="/resources" element={<WHQLayout><WHQResources /></WHQLayout>} />
+        <Route path="/insights" element={<WHQLayout><WHQInsights /></WHQLayout>} />
+        <Route path="/contact" element={<WHQLayout><WHQContact /></WHQLayout>} />
+
+        {/* Lagos Job routes */}
+        <Route path="/lagos-jobs" element={<LJLayout><LJHome /></LJLayout>} />
+        <Route path="/lagos-jobs/services" element={<LJLayout><LJServices /></LJLayout>} />
+        <Route path="/lagos-jobs/tools" element={<LJLayout><ToolsHub /></LJLayout>} />
+        <Route path="/lagos-jobs/listings" element={<LJLayout><LJListings /></LJLayout>} />
+        <Route path="/lagos-jobs/about" element={<LJLayout><LJAbout /></LJLayout>} />
+        <Route path="/lagos-jobs/contact" element={<LJLayout><LJContact /></LJLayout>} />
       </Routes>
     </BrowserRouter>
   )

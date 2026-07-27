@@ -1,118 +1,69 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-
-const topics = ['CV / Resume Optimisation', 'LinkedIn Optimisation', 'Portfolio Creator', 'Personal Website', 'Personal Branding', 'Job Listings', 'Partnership enquiry', 'Other']
+import { Mail, MessageSquare } from 'lucide-react'
 
 export default function LJContact() {
-  const [submitted, setSubmitted] = useState(false)
-  const [form, setForm] = useState({ name: '', email: '', topic: '', message: '' })
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setSubmitted(true)
-  }
-
   return (
-    <main>
-      <section className="bg-paper py-24">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16">
-          <div className="lg:col-span-4">
-            <p className="text-[11px] font-semibold tracking-[0.18em] uppercase mb-5" style={{ fontFamily: 'Inter, sans-serif', color: '#0F6B5C' }}>Contact</p>
-            <h1 className="text-4xl font-bold text-ink mb-6" style={{ letterSpacing: '-0.03em' }}>
-              We're here to help.
-            </h1>
-            <p className="text-base leading-relaxed mb-10" style={{ color: '#545454' }}>
-              Have a question about one of our tools, a job listing, or anything else? Send us a message and we'll get back to you within one business day.
-            </p>
+    <div style={{ backgroundColor: '#F4F7F6', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
+      <div className="relative pt-32 pb-12 px-6 overflow-hidden">
+        <div className="pointer-events-none absolute -top-16 -right-16 w-[450px] h-[450px] rounded-full" style={{ background: '#FF5A36', filter: 'blur(140px)', opacity: 0.2 }} />
+        <div className="max-w-[1440px] mx-auto relative z-10">
+          <h1 className="font-display font-700 text-[clamp(2rem,4vw,3.5rem)] leading-tight mb-4" style={{ color: '#0D131A' }}>Contact Lagos Job</h1>
+          <p className="text-lg" style={{ color: '#6B7280' }}>Hiring partner inquiry, tool feedback, or general support — we're here.</p>
+        </div>
+      </div>
 
-            <div className="flex flex-col gap-6">
-              <div style={{ borderTop: '1px solid #E6E5E0', paddingTop: '1.5rem' }}>
-                <p className="text-[12px] font-semibold uppercase tracking-wider mb-2 text-slate" style={{ fontFamily: 'Inter, sans-serif' }}>Email</p>
-                <a href="mailto:hello@lagosjob.co" className="text-[15px] font-medium text-ink hover:text-lj-teal transition-colors" style={{ fontFamily: 'DM Sans, sans-serif' }}>
-                  hello@lagosjob.co
-                </a>
-              </div>
-              <div style={{ borderTop: '1px solid #E6E5E0', paddingTop: '1.5rem' }}>
-                <p className="text-[12px] font-semibold uppercase tracking-wider mb-2 text-slate" style={{ fontFamily: 'Inter, sans-serif' }}>Response time</p>
-                <p className="text-[15px] font-medium text-ink" style={{ fontFamily: 'DM Sans, sans-serif' }}>Within 1 business day</p>
-              </div>
-              <div style={{ borderTop: '1px solid #E6E5E0', paddingTop: '1.5rem' }}>
-                <p className="text-[12px] font-semibold uppercase tracking-wider mb-3 text-slate" style={{ fontFamily: 'Inter, sans-serif' }}>Use a tool directly</p>
-                <Link
-                  to="/lagos-jobs/tools"
-                  className="inline-block text-[13px] font-semibold text-paper py-3 px-5 hover:opacity-90 transition-opacity"
-                  style={{ fontFamily: 'Inter, sans-serif', background: '#0F6B5C', borderRadius: '3px' }}
-                >
-                  Go to Tools Hub
-                </Link>
-              </div>
+      <section className="px-6 pb-20">
+        <div className="max-w-[1440px] mx-auto grid lg:grid-cols-2 gap-10">
+          <div className="p-8 rounded-2xl" style={{ backgroundColor: '#FFFFFF', border: '1px solid #D6E2E0' }}>
+            <h2 className="font-display font-700 text-xl mb-6" style={{ color: '#0D131A' }}>Support Ticket</h2>
+            <div className="flex flex-col gap-4">
+              <input className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6' }} placeholder="Your Name" />
+              <input className="px-4 py-3 text-sm outline-none" type="email" style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6' }} placeholder="Email Address" />
+              <select className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6', color: '#6B7280' }}>
+                <option value="">Inquiry Type</option>
+                <option>Tool Feedback</option>
+                <option>Hiring Partner / Post a Job</option>
+                <option>Technical Issue</option>
+                <option>Partnership</option>
+                <option>General Inquiry</option>
+              </select>
+              <textarea className="px-4 py-3 text-sm outline-none resize-none h-32" style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6' }} placeholder="Describe your issue or inquiry..." />
+              <button className="w-full py-3.5 rounded-lg font-semibold text-sm text-white" style={{ backgroundColor: '#FF5A36', fontFamily: 'var(--font-display)' }}>
+                Submit Ticket
+              </button>
             </div>
           </div>
 
-          <div className="lg:col-span-8">
-            {submitted ? (
-              <div className="flex flex-col items-start justify-center h-full py-16">
-                <div
-                  className="w-12 h-12 rounded-full flex items-center justify-center mb-6 text-paper text-xl"
-                  style={{ background: '#0F6B5C' }}
-                >
-                  ✓
-                </div>
-                <h2 className="text-2xl font-bold text-ink mb-4" style={{ letterSpacing: '-0.02em' }}>Message sent.</h2>
-                <p className="text-base leading-relaxed" style={{ color: '#545454' }}>
-                  We've received your message and will get back to you within one business day.
-                </p>
+          <div className="flex flex-col gap-5">
+            <div className="p-6 rounded-2xl" style={{ backgroundColor: '#0F2C34', border: '1px solid rgba(6,182,212,0.2)' }}>
+              <div className="flex items-center gap-3 mb-3">
+                <Mail className="w-5 h-5" style={{ color: '#06B6D4' }} />
+                <span className="font-display font-600 text-white">Email Support</span>
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-[12px] font-medium mb-2 text-ink" style={{ fontFamily: 'Inter, sans-serif' }}>Full name *</label>
-                    <input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} type="text" className="w-full px-4 py-3 text-[14px] bg-paper outline-none" style={{ border: '1px solid #E6E5E0', fontFamily: 'DM Sans, sans-serif', color: '#191919' }} placeholder="Your name" />
+              <p className="text-sm mb-2" style={{ color: 'rgba(255,255,255,0.55)' }}>hello@lagosjob.ng</p>
+              <p className="text-xs" style={{ color: 'rgba(255,255,255,0.35)' }}>Replies within 4 business hours</p>
+            </div>
+            <div className="p-6 rounded-2xl" style={{ backgroundColor: '#FFFFFF', border: '1px solid #D6E2E0' }}>
+              <div className="flex items-center gap-3 mb-3">
+                <MessageSquare className="w-5 h-5" style={{ color: '#FF5A36' }} />
+                <span className="font-display font-600" style={{ color: '#0D131A' }}>Hiring Partners</span>
+              </div>
+              <p className="text-sm mb-2" style={{ color: '#6B7280' }}>Post jobs, access talent, and partner with Lagos Job to reach Africa's best candidates.</p>
+              <a href="mailto:partners@lagosjob.ng" className="text-sm font-semibold" style={{ color: '#FF5A36' }}>partners@lagosjob.ng</a>
+            </div>
+            <div className="p-6 rounded-2xl" style={{ backgroundColor: '#FFFFFF', border: '1px solid #D6E2E0' }}>
+              <div className="font-display font-600 text-base mb-2" style={{ color: '#0D131A' }}>Response Times</div>
+              <div className="flex flex-col gap-2">
+                {[['General inquiries', '4–8 hours'], ['Technical issues', '2–4 hours'], ['Hiring partnerships', '24 hours'], ['Tool feedback', '1–2 business days']].map(([type, time]) => (
+                  <div key={type} className="flex justify-between text-sm">
+                    <span style={{ color: '#6B7280' }}>{type}</span>
+                    <span className="font-medium" style={{ color: '#0D131A' }}>{time}</span>
                   </div>
-                  <div>
-                    <label className="block text-[12px] font-medium mb-2 text-ink" style={{ fontFamily: 'Inter, sans-serif' }}>Email *</label>
-                    <input required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} type="email" className="w-full px-4 py-3 text-[14px] bg-paper outline-none" style={{ border: '1px solid #E6E5E0', fontFamily: 'DM Sans, sans-serif', color: '#191919' }} placeholder="you@email.com" />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-[12px] font-medium mb-2 text-ink" style={{ fontFamily: 'Inter, sans-serif' }}>What's this about?</label>
-                  <select value={form.topic} onChange={(e) => setForm({ ...form, topic: e.target.value })} className="w-full px-4 py-3 text-[14px] bg-paper outline-none appearance-none" style={{ border: '1px solid #E6E5E0', fontFamily: 'DM Sans, sans-serif', color: form.topic ? '#191919' : '#aaa' }}>
-                    <option value="">Select a topic</option>
-                    {topics.map((t) => <option key={t} value={t}>{t}</option>)}
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-[12px] font-medium mb-2 text-ink" style={{ fontFamily: 'Inter, sans-serif' }}>Message *</label>
-                  <textarea required value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} rows={5} className="w-full px-4 py-3 text-[14px] bg-paper outline-none resize-none" style={{ border: '1px solid #E6E5E0', fontFamily: 'DM Sans, sans-serif', color: '#191919' }} placeholder="Tell us what's on your mind..." />
-                </div>
-
-                <button
-                  type="submit"
-                  className="self-start text-[13px] font-semibold text-paper py-3.5 px-8 hover:opacity-90 transition-opacity"
-                  style={{ fontFamily: 'Inter, sans-serif', background: '#0F6B5C', borderRadius: '3px' }}
-                >
-                  Send message
-                </button>
-              </form>
-            )}
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
-
-      <section className="bg-paper py-16" style={{ borderTop: '1px solid #E6E5E0' }}>
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div>
-            <p className="text-[14px] font-medium text-ink mb-1" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>Looking for organisational workforce solutions?</p>
-            <p className="text-[13px]" style={{ color: '#888' }}>Lagos Job is for individuals. For teams and organisations, visit WorkplaceHQ.</p>
-          </div>
-          <Link to="/" className="flex-shrink-0 text-[13px] font-semibold text-ink hover:text-whq-green transition-colors" style={{ fontFamily: 'Inter, sans-serif' }}>
-            Visit WorkplaceHQ →
-          </Link>
-        </div>
-      </section>
-    </main>
+    </div>
   )
 }

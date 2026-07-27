@@ -1,117 +1,104 @@
+import { Search, Lightbulb, Wrench, TrendingUp, ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
-const engagements = [
+const phases = [
   {
-    title: 'Diagnostic Sprint',
-    duration: '2–3 weeks',
-    desc: 'A rapid organisational diagnostic that identifies your most critical people, process, and capability gaps — with a prioritised recommendation report.',
-    outputs: ['Stakeholder interview synthesis', 'Process and workflow gap analysis', 'Prioritised recommendation report', 'Engagement options and next steps'],
+    phase: 'Phase 1',
+    title: 'Diagnostic Audit',
+    duration: 'Weeks 1–3',
+    icon: Search,
+    desc: 'Deep-dive organizational analysis: people, process, technology, and culture. We identify root causes, not symptoms.',
+    deliverables: ['Org Health Report', 'Gap Analysis Matrix', 'Priority Opportunity Map'],
   },
   {
-    title: 'Embedded Consulting',
-    duration: '3–6 months',
-    desc: 'Ongoing consulting with regular working sessions, implementation support, and accountability structures. Best for complex transformation programmes.',
-    outputs: ['Monthly progress and milestone reporting', 'Ongoing stakeholder alignment support', 'Implementation coaching for internal leads', 'Mid-point and end-of-engagement reviews'],
+    phase: 'Phase 2',
+    title: 'Strategy Design',
+    duration: 'Weeks 4–7',
+    icon: Lightbulb,
+    desc: 'Co-design of transformation roadmap with leadership. OKR architecture, initiative sequencing, and quick-win identification.',
+    deliverables: ['12-Month Transformation Roadmap', 'OKR Framework', 'Stakeholder Alignment Deck'],
   },
   {
-    title: 'Strategic Advisory',
-    duration: 'Quarterly retainer',
-    desc: 'Senior advisory access for HR, L&D, and operations leaders who need an experienced external perspective on strategic decisions.',
-    outputs: ['Monthly advisory sessions (CEO/CPO level)', 'On-demand strategic input and challenge', 'Annual planning and review facilitation', 'Industry benchmarking and insight'],
+    phase: 'Phase 3',
+    title: 'Execution & Build',
+    duration: 'Weeks 8–18',
+    icon: Wrench,
+    desc: 'Embedded implementation support. We work alongside your teams to build the systems, habits, and capabilities defined in Phase 2.',
+    deliverables: ['Systems Deployed', 'Training Delivered', 'Process Documentation'],
   },
-]
-
-const process = [
-  { step: '01', title: 'Scope', desc: 'We define the challenge, stakeholders, timelines, and what success looks like before any engagement begins.' },
-  { step: '02', title: 'Diagnose', desc: 'We talk to the right people, map the right processes, and surface the real constraints — not just the presenting problem.' },
-  { step: '03', title: 'Design', desc: 'We develop a structured response: a programme, a framework, a roadmap, or a recommendation — depending on what the diagnosis reveals.' },
-  { step: '04', title: 'Deliver', desc: 'We implement with your team, not for your team. Capability transfer is a condition of every WorkplaceHQ engagement.' },
-  { step: '05', title: 'Embed', desc: 'We stay until change is embedded. Follow-up accountability sessions ensure outcomes outlast our involvement.' },
+  {
+    phase: 'Phase 4',
+    title: 'Optimization & Handoff',
+    duration: 'Weeks 19–24',
+    icon: TrendingUp,
+    desc: 'Performance measurement, iteration, and capability transfer. We leave your team able to sustain and evolve what was built.',
+    deliverables: ['Performance Dashboard', 'Capability Transfer Report', 'Ongoing Advisory (Optional)'],
+  },
 ]
 
 export default function WHQConsulting() {
   return (
-    <main>
-      <section className="bg-paper py-24">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16">
-          <div className="lg:col-span-7">
-            <p className="text-[11px] font-semibold tracking-[0.18em] uppercase mb-5 text-whq-green" style={{ fontFamily: 'Inter, sans-serif' }}>Consulting</p>
-            <h1 className="text-5xl font-bold text-ink mb-6" style={{ letterSpacing: '-0.03em' }}>Diagnostic first. Outcomes always.</h1>
-            <p className="text-xl leading-relaxed" style={{ color: '#545454' }}>
-              Our consulting practice is built on a simple belief: you can't prescribe before you diagnose. Every engagement starts with rigorous listening before any solution is proposed.
-            </p>
-          </div>
-          <div className="lg:col-span-5">
-            <img
-              src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=700&h=500&fit=crop&auto=format"
-              alt="Consulting session in progress"
-              className="w-full h-[320px] object-cover"
-              style={{ background: '#E6E5E0' }}
-            />
-          </div>
+    <div style={{ backgroundColor: '#FBF9F5', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
+      <div className="relative pt-32 pb-12 px-6 overflow-hidden">
+        <div className="pointer-events-none absolute -top-16 -right-16 w-[400px] h-[400px] rounded-full" style={{ background: '#D97706', filter: 'blur(120px)', opacity: 0.15 }} />
+        <div className="pointer-events-none absolute -bottom-24 -left-24 w-[500px] h-[500px] rounded-full" style={{ background: '#10B981', filter: 'blur(150px)', opacity: 0.12 }} />
+        <div className="max-w-[1440px] mx-auto relative z-10">
+          <h1 className="font-display font-700 text-[clamp(2rem,4vw,3.5rem)] leading-tight mb-4" style={{ color: '#111827' }}>Enterprise Consulting</h1>
+          <p className="text-lg max-w-xl" style={{ color: '#6B7280' }}>A 24-week transformation engagement framework. Systematic, embedded, and built to last.</p>
         </div>
-      </section>
+      </div>
 
-      {/* Process */}
-      <section style={{ background: '#F0EFE9' }} className="py-24">
-        <div className="max-w-7xl mx-auto px-6">
-          <p className="text-[11px] font-semibold tracking-[0.18em] uppercase mb-12 text-slate" style={{ fontFamily: 'Inter, sans-serif' }}>How we engage</p>
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
-            {process.map((p) => (
-              <div key={p.step} style={{ borderTop: '2px solid #E6E5E0', paddingTop: '1.5rem' }}>
-                <span className="text-[11px] font-semibold text-whq-green block mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>{p.step}</span>
-                <p className="text-[1rem] font-semibold text-ink mb-2" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>{p.title}</p>
-                <p className="text-[13px] leading-relaxed" style={{ color: '#545454' }}>{p.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Timeline */}
+      <section className="px-6 pb-20">
+        <div className="max-w-[1440px] mx-auto">
+          <div className="relative">
+            {/* Timeline line */}
+            <div className="hidden lg:block absolute left-[200px] top-8 bottom-8 w-px" style={{ backgroundColor: '#E5E1D8' }} />
 
-      {/* Engagement types */}
-      <section className="bg-paper py-24">
-        <div className="max-w-7xl mx-auto px-6">
-          <p className="text-[11px] font-semibold tracking-[0.18em] uppercase mb-12 text-whq-green" style={{ fontFamily: 'Inter, sans-serif' }}>Engagement types</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {engagements.map((e) => (
-              <div key={e.title} className="bg-paper p-8" style={{ border: '1px solid #E6E5E0' }}>
-                <span className="text-[12px] font-medium px-3 py-1.5 inline-block mb-5" style={{ fontFamily: 'Inter, sans-serif', background: '#E6E5E0', color: '#545454', borderRadius: '2px' }}>
-                  {e.duration}
-                </span>
-                <h2 className="text-xl font-bold text-ink mb-3" style={{ letterSpacing: '-0.02em' }}>{e.title}</h2>
-                <p className="text-[14px] leading-relaxed mb-6" style={{ color: '#545454' }}>{e.desc}</p>
-                <p className="text-[11px] font-semibold tracking-wider uppercase mb-3 text-slate" style={{ fontFamily: 'Inter, sans-serif' }}>Outputs</p>
-                <ul className="flex flex-col gap-2 mb-6">
-                  {e.outputs.map((o) => (
-                    <li key={o} className="text-[13px] flex gap-2" style={{ color: '#545454' }}>
-                      <span style={{ color: '#1DA54A', flexShrink: 0 }}>✓</span> {o}
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  to="/contact"
-                  className="inline-block text-[13px] font-semibold text-ink px-5 py-2.5 hover:bg-ink hover:text-paper transition-colors"
-                  style={{ fontFamily: 'Inter, sans-serif', border: '1px solid #191919', borderRadius: '3px' }}
-                >
-                  Enquire
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+            <div className="flex flex-col gap-8">
+              {phases.map((p, i) => {
+                const Icon = p.icon
+                return (
+                  <div key={p.phase} className="grid lg:grid-cols-[200px_1fr] gap-6 lg:gap-12 items-start">
+                    <div className="flex lg:flex-col items-center lg:items-end gap-4 lg:gap-2 lg:pr-12">
+                      <div className="hidden lg:flex w-3 h-3 rounded-full shrink-0 lg:ml-auto" style={{ backgroundColor: '#10B981', boxShadow: '0 0 0 4px rgba(16,185,129,0.2)' }} />
+                      <div className="text-right">
+                        <div className="font-display font-700 text-sm" style={{ color: '#0B3C2D' }}>{p.phase}</div>
+                        <div className="text-xs" style={{ color: '#9CA3AF' }}>{p.duration}</div>
+                      </div>
+                    </div>
 
-      <section className="bg-ink py-20">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
-          <div>
-            <h2 className="text-3xl font-bold text-paper mb-3" style={{ letterSpacing: '-0.03em' }}>Ready to start a conversation?</h2>
-            <p style={{ color: '#6a6a6a' }}>Tell us your challenge. We'll tell you how we'd approach it.</p>
+                    <div className="p-7 rounded-2xl transition-all hover:-translate-y-0.5 duration-200" style={{ backgroundColor: i % 2 === 0 ? '#FFFFFF' : '#0B3C2D', border: `1px solid ${i % 2 === 0 ? '#E5E1D8' : 'rgba(16,185,129,0.2)'}` }}>
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: i % 2 === 0 ? 'rgba(11,60,45,0.07)' : 'rgba(16,185,129,0.15)' }}>
+                          <Icon className="w-5 h-5" style={{ color: i % 2 === 0 ? '#0B3C2D' : '#10B981' }} />
+                        </div>
+                        <h3 className="font-display font-700 text-xl" style={{ color: i % 2 === 0 ? '#111827' : '#FFFFFF' }}>{p.title}</h3>
+                      </div>
+                      <p className="text-sm leading-relaxed mb-4" style={{ color: i % 2 === 0 ? '#6B7280' : 'rgba(255,255,255,0.65)' }}>{p.desc}</p>
+                      <div className="flex flex-wrap gap-2">
+                        {p.deliverables.map(d => (
+                          <span key={d} className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: i % 2 === 0 ? '#FBF9F5' : 'rgba(255,255,255,0.08)', color: i % 2 === 0 ? '#0B3C2D' : '#10B981', border: `1px solid ${i % 2 === 0 ? '#E5E1D8' : 'rgba(16,185,129,0.3)'}` }}>
+                            {d}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
           </div>
-          <Link to="/contact" className="flex-shrink-0 text-[13px] font-semibold bg-whq-green text-paper px-8 py-4 hover:bg-whq-deep transition-colors" style={{ fontFamily: 'Inter, sans-serif', borderRadius: '3px' }}>
-            Start a conversation
-          </Link>
+
+          <div className="mt-12 p-8 rounded-2xl text-center" style={{ backgroundColor: '#0B3C2D' }}>
+            <h3 className="font-display font-700 text-2xl text-white mb-3">Ready to start your transformation?</h3>
+            <p className="text-sm mb-6" style={{ color: 'rgba(255,255,255,0.65)' }}>Every engagement begins with a complimentary 90-minute strategy session.</p>
+            <Link to="/contact" className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm" style={{ backgroundColor: '#10B981', color: '#0B3C2D', fontFamily: 'var(--font-display)' }}>
+              Book Discovery Session <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
         </div>
       </section>
-    </main>
+    </div>
   )
 }

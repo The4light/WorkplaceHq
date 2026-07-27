@@ -1,47 +1,61 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
 @import 'tailwindcss';
 
 @theme {
-  --color-ink: #191919;
-  --color-slate: #545454;
-  --color-silver: #E6E5E0;
-  --color-paper: #F4F3EF;
-  --color-whq-green: #1DA54A;
-  --color-whq-deep: #127A43;
-  --color-lj-teal: #0F6B5C;
-  --color-lj-mid: #128276;
-
   --font-display: 'Space Grotesk', sans-serif;
   --font-body: 'DM Sans', sans-serif;
-  --font-ui: 'Inter', sans-serif;
+
+  /* WorkplaceHQ tokens */
+  --whq-emerald: #0B3C2D;
+  --whq-mint: #10B981;
+  --whq-amber: #D97706;
+  --whq-bg: #FBF9F5;
+  --whq-card: #FFFFFF;
+  --whq-ink: #111827;
+  --whq-border: #E5E1D8;
+
+  /* Lagos Job tokens */
+  --lj-ocean: #0F2C34;
+  --lj-cyan: #06B6D4;
+  --lj-coral: #FF5A36;
+  --lj-bg: #F4F7F6;
+  --lj-card: #FFFFFF;
+  --lj-ink: #0D131A;
+  --lj-border: #D6E2E0;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 html {
-  background-color: #F4F3EF;
-  font-family: 'DM Sans', sans-serif;
-  color: #191919;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  margin: 0;
+  padding: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
 }
 
+/* Hide scrollbar but allow scrolling */
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #E6E5E0;
-  border-radius: 2px;
+  background: rgba(0,0,0,0.15);
+  border-radius: 3px;
+  opacity: 0;
+  transition: opacity 0.3s;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #545454;
-}
-
-* {
-  box-sizing: border-box;
+  background: rgba(0,0,0,0.3);
 }

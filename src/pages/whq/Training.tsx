@@ -1,113 +1,131 @@
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { Clock, Users, BookOpen, ArrowRight, X } from 'lucide-react'
 
 const programs = [
   {
     title: 'AI for Teams',
     duration: '4 weeks',
-    format: 'Hybrid · Cohort-based',
-    audience: 'All staff · Manager edition available',
-    desc: 'A structured four-week programme covering AI literacy, prompt engineering fundamentals, tool adoption (ChatGPT, Copilot, Gemini), and practical application by function.',
-    modules: ['AI concepts and business relevance', 'Prompt design for your role', 'Tool-specific practice sessions', 'Ethics, risk, and responsible use', 'Implementation sprint and measurement'],
+    size: '10–50',
+    modules: ['AI Fundamentals', 'Prompt Engineering', 'Tool Integration', 'Change Readiness'],
+    outcomes: 'Teams capable of deploying AI tools autonomously within 60 days post-training.',
+    level: 'Foundation',
   },
   {
-    title: 'Leadership Accelerator',
-    duration: '8 weeks',
-    format: 'In-person · Cohort of 12–20',
-    audience: 'Mid-to-senior managers',
-    desc: 'An intensive cohort programme that builds the leadership mindset, communication, and performance management skills needed for high-impact management.',
-    modules: ['Leadership identity and style', 'Managing performance conversations', 'Building team psychological safety', 'Decision-making under uncertainty', 'Influence without authority', 'Capstone: 90-day team plan'],
-  },
-  {
-    title: 'Operational Excellence',
+    title: 'Operational Excellence Accelerator',
     duration: '6 weeks',
-    format: 'Hybrid · Team-based',
-    audience: 'Operations, project, and process teams',
-    desc: 'A practical programme focused on process optimisation, workflow design, and cross-functional collaboration for operations professionals.',
-    modules: ['Process mapping and waste identification', 'Cross-functional collaboration models', 'KPI design and measurement', 'Change adoption in operations', 'Building standard operating procedures'],
+    size: '15–80',
+    modules: ['Lean Principles', 'Process Mapping', 'KPI Architecture', 'Continuous Improvement'],
+    outcomes: '25–40% operational efficiency gains measurable within one quarter.',
+    level: 'Advanced',
+  },
+  {
+    title: 'High-Performance Leadership',
+    duration: '8 weeks',
+    size: '5–25',
+    modules: ['Systems Leadership', 'Decision Frameworks', 'Team Architecture', 'Performance Rituals'],
+    outcomes: 'Senior leaders with structured playbooks for driving consistent high output.',
+    level: 'Executive',
+  },
+  {
+    title: 'CX Excellence Program',
+    duration: '5 weeks',
+    size: '10–60',
+    modules: ['Journey Mapping', 'Service Blueprinting', 'Frontline Excellence', 'NPS Optimization'],
+    outcomes: '+15 NPS improvement within 90 days of deployment.',
+    level: 'Practitioner',
   },
 ]
 
+const levelColors: Record<string, [string, string]> = {
+  Foundation: ['rgba(16,185,129,0.12)', '#065F46'],
+  Advanced: ['rgba(217,119,6,0.12)', '#92400E'],
+  Executive: ['rgba(11,60,45,0.1)', '#0B3C2D'],
+  Practitioner: ['rgba(59,130,246,0.1)', '#1D4ED8'],
+}
+
 export default function WHQTraining() {
+  const [modalOpen, setModalOpen] = useState(false)
+  const [selected, setSelected] = useState('')
+
   return (
-    <main>
-      <section className="bg-paper py-24">
-        <div className="max-w-7xl mx-auto px-6">
-          <p className="text-[11px] font-semibold tracking-[0.18em] uppercase mb-5 text-whq-green" style={{ fontFamily: 'Inter, sans-serif' }}>Training Programs</p>
-          <h1 className="text-5xl font-bold text-ink mb-6" style={{ letterSpacing: '-0.03em' }}>Structured learning. Measurable outcomes.</h1>
-          <p className="text-xl max-w-2xl leading-relaxed" style={{ color: '#545454' }}>
-            Our programmes are built for working professionals — delivered in cohorts, designed to embed, and measured against outcomes that matter to your organisation.
-          </p>
+    <div style={{ backgroundColor: '#FBF9F5', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
+      <div className="relative pt-32 pb-12 px-6 overflow-hidden">
+        <div className="pointer-events-none absolute -top-16 -right-16 w-[400px] h-[400px] rounded-full" style={{ background: '#D97706', filter: 'blur(120px)', opacity: 0.15 }} />
+        <div className="max-w-[1440px] mx-auto">
+          <h1 className="font-display font-700 text-[clamp(2rem,4vw,3.5rem)] leading-tight mb-4" style={{ color: '#111827' }}>Training Programs</h1>
+          <p className="text-lg max-w-xl" style={{ color: '#6B7280' }}>Structured team upskilling modules for the skills that compound — AI, operations, leadership, and CX.</p>
         </div>
-      </section>
+      </div>
 
-      <section className="bg-paper pb-24">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col gap-12">
-          {programs.map((p) => (
-            <div
-              key={p.title}
-              className="grid grid-cols-1 lg:grid-cols-12 gap-10 py-12"
-              style={{ borderTop: '1px solid #E6E5E0' }}
-            >
-              <div className="lg:col-span-5">
-                <h2 className="text-2xl font-bold text-ink mb-4" style={{ letterSpacing: '-0.03em' }}>{p.title}</h2>
-                <div className="flex flex-wrap gap-3 mb-5">
-                  {[p.duration, p.format, p.audience].map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-[12px] font-medium px-3 py-1.5"
-                      style={{ fontFamily: 'Inter, sans-serif', background: '#E6E5E0', color: '#545454', borderRadius: '2px' }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
+      <section className="px-6 pb-20">
+        <div className="max-w-[1440px] mx-auto grid md:grid-cols-2 gap-6">
+          {programs.map(p => {
+            const [bg, color] = levelColors[p.level]
+            return (
+              <div key={p.title} className="p-7 rounded-2xl flex flex-col gap-5" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E1D8' }}>
+                <div className="flex items-start justify-between">
+                  <div>
+                    <span className="inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold mb-2" style={{ backgroundColor: bg, color }}>{p.level}</span>
+                    <h3 className="font-display font-700 text-lg" style={{ color: '#111827' }}>{p.title}</h3>
+                  </div>
                 </div>
-                <p className="text-base leading-relaxed" style={{ color: '#545454' }}>{p.desc}</p>
-              </div>
 
-              <div className="lg:col-span-4">
-                <p className="text-[11px] font-semibold tracking-wider uppercase mb-4 text-slate" style={{ fontFamily: 'Inter, sans-serif' }}>Programme modules</p>
-                <ol className="flex flex-col gap-2.5">
-                  {p.modules.map((m, j) => (
-                    <li key={m} className="text-[14px] flex gap-3" style={{ color: '#545454' }}>
-                      <span style={{ color: '#1DA54A', fontFamily: 'Inter, sans-serif', fontSize: '12px', fontWeight: 600, marginTop: '2px', flexShrink: 0 }}>
-                        {String(j + 1).padStart(2, '0')}
-                      </span>
-                      {m}
-                    </li>
-                  ))}
-                </ol>
-              </div>
+                <div className="flex gap-4">
+                  <div className="flex items-center gap-1.5 text-sm" style={{ color: '#6B7280' }}>
+                    <Clock className="w-3.5 h-3.5" style={{ color: '#0B3C2D' }} /> {p.duration}
+                  </div>
+                  <div className="flex items-center gap-1.5 text-sm" style={{ color: '#6B7280' }}>
+                    <Users className="w-3.5 h-3.5" style={{ color: '#0B3C2D' }} /> {p.size} people
+                  </div>
+                </div>
 
-              <div className="lg:col-span-3 flex flex-col justify-start">
-                <Link
-                  to="/contact"
-                  className="inline-block text-[13px] font-semibold text-paper bg-ink px-6 py-3.5 hover:bg-whq-deep transition-colors mb-3 text-center"
-                  style={{ fontFamily: 'Inter, sans-serif', borderRadius: '3px' }}
+                <div>
+                  <div className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#9CA3AF' }}>Module Breakdown</div>
+                  <div className="flex flex-wrap gap-2">
+                    {p.modules.map(m => (
+                      <span key={m} className="px-2.5 py-1 rounded-md text-xs" style={{ backgroundColor: '#FBF9F5', color: '#111827', border: '1px solid #E5E1D8' }}>{m}</span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-xl" style={{ backgroundColor: 'rgba(11,60,45,0.04)' }}>
+                  <div className="flex items-start gap-2">
+                    <BookOpen className="w-3.5 h-3.5 mt-0.5 shrink-0" style={{ color: '#0B3C2D' }} />
+                    <p className="text-sm" style={{ color: '#6B7280' }}>{p.outcomes}</p>
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => { setSelected(p.title); setModalOpen(true) }}
+                  className="flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-sm transition-all hover:-translate-y-0.5 self-start"
+                  style={{ backgroundColor: '#0B3C2D', color: '#FFFFFF', fontFamily: 'var(--font-display)' }}
                 >
-                  Enquire about this programme
-                </Link>
-                <p className="text-[12px] text-center" style={{ color: '#888', fontFamily: 'DM Sans, sans-serif' }}>Custom cohort sizing available</p>
+                  Request Training Deck <ArrowRight className="w-3.5 h-3.5" />
+                </button>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </section>
 
-      <section className="bg-ink py-20">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
-          <div>
-            <h2 className="text-3xl font-bold text-paper mb-3" style={{ letterSpacing: '-0.03em' }}>Need a custom programme?</h2>
-            <p style={{ color: '#6a6a6a' }}>We design bespoke training for teams with specific requirements.</p>
+      {modalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" style={{ backgroundColor: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(4px)' }} onClick={() => setModalOpen(false)}>
+          <div className="w-full max-w-md p-8 rounded-2xl" style={{ backgroundColor: '#FFFFFF' }} onClick={e => e.stopPropagation()}>
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="font-display font-700 text-xl" style={{ color: '#111827' }}>Request Training Deck</h3>
+              <button onClick={() => setModalOpen(false)}><X className="w-4 h-4" style={{ color: '#9CA3AF' }} /></button>
+            </div>
+            <p className="text-sm mb-5" style={{ color: '#6B7280' }}>Program: <strong style={{ color: '#0B3C2D' }}>{selected}</strong></p>
+            <div className="flex flex-col gap-3">
+              <input className="w-full px-4 py-3 text-sm outline-none" style={{ border: '1px solid #E5E1D8', backgroundColor: '#FBF9F5', borderRadius: '6px' }} placeholder="Full Name" />
+              <input className="w-full px-4 py-3 text-sm outline-none" type="email" style={{ border: '1px solid #E5E1D8', backgroundColor: '#FBF9F5', borderRadius: '6px' }} placeholder="Corporate Email" />
+              <button className="w-full py-3 rounded-lg font-semibold text-sm" style={{ backgroundColor: '#0B3C2D', color: '#FFFFFF', fontFamily: 'var(--font-display)' }} onClick={() => setModalOpen(false)}>
+                Send Me the Deck
+              </button>
+            </div>
           </div>
-          <Link
-            to="/contact"
-            className="flex-shrink-0 text-[13px] font-semibold bg-whq-green text-paper px-8 py-4 hover:bg-whq-deep transition-colors"
-            style={{ fontFamily: 'Inter, sans-serif', borderRadius: '3px' }}
-          >
-            Talk to us
-          </Link>
         </div>
-      </section>
-    </main>
+      )}
+    </div>
   )
 }
