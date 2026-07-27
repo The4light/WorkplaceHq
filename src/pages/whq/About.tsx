@@ -2,31 +2,31 @@ import { Link } from 'react-router-dom'
 
 const team = [
   {
-    name: 'Mrs Otito',
+    name: 'Micheal Scofield',
     role: 'Founder & CEO',
     bio: 'Otito founded WorkplaceHQ after 15 years leading HR transformation at pan-African financial institutions. She built the methodology that underpins every WorkplaceHQ engagement.',
     initials: 'OT',
   },
   {
-    name: 'Stanley',
+    name: 'Jhon Do',
     role: 'Head of Training',
     bio: 'Stanley leads the design and delivery of all training programmes. A former corporate trainer at a Big 4 firm, he specialises in AI-readiness and skills transformation.',
     initials: 'ST',
   },
   {
-    name: 'Bolanle',
+    name: 'Emmanuel Fred',
     role: 'Consulting Lead',
     bio: 'Bolanle leads organisational consulting engagements, helping clients redesign team structures, workflows, and culture for sustained high performance.',
     initials: 'BL',
   },
   {
-    name: 'Desire',
+    name: 'Destiny Lance ',
     role: 'L&D Strategist',
     bio: 'Desire designs bespoke learning strategies for clients across sectors. Her frameworks have shaped L&D functions at some of Nigeria\'s fastest-growing companies.',
     initials: 'DS',
   },
   {
-    name: 'Mr Benson',
+    name: 'Jacob Lane',
     role: 'Director of Operations',
     bio: 'Benson ensures every engagement runs with precision — from scoping to delivery. He manages partnerships, logistics, and the operational backbone of WorkplaceHQ.',
     initials: 'BN',
