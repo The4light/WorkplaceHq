@@ -146,18 +146,21 @@ export default function LJListings() {
   }
 
   return (
-    <div style={{ backgroundColor: '#F4F7F6', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
+    <div className="w-full overflow-x-hidden min-h-screen bg-[#F4F3EF] font-sans">
       
       {/* Header Banner */}
-      <div className="relative pt-28 pb-8 px-4 sm:px-6 overflow-hidden bg-[#0F2C34]">
-        <div className="pointer-events-none absolute -top-20 -right-20 w-96 h-96 rounded-full" style={{ background: '#FF5A36', filter: 'blur(120px)', opacity: 0.25 }} />
-        <div className="pointer-events-none absolute -bottom-20 -left-20 w-96 h-96 rounded-full" style={{ background: '#06B6D4', filter: 'blur(120px)', opacity: 0.2 }} />
+      <div className="relative pt-28 pb-8 px-4 sm:px-6 overflow-hidden bg-[#191919]">
+        {/* Soft Intelligence Green Glow */}
+        <div 
+          className="pointer-events-none absolute -top-20 right-0 w-96 h-96 rounded-full" 
+          style={{ background: '#1DA54A', filter: 'blur(130px)', opacity: 0.08 }} 
+        />
 
         <div className="max-w-[1440px] mx-auto relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3 text-[#06B6D4] bg-[#06B6D4]/10 border border-[#06B6D4]/20">
-            <Sparkles className="w-3.5 h-3.5" /> Curated Lagos Hiring
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3 text-[#1DA54A] bg-[#1DA54A]/10 border border-[#1DA54A]/20">
+            <Sparkles className="w-3.5 h-3.5 text-[#1DA54A]" /> Curated Lagos Hiring
           </div>
-          <h1 className="font-display font-700 text-3xl sm:text-5xl text-white mb-3">
+          <h1 className="font-display font-bold text-3xl sm:text-5xl text-white mb-3">
             Active Job Opportunities
           </h1>
           <p className="text-gray-300 text-sm sm:text-base max-w-xl mb-6">
@@ -169,7 +172,7 @@ export default function LJListings() {
             <div className="relative">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
               <input
-                className="w-full pl-11 pr-4 py-3 text-sm rounded-xl outline-none bg-white/10 text-white placeholder-gray-400 border border-white/15 focus:border-[#FF5A36] backdrop-blur-md transition-all"
+                className="w-full pl-11 pr-4 py-3 text-sm rounded-xl outline-none bg-white/10 text-white placeholder-gray-400 border border-white/15 focus:border-[#1DA54A] backdrop-blur-md transition-all"
                 placeholder="Search by job title, employer, or area..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
@@ -203,17 +206,16 @@ export default function LJListings() {
 
       {/* Main Content Layout */}
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 py-6">
-        {/* items-stretch ensures left and right columns share the exact same height */}
         <div className="grid lg:grid-cols-12 gap-6 items-stretch">
           
-          {/* Left Feed Column - Matched height to right panel */}
+          {/* Left Feed Column */}
           <div className="lg:col-span-5 flex flex-col h-full min-h-0">
-            <div className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3 flex justify-between items-center shrink-0">
+            <div className="text-xs font-bold uppercase tracking-wider text-[#545454] mb-3 flex justify-between items-center shrink-0">
               <span>Showing {filtered.length} Roles</span>
               <span className="text-[#FF5A36]">Tap to inspect details</span>
             </div>
 
-            {/* Scrollable Feed List strictly bounded to panel height */}
+            {/* Scrollable Feed List */}
             <div className="space-y-3 overflow-y-auto pr-1 flex-1 min-h-0 scrollbar-thin scrollbar-thumb-gray-300">
               {filtered.map(j => {
                 const isSelected = selectedJob.id === j.id
@@ -225,7 +227,7 @@ export default function LJListings() {
                     className={`group relative p-5 rounded-2xl cursor-pointer transition-all duration-200 border ${
                       isSelected 
                         ? 'bg-white border-[#FF5A36] shadow-md ring-2 ring-[#FF5A36]/15' 
-                        : 'bg-white border-gray-200 hover:border-gray-300 hover:shadow-sm'
+                        : 'bg-white border-[#E6E5E0] hover:border-gray-300 hover:shadow-sm'
                     }`}
                   >
                     <div className="flex items-center justify-between mb-2.5">
@@ -235,32 +237,32 @@ export default function LJListings() {
                             Featured
                           </span>
                         )}
-                        <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-cyan-50 text-cyan-800 border border-cyan-200">
+                        <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#1DA54A]/10 text-[#1DA54A] border border-[#1DA54A]/20">
                           {j.mode}
                         </span>
                       </div>
 
-                      <span className="text-xs text-gray-400 flex items-center gap-1">
+                      <span className="text-xs text-[#545454] flex items-center gap-1">
                         <Clock className="w-3.5 h-3.5" /> {j.posted}
                       </span>
                     </div>
 
-                    <h3 className="font-display font-700 text-base sm:text-lg text-gray-900 group-hover:text-[#FF5A36] transition-colors mb-1">
+                    <h3 className="font-display font-bold text-base sm:text-lg text-[#191919] group-hover:text-[#FF5A36] transition-colors mb-1">
                       {j.title}
                     </h3>
                     
-                    <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600 mb-3">
-                      <span className="font-semibold text-gray-800 flex items-center gap-1">
+                    <div className="flex items-center gap-2 text-xs sm:text-sm text-[#545454] mb-3">
+                      <span className="font-semibold text-[#191919] flex items-center gap-1">
                         <Building2 className="w-3.5 h-3.5 text-gray-400" /> {j.company}
                       </span>
                       <span className="text-gray-300">•</span>
                       <span className="flex items-center gap-1">
-                        <MapPin className="w-3.5 h-3.5 text-[#FF5A36]" /> {j.location}
+                        <MapPin className="w-3.5 h-3.5 text-[#1DA54A]" /> {j.location}
                       </span>
                     </div>
 
-                    <div className="pt-3 border-t border-gray-100 flex items-center justify-between">
-                      <span className="font-display font-700 text-sm text-[#0B3C2D]">
+                    <div className="pt-3 border-t border-[#E6E5E0] flex items-center justify-between">
+                      <span className="font-display font-bold text-sm text-[#1DA54A]">
                         {j.salary}
                       </span>
                       <span className="text-xs font-bold text-[#FF5A36] flex items-center gap-0.5 group-hover:translate-x-0.5 transition-transform">
@@ -286,7 +288,7 @@ export default function LJListings() {
         <div className="fixed inset-0 z-50 lg:hidden bg-black/60 backdrop-blur-sm flex justify-end">
           <div className="w-full max-w-xl bg-white h-full overflow-y-auto p-6 flex flex-col justify-between shadow-2xl">
             <div>
-              <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-100">
+              <div className="flex justify-between items-center mb-6 pb-4 border-b border-[#E6E5E0]">
                 <span className="text-xs font-bold uppercase tracking-wider text-[#FF5A36]">Job Inspection</span>
                 <button 
                   onClick={() => setIsMobileDrawerOpen(false)}
@@ -314,47 +316,46 @@ function JobDetailPanel({ job }: { job: typeof jobs[0] }) {
     : `mailto:${job.applyContact}?subject=${encodeURIComponent(`Application for ${job.title}`)}`
 
   return (
-    <div className="bg-white rounded-3xl border border-gray-200 p-6 sm:p-8 shadow-lg relative overflow-hidden h-full">
+    <div className="bg-white rounded-3xl border border-[#E6E5E0] p-6 sm:p-8 shadow-sm relative overflow-hidden h-full">
       
-      <div className="relative z-10 mb-6 pb-6 border-b border-gray-100">
+      <div className="relative z-10 mb-6 pb-6 border-b border-[#E6E5E0]">
         <div className="flex flex-wrap items-center gap-2 mb-3">
           {job.isFeatured && (
             <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-[#FF5A36] text-white flex items-center gap-1">
               <Award className="w-3.5 h-3.5" /> Verified Opportunity
             </span>
           )}
-          <span className="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200 flex items-center gap-1">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" /> Active Hiring
+          <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#1DA54A]/10 text-[#1DA54A] border border-[#1DA54A]/20 flex items-center gap-1">
+            <ShieldCheck className="w-3.5 h-3.5 text-[#1DA54A]" /> Active Hiring
           </span>
         </div>
 
-        <h2 className="font-display font-700 text-2xl sm:text-3xl text-gray-900 mb-2">
+        <h2 className="font-display font-bold text-2xl sm:text-3xl text-[#191919] mb-2">
           {job.title}
         </h2>
 
-        <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 font-medium mb-4">
-          <span className="flex items-center gap-1.5 text-gray-900 font-bold text-base">
+        <div className="flex flex-wrap items-center gap-4 text-sm text-[#545454] font-medium mb-4">
+          <span className="flex items-center gap-1.5 text-[#191919] font-bold text-base">
             <Building2 className="w-4 h-4 text-[#FF5A36]" /> {job.company}
           </span>
           <span className="flex items-center gap-1.5">
-            <MapPin className="w-4 h-4 text-emerald-600" /> {job.location}
+            <MapPin className="w-4 h-4 text-[#1DA54A]" /> {job.location}
           </span>
-          <span className="px-2.5 py-0.5 rounded-md text-xs font-semibold bg-gray-100 text-gray-700">
+          <span className="px-2.5 py-0.5 rounded-md text-xs font-semibold bg-gray-100 text-[#191919]">
             {job.mode}
           </span>
         </div>
 
-        <div className="p-4 rounded-2xl bg-[#0F2C34] text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div className="p-4 rounded-2xl bg-[#191919] text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div>
-            <div className="text-xs uppercase tracking-wider text-cyan-400 font-bold">Monthly Compensation</div>
-            <div className="font-display font-700 text-xl sm:text-2xl text-white">{job.salary}</div>
+            <div className="text-xs uppercase tracking-wider text-[#1DA54A] font-bold">Monthly Compensation</div>
+            <div className="font-display font-bold text-xl sm:text-2xl text-white">{job.salary}</div>
           </div>
           <a
             href={actionHref}
             target={isPhone ? "_blank" : "_self"}
             rel="noreferrer"
-            className="w-full sm:w-auto px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider text-white transition-all hover:bg-[#FF5A36]/90 flex items-center justify-center gap-2 shadow-md"
-            style={{ backgroundColor: '#FF5A36', fontFamily: 'var(--font-display)' }}
+            className="w-full sm:w-auto px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider text-white transition-all hover:bg-[#FF5A36]/90 flex items-center justify-center gap-2 shadow-sm bg-[#FF5A36]"
           >
             {isPhone ? <PhoneCall className="w-4 h-4" /> : <Mail className="w-4 h-4" />} 
             {isPhone ? 'Apply via WhatsApp' : 'Apply Directly'}
@@ -364,10 +365,10 @@ function JobDetailPanel({ job }: { job: typeof jobs[0] }) {
 
       {/* About */}
       <div className="mb-6">
-        <h3 className="font-display font-700 text-xs uppercase tracking-wider text-gray-400 mb-2">
+        <h3 className="font-display font-bold text-xs uppercase tracking-wider text-gray-400 mb-2">
           About the Role
         </h3>
-        <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
+        <p className="text-sm sm:text-base text-[#545454] leading-relaxed">
           {job.desc}
         </p>
       </div>
@@ -375,12 +376,12 @@ function JobDetailPanel({ job }: { job: typeof jobs[0] }) {
       {/* Responsibilities */}
       {job.responsibilities && job.responsibilities.length > 0 && (
         <div className="mb-6">
-          <h3 className="font-display font-700 text-xs uppercase tracking-wider text-gray-400 mb-3">
+          <h3 className="font-display font-bold text-xs uppercase tracking-wider text-gray-400 mb-3">
             Key Responsibilities
           </h3>
           <ul className="space-y-2.5">
             {job.responsibilities.map((resp, i) => (
-              <li key={i} className="flex items-start gap-3 text-sm text-gray-700">
+              <li key={i} className="flex items-start gap-3 text-sm text-[#545454]">
                 <div className="w-2 h-2 rounded-full bg-[#FF5A36] shrink-0 mt-1.5" />
                 <span className="leading-normal">{resp}</span>
               </li>
@@ -391,13 +392,13 @@ function JobDetailPanel({ job }: { job: typeof jobs[0] }) {
 
       {/* Requirements */}
       <div className="mb-8">
-        <h3 className="font-display font-700 text-xs uppercase tracking-wider text-gray-400 mb-3">
+        <h3 className="font-display font-bold text-xs uppercase tracking-wider text-gray-400 mb-3">
           Requirements & Qualifications
         </h3>
         <ul className="space-y-2.5">
           {job.reqs.map((req, i) => (
-            <li key={i} className="flex items-start gap-3 text-sm text-gray-700">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+            <li key={i} className="flex items-start gap-3 text-sm text-[#545454]">
+              <CheckCircle2 className="w-4 h-4 text-[#1DA54A] shrink-0 mt-0.5" />
               <span className="leading-normal">{req}</span>
             </li>
           ))}
@@ -405,14 +406,14 @@ function JobDetailPanel({ job }: { job: typeof jobs[0] }) {
       </div>
 
       {/* Application Instructions */}
-      <div className="p-5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-950 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="p-5 rounded-2xl bg-[#1DA54A]/10 border border-[#1DA54A]/20 text-[#191919] flex flex-col sm:flex-row items-center justify-between gap-4">
         <div>
-          <div className="font-bold text-sm text-emerald-900">Application Instructions</div>
-          <div className="text-xs text-emerald-800 mt-0.5">
+          <div className="font-bold text-sm text-[#191919]">Application Instructions</div>
+          <div className="text-xs text-[#545454] mt-0.5">
             {isPhone ? (
-              <>Send your CV and recent picture to <span className="font-semibold underline">{job.applyContact}</span>.</>
+              <>Send your CV and recent picture to <span className="font-semibold underline text-[#191919]">{job.applyContact}</span>.</>
             ) : (
-              <>Send your CV to <span className="font-semibold underline">{job.applyContact}</span> with subject <span className="font-mono bg-emerald-100 px-1.5 py-0.5 rounded text-emerald-900">"{job.title}"</span>.</>
+              <>Send your CV to <span className="font-semibold underline text-[#191919]">{job.applyContact}</span> with subject <span className="font-mono bg-white px-1.5 py-0.5 rounded text-[#191919] border border-[#E6E5E0]">"{job.title}"</span>.</>
             )}
           </div>
         </div>
@@ -420,7 +421,7 @@ function JobDetailPanel({ job }: { job: typeof jobs[0] }) {
           href={actionHref}
           target={isPhone ? "_blank" : "_self"}
           rel="noreferrer"
-          className="w-full sm:w-auto px-5 py-2.5 rounded-lg bg-emerald-800 text-white font-bold text-xs uppercase tracking-wider hover:bg-emerald-900 shrink-0 text-center"
+          className="w-full sm:w-auto px-5 py-2.5 rounded-lg bg-[#191919] text-white font-bold text-xs uppercase tracking-wider hover:bg-black shrink-0 text-center"
         >
           {isPhone ? 'Open WhatsApp' : 'Send Email'}
         </a>
@@ -428,4 +429,4 @@ function JobDetailPanel({ job }: { job: typeof jobs[0] }) {
 
     </div>
   )
-} 
+}

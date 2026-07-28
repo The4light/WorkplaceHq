@@ -5,23 +5,26 @@
   --font-display: 'Space Grotesk', sans-serif;
   --font-body: 'DM Sans', sans-serif;
 
-  /* WorkplaceHQ tokens */
-  --whq-emerald: #0B3C2D;
-  --whq-mint: #10B981;
-  --whq-amber: #D97706;
-  --whq-bg: #FBF9F5;
-  --whq-card: #FFFFFF;
-  --whq-ink: #111827;
-  --whq-border: #E5E1D8;
-
-  /* Lagos Job tokens */
-  --lj-ocean: #0F2C34;
-  --lj-cyan: #06B6D4;
-  --lj-coral: #FF5A36;
-  --lj-bg: #F4F7F6;
-  --lj-card: #FFFFFF;
-  --lj-ink: #0D131A;
-  --lj-border: #D6E2E0;
+/* WorkplaceHQ tokens - Updated to match Guideline Image Pitch-Perfect */
+  --whq-emerald: #1DA54A;  /* Intelligence Green (Primary accent) */
+  --whq-mint: #127A43;     /* Progressive Green (Depth & fills) */
+  --whq-amber: #D97706;    /* Secondary accent (if needed) */
+  --whq-bg: #F4F3EF;       /* Paper White (Background) */
+  --whq-card: #FFFFFF;     /* Pure White Card */
+  --whq-ink: #191919;      /* Ink Black (Foundation / text) */
+  --whq-slate: #545454;    /* Slate Grey (Secondary text) */
+  --whq-border: #E6E5E0;   /* Silvery Grey (Surfaces / lines) */
+  
+/* Refined Lagos Job tokens */
+  --lj-ink: #0D131A;         /* Primary Black text & dark headers */
+  --lj-bg: #FFFFFF;          /* Clean White background */
+  --lj-card: #FFFFFF;        /* Crisp White cards */
+  --lj-border: #E5E7EB;      /* Subtle Grey borders */
+  
+  /* Retained Signal Accents */
+  --lj-coral: #FF5A36;       /* Primary Action Buttons */
+  --lj-cyan: #06B6D4;        /* Secondary Links & Highlights */
+  --lj-green: #10B981;       /* Verified / Live Badges only */
 }
 
 * {
