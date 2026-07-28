@@ -1,41 +1,104 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, FileText, Link2, Globe, Palette, User, Briefcase, Zap, Building2, TrendingUp, CheckCircle2 } from 'lucide-react'
+import { 
+  ArrowRight, 
+  Briefcase, 
+  Zap, 
+  Building2, 
+  TrendingUp, 
+  CheckCircle2,  
+  PlaneTakeoff, 
+  GraduationCap, 
+  ShieldCheck,
+  UserCheck,
+  PhoneCall,
+  FileText
+} from 'lucide-react'
 
-const tools = [
-  { icon: FileText, label: 'CV Optimiser', desc: 'ATS-proof your resume', to: '/lagos-jobs/tools?tab=cv' },
-  { icon: Link2, label: 'LinkedIn Optimiser', desc: 'Boost your profile impact', to: '/lagos-jobs/tools?tab=linkedin' },
-  { icon: Palette, label: 'Portfolio Creator', desc: 'Showcase your best work', to: '/lagos-jobs/tools?tab=portfolio' },
-  { icon: Globe, label: 'Website Creator', desc: 'Personal site in minutes', to: '/lagos-jobs/tools?tab=website' },
-  { icon: User, label: 'Personal Branding', desc: 'Define your positioning', to: '/lagos-jobs/tools?tab=branding' },
-  { icon: Briefcase, label: 'Job Listings', desc: 'Curated Lagos roles', to: '/lagos-jobs/tools?tab=jobs' },
+
+const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+    <rect x="2" y="9" width="4" height="12" />
+    <circle cx="4" cy="4" r="2" />
+  </svg>
+)
+
+const navigationItems = [
+  { 
+    icon: Briefcase, 
+    label: 'Job Listings', 
+    desc: 'Explore verified Lagos roles', 
+    to: '/lagos-jobs' 
+  },
+  { 
+    icon: PlaneTakeoff, 
+    label: 'Travel Advisory', 
+    desc: '1-on-1 migration consulting', 
+    to: '/lagos-jobs/services' 
+  },
+  { 
+    icon: GraduationCap, 
+    label: 'Study Abroad', 
+    desc: 'University & visa placement', 
+    to: '/lagos-jobs/services' 
+  },
+  { 
+    icon: FileText, 
+    label: 'CV & Profile Audit', 
+    desc: 'Human specialist review', 
+    to: '/lagos-jobs/services' 
+  },
+  { 
+    icon: LinkedinIcon, 
+    label: 'Executive Placement', 
+    desc: 'Direct corporate sourcing', 
+    to: '/lagos-jobs/services' 
+  },
+  { 
+    icon: Building2, 
+    label: 'WorkplaceHQ', 
+    desc: 'Enterprise transformation', 
+    to: '/lagos-jobs/workplace' 
+  },
 ]
 
 const stats = [
   { value: '14,200+', label: 'Active Job Listings' },
   { value: '38K+', label: 'Careers Accelerated' },
-  { value: '92%', label: 'Interview Success Rate' },
-  { value: '4.8★', label: 'User Rating' },
+  { value: '92%', label: 'Consultation Satisfaction' },
+  { value: '4.8★', label: 'Client Rating' },
 ]
 
 const stories = [
   { 
     name: 'Adaeze K.', 
     role: 'Product Designer → Senior PM, Flutterwave', 
-    quote: 'The CV tool transformed my resume in 20 minutes. I landed 3 interviews that week.',
+    quote: 'Working directly with the career advisory team helped me reframe my experience. I landed 3 interviews in two weeks.',
     image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80',
     badge: '3 Offers Landed'
   },
   { 
     name: 'Tunde B.', 
     role: 'Unemployed → Backend Engineer, MTN', 
-    quote: 'Lagos Job\'s tools helped me package 2 years of freelance into a story employers wanted to hire.',
+    quote: 'The direct placement team connected me with an enterprise employer looking for my specific tech stack.',
     image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
     badge: 'Hired in 14 Days'
   },
   { 
     name: 'Fatimah Y.', 
     role: 'Graduate → Marketing Lead, Sterling Bank', 
-    quote: 'I used the Personal Branding guide to define my niche. Changed everything.',
+    quote: 'The study abroad & career transition advisors gave me clarity on my visa pathway and next steps.',
     image: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=200&q=80',
     badge: '120% Pay Boost'
   },
@@ -57,7 +120,7 @@ export default function LJHome() {
             {/* Hero Text */}
             <div className="lg:col-span-7">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-6" style={{ backgroundColor: 'rgba(6,182,212,0.12)', color: '#06B6D4', border: '1px solid rgba(6,182,212,0.25)' }}>
-                <Zap className="w-3 h-3" /> Africa's Career Acceleration Engine
+                <UserCheck className="w-3.5 h-3.5" /> Human-Led Advisory & Verified Roles
               </div>
               <h1 className="font-display font-700 text-4xl sm:text-6xl md:text-7xl leading-[1.08] tracking-tight mb-6" style={{ color: '#0D131A' }}>
                 Your Next Role<br />
@@ -65,15 +128,15 @@ export default function LJHome() {
                 <span style={{ color: '#06B6D4' }}>Here.</span>
               </h1>
               <p className="text-base sm:text-lg leading-relaxed mb-8 sm:mb-10 max-w-xl" style={{ color: '#4B5563' }}>
-                Six powerful tools. Zero logins. From resume to job offer — Lagos Job gives you everything you need to land your next career move, fast.
+                From verified Lagos career opportunities to 1-on-1 migration and study abroad advisory — connect directly with specialists dedicated to advancing your goals.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <Link
-                  to="/lagos-jobs/tools"
+                  to="/lagos-jobs/services"
                   className="w-full sm:w-auto justify-center flex items-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-sm text-white transition-all hover:-translate-y-0.5"
                   style={{ backgroundColor: '#FF5A36', fontFamily: 'var(--font-display)', boxShadow: '0 4px 24px rgba(255,90,54,0.35)' }}
                 >
-                  Launch Tools Hub <ArrowRight className="w-4 h-4" />
+                  Explore Advisory Services <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link
                   to="/lagos-jobs/listings"
@@ -93,31 +156,31 @@ export default function LJHome() {
                 <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
                   <img 
                     src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" 
-                    alt="African professionals working" 
+                    alt="African professionals collaborating" 
                     className="w-full h-[400px] object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0F2C34]/60 via-transparent to-transparent" />
                 </div>
 
-                {/* Top Left Overflowing Floating Badge */}
-                <div className="absolute -top-5 -left-5 sm:-left-8 bg-white p-3.5 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-3 z-20 animate-bounce-slow">
+                {/* Top Left Floating Badge */}
+                <div className="absolute -top-5 -left-5 sm:-left-8 bg-white p-3.5 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-3 z-20">
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: 'rgba(255,90,54,0.12)' }}>
                     <TrendingUp className="w-5 h-5" style={{ color: '#FF5A36' }} />
                   </div>
                   <div>
-                    <div className="text-[10px] uppercase font-bold tracking-wider text-gray-400">Avg. Salary Boost</div>
-                    <div className="font-display font-700 text-sm" style={{ color: '#0D131A' }}>+45% Compensation</div>
+                    <div className="text-[10px] uppercase font-bold tracking-wider text-gray-400">Personalized Advisory</div>
+                    <div className="font-display font-700 text-sm" style={{ color: '#0D131A' }}>1-on-1 Consultations</div>
                   </div>
                 </div>
 
-                {/* Bottom Right Overflowing Floating Tag */}
+                {/* Bottom Right Floating Tag */}
                 <div className="absolute -bottom-6 -right-5 sm:-right-8 bg-[#0F2C34] text-white p-4 rounded-2xl shadow-2xl border border-cyan-500/30 flex items-center gap-3 z-20">
                   <div className="w-9 h-9 rounded-full bg-[#06B6D4]/20 flex items-center justify-center shrink-0">
-                    <CheckCircle2 className="w-5 h-5 text-[#06B6D4]" />
+                    <ShieldCheck className="w-5 h-5 text-[#06B6D4]" />
                   </div>
                   <div>
-                    <div className="text-xs font-semibold text-cyan-300">ATS Match Ready</div>
-                    <div className="text-[11px] text-gray-300">98% Resume Optimization</div>
+                    <div className="text-xs font-semibold text-cyan-300">Verified Personnel</div>
+                    <div className="text-[11px] text-gray-300">Dedicated Service Managers</div>
                   </div>
                 </div>
 
@@ -138,34 +201,34 @@ export default function LJHome() {
         </div>
       </section>
 
-      {/* Tools Section */}
+      {/* Services & Navigation Hub */}
       <section className="px-4 sm:px-6 py-12 sm:py-20">
         <div className="max-w-[1440px] mx-auto">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
             <div>
-              <h2 className="font-display font-700 text-2xl sm:text-4xl mb-2" style={{ color: '#0D131A' }}>The Tools Hub</h2>
-              <p className="text-sm sm:text-base" style={{ color: '#6B7280' }}>Six zero-auth career tools built for Africa's job market.</p>
+              <h2 className="font-display font-700 text-2xl sm:text-4xl mb-2" style={{ color: '#0D131A' }}>Advisory & Career Services</h2>
+              <p className="text-sm sm:text-base" style={{ color: '#6B7280' }}>Connect directly with verified personnel for travel, study, and recruitment.</p>
             </div>
-            <Link to="/lagos-jobs/tools" className="inline-flex items-center gap-1.5 text-sm font-semibold" style={{ color: '#06B6D4', fontFamily: 'var(--font-display)' }}>
-              Open All Tools <ArrowRight className="w-4 h-4" />
+            <Link to="/lagos-jobs/services" className="inline-flex items-center gap-1.5 text-sm font-semibold" style={{ color: '#06B6D4', fontFamily: 'var(--font-display)' }}>
+              View All Services <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {tools.map(t => {
-              const Icon = t.icon
+            {navigationItems.map(item => {
+              const Icon = item.icon
               return (
                 <Link
-                  key={t.label}
-                  to={t.to}
-                  className="p-5 rounded-2xl flex flex-col gap-3 group transition-all hover:-translate-y-1 hover:shadow-lg"
+                  key={item.label}
+                  to={item.to}
+                  className="p-5 rounded-2xl flex flex-col justify-between gap-3 group transition-all hover:-translate-y-1 hover:shadow-lg"
                   style={{ backgroundColor: '#FFFFFF', border: '1px solid #D6E2E0' }}
                 >
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: 'rgba(6,182,212,0.1)' }}>
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: 'rgba(6,182,212,0.1)' }}>
                     <Icon className="w-5 h-5" style={{ color: '#06B6D4' }} />
                   </div>
                   <div>
-                    <div className="font-display font-600 text-sm mb-0.5" style={{ color: '#0D131A' }}>{t.label}</div>
-                    <div className="text-xs" style={{ color: '#9CA3AF' }}>{t.desc}</div>
+                    <div className="font-display font-600 text-sm mb-0.5" style={{ color: '#0D131A' }}>{item.label}</div>
+                    <div className="text-xs" style={{ color: '#9CA3AF' }}>{item.desc}</div>
                   </div>
                 </Link>
               )
@@ -181,20 +244,20 @@ export default function LJHome() {
             <div className="pointer-events-none absolute -top-8 -right-8 w-48 h-48 rounded-full" style={{ background: '#FF5A36', filter: 'blur(80px)', opacity: 0.25 }} />
             <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
               <div>
-                <div className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: 'rgba(255,255,255,0.4)' }}>Live counter</div>
+                <div className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: 'rgba(255,255,255,0.4)' }}>Live Counter</div>
                 <div className="font-display font-700 text-4xl sm:text-5xl text-white mb-1">14,247</div>
                 <div className="text-sm" style={{ color: '#06B6D4' }}>active roles across Lagos, Abuja & remote</div>
               </div>
               <div className="flex items-center gap-3">
                 <div className="w-2.5 h-2.5 rounded-full animate-pulse" style={{ backgroundColor: '#10B981' }} />
-                <span className="text-sm" style={{ color: 'rgba(255,255,255,0.6)' }}>Updated every 6 hours</span>
+                <span className="text-sm" style={{ color: 'rgba(255,255,255,0.6)' }}>Updated continuously</span>
               </div>
               <Link
                 to="/lagos-jobs/listings"
                 className="w-full lg:w-auto inline-flex justify-center items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm text-white shrink-0"
                 style={{ backgroundColor: '#FF5A36', fontFamily: 'var(--font-display)' }}
               >
-                Browse All Jobs <ArrowRight className="w-4 h-4" />
+                Browse Active Jobs <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
@@ -258,18 +321,18 @@ export default function LJHome() {
 
               <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3">
                 <Link 
-                  to="/" 
+                  to="/lagos-jobs/workplace" 
                   className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all hover:bg-emerald-400" 
                   style={{ backgroundColor: '#10B981', color: '#0B3C2D', fontFamily: 'var(--font-display)' }}
                 >
                   Visit WorkplaceHQ <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link 
-                  to="/services" 
+                  to="/lagos-jobs/services" 
                   className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider text-white border transition-all hover:bg-white/10" 
                   style={{ borderColor: 'rgba(255,255,255,0.25)', fontFamily: 'var(--font-display)' }}
                 >
-                  Explore Enterprise Services
+                  Explore Advisory Services
                 </Link>
               </div>
             </div>
