@@ -118,15 +118,17 @@ export default function WHQHome() {
 
             {/* Right Hero Image Frame */}
             <div className="lg:col-span-5 relative">
-              {/* Single Ring Pattern placed BEHIND the image (z-0) */}
-              <div className="absolute -top-12 -right-12 w-56 h-56 pointer-events-none z-0 hidden sm:block">
+              {/* Thin Brand Ring + Dot (System + Activation) placed BEHIND image card (z-0) & extending out of frame */}
+              <div className="absolute -top-16 -right-16 w-64 h-64 pointer-events-none z-0 hidden sm:block">
                 <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="50" cy="50" r="42" stroke="#1DA54A" strokeWidth="8" />
-                  <circle cx="50" cy="50" r="18" fill="#1DA54A" />
+                  {/* Subtle thin Ring (System) */}
+                  <circle cx="50" cy="50" r="44" stroke="#1DA54A" strokeWidth="2.5" />
+                  {/* Inner Dot (People Activation) */}
+                  <circle cx="50" cy="50" r="14" fill="#1DA54A" />
                 </svg>
               </div>
 
-              {/* Main Image Grid sitting ABOVE the ring (z-10) */}
+              {/* Main Image Grid sitting ABOVE the ring element (z-10) */}
               <div className="relative z-10 rounded-2xl overflow-hidden border" style={{ borderColor: '#E5E1D8', boxShadow: '0 20px 40px rgba(0,0,0,0.06)' }}>
                 <img 
                   src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80" 
@@ -284,11 +286,11 @@ export default function WHQHome() {
       <section className="px-4 sm:px-6 pb-12 sm:pb-20">
         <div className="max-w-[1440px] mx-auto">
           <div className="relative p-8 sm:p-12 rounded-2xl overflow-hidden text-center" style={{ backgroundColor: '#0B3C2D' }}>
-            {/* Single Ring Graphic Background */}
+            {/* Out of frame subtle Ring graphic background */}
             <div className="absolute -bottom-16 -right-16 w-64 h-64 pointer-events-none opacity-20 hidden sm:block">
               <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="50" cy="50" r="42" stroke="#FFFFFF" strokeWidth="6" />
-                <circle cx="50" cy="50" r="18" fill="#FFFFFF" />
+                <circle cx="50" cy="50" r="44" stroke="#FFFFFF" strokeWidth="2.5" />
+                <circle cx="50" cy="50" r="14" fill="#FFFFFF" />
               </svg>
             </div>
 

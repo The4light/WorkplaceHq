@@ -8,22 +8,68 @@ const principles = [
 ]
 
 const team = [
-  { name: 'Emeka Okafor', role: 'CEO & Co-founder', focus: 'Operational Strategy' },
-  { name: 'Ngozi Abiodun', role: 'Chief Consulting Officer', focus: 'Enterprise Transformation' },
-  { name: 'Kwame Asante', role: 'Head of AI Practice', focus: 'AI & Automation' },
-  { name: 'Zara Mensah', role: 'Head of Learning', focus: 'Training & Development' },
-  { name: 'David Adeyemi', role: 'CX Practice Lead', focus: 'Customer Experience' },
-  { name: 'Amina Hassan', role: 'Head of Research', focus: 'Insights & Analytics' },
+  { 
+    name: 'Emeka Okafor', 
+    role: 'CEO & Co-founder', 
+    focus: 'Operational Strategy',
+    bio: '15+ years advising West African tech & enterprise leaders on organizational architecture.',
+    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80'
+  },
+  { 
+    name: 'Ngozi Abiodun', 
+    role: 'Chief Consulting Officer', 
+    focus: 'Enterprise Transformation',
+    bio: 'Former Big 4 strategist specializing in large-scale workforce realignment and process redesign.',
+    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80'
+  },
+  { 
+    name: 'Kwame Asante', 
+    role: 'Head of AI Practice', 
+    focus: 'AI & Automation',
+    bio: 'Pioneering custom generative workflows and enterprise automation frameworks across SSA.',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80'
+  },
+  { 
+    name: 'Zara Mensah', 
+    role: 'Head of Learning', 
+    focus: 'Training & Development',
+    bio: 'Designs high-impact leadership development programs for multi-regional corporate teams.',
+    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=300&q=80'
+  },
+  { 
+    name: 'David Adeyemi', 
+    role: 'CX Practice Lead', 
+    focus: 'Customer Experience',
+    bio: 'Expert in customer journey mapping and omnichannel retention systems for digital brands.',
+    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80'
+  },
+  { 
+    name: 'Amina Hassan', 
+    role: 'Head of Research', 
+    focus: 'Insights & Analytics',
+    bio: 'Translates workforce analytics and market intelligence into actionable business decisions.',
+    image: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=300&q=80'
+  },
 ]
 
 export default function WHQAbout() {
   return (
     <div style={{ backgroundColor: '#FBF9F5', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
+      
+      {/* Hero Section */}
       <div className="relative pt-32 pb-20 px-6 overflow-hidden">
-        <div className="pointer-events-none absolute -top-16 -right-16 w-[400px] h-[400px] rounded-full" style={{ background: '#D97706', filter: 'blur(120px)', opacity: 0.15 }} />
+        {/* Subtle out-of-frame Thin Ring + Dot Graphic */}
+        <div className="absolute -top-20 -right-20 w-80 h-80 pointer-events-none z-0 hidden sm:block">
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="44" stroke="#1DA54A" strokeWidth="2" opacity="0.4" />
+            <circle cx="50" cy="50" r="14" fill="#1DA54A" opacity="0.3" />
+          </svg>
+        </div>
+
         <div className="max-w-[1440px] mx-auto relative z-10">
-          <div className="max-w-2xl">
-            <h1 className="font-display font-700 text-[clamp(2rem,4vw,3.5rem)] leading-tight mb-6" style={{ color: '#111827' }}>
+          <div className="max-w-3xl">
+            <span className="text-xs font-bold tracking-wider uppercase mb-3 block" style={{ color: '#1DA54A' }}>Our Purpose</span>
+            <h1 className="font-display font-700 text-[clamp(2.25rem,4.5vw,3.75rem)] leading-tight mb-6" style={{ color: '#111827' }}>
               We were built for the organizations that refuse to stay average.
             </h1>
             <p className="text-lg leading-relaxed" style={{ color: '#6B7280' }}>
@@ -33,30 +79,53 @@ export default function WHQAbout() {
         </div>
       </div>
 
-      {/* Story */}
+      {/* Story & Stats */}
       <section className="px-6 py-16">
         <div className="max-w-[1440px] mx-auto grid md:grid-cols-2 gap-12 items-center">
-          <div className="p-8 rounded-2xl" style={{ backgroundColor: '#0B3C2D', border: '1px solid rgba(16,185,129,0.2)' }}>
-            <div className="font-display font-700 text-5xl text-white mb-2">2018</div>
-            <p className="text-sm" style={{ color: 'rgba(255,255,255,0.6)' }}>Founded in Lagos</p>
-            <div className="mt-6 grid grid-cols-2 gap-4">
-              {[['50+', 'Clients'], ['12K+', 'Employees trained'], ['6', 'Practice areas'], ['94%', 'Retention rate']].map(([v, l]) => (
-                <div key={l} className="p-4 rounded-xl" style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}>
-                  <div className="font-display font-700 text-2xl" style={{ color: '#10B981' }}>{v}</div>
-                  <div className="text-xs" style={{ color: 'rgba(255,255,255,0.5)' }}>{l}</div>
-                </div>
-              ))}
+          
+          {/* Dark Card with Stats & Subtle Ring Element */}
+          <div className="relative p-8 rounded-2xl overflow-hidden" style={{ backgroundColor: '#0B3C2D', border: '1px solid rgba(16,185,129,0.2)' }}>
+            <div className="absolute -bottom-12 -right-12 w-48 h-48 pointer-events-none opacity-15">
+              <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="44" stroke="#FFFFFF" strokeWidth="2.5" />
+                <circle cx="50" cy="50" r="14" fill="#FFFFFF" />
+              </svg>
+            </div>
+
+            <div className="relative z-10">
+              <div className="font-display font-700 text-5xl text-white mb-2">2018</div>
+              <p className="text-sm mb-8" style={{ color: 'rgba(255,255,255,0.6)' }}>Founded in Lagos</p>
+              <div className="grid grid-cols-2 gap-4">
+                {[['50+', 'Clients'], ['12K+', 'Employees trained'], ['6', 'Practice areas'], ['94%', 'Retention rate']].map(([v, l]) => (
+                  <div key={l} className="p-4 rounded-xl" style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                    <div className="font-display font-700 text-2xl" style={{ color: '#10B981' }}>{v}</div>
+                    <div className="text-xs" style={{ color: 'rgba(255,255,255,0.5)' }}>{l}</div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-          <div>
-            <h2 className="font-display font-700 text-2xl mb-4" style={{ color: '#111827' }}>Our origin story</h2>
-            <p className="text-base leading-relaxed mb-4" style={{ color: '#6B7280' }}>
+
+          {/* Text & Image Frame */}
+          <div className="space-y-6">
+            <h2 className="font-display font-700 text-2xl sm:text-3xl" style={{ color: '#111827' }}>Our origin story</h2>
+            <p className="text-base leading-relaxed" style={{ color: '#6B7280' }}>
               WorkplaceHQ emerged from direct consulting experience inside fast-scaling African and global enterprises. We saw firsthand how organizations with ambitious goals routinely under-performed — not from lack of talent, but from structural incoherence.
             </p>
             <p className="text-base leading-relaxed" style={{ color: '#6B7280' }}>
               We built WorkplaceHQ to close that gap: a firm that operates at the intersection of technology, people science, and operational design — deploying integrated solutions rather than siloed recommendations.
             </p>
+            
+            {/* Contextual Team Photography */}
+            <div className="rounded-xl overflow-hidden border pt-2" style={{ borderColor: '#E5E1D8' }}>
+              <img 
+                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1000&q=80" 
+                alt="WorkplaceHQ consultants collaborating" 
+                className="w-full h-48 object-cover rounded-lg"
+              />
+            </div>
           </div>
+
         </div>
       </section>
 
@@ -82,26 +151,76 @@ export default function WHQAbout() {
       </section>
 
       {/* Team */}
-      <section className="px-6 py-16">
-        <div className="max-w-[1440px] mx-auto">
-          <h2 className="font-display font-700 text-[clamp(1.75rem,3vw,2.25rem)] mb-10" style={{ color: '#111827' }}>Leadership Team</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {team.map(t => (
-              <div key={t.name} className="p-6 rounded-2xl group" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E1D8' }}>
-                <div className="w-14 h-14 rounded-full flex items-center justify-center font-display font-700 text-xl mb-4" style={{ backgroundColor: '#0B3C2D', color: '#10B981' }}>
-                  {t.name.split(' ').map(n => n[0]).join('')}
+<section className="px-6 py-16">
+      <div className="max-w-[1440px] mx-auto">
+        <h2 className="font-display font-700 text-[clamp(1.75rem,3vw,2.25rem)] mb-10" style={{ color: '#111827' }}>
+          Leadership Team
+        </h2>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {team.map((t) => (
+            <div 
+              key={t.name} 
+              className="p-6 rounded-2xl group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-emerald-900/5 relative overflow-hidden flex flex-col justify-between" 
+              style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E1D8' }}
+            >
+              <div>
+                {/* Header Row: Image & Name/Role */}
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="w-16 h-16 rounded-2xl overflow-hidden shrink-0 border" style={{ borderColor: 'rgba(11,60,45,0.12)' }}>
+                    {t.image ? (
+                      <img 
+                        src={t.image} 
+                        alt={t.name} 
+                        className="w-full h-full object-cover grayscale-[20%] transition-all duration-300 group-hover:grayscale-0 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center font-display font-700 text-xl" style={{ backgroundColor: '#0B3C2D', color: '#10B981' }}>
+                        {t.name.split(' ').map(n => n[0]).join('')}
+                      </div>
+                    )}
+                  </div>
+
+                  <div>
+                    <h3 className="font-display font-700 text-lg leading-snug" style={{ color: '#111827' }}>
+                      {t.name}
+                    </h3>
+                    <p className="text-sm font-semibold" style={{ color: '#0B3C2D' }}>
+                      {t.role}
+                    </p>
+                    <span 
+                      className="inline-block mt-1 px-2 py-0.5 rounded text-[11px] font-medium tracking-wide uppercase"
+                      style={{ backgroundColor: 'rgba(11,60,45,0.06)', color: '#0B3C2D' }}
+                    >
+                      {t.focus}
+                    </span>
+                  </div>
                 </div>
-                <h3 className="font-display font-600 text-base mb-0.5" style={{ color: '#111827' }}>{t.name}</h3>
-                <p className="text-sm font-medium mb-1" style={{ color: '#0B3C2D' }}>{t.role}</p>
-                <p className="text-xs mb-4" style={{ color: '#9CA3AF' }}>{t.focus}</p>
-                <a href="#" className="inline-flex items-center gap-1.5 text-xs font-medium" style={{ color: '#6B7280' }}>
+
+                {/* Short Bio fill */}
+                <p className="text-xs leading-relaxed mb-6" style={{ color: '#6B7280' }}>
+                  {t.bio}
+                </p>
+              </div>
+
+              {/* Bottom Action / Link */}
+              <div className="pt-4 border-t flex items-center justify-between" style={{ borderColor: '#F3F0E6' }}>
+                <span className="text-[11px] font-mono uppercase tracking-wider" style={{ color: '#9CA3AF' }}>
+                  HQ Executive
+                </span>
+                <a 
+                  href="#" 
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold transition-colors hover:text-[#0B3C2D]" 
+                  style={{ color: '#4B5563' }}
+                >
                   <Link2 className="w-3.5 h-3.5" /> LinkedIn
                 </a>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
-      </section>
+      </div>
+    </section>
     </div>
   )
 }
