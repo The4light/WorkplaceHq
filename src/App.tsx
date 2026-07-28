@@ -21,6 +21,8 @@ import LJListings from './pages/lj/Listings'
 import LJAbout from './pages/lj/About'
 import LJContact from './pages/lj/Contact'
 
+import ScrollToTop from './components/ScrollToTop'
+
 function WHQLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col justify-between">
@@ -48,6 +50,7 @@ function LJLayout({ children }: { children: React.ReactNode }) {
 export default function App() {
   return (
     <BrowserRouter>
+    <ScrollToTop/>
       <Routes>
         {/* WorkplaceHQ routes */}
         <Route path="/" element={<WHQLayout><WHQHome /></WHQLayout>} />

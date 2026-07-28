@@ -1,214 +1,431 @@
 import { useState } from 'react'
-import { Search, MapPin, Clock, Briefcase, ChevronDown, X } from 'lucide-react'
+import { Search, MapPin, Clock, Mail, CheckCircle2, Sparkles, Building2, X, ArrowUpRight, Award, ShieldCheck, PhoneCall } from 'lucide-react'
 
 const jobs = [
   {
-    id: 1, title: 'Senior Product Manager', company: 'Flutterwave', location: 'Lagos', type: 'Full-time', level: 'Senior',
-    salary: '₦800K–₦1.2M/mo', remote: false,
-    desc: 'Lead the product strategy for Flutterwave\'s merchant dashboard. You\'ll own the roadmap, work with engineering, design, and data teams, and drive a product used by 1M+ merchants across Africa.',
-    reqs: ['5+ years PM experience', 'Strong data analysis skills', 'Experience in payments or FinTech', 'Excellent communication'],
-    posted: '2 days ago',
+    id: 1,
+    title: 'Senior Social Media Manager',
+    company: 'Fitcare Health',
+    location: 'Lekki Phase 1, Lagos',
+    type: 'Full-time',
+    mode: 'On-site',
+    salary: '₦300,000 – ₦400,000 / mo',
+    applyContact: 'careers@fitcarehealth.com',
+    contactType: 'email',
+    isFeatured: true,
+    posted: 'Just now',
+    desc: 'Fitcare Health is seeking an experienced Senior Social Media Manager to drive brand growth and manage our presence across all digital channels.',
+    responsibilities: [
+      'Post daily across Instagram, TikTok, Snapchat, WhatsApp, and all brand channels.',
+      'Develop original content concepts and execute daily high-converting Stories.',
+      'Craft sharp, on-brand captions tailored to our target audience.',
+      'Manage the full content calendar and posting schedule.'
+    ],
+    reqs: [
+      'Extensive senior-level social media management experience (wellness, luxury, or lifestyle preference).',
+      'Meticulous attention to detail with zero tolerance for mistakes.',
+      'Up-to-date with current viral trends, platform algorithms, and emerging features.',
+      'Bonus: Visual/phone photography and videography skills.',
+      'Bonus: Owns a personal smartphone with an exceptional camera quality.'
+    ]
   },
   {
-    id: 2, title: 'Backend Engineer (Node.js)', company: 'Paystack', location: 'Remote', type: 'Full-time', level: 'Mid',
-    salary: '₦600K–₦900K/mo', remote: true,
-    desc: 'Build and scale APIs powering millions of daily transactions. You\'ll work on Paystack\'s core infrastructure, improving reliability, latency, and developer experience.',
-    reqs: ['3+ years Node.js', 'PostgreSQL / Redis', 'REST & GraphQL APIs', 'Strong testing culture'],
+    id: 2,
+    title: 'Experienced Travel Manager',
+    company: 'Light Heights Global Services Limited',
+    location: 'Ikeja, Lagos',
+    type: 'Full-time',
+    mode: 'On-site',
+    salary: '₦400,000 – ₦600,000 / mo',
+    applyContact: 'bestrecruilltd@gmail.com',
+    contactType: 'email',
+    isFeatured: true,
     posted: '1 day ago',
+    desc: 'Light Heights Global Services is seeking a results-driven Travel Manager to lead end-to-end travel operations, study abroad processing, and international migration consultancy.',
+    responsibilities: [
+      'Drive business growth and manage admissions processing across top global study destinations.',
+      'Provide visa application support for visitor visas, employment pathways, and residency programs.',
+      'Oversee lead generation, conversion, and sales pipeline management via CRM systems.',
+      'Deliver immigration advisory services for UK, Canada, USA, Australia, Ireland, Germany, and Europe.'
+    ],
+    reqs: [
+      'Minimum of 5 years professional experience in travel and education consultancy.',
+      'Proven expertise in academic travel services (Study Abroad) and non-academic visa programs.',
+      'Demonstrated success in admissions processing and visa advisory.',
+      'Includes performance-based incentives and commission bonuses.'
+    ]
   },
   {
-    id: 3, title: 'UX Designer', company: 'Jumia', location: 'Lagos', type: 'Full-time', level: 'Junior',
-    salary: '₦300K–₦500K/mo', remote: false,
-    desc: 'Design delightful experiences for Jumia\'s 10M+ active shoppers. Work closely with product managers and engineers to deliver impactful interfaces from research to high-fidelity prototypes.',
-    reqs: ['Portfolio of mobile UI work', 'Figma proficiency', '1–3 years experience', 'User research skills'],
+    id: 3,
+    title: 'English Language Teacher',
+    company: 'Jadof College',
+    location: 'Bariga or Ikorodu, Lagos',
+    type: 'Full-time',
+    mode: 'On-site',
+    salary: '₦100,000 – ₦120,000 / mo',
+    applyContact: 'jadofcollege9@gmail.com',
+    contactType: 'email',
+    isFeatured: false,
+    posted: '2 days ago',
+    desc: 'Jadof College is seeking a passionate and experienced English Language Teacher to join our academic faculty. Successful candidates may be posted to either our Bariga or Ikorodu branch.',
+    responsibilities: [
+      'Deliver engaging English Language lessons following modern curriculum standards.',
+      'Evaluate student progress, facilitate coursework, and maintain academic records.'
+    ],
+    reqs: [
+      'Minimum of 2 years teaching experience.',
+      'B.A. or B.Ed. in English, Education, or a related discipline.',
+      'Accommodation Provided.'
+    ]
+  },
+  {
+    id: 4,
+    title: 'Front Desk Officer',
+    company: 'Premium Spa & Wellness',
+    location: 'Lekki Phase 1, Lagos',
+    type: 'Full-time',
+    mode: 'On-site',
+    salary: '₦80,000 / mo',
+    applyContact: '+2348025720847',
+    contactType: 'phone',
+    isFeatured: false,
     posted: '3 days ago',
+    desc: 'Become part of a premium spa where wellness meets excellence. We are looking for a friendly, professional Front Desk Officer ready to deliver exceptional customer experiences.',
+    responsibilities: [
+      'Manage guest reception, booking appointments, and customer inquiries.',
+      'Maintain an organized, welcoming front desk environment.'
+    ],
+    reqs: [
+      'Friendly, professional demeanor with relevant customer service experience.',
+      'Ready to start immediately.',
+      'Accommodation Provided.',
+      'How to Apply: Send CV and a recent picture via WhatsApp/Phone.'
+    ]
   },
   {
-    id: 4, title: 'Data Analyst', company: 'MTN Nigeria', location: 'Abuja', type: 'Full-time', level: 'Mid',
-    salary: '₦450K–₦650K/mo', remote: false,
-    desc: 'Analyze subscriber data, build dashboards, and generate insights that influence network investment decisions across Nigeria\'s largest telco.',
-    reqs: ['SQL (advanced)', 'Python or R', 'Power BI / Tableau', 'Telco experience preferred'],
-    posted: '5 days ago',
-  },
-  {
-    id: 5, title: 'Frontend Developer', company: 'Interswitch', location: 'Lagos', type: 'Full-time', level: 'Junior',
-    salary: '₦280K–₦420K/mo', remote: false,
-    desc: 'Build performant, accessible React interfaces for Interswitch\'s suite of payment and banking products used by FIs and fintechs across Africa.',
-    reqs: ['React & TypeScript', 'CSS / Tailwind', '1–3 years experience', 'Accessibility mindset'],
-    posted: '1 week ago',
-  },
-  {
-    id: 6, title: 'Marketing Lead', company: 'Sterling Bank', location: 'Lagos', type: 'Full-time', level: 'Senior',
-    salary: '₦700K–₦1M/mo', remote: false,
-    desc: 'Own Sterling\'s brand and growth marketing, leading a team of 8 across digital, content, and performance channels. Drive acquisition and engagement for retail and SME segments.',
-    reqs: ['7+ years marketing', 'Financial services experience', 'Strong analytics background', 'Team leadership'],
-    posted: '4 days ago',
-  },
+    id: 5,
+    title: 'Customer Sales Officer',
+    company: 'Seal Group',
+    location: 'Lagos',
+    type: 'Full-time',
+    mode: 'On-site',
+    salary: 'Competitive / Performance Based',
+    applyContact: 'HCM@sealgroupnigeria.com',
+    contactType: 'email',
+    isFeatured: false,
+    posted: '3 days ago',
+    desc: 'Seal Group is hiring a motivated Customer Sales Officer to expand client reach and drive revenue growth across key markets.',
+    responsibilities: [
+      'Identify new business opportunities and manage client outreach.',
+      'Execute direct sales strategies to meet and exceed monthly targets.'
+    ],
+    reqs: [
+      'Minimum of OND, HND, or B.Sc. in any discipline.',
+      'Must have a strong sales track record and relevant sales experience.'
+    ]
+  }
 ]
 
-const levelColors: Record<string, [string, string]> = {
-  Junior: ['rgba(16,185,129,0.1)', '#065F46'],
-  Mid: ['rgba(6,182,212,0.1)', '#164E63'],
-  Senior: ['rgba(255,90,54,0.1)', '#9A3412'],
-}
-
 export default function LJListings() {
-  const [selected, setSelected] = useState(jobs[0])
-  const [modal, setModal] = useState(false)
+  const [selectedJob, setSelectedJob] = useState(jobs[0])
+  const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false)
   const [search, setSearch] = useState('')
-  const [filter, setFilter] = useState({ location: 'All', level: 'All', remote: 'All' })
+  const [filterMode, setFilterMode] = useState('All')
 
-  const filtered = jobs.filter(j =>
-    j.title.toLowerCase().includes(search.toLowerCase()) &&
-    (filter.location === 'All' || j.location === filter.location) &&
-    (filter.level === 'All' || j.level === filter.level) &&
-    (filter.remote === 'All' || (filter.remote === 'Remote' ? j.remote : !j.remote))
-  )
+  const filtered = jobs.filter(j => {
+    const matchesQuery = j.title.toLowerCase().includes(search.toLowerCase()) ||
+                         j.company.toLowerCase().includes(search.toLowerCase()) ||
+                         j.location.toLowerCase().includes(search.toLowerCase())
+    const matchesMode = filterMode === 'All' || j.mode === filterMode
+    return matchesQuery && matchesMode
+  })
+
+  const handleSelectJob = (job: typeof jobs[0]) => {
+    setSelectedJob(job)
+    setIsMobileDrawerOpen(true)
+  }
 
   return (
     <div style={{ backgroundColor: '#F4F7F6', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
-      {/* Header */}
-      <div className="relative pt-32 pb-6 px-6 overflow-hidden">
-        <div className="pointer-events-none absolute -top-16 -right-16 w-[400px] h-[400px] rounded-full" style={{ background: '#FF5A36', filter: 'blur(140px)', opacity: 0.18 }} />
-        <div className="max-w-[1440px] mx-auto">
-          <h1 className="font-display font-700 text-[clamp(2rem,4vw,3rem)] mb-4" style={{ color: '#0D131A' }}>Job Listings</h1>
+      
+      {/* Header Banner */}
+      <div className="relative pt-28 pb-8 px-4 sm:px-6 overflow-hidden bg-[#0F2C34]">
+        <div className="pointer-events-none absolute -top-20 -right-20 w-96 h-96 rounded-full" style={{ background: '#FF5A36', filter: 'blur(120px)', opacity: 0.25 }} />
+        <div className="pointer-events-none absolute -bottom-20 -left-20 w-96 h-96 rounded-full" style={{ background: '#06B6D4', filter: 'blur(120px)', opacity: 0.2 }} />
 
-          {/* Search & filter */}
-          <div className="flex flex-wrap gap-3">
-            <div className="relative flex-1 min-w-52">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: '#9CA3AF' }} />
+        <div className="max-w-[1440px] mx-auto relative z-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3 text-[#06B6D4] bg-[#06B6D4]/10 border border-[#06B6D4]/20">
+            <Sparkles className="w-3.5 h-3.5" /> Curated Lagos Hiring
+          </div>
+          <h1 className="font-display font-700 text-3xl sm:text-5xl text-white mb-3">
+            Active Job Opportunities
+          </h1>
+          <p className="text-gray-300 text-sm sm:text-base max-w-xl mb-6">
+            Direct access to verified positions across top companies and brands in Lagos.
+          </p>
+
+          {/* Search Input */}
+          <div className="max-w-2xl mb-4">
+            <div className="relative">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
               <input
-                className="w-full pl-10 pr-4 py-2.5 text-sm outline-none"
-                style={{ border: '1px solid #D6E2E0', borderRadius: '8px', backgroundColor: '#FFFFFF' }}
-                placeholder="Search roles..."
+                className="w-full pl-11 pr-4 py-3 text-sm rounded-xl outline-none bg-white/10 text-white placeholder-gray-400 border border-white/15 focus:border-[#FF5A36] backdrop-blur-md transition-all"
+                placeholder="Search by job title, employer, or area..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
               />
             </div>
-            {(['location', 'level', 'remote'] as const).map(k => (
-              <div key={k} className="relative">
-                <select
-                  className="px-4 py-2.5 text-sm outline-none pr-8 appearance-none"
-                  style={{ border: '1px solid #D6E2E0', borderRadius: '8px', backgroundColor: '#FFFFFF', color: '#0D131A', cursor: 'pointer' }}
-                  value={filter[k]}
-                  onChange={e => setFilter(f => ({ ...f, [k]: e.target.value }))}
-                >
-                  <option value="All">All {k}</option>
-                  {k === 'location' && ['Lagos', 'Abuja', 'Remote'].map(o => <option key={o}>{o}</option>)}
-                  {k === 'level' && ['Junior', 'Mid', 'Senior'].map(o => <option key={o}>{o}</option>)}
-                  {k === 'remote' && ['Remote', 'Onsite'].map(o => <option key={o}>{o}</option>)}
-                </select>
-                <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 pointer-events-none" style={{ color: '#9CA3AF' }} />
-              </div>
-            ))}
           </div>
-        </div>
-      </div>
 
-      {/* Split view */}
-      <div className="px-6 pb-20">
-        <div className="max-w-[1440px] mx-auto grid lg:grid-cols-[380px_1fr] gap-5">
-          {/* Left: job list */}
-          <div className="flex flex-col gap-3 overflow-y-auto" style={{ maxHeight: '70vh' }}>
-            {filtered.map(j => {
-              const [bg, color] = levelColors[j.level]
-              const isSelected = selected.id === j.id
+          {/* Mobile-Friendly Horizontal Pill Filters */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+            {['All', 'On-site', 'Hybrid', 'Remote'].map(mode => {
+              const isActive = filterMode === mode
               return (
                 <button
-                  key={j.id}
-                  onClick={() => setSelected(j)}
-                  className="p-5 rounded-2xl text-left transition-all duration-200"
-                  style={{
-                    backgroundColor: isSelected ? '#0F2C34' : '#FFFFFF',
-                    border: `1px solid ${isSelected ? 'rgba(6,182,212,0.35)' : '#D6E2E0'}`,
-                  }}
+                  key={mode}
+                  type="button"
+                  onClick={() => setFilterMode(mode)}
+                  className={`px-4 py-2 text-xs sm:text-sm font-semibold rounded-full transition-all whitespace-nowrap shrink-0 border ${
+                    isActive
+                      ? 'bg-[#FF5A36] text-white border-[#FF5A36] shadow-md shadow-[#FF5A36]/20'
+                      : 'bg-white/10 text-gray-300 border-white/15 hover:bg-white/20'
+                  }`}
                 >
-                  <div className="flex items-start justify-between mb-2">
-                    <span className="px-2 py-0.5 rounded-full text-xs font-medium" style={{ backgroundColor: isSelected ? 'rgba(6,182,212,0.2)' : bg, color: isSelected ? '#06B6D4' : color }}>{j.level}</span>
-                    <span className="text-xs flex items-center gap-1" style={{ color: isSelected ? 'rgba(255,255,255,0.4)' : '#9CA3AF' }}>
-                      <Clock className="w-3 h-3" /> {j.posted}
-                    </span>
-                  </div>
-                  <h3 className="font-display font-600 text-base mb-0.5" style={{ color: isSelected ? '#FFFFFF' : '#0D131A' }}>{j.title}</h3>
-                  <p className="text-sm mb-2" style={{ color: isSelected ? 'rgba(255,255,255,0.6)' : '#6B7280' }}>{j.company}</p>
-                  <div className="flex items-center justify-between">
-                    <span className="flex items-center gap-1 text-xs" style={{ color: isSelected ? '#06B6D4' : '#9CA3AF' }}>
-                      <MapPin className="w-3 h-3" /> {j.location}
-                    </span>
-                    <span className="text-xs font-semibold" style={{ color: isSelected ? '#FF5A36' : '#FF5A36' }}>{j.salary}</span>
-                  </div>
+                  {mode === 'All' ? 'All Work Modes' : mode}
                 </button>
               )
             })}
           </div>
 
-          {/* Right: detail panel */}
-          <div className="p-8 rounded-2xl" style={{ backgroundColor: '#FFFFFF', border: '1px solid #D6E2E0' }}>
-            <div className="flex items-start justify-between mb-6">
-              <div>
-                <h2 className="font-display font-700 text-2xl mb-1" style={{ color: '#0D131A' }}>{selected.title}</h2>
-                <div className="flex items-center gap-3">
-                  <span className="text-base" style={{ color: '#6B7280' }}>{selected.company}</span>
-                  <span className="flex items-center gap-1 text-sm" style={{ color: '#9CA3AF' }}>
-                    <MapPin className="w-3.5 h-3.5" /> {selected.location}
-                  </span>
-                  {selected.remote && <span className="px-2 py-0.5 rounded-full text-xs" style={{ backgroundColor: 'rgba(16,185,129,0.1)', color: '#065F46' }}>Remote</span>}
-                </div>
-              </div>
-              <div className="text-right">
-                <div className="font-display font-700 text-xl" style={{ color: '#FF5A36' }}>{selected.salary}</div>
-                <div className="text-xs" style={{ color: '#9CA3AF' }}>{selected.type}</div>
-              </div>
-            </div>
-
-            <div className="mb-6">
-              <h3 className="font-display font-600 text-base mb-2" style={{ color: '#0D131A' }}>About the Role</h3>
-              <p className="text-sm leading-relaxed" style={{ color: '#6B7280' }}>{selected.desc}</p>
-            </div>
-
-            <div className="mb-8">
-              <h3 className="font-display font-600 text-base mb-3" style={{ color: '#0D131A' }}>Requirements</h3>
-              <ul className="flex flex-col gap-2">
-                {selected.reqs.map(r => (
-                  <li key={r} className="flex items-center gap-2.5 text-sm" style={{ color: '#6B7280' }}>
-                    <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: '#06B6D4' }} />
-                    {r}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <button
-              onClick={() => setModal(true)}
-              className="flex items-center gap-2 px-8 py-3.5 rounded-lg font-semibold text-sm text-white"
-              style={{ backgroundColor: '#FF5A36', fontFamily: 'var(--font-display)' }}
-            >
-              <Briefcase className="w-4 h-4" /> Apply Now
-            </button>
-          </div>
         </div>
       </div>
 
-      {modal && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" style={{ backgroundColor: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(4px)' }} onClick={() => setModal(false)}>
-          <div className="w-full max-w-md p-8 rounded-2xl" style={{ backgroundColor: '#FFFFFF' }} onClick={e => e.stopPropagation()}>
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="font-display font-700 text-xl" style={{ color: '#0D131A' }}>Apply: {selected.title}</h3>
-              <button onClick={() => setModal(false)}><X className="w-4 h-4" style={{ color: '#9CA3AF' }} /></button>
+      {/* Main Content Layout */}
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 py-6">
+        {/* items-stretch ensures left and right columns share the exact same height */}
+        <div className="grid lg:grid-cols-12 gap-6 items-stretch">
+          
+          {/* Left Feed Column - Matched height to right panel */}
+          <div className="lg:col-span-5 flex flex-col h-full min-h-0">
+            <div className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3 flex justify-between items-center shrink-0">
+              <span>Showing {filtered.length} Roles</span>
+              <span className="text-[#FF5A36]">Tap to inspect details</span>
             </div>
-            <p className="text-sm mb-4" style={{ color: '#6B7280' }}>{selected.company} · {selected.location}</p>
-            <div className="flex flex-col gap-3">
-              <input className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6' }} placeholder="Full Name" />
-              <input className="px-4 py-3 text-sm outline-none" type="email" style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6' }} placeholder="Email Address" />
-              <input className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6' }} placeholder="LinkedIn or Portfolio URL" />
-              <textarea className="px-4 py-3 text-sm outline-none resize-none h-24" style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6' }} placeholder="Cover note — why are you a great fit?" />
-              <button className="w-full py-3.5 rounded-lg font-semibold text-sm text-white" style={{ backgroundColor: '#FF5A36', fontFamily: 'var(--font-display)' }} onClick={() => setModal(false)}>
-                Submit Application
-              </button>
+
+            {/* Scrollable Feed List strictly bounded to panel height */}
+            <div className="space-y-3 overflow-y-auto pr-1 flex-1 min-h-0 scrollbar-thin scrollbar-thumb-gray-300">
+              {filtered.map(j => {
+                const isSelected = selectedJob.id === j.id
+
+                return (
+                  <div
+                    key={j.id}
+                    onClick={() => handleSelectJob(j)}
+                    className={`group relative p-5 rounded-2xl cursor-pointer transition-all duration-200 border ${
+                      isSelected 
+                        ? 'bg-white border-[#FF5A36] shadow-md ring-2 ring-[#FF5A36]/15' 
+                        : 'bg-white border-gray-200 hover:border-gray-300 hover:shadow-sm'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between mb-2.5">
+                      <div className="flex items-center gap-2">
+                        {j.isFeatured && (
+                          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#FF5A36] text-white">
+                            Featured
+                          </span>
+                        )}
+                        <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-cyan-50 text-cyan-800 border border-cyan-200">
+                          {j.mode}
+                        </span>
+                      </div>
+
+                      <span className="text-xs text-gray-400 flex items-center gap-1">
+                        <Clock className="w-3.5 h-3.5" /> {j.posted}
+                      </span>
+                    </div>
+
+                    <h3 className="font-display font-700 text-base sm:text-lg text-gray-900 group-hover:text-[#FF5A36] transition-colors mb-1">
+                      {j.title}
+                    </h3>
+                    
+                    <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600 mb-3">
+                      <span className="font-semibold text-gray-800 flex items-center gap-1">
+                        <Building2 className="w-3.5 h-3.5 text-gray-400" /> {j.company}
+                      </span>
+                      <span className="text-gray-300">•</span>
+                      <span className="flex items-center gap-1">
+                        <MapPin className="w-3.5 h-3.5 text-[#FF5A36]" /> {j.location}
+                      </span>
+                    </div>
+
+                    <div className="pt-3 border-t border-gray-100 flex items-center justify-between">
+                      <span className="font-display font-700 text-sm text-[#0B3C2D]">
+                        {j.salary}
+                      </span>
+                      <span className="text-xs font-bold text-[#FF5A36] flex items-center gap-0.5 group-hover:translate-x-0.5 transition-transform">
+                        Inspect <ArrowUpRight className="w-3.5 h-3.5" />
+                      </span>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+
+          {/* Desktop Right Detail Reader */}
+          <div className="hidden lg:block lg:col-span-7">
+            <JobDetailPanel job={selectedJob} />
+          </div>
+
+        </div>
+      </div>
+
+      {/* Mobile Drawer */}
+      {isMobileDrawerOpen && (
+        <div className="fixed inset-0 z-50 lg:hidden bg-black/60 backdrop-blur-sm flex justify-end">
+          <div className="w-full max-w-xl bg-white h-full overflow-y-auto p-6 flex flex-col justify-between shadow-2xl">
+            <div>
+              <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-100">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#FF5A36]">Job Inspection</span>
+                <button 
+                  onClick={() => setIsMobileDrawerOpen(false)}
+                  className="p-2 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <JobDetailPanel job={selectedJob} />
             </div>
           </div>
         </div>
       )}
+
     </div>
   )
 }
+
+/* Detailed Inspection Card */
+function JobDetailPanel({ job }: { job: typeof jobs[0] }) {
+  const isPhone = job.contactType === 'phone'
+  const actionHref = isPhone 
+    ? `https://wa.me/${job.applyContact.replace(/[^0-9]/g, '')}`
+    : `mailto:${job.applyContact}?subject=${encodeURIComponent(`Application for ${job.title}`)}`
+
+  return (
+    <div className="bg-white rounded-3xl border border-gray-200 p-6 sm:p-8 shadow-lg relative overflow-hidden h-full">
+      
+      <div className="relative z-10 mb-6 pb-6 border-b border-gray-100">
+        <div className="flex flex-wrap items-center gap-2 mb-3">
+          {job.isFeatured && (
+            <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-[#FF5A36] text-white flex items-center gap-1">
+              <Award className="w-3.5 h-3.5" /> Verified Opportunity
+            </span>
+          )}
+          <span className="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200 flex items-center gap-1">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" /> Active Hiring
+          </span>
+        </div>
+
+        <h2 className="font-display font-700 text-2xl sm:text-3xl text-gray-900 mb-2">
+          {job.title}
+        </h2>
+
+        <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 font-medium mb-4">
+          <span className="flex items-center gap-1.5 text-gray-900 font-bold text-base">
+            <Building2 className="w-4 h-4 text-[#FF5A36]" /> {job.company}
+          </span>
+          <span className="flex items-center gap-1.5">
+            <MapPin className="w-4 h-4 text-emerald-600" /> {job.location}
+          </span>
+          <span className="px-2.5 py-0.5 rounded-md text-xs font-semibold bg-gray-100 text-gray-700">
+            {job.mode}
+          </span>
+        </div>
+
+        <div className="p-4 rounded-2xl bg-[#0F2C34] text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div>
+            <div className="text-xs uppercase tracking-wider text-cyan-400 font-bold">Monthly Compensation</div>
+            <div className="font-display font-700 text-xl sm:text-2xl text-white">{job.salary}</div>
+          </div>
+          <a
+            href={actionHref}
+            target={isPhone ? "_blank" : "_self"}
+            rel="noreferrer"
+            className="w-full sm:w-auto px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider text-white transition-all hover:bg-[#FF5A36]/90 flex items-center justify-center gap-2 shadow-md"
+            style={{ backgroundColor: '#FF5A36', fontFamily: 'var(--font-display)' }}
+          >
+            {isPhone ? <PhoneCall className="w-4 h-4" /> : <Mail className="w-4 h-4" />} 
+            {isPhone ? 'Apply via WhatsApp' : 'Apply Directly'}
+          </a>
+        </div>
+      </div>
+
+      {/* About */}
+      <div className="mb-6">
+        <h3 className="font-display font-700 text-xs uppercase tracking-wider text-gray-400 mb-2">
+          About the Role
+        </h3>
+        <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
+          {job.desc}
+        </p>
+      </div>
+
+      {/* Responsibilities */}
+      {job.responsibilities && job.responsibilities.length > 0 && (
+        <div className="mb-6">
+          <h3 className="font-display font-700 text-xs uppercase tracking-wider text-gray-400 mb-3">
+            Key Responsibilities
+          </h3>
+          <ul className="space-y-2.5">
+            {job.responsibilities.map((resp, i) => (
+              <li key={i} className="flex items-start gap-3 text-sm text-gray-700">
+                <div className="w-2 h-2 rounded-full bg-[#FF5A36] shrink-0 mt-1.5" />
+                <span className="leading-normal">{resp}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* Requirements */}
+      <div className="mb-8">
+        <h3 className="font-display font-700 text-xs uppercase tracking-wider text-gray-400 mb-3">
+          Requirements & Qualifications
+        </h3>
+        <ul className="space-y-2.5">
+          {job.reqs.map((req, i) => (
+            <li key={i} className="flex items-start gap-3 text-sm text-gray-700">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+              <span className="leading-normal">{req}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Application Instructions */}
+      <div className="p-5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-950 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          <div className="font-bold text-sm text-emerald-900">Application Instructions</div>
+          <div className="text-xs text-emerald-800 mt-0.5">
+            {isPhone ? (
+              <>Send your CV and recent picture to <span className="font-semibold underline">{job.applyContact}</span>.</>
+            ) : (
+              <>Send your CV to <span className="font-semibold underline">{job.applyContact}</span> with subject <span className="font-mono bg-emerald-100 px-1.5 py-0.5 rounded text-emerald-900">"{job.title}"</span>.</>
+            )}
+          </div>
+        </div>
+        <a
+          href={actionHref}
+          target={isPhone ? "_blank" : "_self"}
+          rel="noreferrer"
+          className="w-full sm:w-auto px-5 py-2.5 rounded-lg bg-emerald-800 text-white font-bold text-xs uppercase tracking-wider hover:bg-emerald-900 shrink-0 text-center"
+        >
+          {isPhone ? 'Open WhatsApp' : 'Send Email'}
+        </a>
+      </div>
+
+    </div>
+  )
+} 

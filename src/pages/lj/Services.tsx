@@ -1,93 +1,353 @@
-import { Link } from 'react-router-dom'
-import { FileText, Link2, Palette, Globe, User, Briefcase, ArrowRight } from 'lucide-react'
+import { useState } from 'react'
+import { 
+  Building2, 
+  GraduationCap, 
+  PlaneTakeoff, 
+  Briefcase, 
+  UserCheck, 
+  PhoneCall, 
+  CheckCircle2, 
+  ArrowUpRight,
+  ShieldCheck,
+  Send,
+  X,
+  MessageSquare
+} from 'lucide-react'
 
 const services = [
   {
-    icon: FileText,
-    title: 'CV & Resume Optimisation',
-    desc: 'AI-powered resume analysis that benchmarks against ATS systems and real hiring manager preferences. Get keyword gap analysis, format scoring, and instant rewrite suggestions for your target role.',
-    tool: 'cv',
-    outcomes: ['ATS Score 85+', '3× more recruiter responses', 'Role-specific keyword mapping'],
+    id: 'travel-immigration',
+    icon: PlaneTakeoff,
+    title: 'Travel & Migration Advisory',
+    category: 'Immigration & Visas',
+    tagline: 'Personalized guidance from licensed migration specialists.',
+    desc: 'Our dedicated travel advisors work directly with you to evaluate visa eligibility, prepare required documentation, and manage your migration application process end-to-end.',
+    highlights: [
+      '1-on-1 strategy session with an experienced migration consultant',
+      'Full application document review and verification',
+      'Visitor, work, and residency pathways (UK, Canada, USA, Europe)'
+    ],
+    directContact: '+2348025720847'
   },
   {
-    icon: Link2,
-    title: 'LinkedIn Profile Optimisation',
-    desc: 'Transform your LinkedIn from a digital CV into a talent magnet. Headline generation, about section refining, and a visual profile impact score.',
-    tool: 'linkedin',
-    outcomes: ['Profile views +220%', 'Recruiter InMail +180%', 'Search ranking boost'],
+    id: 'study-abroad',
+    icon: GraduationCap,
+    title: 'Study Abroad Admissions Support',
+    category: 'Education',
+    tagline: 'End-to-end academic advisory and university placement.',
+    desc: 'Skip the confusion of overseas applications. Our academic counselors evaluate your credentials, assist in selecting top global universities, and handle admission processing directly.',
+    highlights: [
+      'Personalized university and course selection strategy',
+      'SOP, CV, and essay drafting assistance by academic specialists',
+      'Student visa guidance and post-admission support'
+    ],
+    directContact: '+2348025720847'
   },
   {
-    icon: Palette,
-    title: 'Portfolio Creator',
-    desc: 'Instantly generate a visual portfolio layout from your project inputs. Built for designers, engineers, marketers, and writers who need to show their work, not just describe it.',
-    tool: 'portfolio',
-    outcomes: ['Interview conversation starter', 'Work showcased instantly', 'Zero technical setup'],
-  },
-  {
-    icon: Globe,
-    title: 'Personal Website Creator',
-    desc: 'A personal site preview generated from your bio, work history, and link selections. Desktop and mobile ready.',
-    tool: 'website',
-    outcomes: ['Professional online presence', 'No code required', 'Custom link hub'],
-  },
-  {
-    icon: User,
-    title: 'Personal Branding Guide',
-    desc: 'Automated positioning generator that produces content pillars, bio hooks, and platform strategy based on your industry and core strengths.',
-    tool: 'branding',
-    outcomes: ['Content pillars defined', 'Bio hooks generated', 'Platform strategy'],
-  },
-  {
+    id: 'corporate-hiring',
     icon: Briefcase,
-    title: 'Job Listings Engine',
-    desc: 'A curated, filterable job board with real-time role filtering, salary range tags, and 1-click application forms. Lagos-focused, Africa-first.',
-    tool: 'jobs',
-    outcomes: ['14,000+ live roles', 'Salary transparency', '1-click applications'],
+    title: 'Executive Talent Placement',
+    category: 'Recruitment',
+    tagline: 'Custom recruitment tailored to your business needs.',
+    desc: 'We match businesses in Lagos and across Nigeria with vetted professionals. Our human resource personnel handle screening, interviewing, and candidate shortlisting.',
+    highlights: [
+      'Tailored candidate sourcing and multi-stage screening',
+      'Dedicated recruitment specialist assigned to your hiring needs',
+      'Post-placement onboarding follow-up'
+    ],
+    directContact: '+2348025720847'
   },
+  {
+    id: 'business-consulting',
+    icon: Building2,
+    title: 'Corporate Advisory & Strategy',
+    category: 'Business Operations',
+    tagline: 'Hands-on operational and growth consulting.',
+    desc: 'Work directly with our corporate advisory team to scale operations, optimize workforce strategy, and resolve organizational bottlenecks.',
+    highlights: [
+      'Structured operational audit and growth roadmap',
+      'Direct access to senior industry consultants',
+      'Customized execution plans for SMEs and enterprises'
+    ],
+    directContact: '+2348025720847'
+  }
 ]
 
 export default function LJServices() {
+  const [selectedService, setSelectedService] = useState(services[0])
+  const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false)
+
+  const handleSelectService = (service: typeof services[0]) => {
+    setSelectedService(service)
+    setIsMobileDrawerOpen(true)
+  }
+
   return (
     <div style={{ backgroundColor: '#F4F7F6', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
-      <div className="relative pt-32 pb-12 px-6 overflow-hidden">
-        <div className="pointer-events-none absolute -top-16 -right-16 w-[450px] h-[450px] rounded-full" style={{ background: '#FF5A36', filter: 'blur(140px)', opacity: 0.2 }} />
-        <div className="pointer-events-none absolute -bottom-24 -left-24 w-[550px] h-[550px] rounded-full" style={{ background: '#06B6D4', filter: 'blur(160px)', opacity: 0.15 }} />
+      
+      {/* Header Banner */}
+      <div className="relative pt-28 pb-8 px-4 sm:px-6 overflow-hidden bg-[#0F2C34]">
+        <div className="pointer-events-none absolute -top-20 -right-20 w-96 h-96 rounded-full" style={{ background: '#FF5A36', filter: 'blur(120px)', opacity: 0.25 }} />
+        <div className="pointer-events-none absolute -bottom-20 -left-20 w-96 h-96 rounded-full" style={{ background: '#06B6D4', filter: 'blur(120px)', opacity: 0.2 }} />
+
         <div className="max-w-[1440px] mx-auto relative z-10">
-          <h1 className="font-display font-700 text-[clamp(2rem,4vw,3.5rem)] leading-tight mb-4" style={{ color: '#0D131A' }}>Career Acceleration Services</h1>
-          <p className="text-lg max-w-xl" style={{ color: '#6B7280' }}>Six tools. One purpose: getting you hired faster, better, and on your terms.</p>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3 text-[#06B6D4] bg-[#06B6D4]/10 border border-[#06B6D4]/20">
+            <UserCheck className="w-3.5 h-3.5" /> Human-Led Advisory
+          </div>
+          <h1 className="font-display font-700 text-3xl sm:text-5xl text-white mb-3">
+            Advisory & Consulting Services
+          </h1>
+          <p className="text-gray-300 text-sm sm:text-base max-w-xl">
+            Direct access to dedicated human specialists for travel, study abroad, recruitment, and corporate advisory.
+          </p>
         </div>
       </div>
 
-      <section className="px-6 pb-20">
-        <div className="max-w-[1440px] mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map(s => {
-            const Icon = s.icon
-            return (
-              <div key={s.title} className="p-7 rounded-2xl flex flex-col gap-5 group" style={{ backgroundColor: '#FFFFFF', border: '1px solid #D6E2E0' }}>
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ backgroundColor: 'rgba(6,182,212,0.1)' }}>
-                  <Icon className="w-6 h-6" style={{ color: '#06B6D4' }} />
-                </div>
-                <div>
-                  <h3 className="font-display font-700 text-lg mb-2" style={{ color: '#0D131A' }}>{s.title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: '#6B7280' }}>{s.desc}</p>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {s.outcomes.map(o => (
-                    <span key={o} className="px-2.5 py-1 rounded-full text-xs" style={{ backgroundColor: 'rgba(15,44,52,0.06)', color: '#0F2C34', border: '1px solid #D6E2E0' }}>{o}</span>
-                  ))}
-                </div>
-                <Link
-                  to={`/lagos-jobs/tools?tab=${s.tool}`}
-                  className="mt-auto flex items-center gap-1.5 text-sm font-semibold"
-                  style={{ color: '#FF5A36', fontFamily: 'var(--font-display)' }}
-                >
-                  Launch Tool <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            )
-          })}
+      {/* Main Content Layout */}
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 py-6">
+        {/* Equal height column setup */}
+        <div className="grid lg:grid-cols-12 gap-6 items-stretch">
+          
+          {/* Left Feed Column */}
+          <div className="lg:col-span-5 flex flex-col h-full min-h-0">
+            <div className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3 flex justify-between items-center shrink-0">
+              <span>{services.length} Core Services Available</span>
+              <span className="text-[#FF5A36]">Tap to inspect details</span>
+            </div>
+
+            {/* Scrollable Feed List */}
+            <div className="space-y-3 overflow-y-auto pr-1 flex-1 min-h-0 scrollbar-thin scrollbar-thumb-gray-300">
+              {services.map(s => {
+                const isSelected = selectedService.id === s.id
+                const Icon = s.icon
+
+                return (
+                  <div
+                    key={s.id}
+                    onClick={() => handleSelectService(s)}
+                    className={`group relative p-5 rounded-2xl cursor-pointer transition-all duration-200 border ${
+                      isSelected 
+                        ? 'bg-white border-[#FF5A36] shadow-md ring-2 ring-[#FF5A36]/15' 
+                        : 'bg-white border-gray-200 hover:border-gray-300 hover:shadow-sm'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-cyan-50 text-cyan-800 border border-cyan-200">
+                        {s.category}
+                      </span>
+                      <span className="text-xs font-bold text-[#FF5A36] flex items-center gap-0.5 group-hover:translate-x-0.5 transition-transform">
+                        Inspect <ArrowUpRight className="w-3.5 h-3.5" />
+                      </span>
+                    </div>
+
+                    <div className="flex items-start gap-3 mt-1">
+                      <div className={`p-2.5 rounded-xl shrink-0 ${isSelected ? 'bg-[#FF5A36] text-white' : 'bg-gray-100 text-gray-700'}`}>
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h3 className="font-display font-700 text-base sm:text-lg text-gray-900 group-hover:text-[#FF5A36] transition-colors mb-1">
+                          {s.title}
+                        </h3>
+                        <p className="text-xs text-gray-500 leading-relaxed line-clamp-2">
+                          {s.tagline}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+
+          {/* Desktop Right Detail Reader */}
+          <div className="hidden lg:block lg:col-span-7">
+            <ServiceDetailPanel service={selectedService} />
+          </div>
+
         </div>
-      </section>
+      </div>
+
+      {/* Mobile Drawer */}
+      {isMobileDrawerOpen && (
+        <div className="fixed inset-0 z-50 lg:hidden bg-black/60 backdrop-blur-sm flex justify-end">
+          <div className="w-full max-w-xl bg-white h-full overflow-y-auto p-6 flex flex-col justify-between shadow-2xl">
+            <div>
+              <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-100">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#FF5A36]">Service Details</span>
+                <button 
+                  onClick={() => setIsMobileDrawerOpen(false)}
+                  className="p-2 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <ServiceDetailPanel service={selectedService} />
+            </div>
+          </div>
+        </div>
+      )}
+
+    </div>
+  )
+}
+
+/* Service Detailed Inspection Card & Consultation Form */
+function ServiceDetailPanel({ service }: { service: typeof services[0] }) {
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false)
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+    notes: ''
+  })
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsFormSubmitted(true)
+  }
+
+  const whatsappHref = `https://wa.me/${service.directContact.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Hello, I would like to make an inquiry regarding your ${service.title} service.`)}`
+
+  return (
+    <div className="bg-white rounded-3xl border border-gray-200 p-6 sm:p-8 shadow-lg relative overflow-hidden h-full">
+      
+      {/* Header Info */}
+      <div className="relative z-10 mb-6 pb-6 border-b border-gray-100">
+        <div className="flex items-center gap-2 mb-3">
+          <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-50 text-emerald-800 border border-emerald-200 flex items-center gap-1">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" /> Human Personnel Handled
+          </span>
+        </div>
+
+        <h2 className="font-display font-700 text-2xl sm:text-3xl text-gray-900 mb-2">
+          {service.title}
+        </h2>
+
+        <p className="text-sm font-medium text-gray-600 mb-4">
+          {service.tagline}
+        </p>
+
+        {/* Action Header Banner */}
+        <div className="p-4 rounded-2xl bg-[#0F2C34] text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div>
+            <div className="text-xs uppercase tracking-wider text-cyan-400 font-bold">Consultation Mode</div>
+            <div className="font-display font-700 text-sm sm:text-base text-white">Direct Specialist Access</div>
+          </div>
+          <a
+            href={whatsappHref}
+            target="_blank"
+            rel="noreferrer"
+            className="w-full sm:w-auto px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider text-white transition-all hover:bg-[#FF5A36]/90 flex items-center justify-center gap-2 shadow-md"
+            style={{ backgroundColor: '#FF5A36', fontFamily: 'var(--font-display)' }}
+          >
+            <PhoneCall className="w-4 h-4" /> Speak on WhatsApp
+          </a>
+        </div>
+      </div>
+
+      {/* Description */}
+      <div className="mb-6">
+        <h3 className="font-display font-700 text-xs uppercase tracking-wider text-gray-400 mb-2">
+          Service Overview
+        </h3>
+        <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
+          {service.desc}
+        </p>
+      </div>
+
+      {/* Key Features / Highlights */}
+      <div className="mb-8 p-5 rounded-2xl bg-gray-50 border border-gray-150">
+        <h3 className="font-display font-700 text-xs uppercase tracking-wider text-gray-500 mb-3">
+          What Our Specialist Handles
+        </h3>
+        <ul className="space-y-2.5">
+          {service.highlights.map((item, idx) => (
+            <li key={idx} className="flex items-start gap-3 text-sm text-gray-800">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+              <span className="leading-normal font-medium">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Intake Form */}
+      <div className="border-t border-gray-100 pt-6">
+        <h3 className="font-display font-700 text-base text-gray-900 mb-1 flex items-center gap-2">
+          <MessageSquare className="w-4 h-4 text-[#FF5A36]" /> Request a Consultation Meeting
+        </h3>
+        <p className="text-xs text-gray-500 mb-4">
+          Fill out the details below and an assigned specialist will get back to you promptly.
+        </p>
+
+        {isFormSubmitted ? (
+          <div className="p-6 rounded-2xl bg-emerald-50 border border-emerald-200 text-center">
+            <CheckCircle2 className="w-10 h-10 text-emerald-600 mx-auto mb-2" />
+            <h4 className="font-display font-bold text-emerald-900 text-base">Request Submitted</h4>
+            <p className="text-xs text-emerald-700 mt-1">
+              Thank you! Our advisory team will review your message and contact you within 24 business hours.
+            </p>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-3.5">
+            <div className="grid sm:grid-cols-2 gap-3">
+              <div>
+                <label className="block text-xs font-bold text-gray-700 mb-1">Full Name</label>
+                <input
+                  required
+                  type="text"
+                  placeholder="John Doe"
+                  value={formData.fullName}
+                  onChange={e => setFormData({ ...formData, fullName: e.target.value })}
+                  className="w-full px-3 py-2 text-xs sm:text-sm rounded-xl border border-gray-300 outline-none focus:border-[#FF5A36] transition-all"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-gray-700 mb-1">Phone / WhatsApp</label>
+                <input
+                  required
+                  type="tel"
+                  placeholder="+234..."
+                  value={formData.phone}
+                  onChange={e => setFormData({ ...formData, phone: e.target.value })}
+                  className="w-full px-3 py-2 text-xs sm:text-sm rounded-xl border border-gray-300 outline-none focus:border-[#FF5A36] transition-all"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-gray-700 mb-1">Email Address</label>
+              <input
+                required
+                type="email"
+                placeholder="you@example.com"
+                value={formData.email}
+                onChange={e => setFormData({ ...formData, email: e.target.value })}
+                className="w-full px-3 py-2 text-xs sm:text-sm rounded-xl border border-gray-300 outline-none focus:border-[#FF5A36] transition-all"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-gray-700 mb-1">Notes or Specific Requirements</label>
+              <textarea
+                rows={2}
+                placeholder="Tell us briefly how we can assist..."
+                value={formData.notes}
+                onChange={e => setFormData({ ...formData, notes: e.target.value })}
+                className="w-full px-3 py-2 text-xs sm:text-sm rounded-xl border border-gray-300 outline-none focus:border-[#FF5A36] transition-all resize-none"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="w-full py-3 rounded-xl font-bold text-xs uppercase tracking-wider text-white bg-[#0F2C34] hover:bg-[#163f4b] transition-all flex items-center justify-center gap-2 shadow-md"
+            >
+              <Send className="w-3.5 h-3.5" /> Submit Intake Request
+            </button>
+          </form>
+        )}
+      </div>
+
     </div>
   )
 }

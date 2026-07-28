@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Bot, TrendingUp, Settings, HeartHandshake, BarChart3, ChevronLeft, ChevronRight, Star, Zap, Award } from 'lucide-react'
+import { ArrowRight, Bot, TrendingUp, Settings, HeartHandshake, BarChart3, ChevronLeft, ChevronRight, Star, Zap, Award, Briefcase } from 'lucide-react'
 
 const metrics = [
   { value: '98%', label: 'Efficiency Gain' },
@@ -183,26 +183,36 @@ export default function WHQHome() {
             })}
 
             {/* Cross-pollination card */}
-            <div
-              className="col-span-1 relative p-6 sm:p-7 rounded-2xl overflow-hidden"
-              style={{ backgroundColor: '#FBF9F5', border: '1px solid #E5E1D8', backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(217,119,6,0.04) 8px, rgba(217,119,6,0.04) 9px)' }}
-            >
-              <div className="relative z-10">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style={{ backgroundColor: 'rgba(217,119,6,0.1)' }}>
-                  <Award className="w-5 h-5" style={{ color: '#D97706' }} />
-                </div>
-                <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium mb-3" style={{ backgroundColor: 'rgba(217,119,6,0.12)', color: '#D97706' }}>
-                  For Your Workforce
-                </div>
-                <h3 className="font-display font-600 text-lg mb-2" style={{ color: '#111827' }}>Individual Career Upskilling</h3>
-                <p className="text-sm leading-relaxed mb-4" style={{ color: '#6B7280' }}>
-                  Empower your people with Lagos Job — our B2C career acceleration engine with AI tools, job listings, and personal branding support.
-                </p>
-                <Link to="/lagos-jobs" className="flex items-center gap-1.5 text-sm font-semibold" style={{ color: '#D97706', fontFamily: 'var(--font-display)' }}>
-                  Take your team to Lagos Job <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            </div>
+          {/* Cross-pollination card for Lagos Jobs */}
+<div
+  className="col-span-1 relative p-6 sm:p-7 rounded-2xl overflow-hidden flex flex-col justify-between"
+  style={{ 
+    backgroundColor: '#FFFFFF', 
+    border: '1px solid #E5E1D8', 
+    backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(255,90,54,0.03) 8px, rgba(255,90,54,0.03) 9px)' 
+  }}
+>
+  <div className="relative z-10">
+    <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style={{ backgroundColor: 'rgba(255,90,54,0.1)' }}>
+      <Briefcase className="w-5 h-5" style={{ color: '#FF5A36' }} />
+    </div>
+    <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider mb-3" style={{ backgroundColor: 'rgba(255,90,54,0.1)', color: '#FF5A36' }}>
+      Talent & Careers Platform
+    </div>
+    <h3 className="font-display font-600 text-lg mb-2" style={{ color: '#111827' }}>Lagos Jobs Marketplace</h3>
+    <p className="text-sm leading-relaxed mb-4" style={{ color: '#6B7280' }}>
+      Connect directly with verified employers, browse curated job listings across Lagos, or consult with our human advisory specialists for travel and study abroad processing.
+    </p>
+  </div>
+
+  <Link 
+    to="/lagos-jobs" 
+    className="inline-flex items-center gap-2 font-bold text-sm transition-transform hover:translate-x-1" 
+    style={{ color: '#FF5A36', fontFamily: 'var(--font-display)' }}
+  >
+    Explore Lagos Jobs <ArrowRight className="w-4 h-4" />
+  </Link>
+</div>
           </div>
         </div>
       </section>
@@ -226,6 +236,41 @@ export default function WHQHome() {
                   className="w-full h-64 sm:h-80 object-cover"
                 />
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Lagos Jobs Ecosystem Bridge Banner */}
+      <section className="px-4 sm:px-6 py-12">
+        <div className="max-w-[1440px] mx-auto">
+          <div 
+            className="rounded-3xl p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden"
+            style={{ backgroundColor: '#0F2C34', color: '#FFFFFF' }}
+          >
+            {/* Background Accent Glows */}
+            <div className="pointer-events-none absolute -top-24 -right-24 w-80 h-80 rounded-full" style={{ background: '#FF5A36', filter: 'blur(100px)', opacity: 0.2 }} />
+
+            <div className="max-w-2xl relative z-10">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4" style={{ backgroundColor: 'rgba(255,90,54,0.15)', color: '#FF5A36', border: '1px solid rgba(255,90,54,0.3)' }}>
+                Part of the WorkplaceHQ Ecosystem
+              </div>
+              <h2 className="font-display font-700 text-2xl sm:text-4xl text-white mb-3">
+                Looking for Verified Lagos Careers or Advisory Services?
+              </h2>
+              <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
+                Visit <strong>Lagos Jobs</strong> to inspect active local hiring roles, get 1-on-1 migration and study abroad advisory from human personnel, or hire vetted executive talent.
+              </p>
+            </div>
+
+            <div className="shrink-0 relative z-10 w-full md:w-auto">
+              <Link
+                to="/lagos-jobs"
+                className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-bold text-xs uppercase tracking-wider text-white transition-all hover:opacity-90 shadow-lg"
+                style={{ backgroundColor: '#FF5A36', fontFamily: 'var(--font-display)' }}
+              >
+                Go to Lagos Jobs <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
           </div>
         </div>
