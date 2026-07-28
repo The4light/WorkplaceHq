@@ -80,41 +80,62 @@ export default function WHQHome() {
   return (
     <div style={{ backgroundColor: '#FBF9F5', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
       {/* Hero Section */}
-      <section className="relative pt-20 md:pt-32 pb-12 md:pb-24 px-4 sm:px-6 overflow-hidden">
-        {/* Ambient Spheres */}
-        <div className="pointer-events-none absolute -top-16 -right-16 w-[250px] sm:w-[400px] h-[250px] sm:h-[400px] rounded-full" style={{ background: '#D97706', filter: 'blur(100px)', opacity: 0.18 }} />
-        <div className="pointer-events-none absolute -bottom-24 -left-24 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] rounded-full" style={{ background: '#10B981', filter: 'blur(120px)', opacity: 0.15 }} />
-
+      <section className="relative pt-20 md:pt-28 pb-12 md:pb-20 px-4 sm:px-6 overflow-hidden">
         <div className="max-w-[1440px] mx-auto relative z-10">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-6" style={{ backgroundColor: 'rgba(11,60,45,0.08)', color: '#0B3C2D', border: '1px solid #E5E1D8' }}>
-              <Zap className="w-3 h-3" style={{ color: '#10B981' }} />
-              Enterprise Transformation Partners
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            {/* Left Content */}
+            <div className="lg:col-span-7">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-6" style={{ backgroundColor: 'rgba(11,60,45,0.08)', color: '#0B3C2D', border: '1px solid #E5E1D8' }}>
+                <Zap className="w-3 h-3" style={{ color: '#10B981' }} />
+                Enterprise Transformation Partners
+              </div>
+              <h1 className="font-display font-700 text-4xl sm:text-6xl md:text-7xl leading-[1.08] tracking-tight mb-6" style={{ color: '#111827' }}>
+                We Engineer<br />
+                <span style={{ color: '#0B3C2D' }}>How Teams</span><br />
+                Work.
+              </h1>
+              <p className="text-base sm:text-lg leading-relaxed mb-8 sm:mb-10 max-w-xl" style={{ color: '#6B7280' }}>
+                From AI integration to operational excellence — WorkplaceHQ partners with forward-thinking enterprises to build the systems, culture, and capabilities that drive compounding performance.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                <button
+                  onClick={() => setModalOpen(true)}
+                  className="w-full sm:w-auto justify-center flex items-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-sm transition-all duration-200 hover:-translate-y-0.5"
+                  style={{ backgroundColor: '#0B3C2D', color: '#FFFFFF', fontFamily: 'var(--font-display)', boxShadow: '0 4px 24px rgba(11,60,45,0.25)' }}
+                >
+                  Book Executive Consultation <ArrowRight className="w-4 h-4" />
+                </button>
+                <Link
+                  to="/services"
+                  className="w-full sm:w-auto justify-center flex items-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-sm transition-all duration-200 hover:-translate-y-0.5"
+                  style={{ backgroundColor: 'transparent', color: '#0B3C2D', border: '1px solid #E5E1D8', fontFamily: 'var(--font-display)' }}
+                >
+                  Explore Services
+                </Link>
+              </div>
             </div>
-            <h1 className="font-display font-700 text-4xl sm:text-6xl md:text-7xl lg:text-8xl leading-[1.08] tracking-tight mb-6" style={{ color: '#111827' }}>
-              We Engineer<br />
-              <span style={{ color: '#0B3C2D' }}>How Teams</span><br />
-              Work.
-            </h1>
-            <p className="text-base sm:text-lg leading-relaxed mb-8 sm:mb-10 max-w-xl" style={{ color: '#6B7280' }}>
-              From AI integration to operational excellence — WorkplaceHQ partners with forward-thinking enterprises to build the systems, culture, and capabilities that drive compounding performance.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <button
-                onClick={() => setModalOpen(true)}
-                className="w-full sm:w-auto justify-center flex items-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-sm transition-all duration-200 hover:-translate-y-0.5"
-                style={{ backgroundColor: '#0B3C2D', color: '#FFFFFF', fontFamily: 'var(--font-display)', boxShadow: '0 4px 24px rgba(11,60,45,0.25)' }}
-              >
-                Book Executive Consultation <ArrowRight className="w-4 h-4" />
-              </button>
-              <Link
-                to="/services"
-                className="w-full sm:w-auto justify-center flex items-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-sm transition-all duration-200 hover:-translate-y-0.5"
-                style={{ backgroundColor: 'transparent', color: '#0B3C2D', border: '1px solid #E5E1D8', fontFamily: 'var(--font-display)' }}
-              >
-                Explore Services
-              </Link>
+
+            {/* Right Hero Image Frame */}
+            <div className="lg:col-span-5 relative">
+              {/* Single Ring Pattern placed BEHIND the image (z-0) */}
+              <div className="absolute -top-12 -right-12 w-56 h-56 pointer-events-none z-0 hidden sm:block">
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="50" cy="50" r="42" stroke="#1DA54A" strokeWidth="8" />
+                  <circle cx="50" cy="50" r="18" fill="#1DA54A" />
+                </svg>
+              </div>
+
+              {/* Main Image Grid sitting ABOVE the ring (z-10) */}
+              <div className="relative z-10 rounded-2xl overflow-hidden border" style={{ borderColor: '#E5E1D8', boxShadow: '0 20px 40px rgba(0,0,0,0.06)' }}>
+                <img 
+                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80" 
+                  alt="High performing team collaborating in modern office" 
+                  className="w-full h-[420px] object-cover grayscale-[20%] contrast-[1.05]"
+                />
+              </div>
             </div>
+
           </div>
 
           {/* Metrics Grid */}
@@ -184,6 +205,30 @@ export default function WHQHome() {
         </div>
       </section>
 
+      {/* Structured Systems Section */}
+      <section className="px-4 sm:px-6 py-12 sm:py-16">
+        <div className="max-w-[1440px] mx-auto">
+          <div className="rounded-2xl p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E1D8' }}>
+            <div className="lg:col-span-6 space-y-4">
+              <span className="text-xs font-bold tracking-wider uppercase" style={{ color: '#1DA54A' }}>Structured Systems</span>
+              <h2 className="font-display font-700 text-2xl sm:text-4xl" style={{ color: '#111827' }}>Building AI-Ready, High-Performing Workforce Architecture</h2>
+              <p className="text-sm sm:text-base leading-relaxed" style={{ color: '#6B7280' }}>
+                We provide the blueprint and execution layer for modern enterprise transformation. Every program is structured around real operational outputs, measurable efficiency gains, and sustained talent acceleration.
+              </p>
+            </div>
+            <div className="lg:col-span-6">
+              <div className="rounded-xl overflow-hidden border" style={{ borderColor: '#E5E1D8' }}>
+                <img 
+                  src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1000&q=80" 
+                  alt="Modern structured workplace execution session" 
+                  className="w-full h-64 sm:h-80 object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Client Trust Strip */}
       <section className="px-4 sm:px-6 py-8 sm:py-12 border-y" style={{ borderColor: '#E5E1D8' }}>
         <div className="max-w-[1440px] mx-auto">
@@ -239,8 +284,14 @@ export default function WHQHome() {
       <section className="px-4 sm:px-6 pb-12 sm:pb-20">
         <div className="max-w-[1440px] mx-auto">
           <div className="relative p-8 sm:p-12 rounded-2xl overflow-hidden text-center" style={{ backgroundColor: '#0B3C2D' }}>
-            <div className="pointer-events-none absolute -top-12 -right-12 w-64 h-64 rounded-full" style={{ background: '#D97706', filter: 'blur(80px)', opacity: 0.2 }} />
-            <div className="pointer-events-none absolute -bottom-12 -left-12 w-64 h-64 rounded-full" style={{ background: '#10B981', filter: 'blur(100px)', opacity: 0.2 }} />
+            {/* Single Ring Graphic Background */}
+            <div className="absolute -bottom-16 -right-16 w-64 h-64 pointer-events-none opacity-20 hidden sm:block">
+              <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="42" stroke="#FFFFFF" strokeWidth="6" />
+                <circle cx="50" cy="50" r="18" fill="#FFFFFF" />
+              </svg>
+            </div>
+
             <div className="relative z-10">
               <h2 className="font-display font-700 text-2xl sm:text-4xl lg:text-5xl text-white mb-3 sm:mb-4">Ready to transform your organization?</h2>
               <p className="text-sm sm:text-base mb-6 sm:mb-8" style={{ color: 'rgba(255,255,255,0.7)' }}>Let's build the systems your next decade of growth depends on.</p>
