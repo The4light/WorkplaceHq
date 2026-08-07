@@ -21,7 +21,7 @@ export default function WorkplaceHQNav() {
   return (
     <header
       className="fixed top-0 left-0 right-0 z-50"
-      style={{ backdropFilter: 'blur(12px)', backgroundColor: 'rgba(251,249,245,0.88)', borderBottom: '1px solid #E5E1D8' }}
+      style={{ backdropFilter: 'blur(12px)', backgroundColor: 'rgba(244,243,239,0.92)', borderBottom: '1px solid #E5E1D8' }}
     >
       <div className="max-w-[1440px] mx-auto px-6 h-16 flex items-center justify-between gap-8">
       {/* Logo */}
@@ -55,8 +55,8 @@ export default function WorkplaceHQNav() {
           className="hidden xl:flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 shrink-0"
           style={{
             backgroundColor: '#0B3C2D',
-            color: '#10B981',
-            boxShadow: '0 0 0 2px #10B981',
+            color: '#1DA54A',
+            boxShadow: '0 0 0 2px #1DA54A',
             fontFamily: 'var(--font-display)',
           }}
         >
@@ -71,13 +71,13 @@ export default function WorkplaceHQNav() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="xl:hidden border-t px-6 py-4 flex flex-col gap-3" style={{ borderColor: '#E5E1D8', backgroundColor: '#FBF9F5' }}>
+        <div className="xl:hidden border-t px-6 py-4 flex flex-col gap-3" style={{ borderColor: '#E5E1D8', backgroundColor: 'var(--whq-bg)' }}>
           {links.map(l => (
             <Link key={l.to} to={l.to} className="text-sm font-medium" style={{ color: '#111827', fontFamily: 'var(--font-body)' }} onClick={() => setOpen(false)}>
               {l.label}
             </Link>
           ))}
-          <Link to="/lagos-jobs" className="mt-2 flex items-center gap-1 text-sm font-semibold" style={{ color: '#10B981' }} onClick={() => setOpen(false)}>
+          <Link to="/lagos-jobs" className="mt-2 flex items-center gap-1 text-sm font-semibold" style={{ color: '#1DA54A' }} onClick={() => setOpen(false)}>
             Lagos Job <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>

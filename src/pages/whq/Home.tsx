@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Bot, TrendingUp, Settings, HeartHandshake, BarChart3, ChevronLeft, ChevronRight, Star, Zap, Award, Briefcase } from 'lucide-react'
 
@@ -6,14 +6,14 @@ const metrics = [
   { value: '98%', label: 'Efficiency Gain' },
   { value: '50+', label: 'Enterprise Clients' },
   { value: '12K+', label: 'Employees Upskilled' },
-  { value: '4.9★', label: 'Client Satisfaction' },
+  { value: '4.9â˜…', label: 'Client Satisfaction' },
 ]
 
 const services = [
   {
     icon: Bot,
     title: 'AI Adoption',
-    desc: 'End-to-end enterprise AI integration strategies — from readiness audit to full deployment.',
+    desc: 'End-to-end enterprise AI integration strategies â€” from readiness audit to full deployment.',
     colSpan: 'col-span-1 md:col-span-2',
     dark: true,
   },
@@ -61,7 +61,7 @@ const testimonials = [
     rating: 5,
   },
   {
-    quote: "The consulting team doesn't just advise — they embed, build systems, and leave you with something that actually runs.",
+    quote: "The consulting team doesn't just advise â€” they embed, build systems, and leave you with something that actually runs.",
     author: 'Chisom Eze',
     role: 'CEO, Nexbridge Africa',
     rating: 5,
@@ -70,24 +70,73 @@ const testimonials = [
 
 const clients = ['TresBonTech', 'Posh Accent', 'Nexbridge', 'Clearfield', 'VaultGroup', 'Meridian']
 
+const consultationEmail = 'lagos@workplacehq.com'
+
+type ConsultationFormData = {
+  fullName: string
+  email: string
+  company: string
+  interest: string
+}
+
 export default function WHQHome() {
   const [activeTestimonial, setActiveTestimonial] = useState(0)
   const [modalOpen, setModalOpen] = useState(false)
+  const [consultationSubmitted, setConsultationSubmitted] = useState(false)
+  const [consultationForm, setConsultationForm] = useState<ConsultationFormData>({
+    fullName: '',
+    email: '',
+    company: '',
+    interest: '',
+  })
 
   const next = () => setActiveTestimonial(i => (i + 1) % testimonials.length)
   const prev = () => setActiveTestimonial(i => (i - 1 + testimonials.length) % testimonials.length)
+  const consultationMailto = `mailto:${consultationEmail}`
+
+  const openConsultationModal = () => {
+    setConsultationSubmitted(false)
+    setModalOpen(true)
+  }
+
+  const closeConsultationModal = () => {
+    setModalOpen(false)
+  }
+
+  const updateConsultationForm = (field: keyof ConsultationFormData, value: string) => {
+    setConsultationForm(current => ({ ...current, [field]: value }))
+  }
+
+  const handleConsultationSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    const subject = encodeURIComponent(`Executive consultation request from ${consultationForm.fullName}`)
+    const body = encodeURIComponent(
+      [
+        'Executive consultation request',
+        '',
+        `Full Name: ${consultationForm.fullName}`,
+        `Corporate Email: ${consultationForm.email}`,
+        `Company Name: ${consultationForm.company}`,
+        `Area of Interest: ${consultationForm.interest}`,
+      ].join('\n'),
+    )
+
+    setConsultationSubmitted(true)
+    window.location.href = `${consultationMailto}?subject=${subject}&body=${body}`
+  }
 
   return (
-    <div style={{ backgroundColor: '#FBF9F5', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
+    <div style={{ backgroundColor: 'var(--whq-bg)', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
       {/* Hero Section */}
-      <section className="relative pt-20 md:pt-28 pb-12 md:pb-20 px-4 sm:px-6 overflow-hidden">
-        <div className="max-w-[1440px] mx-auto relative z-10">
+      <section className="relative flex flex-col justify-center px-4 sm:px-6 overflow-hidden" style={{ minHeight: 'calc(100vh - 64px)' }}>
+        <div className="max-w-[1440px] mx-auto relative z-10 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
             {/* Left Content */}
             <div className="lg:col-span-7">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-6" style={{ backgroundColor: 'rgba(11,60,45,0.08)', color: '#0B3C2D', border: '1px solid #E5E1D8' }}>
-                <Zap className="w-3 h-3" style={{ color: '#10B981' }} />
+                <Zap className="w-3 h-3" style={{ color: '#1DA54A' }} />
                 Enterprise Transformation Partners
               </div>
               <h1 className="font-display font-700 text-4xl sm:text-6xl md:text-7xl leading-[1.08] tracking-tight mb-6" style={{ color: '#111827' }}>
@@ -96,11 +145,11 @@ export default function WHQHome() {
                 Work.
               </h1>
               <p className="text-base sm:text-lg leading-relaxed mb-8 sm:mb-10 max-w-xl" style={{ color: '#6B7280' }}>
-                From AI integration to operational excellence — WorkplaceHQ partners with forward-thinking enterprises to build the systems, culture, and capabilities that drive compounding performance.
+                From AI integration to operational excellence â€” WorkplaceHQ partners with forward-thinking enterprises to build the systems, culture, and capabilities that drive compounding performance.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <button
-                  onClick={() => setModalOpen(true)}
+                  onClick={openConsultationModal}
                   className="w-full sm:w-auto justify-center flex items-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-sm transition-all duration-200 hover:-translate-y-0.5"
                   style={{ backgroundColor: '#0B3C2D', color: '#FFFFFF', fontFamily: 'var(--font-display)', boxShadow: '0 4px 24px rgba(11,60,45,0.25)' }}
                 >
@@ -124,15 +173,16 @@ export default function WHQHome() {
                   {/* Subtle thin Ring (System) */}
                   <circle cx="50" cy="50" r="44" stroke="#1DA54A" strokeWidth="2.5" />
                   {/* Inner Dot (People Activation) */}
-                  <circle cx="50" cy="50" r="14" fill="#1DA54A" />
+                  <circle cx="50" cy="50" r="14" fill="#1DA54A" className="brand-dot-pulse" />
                 </svg>
               </div>
 
               {/* Main Image Grid sitting ABOVE the ring element (z-10) */}
               <div className="relative z-10 rounded-2xl overflow-hidden border" style={{ borderColor: '#E5E1D8', boxShadow: '0 20px 40px rgba(0,0,0,0.06)' }}>
-                <img 
-                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80" 
-                  alt="High performing team collaborating in modern office" 
+                {/* TODO: Replace with approved photography — all people shown must be Black, real work settings only (meetings, training rooms, laptops, collaboration), no lifestyle or abstract images */}
+                <img
+                  src="https://images.unsplash.com/photo-1655720357872-ce227e4164ba?auto=format&fit=crop&w=1200&q=80"
+                  alt="High performing Nigerian team collaborating in modern office"
                   className="w-full h-[420px] object-cover grayscale-[20%] contrast-[1.05]"
                 />
               </div>
@@ -230,9 +280,10 @@ export default function WHQHome() {
             </div>
             <div className="lg:col-span-6">
               <div className="rounded-xl overflow-hidden border" style={{ borderColor: '#E5E1D8' }}>
-                <img 
-                  src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1000&q=80" 
-                  alt="Modern structured workplace execution session" 
+                {/* TODO: Replace with approved photography — all people shown must be Black, real work settings only (meetings, training rooms, laptops, collaboration), no lifestyle or abstract images */}
+                <img
+                  src="https://plus.unsplash.com/premium_photo-1707155465527-c5a2935b21cc?auto=format&fit=crop&w=1000&q=80"
+                  alt="Modern structured workplace execution session"
                   className="w-full h-64 sm:h-80 object-cover"
                 />
               </div>
@@ -335,7 +386,7 @@ export default function WHQHome() {
             <div className="absolute -bottom-16 -right-16 w-64 h-64 pointer-events-none opacity-20 hidden sm:block">
               <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="50" cy="50" r="44" stroke="#FFFFFF" strokeWidth="2.5" />
-                <circle cx="50" cy="50" r="14" fill="#FFFFFF" />
+                <circle cx="50" cy="50" r="14" fill="#FFFFFF" className="brand-dot-pulse" />
               </svg>
             </div>
 
@@ -343,9 +394,9 @@ export default function WHQHome() {
               <h2 className="font-display font-700 text-2xl sm:text-4xl lg:text-5xl text-white mb-3 sm:mb-4">Ready to transform your organization?</h2>
               <p className="text-sm sm:text-base mb-6 sm:mb-8" style={{ color: 'rgba(255,255,255,0.7)' }}>Let's build the systems your next decade of growth depends on.</p>
               <button
-                onClick={() => setModalOpen(true)}
+                onClick={openConsultationModal}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-lg font-semibold text-sm transition-all hover:-translate-y-0.5"
-                style={{ backgroundColor: '#10B981', color: '#0B3C2D', fontFamily: 'var(--font-display)' }}
+                style={{ backgroundColor: '#1DA54A', color: '#0B3C2D', fontFamily: 'var(--font-display)' }}
               >
                 Book Executive Consultation <ArrowRight className="w-4 h-4" />
               </button>
@@ -356,7 +407,7 @@ export default function WHQHome() {
 
       {/* Consultation Modal */}
       {modalOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" style={{ backgroundColor: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(4px)' }} onClick={() => setModalOpen(false)}>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" style={{ backgroundColor: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(4px)' }} onClick={closeConsultationModal}>
           <div
             className="w-full max-w-md p-6 sm:p-8 rounded-2xl animate-slide-up"
             style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E1D8' }}
@@ -364,26 +415,72 @@ export default function WHQHome() {
           >
             <h3 className="font-display font-700 text-xl mb-2" style={{ color: '#111827' }}>Book a Consultation</h3>
             <p className="text-sm mb-6" style={{ color: '#6B7280' }}>One of our senior consultants will reach out within 24 hours.</p>
-            <div className="flex flex-col gap-3">
-              <input className="w-full px-4 py-3 rounded-md text-sm outline-none" style={{ border: '1px solid #E5E1D8', backgroundColor: '#FBF9F5', borderRadius: '6px' }} placeholder="Full Name" />
-              <input className="w-full px-4 py-3 rounded-md text-sm outline-none" style={{ border: '1px solid #E5E1D8', backgroundColor: '#FBF9F5', borderRadius: '6px' }} placeholder="Corporate Email" type="email" />
-              <input className="w-full px-4 py-3 rounded-md text-sm outline-none" style={{ border: '1px solid #E5E1D8', backgroundColor: '#FBF9F5', borderRadius: '6px' }} placeholder="Company Name" />
-              <select className="w-full px-4 py-3 rounded-md text-sm outline-none" style={{ border: '1px solid #E5E1D8', backgroundColor: '#FBF9F5', borderRadius: '6px', color: '#6B7280' }}>
-                <option value="">Area of Interest</option>
-                <option>AI Adoption</option>
-                <option>Productivity Infrastructure</option>
-                <option>Operational Excellence</option>
-                <option>CX Transformation</option>
-                <option>Strategic Consulting</option>
-              </select>
-              <button
-                className="w-full py-3 rounded-lg font-semibold text-sm mt-2"
-                style={{ backgroundColor: '#0B3C2D', color: '#FFFFFF', fontFamily: 'var(--font-display)' }}
-                onClick={() => setModalOpen(false)}
+            {consultationSubmitted ? (
+              <div
+                className="rounded-2xl border p-5"
+                style={{ borderColor: '#CFE9DB', backgroundColor: '#F4FBF7' }}
               >
-                Submit Request
-              </button>
-            </div>
+                <p className="text-sm font-semibold" style={{ color: '#0B3C2D' }}>
+                  Your email app should open with the consultation request prefilled.
+                </p>
+                <p className="mt-2 text-sm" style={{ color: '#6B7280' }}>
+                  If nothing opens, email us directly at{' '}
+                  <a href={consultationMailto} style={{ color: '#0B3C2D' }}>
+                    {consultationEmail}
+                  </a>
+                  .
+                </p>
+              </div>
+            ) : (
+              <form className="flex flex-col gap-3" onSubmit={handleConsultationSubmit}>
+                <input
+                  required
+                  value={consultationForm.fullName}
+                  onChange={e => updateConsultationForm('fullName', e.target.value)}
+                  className="w-full px-4 py-3 rounded-md text-sm outline-none"
+                  style={{ border: '1px solid #E5E1D8', backgroundColor: 'var(--whq-bg)', borderRadius: '6px' }}
+                  placeholder="Full Name"
+                />
+                <input
+                  required
+                  value={consultationForm.email}
+                  onChange={e => updateConsultationForm('email', e.target.value)}
+                  className="w-full px-4 py-3 rounded-md text-sm outline-none"
+                  style={{ border: '1px solid #E5E1D8', backgroundColor: 'var(--whq-bg)', borderRadius: '6px' }}
+                  placeholder="Corporate Email"
+                  type="email"
+                />
+                <input
+                  required
+                  value={consultationForm.company}
+                  onChange={e => updateConsultationForm('company', e.target.value)}
+                  className="w-full px-4 py-3 rounded-md text-sm outline-none"
+                  style={{ border: '1px solid #E5E1D8', backgroundColor: 'var(--whq-bg)', borderRadius: '6px' }}
+                  placeholder="Company Name"
+                />
+                <select
+                  required
+                  value={consultationForm.interest}
+                  onChange={e => updateConsultationForm('interest', e.target.value)}
+                  className="w-full px-4 py-3 rounded-md text-sm outline-none"
+                  style={{ border: '1px solid #E5E1D8', backgroundColor: 'var(--whq-bg)', borderRadius: '6px', color: consultationForm.interest ? '#111827' : '#6B7280' }}
+                >
+                  <option value="">Area of Interest</option>
+                  <option>AI Adoption</option>
+                  <option>Productivity Infrastructure</option>
+                  <option>Operational Excellence</option>
+                  <option>CX Transformation</option>
+                  <option>Strategic Consulting</option>
+                </select>
+                <button
+                  type="submit"
+                  className="mt-2 w-full py-3 rounded-lg font-semibold text-sm"
+                  style={{ backgroundColor: '#0B3C2D', color: '#FFFFFF', fontFamily: 'var(--font-display)' }}
+                >
+                  Submit Request
+                </button>
+              </form>
+            )}
           </div>
         </div>
       )}

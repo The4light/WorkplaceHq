@@ -1,9 +1,9 @@
-import { Target, Cpu, TrendingUp, RefreshCw, Link2 } from 'lucide-react'
+﻿import { Target, Cpu, TrendingUp, RefreshCw, Link2 } from 'lucide-react'
 
 const principles = [
   { icon: Target, title: 'Precision Focus', desc: 'We diagnose before prescribing. Every engagement starts with forensic analysis of what\'s actually holding your organization back.' },
   { icon: Cpu, title: 'Systems Thinking', desc: 'People, process, and technology are inseparable. We design interventions that address all three simultaneously.' },
-  { icon: TrendingUp, title: 'Performance Culture', desc: 'We build cultures where high performance is the default — not the exception. Systems that reward output and enable growth.' },
+  { icon: TrendingUp, title: 'Performance Culture', desc: 'We build cultures where high performance is the default â€” not the exception. Systems that reward output and enable growth.' },
   { icon: RefreshCw, title: 'Continuous Adaptation', desc: 'Markets evolve. We embed the capability for your organization to evolve faster than your competition.' },
 ]
 
@@ -13,48 +13,48 @@ const team = [
     role: 'CEO & Co-founder', 
     focus: 'Operational Strategy',
     bio: '15+ years advising West African tech & enterprise leaders on organizational architecture.',
-    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80'
+    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=300&q=80'
   },
   { 
     name: 'Ngozi Abiodun', 
     role: 'Chief Consulting Officer', 
     focus: 'Enterprise Transformation',
     bio: 'Former Big 4 strategist specializing in large-scale workforce realignment and process redesign.',
-    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80'
+    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=300&q=80'
   },
   { 
     name: 'Kwame Asante', 
     role: 'Head of AI Practice', 
     focus: 'AI & Automation',
     bio: 'Pioneering custom generative workflows and enterprise automation frameworks across SSA.',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80'
+    image: 'https://images.unsplash.com/photo-1506634572416-48cdfe530110?auto=format&fit=crop&w=300&q=80'
   },
   { 
-    name: 'Zara Mensah', 
-    role: 'Head of Learning', 
+    name: 'Zara Mensah',
+    role: 'Head of Learning',
     focus: 'Training & Development',
     bio: 'Designs high-impact leadership development programs for multi-regional corporate teams.',
-    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=300&q=80'
+    image: 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?auto=format&fit=crop&w=300&q=80'
   },
   { 
     name: 'David Adeyemi', 
     role: 'CX Practice Lead', 
     focus: 'Customer Experience',
     bio: 'Expert in customer journey mapping and omnichannel retention systems for digital brands.',
-    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80'
+    image: 'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?auto=format&fit=crop&w=300&q=80'
   },
   { 
     name: 'Amina Hassan', 
     role: 'Head of Research', 
     focus: 'Insights & Analytics',
     bio: 'Translates workforce analytics and market intelligence into actionable business decisions.',
-    image: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=300&q=80'
+    image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80'
   },
 ]
 
 export default function WHQAbout() {
   return (
-    <div style={{ backgroundColor: '#FBF9F5', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
+    <div style={{ backgroundColor: 'var(--whq-bg)', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
       
       {/* Hero Section */}
       <div className="relative pt-32 pb-20 px-6 overflow-hidden">
@@ -62,7 +62,7 @@ export default function WHQAbout() {
         <div className="absolute -top-20 -right-20 w-80 h-80 pointer-events-none z-0 hidden sm:block">
           <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="50" cy="50" r="44" stroke="#1DA54A" strokeWidth="2" opacity="0.4" />
-            <circle cx="50" cy="50" r="14" fill="#1DA54A" opacity="0.3" />
+            <circle cx="50" cy="50" r="14" fill="#1DA54A" opacity="0.3" className="brand-dot-pulse" />
           </svg>
         </div>
 
@@ -73,7 +73,7 @@ export default function WHQAbout() {
               We were built for the organizations that refuse to stay average.
             </h1>
             <p className="text-lg leading-relaxed" style={{ color: '#6B7280' }}>
-              WorkplaceHQ was founded on a simple premise: most organizations know what they want to achieve but lack the operational architecture to get there. We build that architecture — and we stay until it works.
+              WorkplaceHQ was founded on a simple premise: most organizations know what they want to achieve but lack the operational architecture to get there. We build that architecture â€” and we stay until it works.
             </p>
           </div>
         </div>
@@ -110,17 +110,18 @@ export default function WHQAbout() {
           <div className="space-y-6">
             <h2 className="font-display font-700 text-2xl sm:text-3xl" style={{ color: '#111827' }}>Our origin story</h2>
             <p className="text-base leading-relaxed" style={{ color: '#6B7280' }}>
-              WorkplaceHQ emerged from direct consulting experience inside fast-scaling African and global enterprises. We saw firsthand how organizations with ambitious goals routinely under-performed — not from lack of talent, but from structural incoherence.
+              WorkplaceHQ emerged from direct consulting experience inside fast-scaling African and global enterprises. We saw firsthand how organizations with ambitious goals routinely under-performed â€” not from lack of talent, but from structural incoherence.
             </p>
             <p className="text-base leading-relaxed" style={{ color: '#6B7280' }}>
-              We built WorkplaceHQ to close that gap: a firm that operates at the intersection of technology, people science, and operational design — deploying integrated solutions rather than siloed recommendations.
+              We built WorkplaceHQ to close that gap: a firm that operates at the intersection of technology, people science, and operational design â€” deploying integrated solutions rather than siloed recommendations.
             </p>
             
             {/* Contextual Team Photography */}
             <div className="rounded-xl overflow-hidden border pt-2" style={{ borderColor: '#E5E1D8' }}>
-              <img 
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1000&q=80" 
-                alt="WorkplaceHQ consultants collaborating" 
+              {/* TODO: Replace with approved photography — all people shown must be Black, real work settings only (meetings, training rooms, laptops, collaboration), no lifestyle or abstract images */}
+              <img
+                src="https://images.unsplash.com/photo-1785919000360-a9a042c31c06?auto=format&fit=crop&w=1000&q=80"
+                alt="WorkplaceHQ consultants collaborating"
                 className="w-full h-48 object-cover rounded-lg"
               />
             </div>
@@ -169,7 +170,8 @@ export default function WHQAbout() {
                 <div className="flex items-start gap-4 mb-4">
                   <div className="w-16 h-16 rounded-2xl overflow-hidden shrink-0 border" style={{ borderColor: 'rgba(11,60,45,0.12)' }}>
                     {t.image ? (
-                      <img 
+                      // TODO: Replace with approved photography — all people shown must be Black, real work settings only (meetings, training rooms, laptops, collaboration), no lifestyle or abstract images
+                      <img
                         src={t.image} 
                         alt={t.name} 
                         className="w-full h-full object-cover grayscale-[20%] transition-all duration-300 group-hover:grayscale-0 group-hover:scale-105"

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Download, FileText, Wrench, BarChart2, BookOpen, X } from 'lucide-react'
 
 const tags = ['All', 'Whitepapers', 'Toolkits', 'Frameworks', 'Reports']
@@ -61,7 +61,7 @@ export default function WHQResources() {
   const filtered = resources.filter(r => activeTag === 'All' || r.tag === activeTag)
 
   return (
-    <div style={{ backgroundColor: '#FBF9F5', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
+    <div style={{ backgroundColor: 'var(--whq-bg)', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
       
       {/* Header Section with Brand Ring Graphic */}
       <div className="relative pt-32 pb-12 px-6 overflow-hidden">
@@ -81,7 +81,7 @@ export default function WHQResources() {
             Resources Hub
           </h1>
           <p className="text-lg" style={{ color: '#6B7280' }}>
-            Whitepapers, toolkits, frameworks, and reports — free for enterprise teams.
+            Whitepapers, toolkits, frameworks, and reports â€” free for enterprise teams.
           </p>
         </div>
       </div>
@@ -119,7 +119,8 @@ export default function WHQResources() {
                   {/* Book Preview Header Container */}
                   <div className="relative h-56 w-full overflow-hidden bg-[#07271D] flex items-center justify-center p-6">
                     {/* Background Overlay Image */}
-                    <img 
+                    {/* TODO: Replace with approved photography — all people shown must be Black, real work settings only (meetings, training rooms, laptops, collaboration), no lifestyle or abstract images */}
+                    <img
                       src={r.coverImage} 
                       alt={r.title} 
                       className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:scale-105 transition-transform duration-500"
@@ -175,7 +176,7 @@ export default function WHQResources() {
                     {/* Action Button - Pure Green (#10B981) on Hover */}
                     <button
                       onClick={() => setModal(r.title)}
-                      className="w-full py-3 rounded-xl flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-wider transition-all border duration-200 hover:!bg-[#10B981] hover:!border-[#10B981] hover:!text-[#0B3C2D]"
+                      className="w-full py-3 rounded-xl flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-wider transition-all border duration-200 hover:!bg-[#1DA54A] hover:!border-[#1DA54A] hover:!text-[#0B3C2D]"
                       style={{ borderColor: '#0B3C2D', color: '#0B3C2D', backgroundColor: 'transparent', fontFamily: 'var(--font-display)' }}
                     >
                       <Download className="w-4 h-4" /> Download Free
@@ -200,8 +201,8 @@ export default function WHQResources() {
               Enter your details to receive instant access to <strong style={{ color: '#0B3C2D' }}>{modal}</strong>.
             </p>
             <div className="flex flex-col gap-3">
-              <input className="w-full px-4 py-3 text-sm outline-none transition-all focus:border-[#0B3C2D]" style={{ border: '1px solid #E5E1D8', backgroundColor: '#FBF9F5', borderRadius: '8px' }} placeholder="Full Name" />
-              <input className="w-full px-4 py-3 text-sm outline-none transition-all focus:border-[#0B3C2D]" type="email" style={{ border: '1px solid #E5E1D8', backgroundColor: '#FBF9F5', borderRadius: '8px' }} placeholder="Corporate Email" />
+              <input className="w-full px-4 py-3 text-sm outline-none transition-all focus:border-[#0B3C2D]" style={{ border: '1px solid #E5E1D8', backgroundColor: 'var(--whq-bg)', borderRadius: '8px' }} placeholder="Full Name" />
+              <input className="w-full px-4 py-3 text-sm outline-none transition-all focus:border-[#0B3C2D]" type="email" style={{ border: '1px solid #E5E1D8', backgroundColor: 'var(--whq-bg)', borderRadius: '8px' }} placeholder="Corporate Email" />
               <button className="w-full py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-opacity hover:opacity-95 mt-2" style={{ backgroundColor: '#0B3C2D', color: '#FFFFFF', fontFamily: 'var(--font-display)' }} onClick={() => setModal(null)}>
                 Get Instant Access
               </button>

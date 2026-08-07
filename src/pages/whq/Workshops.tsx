@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Calendar, Users, ArrowRight, X } from 'lucide-react'
 
 const workshops = [
@@ -15,7 +15,7 @@ const workshops = [
       { time: '15:30', item: 'Implementation Roadmapping' },
       { time: '17:00', item: 'Wrap-up & Action Plans' },
     ],
-    next: 'Feb 14, 2025 · Lagos',
+    next: 'Feb 14, 2025 Â· Lagos',
   },
   {
     title: 'Operations Streamlining Sprint',
@@ -29,7 +29,7 @@ const workshops = [
       { time: 'Day 2', item: 'SOP Writing & Handoff Protocols' },
       { time: 'Day 2', item: 'KPI Architecture & Pilot Planning' },
     ],
-    next: 'Mar 3–4, 2025 · Lagos',
+    next: 'Mar 3â€“4, 2025 Â· Lagos',
   },
 ]
 
@@ -38,7 +38,7 @@ export default function WHQWorkshops() {
   const [seats, setSeats] = useState(1)
 
   return (
-    <div style={{ backgroundColor: '#FBF9F5', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
+    <div style={{ backgroundColor: 'var(--whq-bg)', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
       <div className="relative pt-32 pb-12 px-6 overflow-hidden">
         <div className="pointer-events-none absolute -top-16 -right-16 w-[400px] h-[400px] rounded-full" style={{ background: '#D97706', filter: 'blur(120px)', opacity: 0.15 }} />
         <div className="max-w-[1440px] mx-auto">
@@ -61,7 +61,7 @@ export default function WHQWorkshops() {
                 <h3 className="font-display font-700 text-xl mb-1 mt-3" style={{ color: '#111827' }}>{w.title}</h3>
                 <p className="text-sm mb-5" style={{ color: '#6B7280' }}>{w.subtitle}</p>
                 <div className="flex items-center gap-2 text-sm mb-6" style={{ color: '#6B7280' }}>
-                  <Calendar className="w-3.5 h-3.5" style={{ color: '#10B981' }} />
+                  <Calendar className="w-3.5 h-3.5" style={{ color: '#1DA54A' }} />
                   Next session: <strong style={{ color: '#0B3C2D' }}>{w.next}</strong>
                 </div>
               </div>
@@ -75,7 +75,7 @@ export default function WHQWorkshops() {
                     {w.agenda.map((a, i) => (
                       <div key={i} className="flex items-start gap-4">
                         <span className="text-xs font-mono shrink-0 w-10 text-right" style={{ color: '#9CA3AF' }}>{a.time}</span>
-                        <div className="relative z-10 w-2 h-2 rounded-full mt-1.5 shrink-0" style={{ backgroundColor: '#10B981' }} />
+                        <div className="relative z-10 w-2 h-2 rounded-full mt-1.5 shrink-0" style={{ backgroundColor: '#1DA54A' }} />
                         <span className="text-sm" style={{ color: '#111827' }}>{a.item}</span>
                       </div>
                     ))}
@@ -104,12 +104,12 @@ export default function WHQWorkshops() {
             </div>
             <p className="text-sm mb-5" style={{ color: '#6B7280' }}>{modalWorkshop}</p>
             <div className="flex flex-col gap-3">
-              <input className="w-full px-4 py-3 text-sm outline-none" style={{ border: '1px solid #E5E1D8', backgroundColor: '#FBF9F5', borderRadius: '6px' }} placeholder="Full Name" />
-              <input className="w-full px-4 py-3 text-sm outline-none" type="email" style={{ border: '1px solid #E5E1D8', backgroundColor: '#FBF9F5', borderRadius: '6px' }} placeholder="Corporate Email" />
+              <input className="w-full px-4 py-3 text-sm outline-none" style={{ border: '1px solid #E5E1D8', backgroundColor: 'var(--whq-bg)', borderRadius: '6px' }} placeholder="Full Name" />
+              <input className="w-full px-4 py-3 text-sm outline-none" type="email" style={{ border: '1px solid #E5E1D8', backgroundColor: 'var(--whq-bg)', borderRadius: '6px' }} placeholder="Corporate Email" />
               <div className="flex items-center gap-3">
                 <label className="text-sm" style={{ color: '#6B7280' }}>Seats:</label>
                 <div className="flex items-center gap-3">
-                  <button onClick={() => setSeats(s => Math.max(1, s - 1))} className="w-8 h-8 rounded-full border flex items-center justify-center font-bold" style={{ borderColor: '#E5E1D8' }}>−</button>
+                  <button onClick={() => setSeats(s => Math.max(1, s - 1))} className="w-8 h-8 rounded-full border flex items-center justify-center font-bold" style={{ borderColor: '#E5E1D8' }}>âˆ’</button>
                   <span className="font-display font-700 text-lg" style={{ color: '#111827' }}>{seats}</span>
                   <button onClick={() => setSeats(s => Math.min(10, s + 1))} className="w-8 h-8 rounded-full border flex items-center justify-center font-bold" style={{ borderColor: '#E5E1D8' }}>+</button>
                 </div>

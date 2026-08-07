@@ -1,8 +1,8 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { FileText, Link2, Palette, Globe, User, Briefcase, CheckCircle, Circle, ChevronDown } from 'lucide-react'
 
-// ── Tool 1: CV Optimiser ──────────────────────────────────────────
+// â”€â”€ Tool 1: CV Optimiser â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function CVOptimiser() {
   const [role, setRole] = useState('')
   const [years, setYears] = useState('1-3')
@@ -22,18 +22,18 @@ function CVOptimiser() {
   return (
     <div className="grid lg:grid-cols-2 gap-6 h-full">
       {/* Input */}
-      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#FFFFFF', border: '1px solid #D6E2E0' }}>
-        <h3 className="font-display font-700 text-lg" style={{ color: '#0D131A' }}>CV Details</h3>
+      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#FFFFFF', border: '1px solid #F4F5F7' }}>
+        <h3 className="font-lj-display font-700 text-lg" style={{ color: '#0D0D0D' }}>CV Details</h3>
         <input
           className="px-4 py-3 text-sm outline-none w-full"
-          style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6' }}
+          style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7' }}
           placeholder="Target Role (e.g. Product Manager)"
           value={role}
           onChange={e => setRole(e.target.value)}
         />
         <select
           className="px-4 py-3 text-sm outline-none w-full"
-          style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6', color: '#6B7280' }}
+          style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7', color: '#6B7280' }}
           value={years}
           onChange={e => setYears(e.target.value)}
         >
@@ -44,7 +44,7 @@ function CVOptimiser() {
         </select>
         <textarea
           className="flex-1 px-4 py-3 text-sm outline-none resize-none"
-          style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6', minHeight: '180px' }}
+          style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7', minHeight: '180px' }}
           placeholder="Paste your CV / resume text here..."
           value={resume}
           onChange={e => setResume(e.target.value)}
@@ -52,15 +52,15 @@ function CVOptimiser() {
         <button
           onClick={analyse}
           className="w-full py-3 rounded-lg font-semibold text-sm text-white transition-all hover:-translate-y-0.5"
-          style={{ backgroundColor: '#FF5A36', fontFamily: 'var(--font-display)' }}
+          style={{ backgroundColor: '#17B26A', fontFamily: 'var(--font-lj-display)' }}
         >
           Analyse & Optimise
         </button>
       </div>
 
       {/* Output */}
-      <div className="p-6 rounded-2xl flex flex-col gap-5" style={{ backgroundColor: '#0F2C34', border: '1px solid rgba(6,182,212,0.2)' }}>
-        <h3 className="font-display font-700 text-lg text-white">ATS Compatibility Score</h3>
+      <div className="p-6 rounded-2xl flex flex-col gap-5" style={{ backgroundColor: '#0D0D0D', border: '1px solid rgba(23,178,106,0.2)' }}>
+        <h3 className="font-lj-display font-700 text-lg text-white">ATS Compatibility Score</h3>
 
         {/* Circular gauge */}
         <div className="flex items-center justify-center py-4">
@@ -69,14 +69,14 @@ function CVOptimiser() {
               <circle cx="50" cy="50" r="40" fill="none" strokeWidth="8" stroke="rgba(255,255,255,0.08)" />
               <circle
                 cx="50" cy="50" r="40" fill="none" strokeWidth="8"
-                stroke={analysed ? (score >= 80 ? '#10B981' : score >= 60 ? '#06B6D4' : '#FF5A36') : '#1E4A56'}
+                stroke={analysed ? (score >= 80 ? '#10B981' : score >= 60 ? '#17B26A' : '#17B26A') : '#1E4A56'}
                 strokeDasharray={`${analysed ? (score / 100) * 251.2 : 0} 251.2`}
                 strokeLinecap="round"
                 style={{ transition: 'stroke-dasharray 1s ease' }}
               />
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="font-display font-700 text-3xl text-white">{analysed ? score : '--'}</span>
+              <span className="font-lj-display font-700 text-3xl text-white">{analysed ? score : '--'}</span>
               <span className="text-xs" style={{ color: 'rgba(255,255,255,0.5)' }}>/ 100</span>
             </div>
           </div>
@@ -95,7 +95,7 @@ function CVOptimiser() {
                     : <Circle className="w-4 h-4 shrink-0" style={{ color: 'rgba(255,255,255,0.2)' }} />
                   }
                   <span className="text-sm" style={{ color: has ? '#FFFFFF' : 'rgba(255,255,255,0.4)' }}>{k}</span>
-                  {!has && analysed && <span className="ml-auto text-xs px-2 py-0.5 rounded-full" style={{ backgroundColor: 'rgba(255,90,54,0.15)', color: '#FF5A36' }}>Add</span>}
+                  {!has && analysed && <span className="ml-auto text-xs px-2 py-0.5 rounded-full" style={{ backgroundColor: 'rgba(23,178,106,0.15)', color: '#17B26A' }}>Add</span>}
                 </div>
               )
             })}
@@ -103,8 +103,8 @@ function CVOptimiser() {
         </div>
 
         {analysed && (
-          <div className="p-4 rounded-xl" style={{ backgroundColor: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.2)' }}>
-            <p className="text-sm" style={{ color: '#06B6D4' }}>
+          <div className="p-4 rounded-xl" style={{ backgroundColor: 'rgba(23,178,106,0.1)', border: '1px solid rgba(23,178,106,0.2)' }}>
+            <p className="text-sm" style={{ color: '#17B26A' }}>
               <strong>Tip:</strong> Adding "Agile", "Data Analysis", and "Project Management" could boost your score to <strong>88+</strong>.
             </p>
           </div>
@@ -114,7 +114,7 @@ function CVOptimiser() {
   )
 }
 
-// ── Tool 2: LinkedIn Optimiser ────────────────────────────────────
+// â”€â”€ Tool 2: LinkedIn Optimiser â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function LinkedInOptimiser() {
   const [industry, setIndustry] = useState('')
   const [headline, setHeadline] = useState('')
@@ -132,29 +132,29 @@ function LinkedInOptimiser() {
 
   return (
     <div className="grid lg:grid-cols-2 gap-6">
-      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#FFFFFF', border: '1px solid #D6E2E0' }}>
-        <h3 className="font-display font-700 text-lg" style={{ color: '#0D131A' }}>Profile Details</h3>
-        <input className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6' }} placeholder="Your Industry / Role (e.g. Fintech Product)" value={industry} onChange={e => setIndustry(e.target.value)} />
-        <input className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6' }} placeholder="Current Headline (optional)" value={headline} onChange={e => setHeadline(e.target.value)} />
-        <textarea className="px-4 py-3 text-sm outline-none resize-none h-32" style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6' }} placeholder="Current About section (optional — paste for improvement)" value={about} onChange={e => setAbout(e.target.value)} />
-        <button onClick={generate} className="py-3 rounded-lg font-semibold text-sm text-white" style={{ backgroundColor: '#FF5A36', fontFamily: 'var(--font-display)' }}>
+      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#FFFFFF', border: '1px solid #F4F5F7' }}>
+        <h3 className="font-lj-display font-700 text-lg" style={{ color: '#0D0D0D' }}>Profile Details</h3>
+        <input className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7' }} placeholder="Your Industry / Role (e.g. Fintech Product)" value={industry} onChange={e => setIndustry(e.target.value)} />
+        <input className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7' }} placeholder="Current Headline (optional)" value={headline} onChange={e => setHeadline(e.target.value)} />
+        <textarea className="px-4 py-3 text-sm outline-none resize-none h-32" style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7' }} placeholder="Current About section (optional — paste for improvement)" value={about} onChange={e => setAbout(e.target.value)} />
+        <button onClick={generate} className="py-3 rounded-lg font-semibold text-sm text-white" style={{ backgroundColor: '#17B26A', fontFamily: 'var(--font-lj-display)' }}>
           Generate Optimised Profile
         </button>
       </div>
 
-      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#0F2C34', border: '1px solid rgba(6,182,212,0.2)' }}>
+      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#0D0D0D', border: '1px solid rgba(23,178,106,0.2)' }}>
         <div className="flex items-center justify-between">
-          <h3 className="font-display font-700 text-lg text-white">Profile Impact</h3>
-          {generated && <span className="font-display font-700 text-2xl" style={{ color: '#06B6D4' }}>{generated.score}/100</span>}
+          <h3 className="font-lj-display font-700 text-lg text-white">Profile Impact</h3>
+          {generated && <span className="font-lj-display font-700 text-2xl" style={{ color: '#17B26A' }}>{generated.score}/100</span>}
         </div>
         {generated ? (
           <>
             <div className="p-4 rounded-xl" style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}>
-              <div className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#06B6D4' }}>Optimised Headline</div>
+              <div className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#17B26A' }}>Optimised Headline</div>
               <p className="text-sm text-white leading-relaxed">{generated.headline}</p>
             </div>
             <div className="p-4 rounded-xl" style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}>
-              <div className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#06B6D4' }}>Optimised About</div>
+              <div className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#17B26A' }}>Optimised About</div>
               <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.75)' }}>{generated.about}</p>
             </div>
           </>
@@ -168,7 +168,7 @@ function LinkedInOptimiser() {
   )
 }
 
-// ── Tool 3: Portfolio Creator ──────────────────────────────────────
+// â”€â”€ Tool 3: Portfolio Creator â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function PortfolioCreator() {
   const [projects, setProjects] = useState([{ title: '', desc: '', link: '' }])
   const [preview, setPreview] = useState(false)
@@ -180,40 +180,40 @@ function PortfolioCreator() {
 
   return (
     <div className="grid lg:grid-cols-2 gap-6">
-      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#FFFFFF', border: '1px solid #D6E2E0' }}>
+      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#FFFFFF', border: '1px solid #F4F5F7' }}>
         <div className="flex items-center justify-between">
-          <h3 className="font-display font-700 text-lg" style={{ color: '#0D131A' }}>Your Projects</h3>
-          <button onClick={addProject} className="text-xs font-semibold px-3 py-1.5 rounded-full" style={{ backgroundColor: 'rgba(6,182,212,0.12)', color: '#06B6D4' }}>+ Add Project</button>
+          <h3 className="font-lj-display font-700 text-lg" style={{ color: '#0D0D0D' }}>Your Projects</h3>
+          <button onClick={addProject} className="text-xs font-semibold px-3 py-1.5 rounded-full" style={{ backgroundColor: 'rgba(23,178,106,0.12)', color: '#17B26A' }}>+ Add Project</button>
         </div>
         <div className="flex flex-col gap-4 overflow-y-auto" style={{ maxHeight: '400px' }}>
           {projects.map((p, i) => (
-            <div key={i} className="flex flex-col gap-2 p-4 rounded-xl" style={{ backgroundColor: '#F4F7F6', border: '1px solid #D6E2E0' }}>
-              <input className="px-3 py-2 text-sm outline-none bg-white" style={{ borderRadius: '6px', border: '1px solid #D6E2E0' }} placeholder={`Project ${i + 1} Title`} value={p.title} onChange={e => update(i, 'title', e.target.value)} />
-              <textarea className="px-3 py-2 text-sm outline-none resize-none bg-white h-16" style={{ borderRadius: '6px', border: '1px solid #D6E2E0' }} placeholder="What you built & impact" value={p.desc} onChange={e => update(i, 'desc', e.target.value)} />
-              <input className="px-3 py-2 text-sm outline-none bg-white" style={{ borderRadius: '6px', border: '1px solid #D6E2E0' }} placeholder="Link (GitHub, live URL)" value={p.link} onChange={e => update(i, 'link', e.target.value)} />
+            <div key={i} className="flex flex-col gap-2 p-4 rounded-xl" style={{ backgroundColor: '#F4F5F7', border: '1px solid #F4F5F7' }}>
+              <input className="px-3 py-2 text-sm outline-none bg-white" style={{ borderRadius: '6px', border: '1px solid #F4F5F7' }} placeholder={`Project ${i + 1} Title`} value={p.title} onChange={e => update(i, 'title', e.target.value)} />
+              <textarea className="px-3 py-2 text-sm outline-none resize-none bg-white h-16" style={{ borderRadius: '6px', border: '1px solid #F4F5F7' }} placeholder="What you built & impact" value={p.desc} onChange={e => update(i, 'desc', e.target.value)} />
+              <input className="px-3 py-2 text-sm outline-none bg-white" style={{ borderRadius: '6px', border: '1px solid #F4F5F7' }} placeholder="Link (GitHub, live URL)" value={p.link} onChange={e => update(i, 'link', e.target.value)} />
             </div>
           ))}
         </div>
-        <button onClick={() => setPreview(true)} className="py-3 rounded-lg font-semibold text-sm text-white" style={{ backgroundColor: '#FF5A36', fontFamily: 'var(--font-display)' }}>
+        <button onClick={() => setPreview(true)} className="py-3 rounded-lg font-semibold text-sm text-white" style={{ backgroundColor: '#17B26A', fontFamily: 'var(--font-lj-display)' }}>
           Generate Portfolio
         </button>
       </div>
 
-      <div className="p-6 rounded-2xl" style={{ backgroundColor: '#0F2C34', border: '1px solid rgba(6,182,212,0.2)' }}>
-        <h3 className="font-display font-700 text-lg text-white mb-4">Portfolio Preview</h3>
+      <div className="p-6 rounded-2xl" style={{ backgroundColor: '#0D0D0D', border: '1px solid rgba(23,178,106,0.2)' }}>
+        <h3 className="font-lj-display font-700 text-lg text-white mb-4">Portfolio Preview</h3>
         {preview ? (
-          <div className="rounded-xl overflow-hidden" style={{ backgroundColor: '#1A3A44', border: '1px solid rgba(6,182,212,0.2)' }}>
+          <div className="rounded-xl overflow-hidden" style={{ backgroundColor: '#1A3A44', border: '1px solid rgba(23,178,106,0.2)' }}>
             <div className="px-4 py-3 border-b flex gap-1.5" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
-              <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: '#FF5A36' }} />
+              <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: '#17B26A' }} />
               <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: '#D97706' }} />
               <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: '#10B981' }} />
             </div>
             <div className="p-5 grid gap-4">
               {projects.filter(p => p.title).map((p, i) => (
-                <div key={i} className="p-4 rounded-xl" style={{ backgroundColor: 'rgba(255,255,255,0.04)', border: '1px solid rgba(6,182,212,0.15)' }}>
-                  <div className="font-display font-600 text-sm text-white mb-1">{p.title}</div>
+                <div key={i} className="p-4 rounded-xl" style={{ backgroundColor: 'rgba(255,255,255,0.04)', border: '1px solid rgba(23,178,106,0.15)' }}>
+                  <div className="font-lj-display font-600 text-sm text-white mb-1">{p.title}</div>
                   <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.55)' }}>{p.desc || 'No description added.'}</p>
-                  {p.link && <a href={p.link} className="text-xs mt-2 inline-block" style={{ color: '#06B6D4' }}>{p.link}</a>}
+                  {p.link && <a href={p.link} className="text-xs mt-2 inline-block" style={{ color: '#17B26A' }}>{p.link}</a>}
                 </div>
               ))}
             </div>
@@ -228,7 +228,7 @@ function PortfolioCreator() {
   )
 }
 
-// ── Tool 4: Personal Website Creator ──────────────────────────────
+// â”€â”€ Tool 4: Personal Website Creator â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function WebsiteCreator() {
   const [bio, setBio] = useState('')
   const [role, setRole] = useState('')
@@ -237,23 +237,23 @@ function WebsiteCreator() {
 
   return (
     <div className="grid lg:grid-cols-2 gap-6">
-      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#FFFFFF', border: '1px solid #D6E2E0' }}>
-        <h3 className="font-display font-700 text-lg" style={{ color: '#0D131A' }}>Site Details</h3>
-        <input className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6' }} placeholder="Your Name" />
-        <input className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6' }} placeholder="Role Title (e.g. Software Engineer)" value={role} onChange={e => setRole(e.target.value)} />
-        <textarea className="px-4 py-3 text-sm outline-none resize-none h-24" style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6' }} placeholder="Your professional bio..." value={bio} onChange={e => setBio(e.target.value)} />
+      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#FFFFFF', border: '1px solid #F4F5F7' }}>
+        <h3 className="font-lj-display font-700 text-lg" style={{ color: '#0D0D0D' }}>Site Details</h3>
+        <input className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7' }} placeholder="Your Name" />
+        <input className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7' }} placeholder="Role Title (e.g. Software Engineer)" value={role} onChange={e => setRole(e.target.value)} />
+        <textarea className="px-4 py-3 text-sm outline-none resize-none h-24" style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7' }} placeholder="Your professional bio..." value={bio} onChange={e => setBio(e.target.value)} />
         <div className="grid grid-cols-3 gap-2">
           {(['twitter', 'github', 'linkedin'] as const).map(k => (
-            <input key={k} className="px-3 py-2.5 text-sm outline-none" style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6' }} placeholder={k.charAt(0).toUpperCase() + k.slice(1)} value={links[k]} onChange={e => setLinks(l => ({ ...l, [k]: e.target.value }))} />
+            <input key={k} className="px-3 py-2.5 text-sm outline-none" style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7' }} placeholder={k.charAt(0).toUpperCase() + k.slice(1)} value={links[k]} onChange={e => setLinks(l => ({ ...l, [k]: e.target.value }))} />
           ))}
         </div>
-        <button onClick={() => setPreview(true)} className="py-3 rounded-lg font-semibold text-sm text-white" style={{ backgroundColor: '#FF5A36', fontFamily: 'var(--font-display)' }}>
+        <button onClick={() => setPreview(true)} className="py-3 rounded-lg font-semibold text-sm text-white" style={{ backgroundColor: '#17B26A', fontFamily: 'var(--font-lj-display)' }}>
           Generate My Site
         </button>
       </div>
 
-      <div className="p-6 rounded-2xl" style={{ backgroundColor: '#0F2C34', border: '1px solid rgba(6,182,212,0.2)' }}>
-        <h3 className="font-display font-700 text-lg text-white mb-4">Desktop Preview</h3>
+      <div className="p-6 rounded-2xl" style={{ backgroundColor: '#0D0D0D', border: '1px solid rgba(23,178,106,0.2)' }}>
+        <h3 className="font-lj-display font-700 text-lg text-white mb-4">Desktop Preview</h3>
         {preview ? (
           <div className="rounded-xl overflow-hidden" style={{ backgroundColor: '#111827', border: '1px solid rgba(255,255,255,0.08)' }}>
             <div className="px-4 py-3 border-b flex gap-1.5" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
@@ -262,15 +262,15 @@ function WebsiteCreator() {
               <div className="w-2 h-2 rounded-full bg-green-400" />
             </div>
             <div className="p-6">
-              <div className="w-16 h-16 rounded-full mb-4 flex items-center justify-center font-display font-700 text-2xl" style={{ backgroundColor: '#FF5A36', color: '#FFFFFF' }}>
+              <div className="w-16 h-16 rounded-full mb-4 flex items-center justify-center font-lj-display font-700 text-2xl" style={{ backgroundColor: '#17B26A', color: '#FFFFFF' }}>
                 {role ? role[0].toUpperCase() : 'Y'}
               </div>
-              <div className="font-display font-700 text-xl text-white mb-1">{role || 'Your Name'}</div>
-              <div className="text-sm mb-3" style={{ color: '#06B6D4' }}>{role || 'Professional Title'}</div>
+              <div className="font-lj-display font-700 text-xl text-white mb-1">{role || 'Your Name'}</div>
+              <div className="text-sm mb-3" style={{ color: '#17B26A' }}>{role || 'Professional Title'}</div>
               <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.55)' }}>{bio || 'Your professional bio will appear here...'}</p>
               <div className="flex gap-3 mt-4">
                 {Object.entries(links).filter(([, v]) => v).map(([k]) => (
-                  <span key={k} className="text-xs px-2.5 py-1 rounded-full" style={{ backgroundColor: 'rgba(6,182,212,0.15)', color: '#06B6D4' }}>{k}</span>
+                  <span key={k} className="text-xs px-2.5 py-1 rounded-full" style={{ backgroundColor: 'rgba(23,178,106,0.15)', color: '#17B26A' }}>{k}</span>
                 ))}
               </div>
             </div>
@@ -285,7 +285,7 @@ function WebsiteCreator() {
   )
 }
 
-// ── Tool 5: Personal Branding Guide ───────────────────────────────
+// â”€â”€ Tool 5: Personal Branding Guide â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function BrandingGuide() {
   const [industry, setIndustry] = useState('')
   const [strength, setStrength] = useState('')
@@ -311,37 +311,37 @@ function BrandingGuide() {
 
   return (
     <div className="grid lg:grid-cols-2 gap-6">
-      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#FFFFFF', border: '1px solid #D6E2E0' }}>
-        <h3 className="font-display font-700 text-lg" style={{ color: '#0D131A' }}>Your Positioning</h3>
-        <input className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6' }} placeholder="Industry / Field (e.g. FinTech, Healthcare)" value={industry} onChange={e => setIndustry(e.target.value)} />
-        <input className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6' }} placeholder="Your Core Strength (e.g. building data pipelines)" value={strength} onChange={e => setStrength(e.target.value)} />
-        <select className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #D6E2E0', borderRadius: '6px', backgroundColor: '#F4F7F6', color: '#6B7280' }}>
+      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#FFFFFF', border: '1px solid #F4F5F7' }}>
+        <h3 className="font-lj-display font-700 text-lg" style={{ color: '#0D0D0D' }}>Your Positioning</h3>
+        <input className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7' }} placeholder="Industry / Field (e.g. FinTech, Healthcare)" value={industry} onChange={e => setIndustry(e.target.value)} />
+        <input className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7' }} placeholder="Your Core Strength (e.g. building data pipelines)" value={strength} onChange={e => setStrength(e.target.value)} />
+        <select className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7', color: '#6B7280' }}>
           <option>LinkedIn</option>
           <option>Twitter / X</option>
           <option>All Channels</option>
         </select>
-        <button onClick={generate} className="py-3 rounded-lg font-semibold text-sm text-white" style={{ backgroundColor: '#FF5A36', fontFamily: 'var(--font-display)' }}>
+        <button onClick={generate} className="py-3 rounded-lg font-semibold text-sm text-white" style={{ backgroundColor: '#17B26A', fontFamily: 'var(--font-lj-display)' }}>
           Generate Branding Guide
         </button>
       </div>
 
-      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#0F2C34', border: '1px solid rgba(6,182,212,0.2)' }}>
-        <h3 className="font-display font-700 text-lg text-white">Your Brand Playbook</h3>
+      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#0D0D0D', border: '1px solid rgba(23,178,106,0.2)' }}>
+        <h3 className="font-lj-display font-700 text-lg text-white">Your Brand Playbook</h3>
         {result ? (
           <>
             <div>
-              <div className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#06B6D4' }}>Content Pillars</div>
+              <div className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#17B26A' }}>Content Pillars</div>
               <div className="flex flex-col gap-2">
                 {result.pillars.map((p, i) => (
                   <div key={i} className="flex items-center gap-2.5 text-sm">
-                    <span className="w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold shrink-0" style={{ backgroundColor: '#FF5A36', color: '#FFFFFF' }}>{i + 1}</span>
+                    <span className="w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold shrink-0" style={{ backgroundColor: '#17B26A', color: '#FFFFFF' }}>{i + 1}</span>
                     <span className="text-white">{p}</span>
                   </div>
                 ))}
               </div>
             </div>
             <div>
-              <div className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#06B6D4' }}>Bio Hooks</div>
+              <div className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#17B26A' }}>Bio Hooks</div>
               <div className="flex flex-col gap-2">
                 {result.hooks.map((h, i) => (
                   <div key={i} className="p-3 rounded-xl text-sm" style={{ backgroundColor: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.75)', border: '1px solid rgba(255,255,255,0.06)' }}>{h}</div>
@@ -360,7 +360,7 @@ function BrandingGuide() {
 }
 
 
-// ── Main ToolsHub ─────────────────────────────────────────────────
+// â”€â”€ Main ToolsHub â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const tabs = [
   { id: 'cv', label: 'CV Optimiser', icon: FileText, component: CVOptimiser },
   { id: 'linkedin', label: 'LinkedIn Optimiser', icon: Link2, component: LinkedInOptimiser },
@@ -378,17 +378,17 @@ export default function ToolsHub() {
   const setTab = (id: string) => setSearchParams({ tab: id })
 
   return (
-    <div style={{ backgroundColor: '#F4F7F6', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
+    <div style={{ backgroundColor: '#F4F5F7', minHeight: '100vh', fontFamily: 'var(--font-lj-body)' }}>
       <div className="relative pt-32 pb-6 px-6 overflow-hidden">
-        <div className="pointer-events-none absolute -top-16 -right-16 w-[400px] h-[400px] rounded-full" style={{ background: '#FF5A36', filter: 'blur(140px)', opacity: 0.18 }} />
+        <div className="pointer-events-none absolute -top-16 -right-16 w-[400px] h-[400px] rounded-full" style={{ background: '#17B26A', filter: 'blur(140px)', opacity: 0.18 }} />
         <div className="max-w-[1440px] mx-auto">
-          <h1 className="font-display font-700 text-[clamp(2rem,4vw,3rem)] mb-2" style={{ color: '#0D131A' }}>Tools Hub</h1>
+          <h1 className="font-lj-display font-700 text-[clamp(2rem,4vw,3rem)] mb-2" style={{ color: '#0D0D0D' }}>Tools Hub</h1>
           <p className="text-base" style={{ color: '#6B7280' }}>Six zero-auth career tools. Switch instantly. No page refresh.</p>
         </div>
       </div>
 
       {/* Sticky tab rail */}
-      <div className="sticky top-16 z-40 px-6 py-3 overflow-x-auto" style={{ backgroundColor: 'rgba(244,247,246,0.95)', backdropFilter: 'blur(12px)', borderBottom: '1px solid #D6E2E0' }}>
+      <div className="sticky top-16 z-40 px-6 py-3 overflow-x-auto" style={{ backgroundColor: 'rgba(244,247,246,0.95)', backdropFilter: 'blur(12px)', borderBottom: '1px solid #F4F5F7' }}>
         <div className="max-w-[1440px] mx-auto flex gap-2 min-w-max">
           {tabs.map(t => {
             const Icon = t.icon
@@ -399,9 +399,9 @@ export default function ToolsHub() {
                 onClick={() => setTab(t.id)}
                 className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200"
                 style={{
-                  backgroundColor: isActive ? '#0F2C34' : 'transparent',
-                  color: isActive ? '#06B6D4' : '#6B7280',
-                  border: isActive ? '1px solid rgba(6,182,212,0.3)' : '1px solid transparent',
+                  backgroundColor: isActive ? '#0D0D0D' : 'transparent',
+                  color: isActive ? '#17B26A' : '#6B7280',
+                  border: isActive ? '1px solid rgba(23,178,106,0.3)' : '1px solid transparent',
                 }}
               >
                 <Icon className="w-3.5 h-3.5" />

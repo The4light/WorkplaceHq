@@ -18,13 +18,47 @@ function TwitterIcon(props: React.SVGProps<SVGSVGElement>) {
   )
 }
 
-function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
+function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
-      <path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z" />
+    <svg fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" {...props}>
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
     </svg>
   )
 }
+
+function TikTokIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
+      <path d="M16.6 5.82c-1.02-.94-1.65-2.27-1.65-3.75h-3.06v14.44c0 1.55-1.26 2.8-2.8 2.8a2.8 2.8 0 0 1-2.8-2.8 2.8 2.8 0 0 1 2.8-2.8c.29 0 .57.05.83.13v-3.1a5.9 5.9 0 0 0-.83-.06c-3.24 0-5.86 2.62-5.86 5.86s2.62 5.86 5.86 5.86 5.86-2.62 5.86-5.86V9.05a8.5 8.5 0 0 0 4.96 1.6V7.6a5.4 5.4 0 0 1-3.31-1.78z" />
+    </svg>
+  )
+}
+
+function FacebookIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
+      <path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z" />
+    </svg>
+  )
+}
+
+function TelegramIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
+      <path d="M21.9 4.7 18.6 20.3c-.25 1.1-.9 1.38-1.83.86l-5.06-3.73-2.44 2.35c-.27.27-.5.5-1.02.5l.37-5.18 9.42-8.51c.41-.36-.09-.57-.63-.2L6.3 13.2l-5-1.57c-1.1-.34-1.12-1.1.23-1.63L20.5 3.4c.91-.34 1.71.21 1.4 1.3z" />
+    </svg>
+  )
+}
+
+const ljSocialLinks = [
+  { Icon: InstagramIcon, href: '#', label: 'Instagram' },
+  { Icon: LinkedinIcon, href: '#', label: 'LinkedIn' },
+  { Icon: TikTokIcon, href: '#', label: 'TikTok' },
+  { Icon: FacebookIcon, href: '#', label: 'Facebook' },
+  { Icon: TelegramIcon, href: '#', label: 'Telegram' },
+]
 
 const platformLinks = [
   { label: 'About', to: '/about' },
@@ -41,7 +75,7 @@ const companyLinks = [
 ]
 
 const careerLinks = [
-  { label: 'Lagos Job', to: '/lagos-jobs', isMain: true },
+  { label: 'LagosJobs.', to: '/lagos-jobs', isMain: true },
   { label: 'Tools Hub', to: '/lagos-jobs/tools', isMain: false },
   { label: 'Job Listings', to: '/lagos-jobs/listings', isMain: false },
 ]
@@ -93,8 +127,8 @@ export default function Footer() {
                   fontFamily: 'var(--font-body)',
                 }}
               >
-                Operational systems, AI adoption, and performance infrastructure
-                engineered for enterprise teams across Africa.
+                Building AI-ready, high-performing teams across Africa through
+                structured training, workshops, and consulting.
               </p>
             </div>
 
@@ -104,7 +138,6 @@ export default function Footer() {
                 {[
                   { Icon: LinkedinIcon, href: 'https://linkedin.com', label: 'LinkedIn' },
                   { Icon: TwitterIcon, href: 'https://twitter.com', label: 'Twitter' },
-                  { Icon: GithubIcon, href: 'https://github.com', label: 'GitHub' },
                 ].map(({ Icon, href, label }) => (
                   <a
                     key={label}
@@ -207,13 +240,13 @@ export default function Footer() {
               <div className="flex items-center justify-between">
                 <h3
                   className="text-xs font-semibold uppercase tracking-widest"
-                  style={{ color: '#FF5A36', fontFamily: 'var(--font-display)' }}
+                  style={{ color: '#17B26A', fontFamily: 'var(--font-display)' }}
                 >
                   Careers Product
                 </h3>
                 <span
                   className="h-1.5 w-1.5 rounded-full"
-                  style={{ backgroundColor: '#FF5A36' }}
+                  style={{ backgroundColor: '#17B26A' }}
                 />
               </div>
 
@@ -222,7 +255,7 @@ export default function Footer() {
                   <li key={l.to}>
                     <Link
                       to={l.to}
-                      className={`group flex items-center justify-between transition-colors duration-150 hover:text-[#06B6D4] ${
+                      className={`group flex items-center justify-between transition-colors duration-150 hover:text-[#17B26A] ${
                         l.isMain ? 'font-semibold text-white' : ''
                       }`}
                       style={{
@@ -238,6 +271,23 @@ export default function Footer() {
                   </li>
                 ))}
               </ul>
+
+              <div className="mt-5 flex items-center gap-2.5">
+                {ljSocialLinks.map(({ Icon, href, label }) => (
+                  // TODO: Add live social URLs
+                  <a
+                    key={label}
+                    href={href}
+                    aria-label={label}
+                    className="flex h-7 w-7 items-center justify-center transition-colors duration-150"
+                    style={{ color: '#6B7280' }}
+                    onMouseEnter={e => (e.currentTarget.style.color = '#17B26A')}
+                    onMouseLeave={e => (e.currentTarget.style.color = '#6B7280')}
+                  >
+                    <Icon className="w-4 h-4" />
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -250,7 +300,7 @@ export default function Footer() {
             fontFamily: 'var(--font-body)',
           }}
         >
-          <p>© {new Date().getFullYear()} WorkplaceHQ Systems Ltd. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} WorkplaceHQ. All rights reserved.</p>
           <div className="flex gap-6">
             <Link to="/privacy" className="hover:text-white transition-colors duration-150">
               Privacy Policy

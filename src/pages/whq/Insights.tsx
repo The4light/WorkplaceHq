@@ -1,4 +1,4 @@
-import { Clock, ArrowRight } from 'lucide-react'
+﻿import { Clock, ArrowRight } from 'lucide-react'
 
 const featured = {
   title: 'The 2025 State of Enterprise AI: What\'s Actually Working',
@@ -28,7 +28,7 @@ const catColors: Record<string, [string, string]> = {
 
 export default function WHQInsights() {
   return (
-    <div style={{ backgroundColor: '#FBF9F5', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
+    <div style={{ backgroundColor: 'var(--whq-bg)', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
       <div className="relative pt-32 pb-12 px-6 overflow-hidden">
         <div className="pointer-events-none absolute -top-16 -right-16 w-[400px] h-[400px] rounded-full" style={{ background: '#D97706', filter: 'blur(120px)', opacity: 0.15 }} />
         <div className="max-w-[1440px] mx-auto">
@@ -52,7 +52,7 @@ export default function WHQInsights() {
               </div>
               <h2 className="font-display font-700 text-[clamp(1.5rem,3vw,2.5rem)] text-white leading-tight mb-4">{featured.title}</h2>
               <p className="text-base leading-relaxed mb-6" style={{ color: 'rgba(255,255,255,0.65)' }}>{featured.excerpt}</p>
-              <button className="flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-sm" style={{ backgroundColor: '#10B981', color: '#0B3C2D', fontFamily: 'var(--font-display)' }}>
+              <button className="flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-sm" style={{ backgroundColor: '#1DA54A', color: '#0B3C2D', fontFamily: 'var(--font-display)' }}>
                 Read Article <ArrowRight className="w-4 h-4" />
               </button>
             </div>

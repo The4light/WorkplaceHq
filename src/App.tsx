@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 
 import WorkplaceHQNav from './components/WorkplaceHQNav'
 import LagosJobNav from './components/LagosJobNav'
@@ -13,6 +13,7 @@ import WHQConsulting from './pages/whq/Consulting'
 import WHQResources from './pages/whq/Resources'
 import WHQInsights from './pages/whq/Insights'
 import WHQContact from './pages/whq/Contact'
+import { PrivacyPage, TermsPage, SecurityPage } from './pages/whq/LegalPages'
 
 import LJHome from './pages/lj/Home'
 import LJServices from './pages/lj/Services'
@@ -50,7 +51,7 @@ function LJLayout({ children }: { children: React.ReactNode }) {
 export default function App() {
   return (
     <BrowserRouter>
-    <ScrollToTop/>
+      <ScrollToTop />
       <Routes>
         {/* WorkplaceHQ routes */}
         <Route path="/" element={<WHQLayout><WHQHome /></WHQLayout>} />
@@ -62,6 +63,10 @@ export default function App() {
         <Route path="/resources" element={<WHQLayout><WHQResources /></WHQLayout>} />
         <Route path="/insights" element={<WHQLayout><WHQInsights /></WHQLayout>} />
         <Route path="/contact" element={<WHQLayout><WHQContact /></WHQLayout>} />
+        <Route path="/privacy" element={<WHQLayout><PrivacyPage /></WHQLayout>} />
+        <Route path="/terms" element={<WHQLayout><TermsPage /></WHQLayout>} />
+        <Route path="/security" element={<WHQLayout><SecurityPage /></WHQLayout>} />
+        <Route path="/lagos-jobs/workplace" element={<Navigate to="/" replace />} />
 
         {/* Lagos Job routes */}
         <Route path="/lagos-jobs" element={<LJLayout><LJHome /></LJLayout>} />

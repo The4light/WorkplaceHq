@@ -1,20 +1,20 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Bot, Settings, TrendingUp, HeartHandshake, BarChart3, ArrowRight, CheckCircle, X } from 'lucide-react'
 
 const services = [
   {
     icon: Bot,
     title: 'AI Adoption',
-    challenge: 'Enterprises struggle to move AI pilots to production — 80% fail before business impact.',
+    challenge: 'Enterprises struggle to move AI pilots to production â€” 80% fail before business impact.',
     solution: 'End-to-end integration: readiness audits, model selection, deployment architecture, and change management.',
-    outcomes: ['32% average cost reduction', 'AI embedded in 90 days', '4.1× faster decision cycles'],
+    outcomes: ['32% average cost reduction', 'AI embedded in 90 days', '4.1Ã— faster decision cycles'],
   },
   {
     icon: Settings,
     title: 'Productivity Infrastructure',
     challenge: 'Tool sprawl and unstructured workflows create compounding drag on output.',
     solution: 'Unified workspace architecture, SOPs, async communication design, and integrated tooling.',
-    outcomes: ['45% fewer meetings', '3× faster project delivery', 'Full tool consolidation'],
+    outcomes: ['45% fewer meetings', '3Ã— faster project delivery', 'Full tool consolidation'],
   },
   {
     icon: TrendingUp,
@@ -35,7 +35,7 @@ const services = [
     title: 'Strategic Consulting',
     challenge: 'Leadership teams lack the external perspective and methodologies to break growth plateaus.',
     solution: 'C-suite advisory, transformation roadmapping, board reporting frameworks, and scenario planning.',
-    outcomes: ['Roadmaps adopted in 100% of engagements', 'CEO confidence index +40%', '12–18 month horizon planning'],
+    outcomes: ['Roadmaps adopted in 100% of engagements', 'CEO confidence index +40%', '12â€“18 month horizon planning'],
   },
 ]
 
@@ -47,7 +47,7 @@ export default function WHQServices() {
   const Icon = s.icon
 
   return (
-    <div style={{ backgroundColor: '#FBF9F5', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
+    <div style={{ backgroundColor: 'var(--whq-bg)', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
       <div className="relative pt-32 pb-12 px-6 overflow-hidden">
         <div className="pointer-events-none absolute -top-16 -right-16 w-[400px] h-[400px] rounded-full" style={{ background: '#D97706', filter: 'blur(120px)', opacity: 0.15 }} />
         <div className="max-w-[1440px] mx-auto">
@@ -92,7 +92,7 @@ export default function WHQServices() {
             </div>
 
             <div className="grid md:grid-cols-3 gap-4 mb-8">
-              {[['Challenge', s.challenge, '#FEF3C7', '#92400E'], ['System Solution', s.solution, 'rgba(11,60,45,0.05)', '#0B3C2D'], ['Measurable Outcomes', s.outcomes.join(' · '), '#F0FDF4', '#065F46']].map(([label, content, bg, color]) => (
+              {[['Challenge', s.challenge, '#FEF3C7', '#92400E'], ['System Solution', s.solution, 'rgba(11,60,45,0.05)', '#0B3C2D'], ['Measurable Outcomes', s.outcomes.join(' Â· '), '#F0FDF4', '#065F46']].map(([label, content, bg, color]) => (
                 <div key={label as string} className="p-5 rounded-xl" style={{ backgroundColor: bg as string }}>
                   <div className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: color as string }}>{label as string}</div>
                   <p className="text-sm leading-relaxed" style={{ color: '#111827' }}>{content as string}</p>
@@ -105,7 +105,7 @@ export default function WHQServices() {
               <div className="flex flex-col gap-2">
                 {s.outcomes.map(o => (
                   <div key={o} className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 shrink-0" style={{ color: '#10B981' }} />
+                    <CheckCircle className="w-4 h-4 shrink-0" style={{ color: '#1DA54A' }} />
                     <span className="text-sm" style={{ color: '#111827' }}>{o}</span>
                   </div>
                 ))}
@@ -131,10 +131,10 @@ export default function WHQServices() {
               <button onClick={() => setModalOpen(false)}><X className="w-4 h-4" style={{ color: '#9CA3AF' }} /></button>
             </div>
             <div className="flex flex-col gap-3">
-              <input className="w-full px-4 py-3 text-sm outline-none" style={{ border: '1px solid #E5E1D8', backgroundColor: '#FBF9F5', borderRadius: '6px' }} placeholder="Full Name" />
-              <input className="w-full px-4 py-3 text-sm outline-none" type="email" style={{ border: '1px solid #E5E1D8', backgroundColor: '#FBF9F5', borderRadius: '6px' }} placeholder="Corporate Email" />
-              <input className="w-full px-4 py-3 text-sm outline-none" style={{ border: '1px solid #E5E1D8', backgroundColor: '#FBF9F5', borderRadius: '6px' }} placeholder="Company & Team Size" />
-              <textarea className="w-full px-4 py-3 text-sm outline-none resize-none h-24" style={{ border: '1px solid #E5E1D8', backgroundColor: '#FBF9F5', borderRadius: '6px' }} placeholder={`What specific challenge are you facing with ${s.title}?`} />
+              <input className="w-full px-4 py-3 text-sm outline-none" style={{ border: '1px solid #E5E1D8', backgroundColor: 'var(--whq-bg)', borderRadius: '6px' }} placeholder="Full Name" />
+              <input className="w-full px-4 py-3 text-sm outline-none" type="email" style={{ border: '1px solid #E5E1D8', backgroundColor: 'var(--whq-bg)', borderRadius: '6px' }} placeholder="Corporate Email" />
+              <input className="w-full px-4 py-3 text-sm outline-none" style={{ border: '1px solid #E5E1D8', backgroundColor: 'var(--whq-bg)', borderRadius: '6px' }} placeholder="Company & Team Size" />
+              <textarea className="w-full px-4 py-3 text-sm outline-none resize-none h-24" style={{ border: '1px solid #E5E1D8', backgroundColor: 'var(--whq-bg)', borderRadius: '6px' }} placeholder={`What specific challenge are you facing with ${s.title}?`} />
               <button className="w-full py-3 rounded-lg font-semibold text-sm" style={{ backgroundColor: '#0B3C2D', color: '#FFFFFF', fontFamily: 'var(--font-display)' }} onClick={() => setModalOpen(false)}>
                 Send Proposal Request
               </button>
