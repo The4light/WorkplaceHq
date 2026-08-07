@@ -3,53 +3,15 @@
 const principles = [
   { icon: Target, title: 'Precision Focus', desc: 'We diagnose before prescribing. Every engagement starts with forensic analysis of what\'s actually holding your organization back.' },
   { icon: Cpu, title: 'Systems Thinking', desc: 'People, process, and technology are inseparable. We design interventions that address all three simultaneously.' },
-  { icon: TrendingUp, title: 'Performance Culture', desc: 'We build cultures where high performance is the default â€” not the exception. Systems that reward output and enable growth.' },
+  { icon: TrendingUp, title: 'Performance Culture', desc: 'We build cultures where high performance is the default — not the exception. Systems that reward output and enable growth.' },
   { icon: RefreshCw, title: 'Continuous Adaptation', desc: 'Markets evolve. We embed the capability for your organization to evolve faster than your competition.' },
 ]
 
 const team = [
-  { 
-    name: 'Emeka Okafor', 
-    role: 'CEO & Co-founder', 
-    focus: 'Operational Strategy',
-    bio: '15+ years advising West African tech & enterprise leaders on organizational architecture.',
-    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=300&q=80'
-  },
-  { 
-    name: 'Ngozi Abiodun', 
-    role: 'Chief Consulting Officer', 
-    focus: 'Enterprise Transformation',
-    bio: 'Former Big 4 strategist specializing in large-scale workforce realignment and process redesign.',
-    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=300&q=80'
-  },
-  { 
-    name: 'Kwame Asante', 
-    role: 'Head of AI Practice', 
-    focus: 'AI & Automation',
-    bio: 'Pioneering custom generative workflows and enterprise automation frameworks across SSA.',
-    image: 'https://images.unsplash.com/photo-1506634572416-48cdfe530110?auto=format&fit=crop&w=300&q=80'
-  },
-  { 
-    name: 'Zara Mensah',
-    role: 'Head of Learning',
-    focus: 'Training & Development',
-    bio: 'Designs high-impact leadership development programs for multi-regional corporate teams.',
-    image: 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?auto=format&fit=crop&w=300&q=80'
-  },
-  { 
-    name: 'David Adeyemi', 
-    role: 'CX Practice Lead', 
-    focus: 'Customer Experience',
-    bio: 'Expert in customer journey mapping and omnichannel retention systems for digital brands.',
-    image: 'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?auto=format&fit=crop&w=300&q=80'
-  },
-  { 
-    name: 'Amina Hassan', 
-    role: 'Head of Research', 
-    focus: 'Insights & Analytics',
-    bio: 'Translates workforce analytics and market intelligence into actionable business decisions.',
-    image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80'
-  },
+  { name: 'Mrs. Oti Benson', role: 'TBC', focus: '', bio: 'Full details coming soon.', image: null },
+  { name: 'Mr. Oluwole Elvis Benson', role: 'TBC', focus: '', bio: 'Full details coming soon.', image: null },
+  { name: 'Ms. Glory', role: 'TBC', focus: '', bio: 'Full details coming soon.', image: null },
+  { name: 'Ms. Anna', role: 'TBC', focus: '', bio: 'Full details coming soon.', image: null },
 ]
 
 export default function WHQAbout() {
@@ -73,7 +35,7 @@ export default function WHQAbout() {
               We were built for the organizations that refuse to stay average.
             </h1>
             <p className="text-lg leading-relaxed" style={{ color: '#6B7280' }}>
-              WorkplaceHQ was founded on a simple premise: most organizations know what they want to achieve but lack the operational architecture to get there. We build that architecture â€” and we stay until it works.
+              WorkplaceHQ was founded on a simple premise: most organizations know what they want to achieve but lack the operational architecture to get there. We build that architecture — and we stay until it works.
             </p>
           </div>
         </div>
@@ -84,11 +46,11 @@ export default function WHQAbout() {
         <div className="max-w-[1440px] mx-auto grid md:grid-cols-2 gap-12 items-center">
           
           {/* Dark Card with Stats & Subtle Ring Element */}
-          <div className="relative p-8 rounded-2xl overflow-hidden" style={{ backgroundColor: '#0B3C2D', border: '1px solid rgba(16,185,129,0.2)' }}>
+          <div className="relative p-8 sm:p-10 rounded-2xl overflow-hidden" style={{ backgroundColor: '#0B3C2D', border: '1px solid rgba(29,165,74,0.2)' }}>
             <div className="absolute -bottom-12 -right-12 w-48 h-48 pointer-events-none opacity-15">
               <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="50" cy="50" r="44" stroke="#FFFFFF" strokeWidth="2.5" />
-                <circle cx="50" cy="50" r="14" fill="#FFFFFF" />
+                <circle cx="50" cy="50" r="14" fill="#FFFFFF" className="brand-dot-pulse" />
               </svg>
             </div>
 
@@ -98,7 +60,7 @@ export default function WHQAbout() {
               <div className="grid grid-cols-2 gap-4">
                 {[['50+', 'Clients'], ['12K+', 'Employees trained'], ['6', 'Practice areas'], ['94%', 'Retention rate']].map(([v, l]) => (
                   <div key={l} className="p-4 rounded-xl" style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}>
-                    <div className="font-display font-700 text-2xl" style={{ color: '#10B981' }}>{v}</div>
+                    <div className="font-display font-700 text-2xl" style={{ color: '#1DA54A' }}>{v}</div>
                     <div className="text-xs" style={{ color: 'rgba(255,255,255,0.5)' }}>{l}</div>
                   </div>
                 ))}
@@ -110,10 +72,10 @@ export default function WHQAbout() {
           <div className="space-y-6">
             <h2 className="font-display font-700 text-2xl sm:text-3xl" style={{ color: '#111827' }}>Our origin story</h2>
             <p className="text-base leading-relaxed" style={{ color: '#6B7280' }}>
-              WorkplaceHQ emerged from direct consulting experience inside fast-scaling African and global enterprises. We saw firsthand how organizations with ambitious goals routinely under-performed â€” not from lack of talent, but from structural incoherence.
+              WorkplaceHQ emerged from direct consulting experience inside fast-scaling African and global enterprises. We saw firsthand how organizations with ambitious goals routinely under-performed — not from lack of talent, but from structural incoherence.
             </p>
             <p className="text-base leading-relaxed" style={{ color: '#6B7280' }}>
-              We built WorkplaceHQ to close that gap: a firm that operates at the intersection of technology, people science, and operational design â€” deploying integrated solutions rather than siloed recommendations.
+              We built WorkplaceHQ to close that gap: a firm that operates at the intersection of technology, people science, and operational design — deploying integrated solutions rather than siloed recommendations.
             </p>
             
             {/* Contextual Team Photography */}
@@ -177,7 +139,7 @@ export default function WHQAbout() {
                         className="w-full h-full object-cover grayscale-[20%] transition-all duration-300 group-hover:grayscale-0 group-hover:scale-105"
                       />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center font-display font-700 text-xl" style={{ backgroundColor: '#0B3C2D', color: '#10B981' }}>
+                      <div className="w-full h-full flex items-center justify-center font-display font-700 text-xl" style={{ backgroundColor: '#0B3C2D', color: '#1DA54A' }}>
                         {t.name.split(' ').map(n => n[0]).join('')}
                       </div>
                     )}
@@ -190,12 +152,14 @@ export default function WHQAbout() {
                     <p className="text-sm font-semibold" style={{ color: '#0B3C2D' }}>
                       {t.role}
                     </p>
-                    <span 
-                      className="inline-block mt-1 px-2 py-0.5 rounded text-[11px] font-medium tracking-wide uppercase"
-                      style={{ backgroundColor: 'rgba(11,60,45,0.06)', color: '#0B3C2D' }}
-                    >
-                      {t.focus}
-                    </span>
+                    {t.focus && (
+                      <span
+                        className="inline-block mt-1 px-2 py-0.5 rounded text-[11px] font-medium tracking-wide uppercase"
+                        style={{ backgroundColor: 'rgba(11,60,45,0.06)', color: '#0B3C2D' }}
+                      >
+                        {t.focus}
+                      </span>
+                    )}
                   </div>
                 </div>
 

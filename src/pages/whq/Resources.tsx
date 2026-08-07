@@ -69,7 +69,7 @@ export default function WHQResources() {
         <div className="absolute -top-16 -right-16 w-80 h-80 pointer-events-none z-0 hidden sm:block">
           <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="50" cy="50" r="44" stroke="#1DA54A" strokeWidth="2" opacity="0.35" />
-            <circle cx="50" cy="50" r="14" fill="#1DA54A" opacity="0.25" />
+            <circle cx="50" cy="50" r="14" fill="#1DA54A" opacity="0.25" className="brand-dot-pulse" />
           </svg>
         </div>
 
@@ -81,7 +81,7 @@ export default function WHQResources() {
             Resources Hub
           </h1>
           <p className="text-lg" style={{ color: '#6B7280' }}>
-            Whitepapers, toolkits, frameworks, and reports â€” free for enterprise teams.
+            Whitepapers, toolkits, frameworks, and reports — free for enterprise teams.
           </p>
         </div>
       </div>
@@ -138,11 +138,11 @@ export default function WHQResources() {
                     </span>
 
                     {/* 3D Visual Book Mockup */}
-                    <div className="relative z-10 w-36 h-44 rounded-r-md rounded-l-xs shadow-2xl transition-transform duration-300 group-hover:rotate-2 group-hover:scale-105 flex flex-col justify-between p-3.5 border-l-4 border-[#10B981]" 
+                    <div className="relative z-10 w-36 h-44 rounded-r-md rounded-l-xs shadow-2xl transition-transform duration-300 group-hover:rotate-2 group-hover:scale-105 flex flex-col justify-between p-3.5 border-l-4 border-[#1DA54A]" 
                          style={{ backgroundColor: '#0B3C2D', backgroundImage: 'linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.35) 100%)' }}>
                       
                       <div className="flex justify-between items-center">
-                        <span className="text-[9px] font-mono tracking-wider text-[#10B981] uppercase font-semibold">
+                        <span className="text-[9px] font-mono tracking-wider text-[#1DA54A] uppercase font-semibold">
                           {r.type}
                         </span>
                         <div className="w-2 h-2 rounded-full bg-amber-400" />
@@ -157,7 +157,7 @@ export default function WHQResources() {
 
                       <div className="pt-2 border-t border-white/10 flex justify-between items-center">
                         <span className="text-[8px] text-white/60">Free Download</span>
-                        <span className="text-[8px] text-[#10B981] font-semibold">2026</span>
+                        <span className="text-[8px] text-[#1DA54A] font-semibold">2026</span>
                       </div>
                     </div>
                   </div>
@@ -173,7 +173,7 @@ export default function WHQResources() {
                       </p>
                     </div>
 
-                    {/* Action Button - Pure Green (#10B981) on Hover */}
+                    {/* Action Button - Pure Green (#1DA54A) on Hover */}
                     <button
                       onClick={() => setModal(r.title)}
                       className="w-full py-3 rounded-xl flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-wider transition-all border duration-200 hover:!bg-[#1DA54A] hover:!border-[#1DA54A] hover:!text-[#0B3C2D]"

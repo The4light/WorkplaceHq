@@ -3,13 +3,11 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import WorkplaceHQNav from './components/WorkplaceHQNav'
 import LagosJobNav from './components/LagosJobNav'
 import Footer from './components/Footer'
+import LagosJobsFooter from './components/LagosJobsFooter'
 
 import WHQHome from './pages/whq/Home'
 import WHQAbout from './pages/whq/About'
 import WHQServices from './pages/whq/Services'
-import WHQTraining from './pages/whq/Training'
-import WHQWorkshops from './pages/whq/Workshops'
-import WHQConsulting from './pages/whq/Consulting'
 import WHQResources from './pages/whq/Resources'
 import WHQInsights from './pages/whq/Insights'
 import WHQContact from './pages/whq/Contact'
@@ -43,7 +41,7 @@ function LJLayout({ children }: { children: React.ReactNode }) {
         <LagosJobNav />
         {children}
       </div>
-      <Footer />
+      <LagosJobsFooter />
     </div>
   )
 }
@@ -57,9 +55,9 @@ export default function App() {
         <Route path="/" element={<WHQLayout><WHQHome /></WHQLayout>} />
         <Route path="/about" element={<WHQLayout><WHQAbout /></WHQLayout>} />
         <Route path="/services" element={<WHQLayout><WHQServices /></WHQLayout>} />
-        <Route path="/training" element={<WHQLayout><WHQTraining /></WHQLayout>} />
-        <Route path="/workshops" element={<WHQLayout><WHQWorkshops /></WHQLayout>} />
-        <Route path="/consulting" element={<WHQLayout><WHQConsulting /></WHQLayout>} />
+        <Route path="/training" element={<Navigate to="/services" replace />} />
+        <Route path="/workshops" element={<Navigate to="/services" replace />} />
+        <Route path="/consulting" element={<Navigate to="/services" replace />} />
         <Route path="/resources" element={<WHQLayout><WHQResources /></WHQLayout>} />
         <Route path="/insights" element={<WHQLayout><WHQInsights /></WHQLayout>} />
         <Route path="/contact" element={<WHQLayout><WHQContact /></WHQLayout>} />

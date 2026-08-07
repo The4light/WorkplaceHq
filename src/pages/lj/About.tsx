@@ -12,15 +12,11 @@ export default function LJAbout() {
   return (
     <div style={{ backgroundColor: '#F4F5F7', minHeight: '100vh', fontFamily: 'var(--font-lj-body)' }}>
       <div className="relative pt-32 pb-20 px-6 overflow-hidden">
-        <div className="pointer-events-none absolute -top-16 -right-16 w-[450px] h-[450px] rounded-full" style={{ background: '#17B26A', filter: 'blur(140px)', opacity: 0.2 }} />
-        <div className="pointer-events-none absolute -bottom-24 -left-24 w-[550px] h-[550px] rounded-full" style={{ background: '#17B26A', filter: 'blur(160px)', opacity: 0.15 }} />
-
         <div className="max-w-[1440px] mx-auto relative z-10">
           <div className="max-w-3xl mb-16">
             <h1 className="font-lj-display font-700 text-[clamp(2rem,5vw,4rem)] leading-[1.05] mb-6" style={{ color: '#0D0D0D' }}>
               Unleashing Africa's<br />
-              <span style={{ color: '#17B26A' }}>Career</span>{' '}
-              <span style={{ color: '#17B26A' }}>Potential.</span>
+              Career Potential.
             </h1>
             <p className="text-lg leading-relaxed" style={{ color: '#6B7280' }}>
               LagosJobs was built because African professionals are among the most talented in the world — but they're being shortchanged by tools, platforms, and job boards designed for other markets. We're changing that.
@@ -34,7 +30,7 @@ export default function LJAbout() {
               <div className="grid grid-cols-2 gap-4">
                 {[['38K+', 'Careers helped'], ['14K+', 'Active listings'], ['6', 'AI tools'], ['4.8★', 'App rating']].map(([v, l]) => (
                   <div key={l} className="p-4 rounded-xl" style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                    <div className="font-lj-display font-700 text-2xl" style={{ color: '#17B26A' }}>{v}</div>
+                    <div className="font-lj-display font-700 text-2xl text-white">{v}</div>
                     <div className="text-xs" style={{ color: 'rgba(255,255,255,0.45)' }}>{l}</div>
                   </div>
                 ))}
@@ -61,7 +57,6 @@ export default function LJAbout() {
           </div>
 
           <div className="relative p-10 rounded-2xl overflow-hidden" style={{ backgroundColor: '#0D0D0D' }}>
-            <div className="pointer-events-none absolute -top-8 -right-8 w-48 h-48 rounded-full" style={{ background: '#17B26A', filter: 'blur(80px)', opacity: 0.25 }} />
             <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
               <div>
                 <h3 className="font-lj-display font-700 text-2xl text-white mb-2">Ready to launch your career?</h3>

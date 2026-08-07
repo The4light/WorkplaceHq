@@ -1,18 +1,33 @@
 ﻿import { useState } from 'react'
-import { 
-  Building2, 
-  GraduationCap, 
-  PlaneTakeoff, 
-  Briefcase, 
-  UserCheck, 
-  PhoneCall, 
-  CheckCircle2, 
+import { Link } from 'react-router-dom'
+import {
+  Building2,
+  GraduationCap,
+  PlaneTakeoff,
+  Briefcase,
+  UserCheck,
+  PhoneCall,
+  CheckCircle2,
   ArrowUpRight,
+  ArrowRight,
   ShieldCheck,
   Send,
   X,
-  MessageSquare
+  MessageSquare,
+  FileText,
+  Link2,
+  Palette,
+  Globe,
+  User,
 } from 'lucide-react'
+
+const tools = [
+  { id: 'cv', label: 'CV Optimiser', icon: FileText, desc: 'Score your CV against real ATS keyword requirements.' },
+  { id: 'linkedin', label: 'LinkedIn Optimiser', icon: Link2, desc: 'Generate an optimised headline and About section.' },
+  { id: 'portfolio', label: 'Portfolio Creator', icon: Palette, desc: 'Turn your projects into a shareable portfolio preview.' },
+  { id: 'website', label: 'Website Creator', icon: Globe, desc: 'Preview a simple personal site from your bio and links.' },
+  { id: 'branding', label: 'Personal Branding', icon: User, desc: 'Get content pillars and bio hooks for your niche.' },
+]
 
 const services = [
   {
@@ -87,9 +102,6 @@ export default function LJServices() {
       
       {/* Header Banner */}
       <div className="relative pt-28 pb-8 px-4 sm:px-6 overflow-hidden bg-[#0D0D0D]">
-        <div className="pointer-events-none absolute -top-20 -right-20 w-96 h-96 rounded-full" style={{ background: '#17B26A', filter: 'blur(120px)', opacity: 0.25 }} />
-        <div className="pointer-events-none absolute -bottom-20 -left-20 w-96 h-96 rounded-full" style={{ background: '#17B26A', filter: 'blur(120px)', opacity: 0.2 }} />
-
         <div className="max-w-[1440px] mx-auto relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3 text-[#17B26A] bg-[#17B26A]/10 border border-[#17B26A]/20">
             <UserCheck className="w-3.5 h-3.5" /> Human-Led Advisory
@@ -166,6 +178,41 @@ export default function LJServices() {
 
         </div>
       </div>
+
+      {/* Tools & Resources */}
+      <section className="px-4 sm:px-6 pb-16">
+        <div className="max-w-[1440px] mx-auto">
+          <div className="mb-8">
+            <h2 className="font-lj-display font-700 text-2xl sm:text-3xl mb-2" style={{ color: '#0D0D0D' }}>Tools & Resources</h2>
+            <p className="text-sm sm:text-base" style={{ color: '#6B7280' }}>
+              Free tools to help you find work, prepare for interviews, and grow your career.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            {tools.map(tool => {
+              const Icon = tool.icon
+              return (
+                <Link
+                  key={tool.id}
+                  to={`/lagos-jobs/tools?tab=${tool.id}`}
+                  className="p-5 rounded-2xl bg-white border border-gray-200 flex flex-col justify-between gap-3 group transition-all hover:-translate-y-1 hover:shadow-lg"
+                >
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: 'rgba(23,178,106,0.1)' }}>
+                    <Icon className="w-5 h-5" style={{ color: '#17B26A' }} />
+                  </div>
+                  <div>
+                    <div className="font-lj-display font-600 text-sm mb-1" style={{ color: '#0D0D0D' }}>{tool.label}</div>
+                    <p className="text-xs leading-relaxed" style={{ color: '#6B7280' }}>{tool.desc}</p>
+                  </div>
+                  <span className="inline-flex items-center gap-1 text-xs font-semibold" style={{ color: '#17B26A' }}>
+                    Open Tool <ArrowRight className="w-3.5 h-3.5" />
+                  </span>
+                </Link>
+              )
+            })}
+          </div>
+        </div>
+      </section>
 
       {/* Mobile Drawer */}
       {isMobileDrawerOpen && (

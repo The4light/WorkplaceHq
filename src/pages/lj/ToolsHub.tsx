@@ -380,7 +380,6 @@ export default function ToolsHub() {
   return (
     <div style={{ backgroundColor: '#F4F5F7', minHeight: '100vh', fontFamily: 'var(--font-lj-body)' }}>
       <div className="relative pt-32 pb-6 px-6 overflow-hidden">
-        <div className="pointer-events-none absolute -top-16 -right-16 w-[400px] h-[400px] rounded-full" style={{ background: '#17B26A', filter: 'blur(140px)', opacity: 0.18 }} />
         <div className="max-w-[1440px] mx-auto">
           <h1 className="font-lj-display font-700 text-[clamp(2rem,4vw,3rem)] mb-2" style={{ color: '#0D0D0D' }}>Tools Hub</h1>
           <p className="text-base" style={{ color: '#6B7280' }}>Six zero-auth career tools. Switch instantly. No page refresh.</p>

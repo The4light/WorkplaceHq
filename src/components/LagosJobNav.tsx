@@ -4,9 +4,9 @@ import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { label: "Home", to: "/lagos-jobs" },
+  { label: "Jobs", to: "/lagos-jobs/listings" },
   { label: "Services", to: "/lagos-jobs/services" },
-  { label: "Job Listings", to: "/lagos-jobs/listings" },
-  { label: "About", to: "/lagos-jobs/about" },
+  { label: "Tools Hub", to: "/lagos-jobs/tools" },
   { label: "Contact", to: "/lagos-jobs/contact" },
 ];
 

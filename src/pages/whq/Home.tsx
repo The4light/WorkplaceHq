@@ -1,49 +1,43 @@
 ﻿import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Bot, TrendingUp, Settings, HeartHandshake, BarChart3, ChevronLeft, ChevronRight, Star, Zap, Award, Briefcase } from 'lucide-react'
+import { ArrowRight, GraduationCap, Users, Briefcase, ChevronLeft, ChevronRight, Star, Zap, Sparkles } from 'lucide-react'
 
 const metrics = [
   { value: '98%', label: 'Efficiency Gain' },
   { value: '50+', label: 'Enterprise Clients' },
   { value: '12K+', label: 'Employees Upskilled' },
-  { value: '4.9â˜…', label: 'Client Satisfaction' },
+  { value: '4.9★', label: 'Client Satisfaction' },
 ]
 
 const services = [
   {
-    icon: Bot,
-    title: 'AI Adoption',
-    desc: 'End-to-end enterprise AI integration strategies â€” from readiness audit to full deployment.',
+    icon: GraduationCap,
+    title: 'Training',
+    desc: 'Seven focused programmes — from AI Transformation to Performance Tracking — that build the skills your teams need to perform.',
     colSpan: 'col-span-1 md:col-span-2',
     dark: true,
   },
   {
-    icon: Settings,
-    title: 'Productivity Infrastructure',
-    desc: 'Systems, tools, and workflow architecture that multiply team output.',
+    icon: Users,
+    title: 'Workshops',
+    desc: 'Hands-on, immersive sessions designed to deliver breakthroughs in a single sitting.',
     colSpan: 'col-span-1',
     dark: false,
   },
   {
-    icon: TrendingUp,
-    title: 'Operational Excellence',
-    desc: 'Lean methodologies applied to enterprise operations for measurable throughput gains.',
+    icon: Briefcase,
+    title: 'Consulting',
+    desc: 'Direct advisory on performance management and recruitment, grounded in what actually works.',
     colSpan: 'col-span-1',
     dark: false,
   },
   {
-    icon: HeartHandshake,
-    title: 'CX Transformation',
-    desc: 'Redesign your customer experience layer from contact to retention.',
+    icon: Sparkles,
+    title: 'Lagos Jobs',
+    desc: 'Verified local hiring, migration, and study abroad advisory — part of the WorkplaceHQ ecosystem.',
     colSpan: 'col-span-1',
     dark: false,
-  },
-  {
-    icon: BarChart3,
-    title: 'Strategic Consulting',
-    desc: 'C-suite advisory for transformation roadmaps, OKR architecture, and change management.',
-    colSpan: 'col-span-1 md:col-span-2',
-    dark: true,
+    isLagosJobs: true,
   },
 ]
 
@@ -61,7 +55,7 @@ const testimonials = [
     rating: 5,
   },
   {
-    quote: "The consulting team doesn't just advise â€” they embed, build systems, and leave you with something that actually runs.",
+    quote: "The consulting team doesn't just advise — they embed, build systems, and leave you with something that actually runs.",
     author: 'Chisom Eze',
     role: 'CEO, Nexbridge Africa',
     rating: 5,
@@ -129,7 +123,7 @@ export default function WHQHome() {
   return (
     <div style={{ backgroundColor: 'var(--whq-bg)', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
       {/* Hero Section */}
-      <section className="relative flex flex-col justify-center px-4 sm:px-6 overflow-hidden" style={{ minHeight: 'calc(100vh - 64px)' }}>
+      <section className="relative flex flex-col justify-center px-4 sm:px-6 py-12 sm:py-16 overflow-hidden" style={{ minHeight: 'calc(100vh - 64px)' }}>
         <div className="max-w-[1440px] mx-auto relative z-10 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
@@ -145,7 +139,7 @@ export default function WHQHome() {
                 Work.
               </h1>
               <p className="text-base sm:text-lg leading-relaxed mb-8 sm:mb-10 max-w-xl" style={{ color: '#6B7280' }}>
-                From AI integration to operational excellence â€” WorkplaceHQ partners with forward-thinking enterprises to build the systems, culture, and capabilities that drive compounding performance.
+                From AI integration to operational excellence — WorkplaceHQ partners with forward-thinking enterprises to build the systems, culture, and capabilities that drive compounding performance.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <button
@@ -191,11 +185,15 @@ export default function WHQHome() {
           </div>
 
           {/* Metrics Grid */}
-          <div className="mt-12 sm:mt-16 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+          <div className="mt-14 sm:mt-20 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-5">
             {metrics.map(m => (
-              <div key={m.label} className="p-4 sm:p-5 rounded-2xl" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E1D8' }}>
-                <div className="font-display font-700 text-2xl sm:text-3xl mb-1" style={{ color: '#0B3C2D' }}>{m.value}</div>
-                <div className="text-xs sm:text-sm" style={{ color: '#6B7280' }}>{m.label}</div>
+              <div
+                key={m.label}
+                className="p-5 sm:p-6 rounded-2xl transition-all duration-200 hover:-translate-y-0.5"
+                style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E1D8', boxShadow: '0 1px 2px rgba(0,0,0,0.02)' }}
+              >
+                <div className="font-display font-700 text-3xl sm:text-4xl mb-1.5 tracking-tight" style={{ color: '#0B3C2D' }}>{m.value}</div>
+                <div className="text-xs sm:text-sm font-medium" style={{ color: '#545454' }}>{m.label}</div>
               </div>
             ))}
           </div>
@@ -207,62 +205,33 @@ export default function WHQHome() {
         <div className="max-w-[1440px] mx-auto">
           <div className="mb-8 sm:mb-10">
             <h2 className="font-display font-700 text-2xl sm:text-4xl mb-2 sm:mb-3" style={{ color: '#111827' }}>Our Services</h2>
-            <p className="text-sm sm:text-base" style={{ color: '#6B7280' }}>Five integrated disciplines. One transformation partner.</p>
+            <p className="text-sm sm:text-base" style={{ color: '#6B7280' }}>Three core disciplines. One transformation partner.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {services.map(s => {
               const Icon = s.icon
+              const CardTag: any = s.isLagosJobs ? Link : 'div'
+              const cardProps = s.isLagosJobs ? { to: '/lagos-jobs' } : {}
               return (
-                <div
+                <CardTag
                   key={s.title}
-                  className={`${s.colSpan} relative p-6 sm:p-7 rounded-2xl group cursor-pointer transition-all duration-300 hover:-translate-y-1`}
+                  {...cardProps}
+                  className={`${s.colSpan} relative p-6 sm:p-7 rounded-2xl group cursor-pointer transition-all duration-300 hover:-translate-y-1 block`}
                   style={{
                     backgroundColor: s.dark ? '#0B3C2D' : '#FFFFFF',
-                    border: `1px solid ${s.dark ? 'rgba(16,185,129,0.25)' : '#E5E1D8'}`,
+                    border: `1px solid ${s.dark ? 'rgba(29,165,74,0.25)' : '#E5E1D8'}`,
                   }}
                 >
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
-                    style={{ backgroundColor: s.dark ? 'rgba(16,185,129,0.15)' : 'rgba(11,60,45,0.07)' }}>
-                    <Icon className="w-5 h-5" style={{ color: s.dark ? '#10B981' : '#0B3C2D' }} />
+                    style={{ backgroundColor: s.dark ? 'rgba(29,165,74,0.15)' : 'rgba(11,60,45,0.07)' }}>
+                    <Icon className="w-5 h-5" style={{ color: s.dark ? '#1DA54A' : '#0B3C2D' }} />
                   </div>
-                  <h3 className="font-display font-600 text-lg mb-2" style={{ color: s.dark ? '#FFFFFF' : '#111827' }}>{s.title}</h3>
-                  <p className="text-sm leading-relaxed mb-6 md:mb-0" style={{ color: s.dark ? 'rgba(255,255,255,0.65)' : '#6B7280' }}>{s.desc}</p>
-                  <ArrowRight className="static sm:absolute sm:bottom-6 sm:right-6 w-4 h-4 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity mt-4 sm:mt-0" style={{ color: s.dark ? '#10B981' : '#0B3C2D' }} />
-                </div>
+                  <h3 className="font-display font-600 text-lg mb-2" style={{ color: s.dark ? '#FFFFFF' : '#191919' }}>{s.title}</h3>
+                  <p className="text-sm leading-relaxed mb-6 md:mb-0" style={{ color: s.dark ? 'rgba(255,255,255,0.65)' : '#545454' }}>{s.desc}</p>
+                  <ArrowRight className="static sm:absolute sm:bottom-6 sm:right-6 w-4 h-4 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity mt-4 sm:mt-0" style={{ color: s.dark ? '#1DA54A' : '#0B3C2D' }} />
+                </CardTag>
               )
             })}
-
-            {/* Cross-pollination card */}
-          {/* Cross-pollination card for Lagos Jobs */}
-<div
-  className="col-span-1 relative p-6 sm:p-7 rounded-2xl overflow-hidden flex flex-col justify-between"
-  style={{ 
-    backgroundColor: '#FFFFFF', 
-    border: '1px solid #E5E1D8', 
-    backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(255,90,54,0.03) 8px, rgba(255,90,54,0.03) 9px)' 
-  }}
->
-  <div className="relative z-10">
-    <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style={{ backgroundColor: 'rgba(255,90,54,0.1)' }}>
-      <Briefcase className="w-5 h-5" style={{ color: '#FF5A36' }} />
-    </div>
-    <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider mb-3" style={{ backgroundColor: 'rgba(255,90,54,0.1)', color: '#FF5A36' }}>
-      Talent & Careers Platform
-    </div>
-    <h3 className="font-display font-600 text-lg mb-2" style={{ color: '#111827' }}>Lagos Jobs Marketplace</h3>
-    <p className="text-sm leading-relaxed mb-4" style={{ color: '#6B7280' }}>
-      Connect directly with verified employers, browse curated job listings across Lagos, or consult with our human advisory specialists for travel and study abroad processing.
-    </p>
-  </div>
-
-  <Link 
-    to="/lagos-jobs" 
-    className="inline-flex items-center gap-2 font-bold text-sm transition-transform hover:translate-x-1" 
-    style={{ color: '#FF5A36', fontFamily: 'var(--font-display)' }}
-  >
-    Explore Lagos Jobs <ArrowRight className="w-4 h-4" />
-  </Link>
-</div>
           </div>
         </div>
       </section>
@@ -330,10 +299,10 @@ export default function WHQHome() {
       {/* Client Trust Strip */}
       <section className="px-4 sm:px-6 py-8 sm:py-12 border-y" style={{ borderColor: '#E5E1D8' }}>
         <div className="max-w-[1440px] mx-auto">
-          <p className="text-xs font-medium tracking-widest uppercase mb-6 sm:mb-8 text-center" style={{ color: '#9CA3AF' }}>Trusted by leading enterprises</p>
+          <p className="text-xs tracking-widest uppercase mb-6 sm:mb-8 text-center" style={{ color: '#1A1A1A', fontWeight: 600 }}>Trusted by leading enterprises</p>
           <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-12 md:gap-16">
             {clients.map(c => (
-              <span key={c} className="font-display font-600 text-base sm:text-lg" style={{ color: '#D1CFC9' }}>{c}</span>
+              <span key={c} className="font-display font-600 text-base sm:text-lg" style={{ color: '#545454' }}>{c}</span>
             ))}
           </div>
         </div>
@@ -365,7 +334,7 @@ export default function WHQHome() {
                 "{testimonials[activeTestimonial].quote}"
               </p>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm" style={{ backgroundColor: '#0B3C2D', color: '#10B981' }}>
+                <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm" style={{ backgroundColor: '#0B3C2D', color: '#1DA54A' }}>
                   {testimonials[activeTestimonial].author[0]}
                 </div>
                 <div>
@@ -466,11 +435,9 @@ export default function WHQHome() {
                   style={{ border: '1px solid #E5E1D8', backgroundColor: 'var(--whq-bg)', borderRadius: '6px', color: consultationForm.interest ? '#111827' : '#6B7280' }}
                 >
                   <option value="">Area of Interest</option>
-                  <option>AI Adoption</option>
-                  <option>Productivity Infrastructure</option>
-                  <option>Operational Excellence</option>
-                  <option>CX Transformation</option>
-                  <option>Strategic Consulting</option>
+                  <option>Training</option>
+                  <option>Workshops</option>
+                  <option>Consulting</option>
                 </select>
                 <button
                   type="submit"

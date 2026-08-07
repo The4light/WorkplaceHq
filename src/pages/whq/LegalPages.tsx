@@ -20,7 +20,7 @@ function LegalPage({
         <div className="absolute -right-16 -top-16 hidden h-64 w-64 pointer-events-none sm:block">
           <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="50" cy="50" r="44" stroke="#1DA54A" strokeWidth="2" opacity="0.3" />
-            <circle cx="50" cy="50" r="14" fill="#1DA54A" opacity="0.18" />
+            <circle cx="50" cy="50" r="14" fill="#1DA54A" opacity="0.18" className="brand-dot-pulse" />
           </svg>
         </div>
 

@@ -150,9 +150,6 @@ export default function LJListings() {
       
       {/* Header Banner */}
       <div className="relative pt-28 pb-8 px-4 sm:px-6 overflow-hidden bg-[#0D0D0D]">
-        <div className="pointer-events-none absolute -top-20 -right-20 w-96 h-96 rounded-full" style={{ background: '#17B26A', filter: 'blur(120px)', opacity: 0.25 }} />
-        <div className="pointer-events-none absolute -bottom-20 -left-20 w-96 h-96 rounded-full" style={{ background: '#17B26A', filter: 'blur(120px)', opacity: 0.2 }} />
-
         <div className="max-w-[1440px] mx-auto relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3 text-[#17B26A] bg-[#17B26A]/10 border border-[#17B26A]/20">
             <Sparkles className="w-3.5 h-3.5" /> Curated Lagos Hiring

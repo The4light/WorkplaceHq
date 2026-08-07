@@ -46,7 +46,6 @@ export default function LJContact() {
   return (
     <div style={{ backgroundColor: '#F4F5F7', minHeight: '100vh', fontFamily: 'var(--font-lj-body)' }}>
       <div className="relative pt-32 pb-12 px-6 overflow-hidden">
-        <div className="pointer-events-none absolute -top-16 -right-16 w-[450px] h-[450px] rounded-full" style={{ background: '#17B26A', filter: 'blur(140px)', opacity: 0.2 }} />
         <div className="max-w-[1440px] mx-auto relative z-10">
           <h1 className="font-lj-display font-700 text-[clamp(2rem,4vw,3.5rem)] leading-tight mb-4" style={{ color: '#0D0D0D' }}>Contact LagosJobs</h1>
           <p className="text-lg" style={{ color: '#6B7280' }}>Hiring partner inquiry, tool feedback, or general support — we're here.</p>

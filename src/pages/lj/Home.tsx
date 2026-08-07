@@ -109,11 +109,7 @@ export default function LJHome() {
     <div className="w-full overflow-x-hidden" style={{ backgroundColor: '#F4F5F7', minHeight: '100vh', fontFamily: 'var(--font-lj-body)' }}>
       
       {/* Hero Section */}
-      <section className="relative flex flex-col justify-center px-4 sm:px-6 overflow-hidden" style={{ minHeight: 'calc(100vh - 73px)' }}>
-        {/* Responsive Ambient Spheres */}
-        <div className="pointer-events-none absolute -top-16 -right-16 w-[250px] sm:w-[450px] h-[250px] sm:h-[450px] rounded-full" style={{ background: '#17B26A', filter: 'blur(100px)', opacity: 0.22 }} />
-        <div className="pointer-events-none absolute -bottom-24 -left-24 w-[280px] sm:w-[550px] h-[280px] sm:h-[550px] rounded-full" style={{ background: '#17B26A', filter: 'blur(120px)', opacity: 0.18 }} />
-
+      <section className="relative flex flex-col justify-center px-4 sm:px-6 pt-10 sm:pt-8 pb-10 overflow-hidden" style={{ minHeight: 'calc(100vh - 73px)' }}>
         <div className="max-w-[1440px] mx-auto relative z-10 w-full">
           <div className="grid lg:grid-cols-12 gap-12 items-center">
             
@@ -124,8 +120,7 @@ export default function LJHome() {
               </div>
               <h1 className="font-lj-display font-700 text-4xl sm:text-6xl md:text-7xl leading-[1.08] tracking-tight mb-6" style={{ color: '#0D0D0D' }}>
                 Your Next Role<br />
-                <span style={{ color: '#17B26A' }}>Starts</span>{' '}
-                <span style={{ color: '#17B26A' }}>Here.</span>
+                Starts Here.
               </h1>
               <p className="text-base sm:text-lg leading-relaxed mb-8 sm:mb-10 max-w-xl" style={{ color: '#6B7280' }}>
                 From verified Lagos career opportunities to 1-on-1 migration and study abroad advisory — connect directly with specialists dedicated to advancing your goals.
@@ -180,7 +175,7 @@ export default function LJHome() {
                     <ShieldCheck className="w-5 h-5 text-[#17B26A]" />
                   </div>
                   <div>
-                    <div className="text-xs font-semibold text-[#17B26A]">Verified Personnel</div>
+                    <div className="text-xs font-semibold text-white">Verified Personnel</div>
                     <div className="text-[11px] text-gray-300">Dedicated Service Managers</div>
                   </div>
                 </div>
@@ -194,7 +189,7 @@ export default function LJHome() {
           <div className="mt-16 sm:mt-20 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
             {stats.map(s => (
               <div key={s.label} className="p-4 sm:p-5 rounded-2xl" style={{ backgroundColor: '#FFFFFF', border: '1px solid #F4F5F7' }}>
-                <div className="font-lj-display font-700 text-2xl sm:text-3xl mb-1" style={{ color: '#17B26A' }}>{s.value}</div>
+                <div className="font-lj-display font-700 text-2xl sm:text-3xl mb-1" style={{ color: '#0D0D0D' }}>{s.value}</div>
                 <div className="text-xs sm:text-sm" style={{ color: '#6B7280' }}>{s.label}</div>
               </div>
             ))}
@@ -242,15 +237,14 @@ export default function LJHome() {
       <section className="px-4 sm:px-6 py-8 sm:py-10">
         <div className="max-w-[1440px] mx-auto">
           <div className="relative p-6 sm:p-8 rounded-2xl overflow-hidden" style={{ backgroundColor: '#0D0D0D', border: '1px solid rgba(23,178,106,0.2)' }}>
-            <div className="pointer-events-none absolute -top-8 -right-8 w-48 h-48 rounded-full" style={{ background: '#17B26A', filter: 'blur(80px)', opacity: 0.25 }} />
             <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
               <div>
                 <div className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: 'rgba(255,255,255,0.4)' }}>Live Counter</div>
                 <div className="font-lj-display font-700 text-4xl sm:text-5xl text-white mb-1">14,247</div>
-                <div className="text-sm" style={{ color: '#17B26A' }}>active roles across Lagos, Abuja & remote</div>
+                <div className="text-sm text-white">active roles across Lagos, Abuja & remote</div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="w-2.5 h-2.5 rounded-full animate-pulse" style={{ backgroundColor: '#10B981' }} />
+                <div className="w-2.5 h-2.5 rounded-full animate-pulse brand-dot-pulse" style={{ backgroundColor: '#17B26A' }} />
                 <span className="text-sm" style={{ color: 'rgba(255,255,255,0.6)' }}>Updated continuously</span>
               </div>
               <Link
@@ -274,7 +268,7 @@ export default function LJHome() {
               <div key={s.name} className="p-6 sm:p-7 rounded-2xl flex flex-col justify-between" style={{ backgroundColor: '#FFFFFF', border: '1px solid #F4F5F7' }}>
                 <div>
                   <div className="flex justify-between items-center mb-4">
-                    <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold" style={{ backgroundColor: 'rgba(23,178,106,0.12)', color: '#17B26A' }}>
+                    <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold" style={{ backgroundColor: 'rgba(255,176,32,0.15)', color: '#FFB020' }}>
                       {s.badge}
                     </span>
                   </div>
@@ -303,7 +297,7 @@ export default function LJHome() {
             <div className="absolute -bottom-16 -right-16 w-80 h-80 pointer-events-none opacity-20 hidden sm:block">
               <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="50" cy="50" r="44" stroke="#FFFFFF" strokeWidth="2" />
-                <circle cx="50" cy="50" r="14" fill="#FFFFFF" />
+                <circle cx="50" cy="50" r="14" fill="#FFFFFF" className="brand-dot-pulse" />
               </svg>
             </div>
 

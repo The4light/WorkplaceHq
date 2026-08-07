@@ -84,7 +84,7 @@ export default function WHQContact() {
         <div className="max-w-[1440px] mx-auto grid lg:grid-cols-2 gap-10">
           
           {/* Form Card */}
-          <div className="p-8 rounded-2xl shadow-sm transition-all" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E1D8' }}>
+          <div className="p-8 sm:p-10 rounded-2xl transition-all" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E1D8', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
             <h2 className="font-display font-700 text-xl mb-6" style={{ color: '#111827' }}>
               Send an Inquiry
             </h2>
@@ -192,17 +192,17 @@ export default function WHQContact() {
           {/* Extra Info Column */}
           <div className="flex flex-col gap-6">
             {/* Dark Information Box with Embedded Ring Element */}
-            <div className="relative p-6 rounded-2xl overflow-hidden mt-2" style={{ backgroundColor: '#0B3C2D', border: '1px solid rgba(16,185,129,0.2)' }}>
+            <div className="relative p-6 rounded-2xl overflow-hidden mt-2" style={{ backgroundColor: '#0B3C2D', border: '1px solid rgba(29,165,74,0.2)' }}>
               {/* Subtle Embedded Ring */}
               <div className="absolute -bottom-10 -right-10 w-40 h-40 pointer-events-none opacity-20">
                 <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="50" cy="50" r="44" stroke="#FFFFFF" strokeWidth="2.5" />
-                  <circle cx="50" cy="50" r="14" fill="#FFFFFF" />
+                  <circle cx="50" cy="50" r="14" fill="#FFFFFF" className="brand-dot-pulse" />
                 </svg>
               </div>
 
               <div className="relative z-10 flex flex-col gap-3">
-                <div className="flex items-center gap-2 text-[#10B981] font-bold text-xs uppercase tracking-wider">
+                <div className="flex items-center gap-2 text-[#1DA54A] font-bold text-xs uppercase tracking-wider">
                   <Clock className="w-4 h-4" /> SLA Response Guarantee
                 </div>
                 <h3 className="font-display font-600 text-white text-base">

@@ -83,11 +83,11 @@ const careerLinks = [
 export default function Footer() {
   return (
     <footer
-      className="relative overflow-hidden pt-16 pb-12"
+      className="relative overflow-hidden pt-20 pb-10"
       style={{
         backgroundColor: '#0B3C2D',
         color: '#FBF9F5',
-        borderTop: '1px solid rgba(16, 185, 129, 0.2)',
+        borderTop: '1px solid rgba(29, 165, 74, 0.2)',
       }}
     >
       {/* Ambient Lighting Spheres */}
@@ -98,7 +98,7 @@ export default function Footer() {
       />
       <div
         className="pointer-events-none absolute -bottom-32 -left-32 h-[400px] w-[400px] rounded-full opacity-15 blur-[140px]"
-        style={{ backgroundColor: '#10B981' }}
+        style={{ backgroundColor: '#1DA54A' }}
         aria-hidden="true"
       />
 
@@ -112,12 +112,11 @@ export default function Footer() {
           <div className="lg:col-span-4 flex flex-col justify-between">
             <div>
               <div className="flex items-center gap-2">
-                <span
-                  className="text-2xl font-bold tracking-tight text-white"
-                  style={{ fontFamily: 'var(--font-display)' }}
-                >
-                  Workplace<span style={{ color: '#10B981' }}>HQ</span>
-                </span>
+                <img
+                  src="/Workplace - 6.png"
+                  alt="WorkplaceHQ"
+                  className="h-7 w-auto object-contain"
+                />
               </div>
 
               <p
@@ -162,12 +161,12 @@ export default function Footer() {
               >
                 <span className="relative flex h-2 w-2">
                   <span
-                    className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"
-                    style={{ backgroundColor: '#10B981' }}
+                    className="absolute inline-flex h-full w-full animate-ping rounded-full brand-dot-pulse"
+                    style={{ backgroundColor: '#1DA54A' }}
                   />
                   <span
-                    className="relative inline-flex h-2 w-2 rounded-full"
-                    style={{ backgroundColor: '#10B981' }}
+                    className="relative inline-flex h-2 w-2 rounded-full brand-dot-pulse"
+                    style={{ backgroundColor: '#1DA54A' }}
                   />
                 </span>
                 Systems Operational • All Services Active
@@ -181,7 +180,7 @@ export default function Footer() {
             <div>
               <h3
                 className="text-xs font-semibold uppercase tracking-widest"
-                style={{ color: '#10B981', fontFamily: 'var(--font-display)' }}
+                style={{ color: '#1DA54A', fontFamily: 'var(--font-display)' }}
               >
                 Platform
               </h3>
@@ -190,7 +189,7 @@ export default function Footer() {
                   <li key={l.to}>
                     <Link
                       to={l.to}
-                      className="transition-colors duration-150 hover:text-[#10B981]"
+                      className="transition-colors duration-150 hover:text-[#1DA54A]"
                       style={{
                         color: 'rgba(251, 249, 245, 0.8)',
                         fontFamily: 'var(--font-body)',
@@ -207,7 +206,7 @@ export default function Footer() {
             <div>
               <h3
                 className="text-xs font-semibold uppercase tracking-widest"
-                style={{ color: '#10B981', fontFamily: 'var(--font-display)' }}
+                style={{ color: '#1DA54A', fontFamily: 'var(--font-display)' }}
               >
                 Company
               </h3>
@@ -216,7 +215,7 @@ export default function Footer() {
                   <li key={l.to}>
                     <Link
                       to={l.to}
-                      className="transition-colors duration-150 hover:text-[#10B981]"
+                      className="transition-colors duration-150 hover:text-[#1DA54A]"
                       style={{
                         color: 'rgba(251, 249, 245, 0.8)',
                         fontFamily: 'var(--font-body)',
@@ -245,7 +244,7 @@ export default function Footer() {
                   Careers Product
                 </h3>
                 <span
-                  className="h-1.5 w-1.5 rounded-full"
+                  className="h-1.5 w-1.5 rounded-full brand-dot-pulse"
                   style={{ backgroundColor: '#17B26A' }}
                 />
               </div>
