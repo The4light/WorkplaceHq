@@ -1,360 +1,413 @@
 ﻿import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { FileText, Link2, Palette, Globe, User, Briefcase, CheckCircle, Circle, ChevronDown } from 'lucide-react'
+import { FileText, Link2, Palette, Globe, User, CheckCircle } from 'lucide-react'
+
+// All Tools Hub tools are human-reviewed request forms. Submissions are
+// simulated client-side; wire handleSubmit to a backend / email handler
+// (Resend / EmailJS / Formspree) to actually deliver requests to the team.
+
+function RequestReceived({ message, onReset }: { message: string; onReset: () => void }) {
+  return (
+    <div className="flex flex-col items-center justify-center text-center py-20 gap-5">
+      <div className="w-14 h-14 rounded-full flex items-center justify-center" style={{ backgroundColor: 'rgba(23,178,106,0.12)' }}>
+        <CheckCircle className="w-7 h-7" style={{ color: '#17B26A' }} />
+      </div>
+      <h3 className="font-display font-700 text-xl" style={{ color: '#0D0D0D' }}>Request received!</h3>
+      <p className="text-sm max-w-sm leading-relaxed" style={{ color: '#6B7280' }}>{message}</p>
+      <button onClick={onReset} className="text-sm font-semibold" style={{ color: '#17B26A' }}>
+        Submit another request
+      </button>
+    </div>
+  )
+}
+
+function WhatHappensNext({ steps }: { steps: { step: string; title: string; desc: string }[] }) {
+  return (
+    <div className="p-6 rounded-2xl flex flex-col gap-6" style={{ backgroundColor: '#0D0D0D', border: '1px solid rgba(23,178,106,0.15)' }}>
+      <h3 className="font-display font-700 text-lg text-white">What happens next</h3>
+
+      <div className="flex flex-col gap-5">
+        {steps.map(({ step, title, desc }) => (
+          <div key={step} className="flex gap-4">
+            <span className="font-display font-700 text-sm shrink-0 mt-0.5" style={{ color: '#17B26A' }}>{step}</span>
+            <div>
+              <p className="font-semibold text-sm text-white mb-1">{title}</p>
+              <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.55)' }}>{desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-auto p-4 rounded-xl" style={{ backgroundColor: 'rgba(23,178,106,0.08)', border: '1px solid rgba(23,178,106,0.2)' }}>
+        <p className="text-sm" style={{ color: '#17B26A' }}>
+          <strong>Free for all Lagos Jobs users.</strong> No account needed — just fill in the form.
+        </p>
+      </div>
+    </div>
+  )
+}
+
+const fieldStyle = { border: '1px solid #E5E7EB', backgroundColor: '#F9FAFB' }
 
 // â”€â”€ Tool 1: CV Optimiser â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function CVOptimiser() {
-  const [role, setRole] = useState('')
-  const [years, setYears] = useState('1-3')
-  const [resume, setResume] = useState('')
-  const [score, setScore] = useState(0)
-  const [analysed, setAnalysed] = useState(false)
+  const [form, setForm] = useState({ name: '', email: '', role: '', years: '1-3', resume: '' })
+  const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
 
-  const keywords = ['Python', 'SQL', 'Agile', 'Leadership', 'Communication', 'Data Analysis', 'Project Management', 'Excel']
-  const found = ['Python', 'SQL', 'Communication']
+  const update = (k: keyof typeof form, v: string) => setForm(f => ({ ...f, [k]: v }))
 
-  const analyse = () => {
-    if (!role || !resume) return
-    setScore(Math.floor(Math.random() * 20) + 64)
-    setAnalysed(true)
+  const handleSubmit = async () => {
+    if (!form.name || !form.email || !form.role || !form.resume) return
+    setLoading(true)
+    // TODO: Wire up to backend / email handler (Resend / EmailJS / Formspree)
+    await new Promise(r => setTimeout(r, 1200)) // simulate submission
+    setLoading(false)
+    setSubmitted(true)
   }
+
+  if (submitted) {
+    return (
+      <RequestReceived
+        message="One of our team members will review your CV against your target role and send you a detailed ATS optimisation report within 2 business days."
+        onReset={() => { setSubmitted(false); setForm({ name: '', email: '', role: '', years: '1-3', resume: '' }) }}
+      />
+    )
+  }
+
+  const disabled = loading || !form.name || !form.email || !form.role || !form.resume
 
   return (
     <div className="grid lg:grid-cols-2 gap-6 h-full">
       {/* Input */}
-      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#FFFFFF', border: '1px solid #F4F5F7' }}>
-        <h3 className="font-lj-display font-700 text-lg" style={{ color: '#0D0D0D' }}>CV Details</h3>
-        <input
-          className="px-4 py-3 text-sm outline-none w-full"
-          style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7' }}
-          placeholder="Target Role (e.g. Product Manager)"
-          value={role}
-          onChange={e => setRole(e.target.value)}
-        />
-        <select
-          className="px-4 py-3 text-sm outline-none w-full"
-          style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7', color: '#6B7280' }}
-          value={years}
-          onChange={e => setYears(e.target.value)}
-        >
+      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E7EB' }}>
+        <div>
+          <h3 className="font-display font-700 text-lg mb-1" style={{ color: '#0D0D0D' }}>CV Details</h3>
+          <p className="text-sm" style={{ color: '#6B7280' }}>Fill this in and a real person from our team will review your CV and send you tailored recommendations.</p>
+        </div>
+        <input className="px-4 py-3 text-sm outline-none w-full rounded-lg" style={fieldStyle} placeholder="Full Name *" value={form.name} onChange={e => update('name', e.target.value)} />
+        <input className="px-4 py-3 text-sm outline-none w-full rounded-lg" style={fieldStyle} placeholder="Email Address *" type="email" value={form.email} onChange={e => update('email', e.target.value)} />
+        <input className="px-4 py-3 text-sm outline-none w-full rounded-lg" style={fieldStyle} placeholder="Target Role (e.g. Product Manager) *" value={form.role} onChange={e => update('role', e.target.value)} />
+        <select className="px-4 py-3 text-sm outline-none w-full rounded-lg" style={{ ...fieldStyle, color: '#6B7280' }} value={form.years} onChange={e => update('years', e.target.value)}>
           <option value="0-1">0–1 years experience</option>
           <option value="1-3">1–3 years</option>
           <option value="3-6">3–6 years</option>
           <option value="6+">6+ years</option>
         </select>
         <textarea
-          className="flex-1 px-4 py-3 text-sm outline-none resize-none"
-          style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7', minHeight: '180px' }}
-          placeholder="Paste your CV / resume text here..."
-          value={resume}
-          onChange={e => setResume(e.target.value)}
+          className="flex-1 px-4 py-3 text-sm outline-none resize-none rounded-lg"
+          style={{ ...fieldStyle, minHeight: '140px' }}
+          placeholder="Paste your CV / resume text here... *"
+          value={form.resume}
+          onChange={e => update('resume', e.target.value)}
         />
         <button
-          onClick={analyse}
-          className="w-full py-3 rounded-lg font-semibold text-sm text-white transition-all hover:-translate-y-0.5"
-          style={{ backgroundColor: '#17B26A', fontFamily: 'var(--font-lj-display)' }}
+          onClick={handleSubmit}
+          disabled={disabled}
+          className="w-full py-3 rounded-lg font-semibold text-sm transition-all"
+          style={{ backgroundColor: disabled ? '#D1D5DB' : '#17B26A', color: '#FFFFFF', cursor: disabled ? 'not-allowed' : 'pointer', fontFamily: 'var(--font-lj-display)' }}
         >
-          Analyse & Optimise
+          {loading ? 'Submitting…' : 'Request Human Review'}
         </button>
       </div>
 
-      {/* Output */}
-      <div className="p-6 rounded-2xl flex flex-col gap-5" style={{ backgroundColor: '#0D0D0D', border: '1px solid rgba(23,178,106,0.2)' }}>
-        <h3 className="font-lj-display font-700 text-lg text-white">ATS Compatibility Score</h3>
-
-        {/* Circular gauge */}
-        <div className="flex items-center justify-center py-4">
-          <div className="relative w-32 h-32">
-            <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="40" fill="none" strokeWidth="8" stroke="rgba(255,255,255,0.08)" />
-              <circle
-                cx="50" cy="50" r="40" fill="none" strokeWidth="8"
-                stroke={analysed ? (score >= 80 ? '#10B981' : score >= 60 ? '#17B26A' : '#17B26A') : '#1E4A56'}
-                strokeDasharray={`${analysed ? (score / 100) * 251.2 : 0} 251.2`}
-                strokeLinecap="round"
-                style={{ transition: 'stroke-dasharray 1s ease' }}
-              />
-            </svg>
-            <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="font-lj-display font-700 text-3xl text-white">{analysed ? score : '--'}</span>
-              <span className="text-xs" style={{ color: 'rgba(255,255,255,0.5)' }}>/ 100</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Keyword checklist */}
-        <div>
-          <div className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: 'rgba(255,255,255,0.4)' }}>Keyword Gap Analysis</div>
-          <div className="flex flex-col gap-2">
-            {keywords.map(k => {
-              const has = found.includes(k)
-              return (
-                <div key={k} className="flex items-center gap-2.5">
-                  {has
-                    ? <CheckCircle className="w-4 h-4 shrink-0" style={{ color: '#10B981' }} />
-                    : <Circle className="w-4 h-4 shrink-0" style={{ color: 'rgba(255,255,255,0.2)' }} />
-                  }
-                  <span className="text-sm" style={{ color: has ? '#FFFFFF' : 'rgba(255,255,255,0.4)' }}>{k}</span>
-                  {!has && analysed && <span className="ml-auto text-xs px-2 py-0.5 rounded-full" style={{ backgroundColor: 'rgba(23,178,106,0.15)', color: '#17B26A' }}>Add</span>}
-                </div>
-              )
-            })}
-          </div>
-        </div>
-
-        {analysed && (
-          <div className="p-4 rounded-xl" style={{ backgroundColor: 'rgba(23,178,106,0.1)', border: '1px solid rgba(23,178,106,0.2)' }}>
-            <p className="text-sm" style={{ color: '#17B26A' }}>
-              <strong>Tip:</strong> Adding "Agile", "Data Analysis", and "Project Management" could boost your score to <strong>88+</strong>.
-            </p>
-          </div>
-        )}
-      </div>
+      <WhatHappensNext
+        steps={[
+          { step: '01', title: 'We review your CV', desc: 'A Lagos Jobs team member reads through your CV against your target role and experience level.' },
+          { step: '02', title: 'We run the ATS check', desc: 'We check keyword coverage, formatting, and structure against what actually gets past applicant tracking systems.' },
+          { step: '03', title: 'You get it in your inbox', desc: 'Expect a detailed report within 2 business days. No templates, no AI copy-paste — real advice from real people.' },
+        ]}
+      />
     </div>
   )
 }
 
 // â”€â”€ Tool 2: LinkedIn Optimiser â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function LinkedInOptimiser() {
-  const [industry, setIndustry] = useState('')
-  const [headline, setHeadline] = useState('')
-  const [about, setAbout] = useState('')
-  const [generated, setGenerated] = useState<{ headline: string; about: string; score: number } | null>(null)
+  const [form, setForm] = useState({ name: '', email: '', industry: '', headline: '', about: '', goals: '' })
+  const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
 
-  const generate = () => {
-    if (!industry) return
-    setGenerated({
-      headline: `${industry} Professional | Driving Growth & Innovation | Open to ${industry} Leadership Roles`,
-      about: `Results-driven ${industry} professional with a track record of delivering measurable impact across complex projects. Known for combining strategic thinking with hands-on execution to accelerate team and business performance. Passionate about leveraging data and emerging technologies to solve real problems.`,
-      score: 87,
-    })
+  const update = (k: keyof typeof form, v: string) => setForm(f => ({ ...f, [k]: v }))
+
+  const handleSubmit = async () => {
+    if (!form.name || !form.email || !form.industry) return
+    setLoading(true)
+    // TODO: Wire up to backend / email handler (Resend / EmailJS / Formspree)
+    await new Promise(r => setTimeout(r, 1200)) // simulate submission
+    setLoading(false)
+    setSubmitted(true)
   }
+
+  if (submitted) {
+    return (
+      <RequestReceived
+        message="One of our team members will review your LinkedIn profile details and get back to you within 2 business days with personalised recommendations."
+        onReset={() => { setSubmitted(false); setForm({ name: '', email: '', industry: '', headline: '', about: '', goals: '' }) }}
+      />
+    )
+  }
+
+  const disabled = loading || !form.name || !form.email || !form.industry
 
   return (
     <div className="grid lg:grid-cols-2 gap-6">
-      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#FFFFFF', border: '1px solid #F4F5F7' }}>
-        <h3 className="font-lj-display font-700 text-lg" style={{ color: '#0D0D0D' }}>Profile Details</h3>
-        <input className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7' }} placeholder="Your Industry / Role (e.g. Fintech Product)" value={industry} onChange={e => setIndustry(e.target.value)} />
-        <input className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7' }} placeholder="Current Headline (optional)" value={headline} onChange={e => setHeadline(e.target.value)} />
-        <textarea className="px-4 py-3 text-sm outline-none resize-none h-32" style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7' }} placeholder="Current About section (optional — paste for improvement)" value={about} onChange={e => setAbout(e.target.value)} />
-        <button onClick={generate} className="py-3 rounded-lg font-semibold text-sm text-white" style={{ backgroundColor: '#17B26A', fontFamily: 'var(--font-lj-display)' }}>
-          Generate Optimised Profile
+      {/* Form */}
+      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E7EB' }}>
+        <div>
+          <h3 className="font-display font-700 text-lg mb-1" style={{ color: '#0D0D0D' }}>Your LinkedIn Details</h3>
+          <p className="text-sm" style={{ color: '#6B7280' }}>Fill this in and a real person from our team will review it and send you tailored recommendations.</p>
+        </div>
+
+        <input className="px-4 py-3 text-sm outline-none w-full rounded-lg" style={fieldStyle} placeholder="Full Name *" value={form.name} onChange={e => update('name', e.target.value)} />
+        <input className="px-4 py-3 text-sm outline-none w-full rounded-lg" style={fieldStyle} placeholder="Email Address *" type="email" value={form.email} onChange={e => update('email', e.target.value)} />
+        <input className="px-4 py-3 text-sm outline-none w-full rounded-lg" style={fieldStyle} placeholder="Industry / Role (e.g. Fintech, Product Manager) *" value={form.industry} onChange={e => update('industry', e.target.value)} />
+        <input className="px-4 py-3 text-sm outline-none w-full rounded-lg" style={fieldStyle} placeholder="Current LinkedIn Headline (optional)" value={form.headline} onChange={e => update('headline', e.target.value)} />
+        <textarea
+          className="px-4 py-3 text-sm outline-none resize-none rounded-lg"
+          style={{ ...fieldStyle, minHeight: '100px' }}
+          placeholder="Current About section (optional — paste it here)"
+          value={form.about}
+          onChange={e => update('about', e.target.value)}
+        />
+        <textarea
+          className="px-4 py-3 text-sm outline-none resize-none rounded-lg"
+          style={{ ...fieldStyle, minHeight: '72px' }}
+          placeholder="What are you trying to achieve? (e.g. get hired, attract clients, build authority)"
+          value={form.goals}
+          onChange={e => update('goals', e.target.value)}
+        />
+
+        <button
+          onClick={handleSubmit}
+          disabled={disabled}
+          className="w-full py-3 rounded-lg font-semibold text-sm transition-all"
+          style={{ backgroundColor: disabled ? '#D1D5DB' : '#17B26A', color: '#FFFFFF', cursor: disabled ? 'not-allowed' : 'pointer', fontFamily: 'var(--font-lj-display)' }}
+        >
+          {loading ? 'Submitting…' : 'Request Human Review'}
         </button>
       </div>
 
-      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#0D0D0D', border: '1px solid rgba(23,178,106,0.2)' }}>
-        <div className="flex items-center justify-between">
-          <h3 className="font-lj-display font-700 text-lg text-white">Profile Impact</h3>
-          {generated && <span className="font-lj-display font-700 text-2xl" style={{ color: '#17B26A' }}>{generated.score}/100</span>}
-        </div>
-        {generated ? (
-          <>
-            <div className="p-4 rounded-xl" style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}>
-              <div className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#17B26A' }}>Optimised Headline</div>
-              <p className="text-sm text-white leading-relaxed">{generated.headline}</p>
-            </div>
-            <div className="p-4 rounded-xl" style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}>
-              <div className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#17B26A' }}>Optimised About</div>
-              <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.75)' }}>{generated.about}</p>
-            </div>
-          </>
-        ) : (
-          <div className="flex-1 flex items-center justify-center">
-            <p className="text-sm text-center" style={{ color: 'rgba(255,255,255,0.35)' }}>Fill in your details and generate your optimised LinkedIn profile.</p>
-          </div>
-        )}
-      </div>
+      <WhatHappensNext
+        steps={[
+          { step: '01', title: 'We review your details', desc: 'A Lagos Jobs team member reads through everything you submitted — your industry, goals, current headline and about section.' },
+          { step: '02', title: 'We craft your recommendations', desc: 'We write personalised suggestions for your headline, about section, and positioning — based on what actually works for your role in the Lagos market.' },
+          { step: '03', title: 'You get it in your inbox', desc: 'Expect a detailed response within 2 business days. No templates, no AI copy-paste — real advice from real people.' },
+        ]}
+      />
     </div>
   )
 }
 
 // â”€â”€ Tool 3: Portfolio Creator â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function PortfolioCreator() {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
   const [projects, setProjects] = useState([{ title: '', desc: '', link: '' }])
-  const [preview, setPreview] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const addProject = () => setProjects(p => [...p, { title: '', desc: '', link: '' }])
   const update = (i: number, k: keyof typeof projects[0], v: string) => {
     setProjects(p => p.map((item, idx) => idx === i ? { ...item, [k]: v } : item))
   }
 
+  const titled = projects.filter(p => p.title)
+
+  const handleSubmit = async () => {
+    if (!name || !email || titled.length === 0) return
+    setLoading(true)
+    // TODO: Wire up to backend / email handler (Resend / EmailJS / Formspree)
+    await new Promise(r => setTimeout(r, 1200)) // simulate submission
+    setLoading(false)
+    setSubmitted(true)
+  }
+
+  if (submitted) {
+    return (
+      <RequestReceived
+        message="One of our team members will review your projects and build you a polished portfolio page, then send it over within 2 business days."
+        onReset={() => { setSubmitted(false); setName(''); setEmail(''); setProjects([{ title: '', desc: '', link: '' }]) }}
+      />
+    )
+  }
+
+  const disabled = loading || !name || !email || titled.length === 0
+
   return (
     <div className="grid lg:grid-cols-2 gap-6">
-      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#FFFFFF', border: '1px solid #F4F5F7' }}>
+      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E7EB' }}>
         <div className="flex items-center justify-between">
-          <h3 className="font-lj-display font-700 text-lg" style={{ color: '#0D0D0D' }}>Your Projects</h3>
-          <button onClick={addProject} className="text-xs font-semibold px-3 py-1.5 rounded-full" style={{ backgroundColor: 'rgba(23,178,106,0.12)', color: '#17B26A' }}>+ Add Project</button>
+          <div>
+            <h3 className="font-display font-700 text-lg mb-1" style={{ color: '#0D0D0D' }}>Your Projects</h3>
+            <p className="text-sm" style={{ color: '#6B7280' }}>A real person will turn these into a polished portfolio for you.</p>
+          </div>
+          <button onClick={addProject} className="text-xs font-semibold px-3 py-1.5 rounded-full shrink-0" style={{ backgroundColor: 'rgba(23,178,106,0.12)', color: '#17B26A' }}>+ Add Project</button>
         </div>
-        <div className="flex flex-col gap-4 overflow-y-auto" style={{ maxHeight: '400px' }}>
+        <input className="px-4 py-3 text-sm outline-none w-full rounded-lg" style={fieldStyle} placeholder="Full Name *" value={name} onChange={e => setName(e.target.value)} />
+        <input className="px-4 py-3 text-sm outline-none w-full rounded-lg" style={fieldStyle} placeholder="Email Address *" type="email" value={email} onChange={e => setEmail(e.target.value)} />
+        <div className="flex flex-col gap-4 overflow-y-auto" style={{ maxHeight: '320px' }}>
           {projects.map((p, i) => (
-            <div key={i} className="flex flex-col gap-2 p-4 rounded-xl" style={{ backgroundColor: '#F4F5F7', border: '1px solid #F4F5F7' }}>
-              <input className="px-3 py-2 text-sm outline-none bg-white" style={{ borderRadius: '6px', border: '1px solid #F4F5F7' }} placeholder={`Project ${i + 1} Title`} value={p.title} onChange={e => update(i, 'title', e.target.value)} />
-              <textarea className="px-3 py-2 text-sm outline-none resize-none bg-white h-16" style={{ borderRadius: '6px', border: '1px solid #F4F5F7' }} placeholder="What you built & impact" value={p.desc} onChange={e => update(i, 'desc', e.target.value)} />
-              <input className="px-3 py-2 text-sm outline-none bg-white" style={{ borderRadius: '6px', border: '1px solid #F4F5F7' }} placeholder="Link (GitHub, live URL)" value={p.link} onChange={e => update(i, 'link', e.target.value)} />
+            <div key={i} className="flex flex-col gap-2 p-4 rounded-xl" style={{ backgroundColor: '#F9FAFB', border: '1px solid #E5E7EB' }}>
+              <input className="px-3 py-2 text-sm outline-none bg-white" style={{ borderRadius: '6px', border: '1px solid #E5E7EB' }} placeholder={`Project ${i + 1} Title`} value={p.title} onChange={e => update(i, 'title', e.target.value)} />
+              <textarea className="px-3 py-2 text-sm outline-none resize-none bg-white h-16" style={{ borderRadius: '6px', border: '1px solid #E5E7EB' }} placeholder="What you built & impact" value={p.desc} onChange={e => update(i, 'desc', e.target.value)} />
+              <input className="px-3 py-2 text-sm outline-none bg-white" style={{ borderRadius: '6px', border: '1px solid #E5E7EB' }} placeholder="Link (GitHub, live URL)" value={p.link} onChange={e => update(i, 'link', e.target.value)} />
             </div>
           ))}
         </div>
-        <button onClick={() => setPreview(true)} className="py-3 rounded-lg font-semibold text-sm text-white" style={{ backgroundColor: '#17B26A', fontFamily: 'var(--font-lj-display)' }}>
-          Generate Portfolio
+        <button
+          onClick={handleSubmit}
+          disabled={disabled}
+          className="w-full py-3 rounded-lg font-semibold text-sm transition-all"
+          style={{ backgroundColor: disabled ? '#D1D5DB' : '#17B26A', color: '#FFFFFF', cursor: disabled ? 'not-allowed' : 'pointer', fontFamily: 'var(--font-lj-display)' }}
+        >
+          {loading ? 'Submitting…' : 'Request Human Review'}
         </button>
       </div>
 
-      <div className="p-6 rounded-2xl" style={{ backgroundColor: '#0D0D0D', border: '1px solid rgba(23,178,106,0.2)' }}>
-        <h3 className="font-lj-display font-700 text-lg text-white mb-4">Portfolio Preview</h3>
-        {preview ? (
-          <div className="rounded-xl overflow-hidden" style={{ backgroundColor: '#1A3A44', border: '1px solid rgba(23,178,106,0.2)' }}>
-            <div className="px-4 py-3 border-b flex gap-1.5" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
-              <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: '#17B26A' }} />
-              <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: '#D97706' }} />
-              <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: '#10B981' }} />
-            </div>
-            <div className="p-5 grid gap-4">
-              {projects.filter(p => p.title).map((p, i) => (
-                <div key={i} className="p-4 rounded-xl" style={{ backgroundColor: 'rgba(255,255,255,0.04)', border: '1px solid rgba(23,178,106,0.15)' }}>
-                  <div className="font-lj-display font-600 text-sm text-white mb-1">{p.title}</div>
-                  <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.55)' }}>{p.desc || 'No description added.'}</p>
-                  {p.link && <a href={p.link} className="text-xs mt-2 inline-block" style={{ color: '#17B26A' }}>{p.link}</a>}
-                </div>
-              ))}
-            </div>
-          </div>
-        ) : (
-          <div className="flex items-center justify-center h-48">
-            <p className="text-sm text-center" style={{ color: 'rgba(255,255,255,0.35)' }}>Add your projects and click "Generate Portfolio" to see your layout preview.</p>
-          </div>
-        )}
-      </div>
+      <WhatHappensNext
+        steps={[
+          { step: '01', title: 'We review your projects', desc: 'A Lagos Jobs team member reads through each project you submitted — what you built, and the impact it had.' },
+          { step: '02', title: 'We build your portfolio', desc: 'We write sharp, results-focused project summaries and lay them out in a clean portfolio page.' },
+          { step: '03', title: 'You get it in your inbox', desc: 'Expect your finished portfolio within 2 business days. No templates, no AI copy-paste — real work from real people.' },
+        ]}
+      />
     </div>
   )
 }
 
 // â”€â”€ Tool 4: Personal Website Creator â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function WebsiteCreator() {
-  const [bio, setBio] = useState('')
-  const [role, setRole] = useState('')
-  const [links, setLinks] = useState({ twitter: '', github: '', linkedin: '' })
-  const [preview, setPreview] = useState(false)
+  const [form, setForm] = useState({ name: '', email: '', role: '', bio: '', twitter: '', github: '', linkedin: '' })
+  const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+  const update = (k: keyof typeof form, v: string) => setForm(f => ({ ...f, [k]: v }))
+
+  const handleSubmit = async () => {
+    if (!form.name || !form.email || !form.role) return
+    setLoading(true)
+    // TODO: Wire up to backend / email handler (Resend / EmailJS / Formspree)
+    await new Promise(r => setTimeout(r, 1200)) // simulate submission
+    setLoading(false)
+    setSubmitted(true)
+  }
+
+  if (submitted) {
+    return (
+      <RequestReceived
+        message="One of our team members will put together your personal website copy and layout, then send it over within 2 business days."
+        onReset={() => { setSubmitted(false); setForm({ name: '', email: '', role: '', bio: '', twitter: '', github: '', linkedin: '' }) }}
+      />
+    )
+  }
+
+  const disabled = loading || !form.name || !form.email || !form.role
 
   return (
     <div className="grid lg:grid-cols-2 gap-6">
-      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#FFFFFF', border: '1px solid #F4F5F7' }}>
-        <h3 className="font-lj-display font-700 text-lg" style={{ color: '#0D0D0D' }}>Site Details</h3>
-        <input className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7' }} placeholder="Your Name" />
-        <input className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7' }} placeholder="Role Title (e.g. Software Engineer)" value={role} onChange={e => setRole(e.target.value)} />
-        <textarea className="px-4 py-3 text-sm outline-none resize-none h-24" style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7' }} placeholder="Your professional bio..." value={bio} onChange={e => setBio(e.target.value)} />
+      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E7EB' }}>
+        <div>
+          <h3 className="font-display font-700 text-lg mb-1" style={{ color: '#0D0D0D' }}>Site Details</h3>
+          <p className="text-sm" style={{ color: '#6B7280' }}>Fill this in and a real person from our team will put together your site copy and layout.</p>
+        </div>
+        <input className="px-4 py-3 text-sm outline-none w-full rounded-lg" style={fieldStyle} placeholder="Your Name *" value={form.name} onChange={e => update('name', e.target.value)} />
+        <input className="px-4 py-3 text-sm outline-none w-full rounded-lg" style={fieldStyle} placeholder="Email Address *" type="email" value={form.email} onChange={e => update('email', e.target.value)} />
+        <input className="px-4 py-3 text-sm outline-none w-full rounded-lg" style={fieldStyle} placeholder="Role Title (e.g. Software Engineer) *" value={form.role} onChange={e => update('role', e.target.value)} />
+        <textarea
+          className="px-4 py-3 text-sm outline-none resize-none rounded-lg"
+          style={{ ...fieldStyle, minHeight: '96px' }}
+          placeholder="Your professional bio (optional — paste a draft)"
+          value={form.bio}
+          onChange={e => update('bio', e.target.value)}
+        />
         <div className="grid grid-cols-3 gap-2">
           {(['twitter', 'github', 'linkedin'] as const).map(k => (
-            <input key={k} className="px-3 py-2.5 text-sm outline-none" style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7' }} placeholder={k.charAt(0).toUpperCase() + k.slice(1)} value={links[k]} onChange={e => setLinks(l => ({ ...l, [k]: e.target.value }))} />
+            <input key={k} className="px-3 py-2.5 text-sm outline-none rounded-lg" style={fieldStyle} placeholder={k.charAt(0).toUpperCase() + k.slice(1)} value={form[k]} onChange={e => update(k, e.target.value)} />
           ))}
         </div>
-        <button onClick={() => setPreview(true)} className="py-3 rounded-lg font-semibold text-sm text-white" style={{ backgroundColor: '#17B26A', fontFamily: 'var(--font-lj-display)' }}>
-          Generate My Site
+        <button
+          onClick={handleSubmit}
+          disabled={disabled}
+          className="w-full py-3 rounded-lg font-semibold text-sm transition-all"
+          style={{ backgroundColor: disabled ? '#D1D5DB' : '#17B26A', color: '#FFFFFF', cursor: disabled ? 'not-allowed' : 'pointer', fontFamily: 'var(--font-lj-display)' }}
+        >
+          {loading ? 'Submitting…' : 'Request Human Review'}
         </button>
       </div>
 
-      <div className="p-6 rounded-2xl" style={{ backgroundColor: '#0D0D0D', border: '1px solid rgba(23,178,106,0.2)' }}>
-        <h3 className="font-lj-display font-700 text-lg text-white mb-4">Desktop Preview</h3>
-        {preview ? (
-          <div className="rounded-xl overflow-hidden" style={{ backgroundColor: '#111827', border: '1px solid rgba(255,255,255,0.08)' }}>
-            <div className="px-4 py-3 border-b flex gap-1.5" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
-              <div className="w-2 h-2 rounded-full bg-red-400" />
-              <div className="w-2 h-2 rounded-full bg-yellow-400" />
-              <div className="w-2 h-2 rounded-full bg-green-400" />
-            </div>
-            <div className="p-6">
-              <div className="w-16 h-16 rounded-full mb-4 flex items-center justify-center font-lj-display font-700 text-2xl" style={{ backgroundColor: '#17B26A', color: '#FFFFFF' }}>
-                {role ? role[0].toUpperCase() : 'Y'}
-              </div>
-              <div className="font-lj-display font-700 text-xl text-white mb-1">{role || 'Your Name'}</div>
-              <div className="text-sm mb-3" style={{ color: '#17B26A' }}>{role || 'Professional Title'}</div>
-              <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.55)' }}>{bio || 'Your professional bio will appear here...'}</p>
-              <div className="flex gap-3 mt-4">
-                {Object.entries(links).filter(([, v]) => v).map(([k]) => (
-                  <span key={k} className="text-xs px-2.5 py-1 rounded-full" style={{ backgroundColor: 'rgba(23,178,106,0.15)', color: '#17B26A' }}>{k}</span>
-                ))}
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div className="flex items-center justify-center h-48">
-            <p className="text-sm text-center" style={{ color: 'rgba(255,255,255,0.35)' }}>Fill in your details to preview your personal website.</p>
-          </div>
-        )}
-      </div>
+      <WhatHappensNext
+        steps={[
+          { step: '01', title: 'We review your details', desc: 'A Lagos Jobs team member reads through your role, bio draft, and links.' },
+          { step: '02', title: 'We write your site copy', desc: 'We craft a polished bio and layout structure tailored to your role and goals.' },
+          { step: '03', title: 'You get it in your inbox', desc: 'Expect your finished site copy within 2 business days. No templates, no AI copy-paste — real work from real people.' },
+        ]}
+      />
     </div>
   )
 }
 
 // â”€â”€ Tool 5: Personal Branding Guide â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function BrandingGuide() {
-  const [industry, setIndustry] = useState('')
-  const [strength, setStrength] = useState('')
-  const [result, setResult] = useState<{ pillars: string[]; hooks: string[] } | null>(null)
+  const [form, setForm] = useState({ name: '', email: '', industry: '', strength: '', platform: 'LinkedIn' })
+  const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
 
-  const generate = () => {
-    if (!industry) return
-    setResult({
-      pillars: [
-        `${industry} expertise & career insights`,
-        'Behind-the-scenes of real project work',
-        'Lessons from failures & pivots',
-        'Tools, workflows, and productivity systems',
-      ],
-      hooks: [
-        `"After 3 years in ${industry}, here's what nobody tells you about..."`,
-        `"The framework I use to ${strength || 'solve complex problems'} every week"`,
-        `"How I went from junior to senior ${industry} in 18 months"`,
-        `"My honest take on the biggest myths in ${industry} right now"`,
-      ],
-    })
+  const update = (k: keyof typeof form, v: string) => setForm(f => ({ ...f, [k]: v }))
+
+  const handleSubmit = async () => {
+    if (!form.name || !form.email || !form.industry) return
+    setLoading(true)
+    // TODO: Wire up to backend / email handler (Resend / EmailJS / Formspree)
+    await new Promise(r => setTimeout(r, 1200)) // simulate submission
+    setLoading(false)
+    setSubmitted(true)
   }
+
+  if (submitted) {
+    return (
+      <RequestReceived
+        message="One of our team members will put together your personal branding playbook — content pillars and bio hooks — and send it over within 2 business days."
+        onReset={() => { setSubmitted(false); setForm({ name: '', email: '', industry: '', strength: '', platform: 'LinkedIn' }) }}
+      />
+    )
+  }
+
+  const disabled = loading || !form.name || !form.email || !form.industry
 
   return (
     <div className="grid lg:grid-cols-2 gap-6">
-      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#FFFFFF', border: '1px solid #F4F5F7' }}>
-        <h3 className="font-lj-display font-700 text-lg" style={{ color: '#0D0D0D' }}>Your Positioning</h3>
-        <input className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7' }} placeholder="Industry / Field (e.g. FinTech, Healthcare)" value={industry} onChange={e => setIndustry(e.target.value)} />
-        <input className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7' }} placeholder="Your Core Strength (e.g. building data pipelines)" value={strength} onChange={e => setStrength(e.target.value)} />
-        <select className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7', color: '#6B7280' }}>
+      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E7EB' }}>
+        <div>
+          <h3 className="font-display font-700 text-lg mb-1" style={{ color: '#0D0D0D' }}>Your Positioning</h3>
+          <p className="text-sm" style={{ color: '#6B7280' }}>Fill this in and a real person from our team will build your branding playbook.</p>
+        </div>
+        <input className="px-4 py-3 text-sm outline-none w-full rounded-lg" style={fieldStyle} placeholder="Full Name *" value={form.name} onChange={e => update('name', e.target.value)} />
+        <input className="px-4 py-3 text-sm outline-none w-full rounded-lg" style={fieldStyle} placeholder="Email Address *" type="email" value={form.email} onChange={e => update('email', e.target.value)} />
+        <input className="px-4 py-3 text-sm outline-none w-full rounded-lg" style={fieldStyle} placeholder="Industry / Field (e.g. FinTech, Healthcare) *" value={form.industry} onChange={e => update('industry', e.target.value)} />
+        <input className="px-4 py-3 text-sm outline-none w-full rounded-lg" style={fieldStyle} placeholder="Your Core Strength (e.g. building data pipelines)" value={form.strength} onChange={e => update('strength', e.target.value)} />
+        <select className="px-4 py-3 text-sm outline-none w-full rounded-lg" style={{ ...fieldStyle, color: '#6B7280' }} value={form.platform} onChange={e => update('platform', e.target.value)}>
           <option>LinkedIn</option>
           <option>Twitter / X</option>
           <option>All Channels</option>
         </select>
-        <button onClick={generate} className="py-3 rounded-lg font-semibold text-sm text-white" style={{ backgroundColor: '#17B26A', fontFamily: 'var(--font-lj-display)' }}>
-          Generate Branding Guide
+        <button
+          onClick={handleSubmit}
+          disabled={disabled}
+          className="w-full py-3 rounded-lg font-semibold text-sm transition-all"
+          style={{ backgroundColor: disabled ? '#D1D5DB' : '#17B26A', color: '#FFFFFF', cursor: disabled ? 'not-allowed' : 'pointer', fontFamily: 'var(--font-lj-display)' }}
+        >
+          {loading ? 'Submitting…' : 'Request Human Review'}
         </button>
       </div>
 
-      <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#0D0D0D', border: '1px solid rgba(23,178,106,0.2)' }}>
-        <h3 className="font-lj-display font-700 text-lg text-white">Your Brand Playbook</h3>
-        {result ? (
-          <>
-            <div>
-              <div className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#17B26A' }}>Content Pillars</div>
-              <div className="flex flex-col gap-2">
-                {result.pillars.map((p, i) => (
-                  <div key={i} className="flex items-center gap-2.5 text-sm">
-                    <span className="w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold shrink-0" style={{ backgroundColor: '#17B26A', color: '#FFFFFF' }}>{i + 1}</span>
-                    <span className="text-white">{p}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div>
-              <div className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#17B26A' }}>Bio Hooks</div>
-              <div className="flex flex-col gap-2">
-                {result.hooks.map((h, i) => (
-                  <div key={i} className="p-3 rounded-xl text-sm" style={{ backgroundColor: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.75)', border: '1px solid rgba(255,255,255,0.06)' }}>{h}</div>
-                ))}
-              </div>
-            </div>
-          </>
-        ) : (
-          <div className="flex-1 flex items-center justify-center">
-            <p className="text-sm text-center" style={{ color: 'rgba(255,255,255,0.35)' }}>Enter your industry and strength to get your custom branding playbook.</p>
-          </div>
-        )}
-      </div>
+      <WhatHappensNext
+        steps={[
+          { step: '01', title: 'We review your positioning', desc: 'A Lagos Jobs team member reads through your industry, strength, and target platform.' },
+          { step: '02', title: 'We build your playbook', desc: 'We write content pillars and bio hooks tailored to your industry and the Lagos market.' },
+          { step: '03', title: 'You get it in your inbox', desc: 'Expect your branding playbook within 2 business days. No templates, no AI copy-paste — real advice from real people.' },
+        ]}
+      />
     </div>
   )
 }

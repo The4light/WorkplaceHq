@@ -10,8 +10,10 @@ import WHQAbout from './pages/whq/About'
 import WHQServices from './pages/whq/Services'
 import WHQResources from './pages/whq/Resources'
 import WHQInsights from './pages/whq/Insights'
+import ArticlePage from './pages/whq/ArticlePage'
 import WHQContact from './pages/whq/Contact'
 import { PrivacyPage, TermsPage, SecurityPage } from './pages/whq/LegalPages'
+import NotFound from './pages/NotFound'
 
 import LJHome from './pages/lj/Home'
 import LJServices from './pages/lj/Services'
@@ -60,11 +62,13 @@ export default function App() {
         <Route path="/consulting" element={<Navigate to="/services" replace />} />
         <Route path="/resources" element={<WHQLayout><WHQResources /></WHQLayout>} />
         <Route path="/insights" element={<WHQLayout><WHQInsights /></WHQLayout>} />
+        <Route path="/insights/:slug" element={<WHQLayout><ArticlePage /></WHQLayout>} />
         <Route path="/contact" element={<WHQLayout><WHQContact /></WHQLayout>} />
         <Route path="/privacy" element={<WHQLayout><PrivacyPage /></WHQLayout>} />
         <Route path="/terms" element={<WHQLayout><TermsPage /></WHQLayout>} />
         <Route path="/security" element={<WHQLayout><SecurityPage /></WHQLayout>} />
         <Route path="/lagos-jobs/workplace" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<WHQLayout><NotFound /></WHQLayout>} />
 
         {/* Lagos Job routes */}
         <Route path="/lagos-jobs" element={<LJLayout><LJHome /></LJLayout>} />

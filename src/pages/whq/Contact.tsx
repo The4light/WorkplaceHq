@@ -1,4 +1,4 @@
-﻿import { useState } from 'react'
+﻿﻿import { useState } from 'react'
 import { Mail, Clock, CheckCircle2 } from 'lucide-react'
 
 const contact = {
@@ -72,10 +72,10 @@ export default function WHQContact() {
             Get In Touch
           </span>
           <h1 className="font-display font-700 text-[clamp(2rem,4vw,3.5rem)] leading-tight mb-4" style={{ color: '#111827' }}>
-            Contact Us
+            Let's talk about your team.
           </h1>
           <p className="text-lg max-w-2xl" style={{ color: '#6B7280' }}>
-            Enterprise inquiry, partnership, or general contact — we respond within 24 hours.
+            Ready to book a workshop, start training, or just want to know what's possible for your team? Reach out — we reply within 24 hours.
           </p>
         </div>
       </div>
@@ -97,7 +97,7 @@ export default function WHQContact() {
                   <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0" style={{ color: '#1DA54A' }} />
                   <div>
                     <p className="text-sm font-semibold" style={{ color: '#0B3C2D' }}>
-                      Your inquiry has been prepared.
+                      Got it! Someone from our team will be in touch within 24 hours.
                     </p>
                     <p className="mt-2 text-sm" style={{ color: '#6B7280' }}>
                       If your mail app did not open, send your message directly to{' '}
@@ -176,7 +176,7 @@ export default function WHQContact() {
                   className="w-full py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-200 border hover:!bg-[#1DA54A] hover:!border-[#1DA54A] hover:!text-[#0B3C2D]"
                   style={{ backgroundColor: '#0B3C2D', color: '#FFFFFF', borderColor: '#0B3C2D', fontFamily: 'var(--font-display)' }}
                 >
-                  Submit Inquiry
+                  Send it
                 </button>
 
                 <div className="flex flex-col gap-4 mt-6">

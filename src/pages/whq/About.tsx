@@ -1,4 +1,4 @@
-﻿import { Target, Cpu, TrendingUp, RefreshCw, Link2 } from 'lucide-react'
+﻿﻿import { Target, Cpu, TrendingUp, RefreshCw, Link2 } from 'lucide-react'
 
 const principles = [
   { icon: Target, title: 'Precision Focus', desc: 'We diagnose before prescribing. Every engagement starts with forensic analysis of what\'s actually holding your organization back.' },
@@ -32,10 +32,10 @@ export default function WHQAbout() {
           <div className="max-w-3xl">
             <span className="text-xs font-bold tracking-wider uppercase mb-3 block" style={{ color: '#1DA54A' }}>Our Purpose</span>
             <h1 className="font-display font-700 text-[clamp(2.25rem,4.5vw,3.75rem)] leading-tight mb-6" style={{ color: '#111827' }}>
-              We were built for the organizations that refuse to stay average.
+              Helping organisations build the teams they need to grow.
             </h1>
             <p className="text-lg leading-relaxed" style={{ color: '#6B7280' }}>
-              WorkplaceHQ was founded on a simple premise: most organizations know what they want to achieve but lack the operational architecture to get there. We build that architecture — and we stay until it works.
+              WorkplaceHQ was founded on one premise: an organisation's performance is a function of its people, not its plans. We are a workforce transformation company helping African organisations build AI-ready, high-performing teams. We design and deliver structured training, workshops, and consulting focused on productivity, operational excellence, customer experience, and AI adoption. We work with organisations that know their teams are capable of more and are ready to act on it.
             </p>
           </div>
         </div>
@@ -72,10 +72,10 @@ export default function WHQAbout() {
           <div className="space-y-6">
             <h2 className="font-display font-700 text-2xl sm:text-3xl" style={{ color: '#111827' }}>Our origin story</h2>
             <p className="text-base leading-relaxed" style={{ color: '#6B7280' }}>
-              WorkplaceHQ emerged from direct consulting experience inside fast-scaling African and global enterprises. We saw firsthand how organizations with ambitious goals routinely under-performed — not from lack of talent, but from structural incoherence.
+              We help organisations build, retain, and develop the talent that drives results — through practical training, workshops, and consulting that create real workplace outcomes.
             </p>
             <p className="text-base leading-relaxed" style={{ color: '#6B7280' }}>
-              We built WorkplaceHQ to close that gap: a firm that operates at the intersection of technology, people science, and operational design — deploying integrated solutions rather than siloed recommendations.
+              To become Africa's most trusted partner for workplace learning and organisational performance — equipping companies with the skills, systems, and support they need to lead in a changing world of work.
             </p>
             
             {/* Contextual Team Photography */}
@@ -117,7 +117,7 @@ export default function WHQAbout() {
 <section className="px-6 py-16">
       <div className="max-w-[1440px] mx-auto">
         <h2 className="font-display font-700 text-[clamp(1.75rem,3vw,2.25rem)] mb-10" style={{ color: '#111827' }}>
-          Leadership Team
+          The people behind WorkplaceHQ
         </h2>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

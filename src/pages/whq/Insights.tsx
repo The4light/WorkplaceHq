@@ -1,83 +1,207 @@
-﻿import { Clock, ArrowRight } from 'lucide-react'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { Clock, ArrowRight } from 'lucide-react'
+import { insightsPosts, categoryColorMap } from '../../data/insightsPosts'
 
-const featured = {
-  title: 'The 2025 State of Enterprise AI: What\'s Actually Working',
-  category: 'AI & Automation',
-  readTime: '12 min read',
-  date: 'Jan 20, 2025',
-  excerpt: 'After analyzing 50 enterprise AI rollouts across African and global markets, here\'s what separates the 20% that delivered ROI from the 80% that didn\'t.',
-}
+const categories = ['All', ...Array.from(new Set(insightsPosts.map(p => p.category)))]
 
-const articles = [
-  { title: 'Why Your OKRs Keep Failing (And What To Fix)', category: 'Operations', readTime: '8 min', date: 'Jan 15, 2025' },
-  { title: 'Building a Remote-First Culture That Actually Performs', category: 'Leadership', readTime: '6 min', date: 'Jan 10, 2025' },
-  { title: 'CX Metrics That Actually Predict Revenue', category: 'Customer Experience', readTime: '10 min', date: 'Jan 5, 2025' },
-  { title: 'The Lean Startup Approach to Enterprise Transformation', category: 'Strategy', readTime: '7 min', date: 'Dec 28, 2024' },
-  { title: 'How African Enterprises Are Outpacing Global Peers on Productivity', category: 'Reports', readTime: '14 min', date: 'Dec 20, 2024' },
-  { title: 'The Manager\'s Playbook for AI-Augmented Teams', category: 'AI & Automation', readTime: '9 min', date: 'Dec 15, 2024' },
-]
-
-const catColors: Record<string, [string, string]> = {
-  'AI & Automation': ['rgba(16,185,129,0.12)', '#065F46'],
-  'Operations': ['rgba(11,60,45,0.08)', '#0B3C2D'],
-  'Leadership': ['rgba(217,119,6,0.12)', '#92400E'],
-  'Customer Experience': ['rgba(59,130,246,0.1)', '#1D4ED8'],
-  'Strategy': ['rgba(139,92,246,0.1)', '#5B21B6'],
-  'Reports': ['rgba(239,68,68,0.1)', '#B91C1C'],
+function InitialsAvatar({ size }: { size: 'sm' | 'xs' }) {
+  const dims = size === 'sm' ? 'w-8 h-8 text-xs' : 'w-6 h-6 text-[10px]'
+  return (
+    <div
+      className={`${dims} rounded-full flex items-center justify-center font-display font-700 shrink-0`}
+      style={{ backgroundColor: '#0B3C2D', color: '#FFFFFF' }}
+    >
+      WT
+    </div>
+  )
 }
 
 export default function WHQInsights() {
+  const [activeCategory, setActiveCategory] = useState('All')
+
+  const featured = insightsPosts.find(p => p.featured)
+  const articles = insightsPosts.filter(p => !p.featured)
+  const filtered = activeCategory === 'All' ? articles : articles.filter(a => a.category === activeCategory)
+
   return (
     <div style={{ backgroundColor: 'var(--whq-bg)', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
-      <div className="relative pt-32 pb-12 px-6 overflow-hidden">
-        <div className="pointer-events-none absolute -top-16 -right-16 w-[400px] h-[400px] rounded-full" style={{ background: '#D97706', filter: 'blur(120px)', opacity: 0.15 }} />
-        <div className="max-w-[1440px] mx-auto">
-          <h1 className="font-display font-700 text-[clamp(2rem,4vw,3.5rem)] leading-tight mb-4" style={{ color: '#111827' }}>Insights</h1>
-          <p className="text-lg" style={{ color: '#6B7280' }}>Research, frameworks, and field notes from the front lines of enterprise transformation.</p>
+      {/* Masthead */}
+      <div className="pt-32 pb-10 px-6 text-center" style={{ borderBottom: '1px solid #E6E5E0' }}>
+        <div className="max-w-[720px] mx-auto">
+          <span
+            className="text-xs font-bold uppercase tracking-widest mb-3 block"
+            style={{ color: '#1DA54A', fontFamily: 'var(--font-display)' }}
+          >
+            WorkplaceHQ Journal
+          </span>
+          <h1 className="font-display font-700 text-[clamp(2.25rem,4.5vw,3.75rem)] leading-tight mb-4" style={{ color: '#191919' }}>
+            Insights
+          </h1>
+          <p className="text-base sm:text-lg" style={{ color: '#545454' }}>
+            Perspectives on workforce transformation, AI adoption, and building high-performing teams across Africa.
+          </p>
         </div>
       </div>
 
-      <section className="px-6 pb-20">
-        <div className="max-w-[1440px] mx-auto">
-          {/* Featured */}
-          <div className="mb-10 p-8 lg:p-12 rounded-2xl relative overflow-hidden" style={{ backgroundColor: '#0B3C2D', border: '1px solid rgba(16,185,129,0.2)' }}>
-            <div className="pointer-events-none absolute -bottom-16 -right-16 w-64 h-64 rounded-full" style={{ background: '#D97706', filter: 'blur(80px)', opacity: 0.2 }} />
-            <div className="relative z-10 max-w-2xl">
-              <div className="flex items-center gap-3 mb-4">
-                <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold" style={{ backgroundColor: 'rgba(16,185,129,0.2)', color: '#10B981' }}>{featured.category}</span>
-                <span className="text-xs flex items-center gap-1" style={{ color: 'rgba(255,255,255,0.45)' }}>
-                  <Clock className="w-3 h-3" /> {featured.readTime}
-                </span>
-                <span className="text-xs" style={{ color: 'rgba(255,255,255,0.3)' }}>{featured.date}</span>
-              </div>
-              <h2 className="font-display font-700 text-[clamp(1.5rem,3vw,2.5rem)] text-white leading-tight mb-4">{featured.title}</h2>
-              <p className="text-base leading-relaxed mb-6" style={{ color: 'rgba(255,255,255,0.65)' }}>{featured.excerpt}</p>
-              <button className="flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-sm" style={{ backgroundColor: '#1DA54A', color: '#0B3C2D', fontFamily: 'var(--font-display)' }}>
-                Read Article <ArrowRight className="w-4 h-4" />
+      {/* Category filter — sticky sub-nav feel */}
+      <div className="px-6 py-4" style={{ borderBottom: '1px solid #E6E5E0', backgroundColor: 'var(--whq-bg)' }}>
+        <div className="max-w-[1000px] mx-auto flex flex-wrap justify-center gap-2">
+          {categories.map(c => {
+            const isActive = activeCategory === c
+            return (
+              <button
+                key={c}
+                onClick={() => setActiveCategory(c)}
+                className="px-3.5 py-1.5 rounded-full text-xs font-semibold cursor-pointer transition-all duration-150"
+                style={{
+                  backgroundColor: isActive ? '#0B3C2D' : 'transparent',
+                  color: isActive ? '#FFFFFF' : '#545454',
+                  border: isActive ? 'none' : '1px solid #E6E5E0',
+                }}
+              >
+                {c}
               </button>
-            </div>
-          </div>
+            )
+          })}
+        </div>
+      </div>
 
-          {/* Article grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {articles.map(a => {
-              const [bg, color] = catColors[a.category] || ['rgba(0,0,0,0.05)', '#111827']
-              return (
-                <div key={a.title} className="p-6 rounded-2xl group cursor-pointer transition-all hover:-translate-y-0.5" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E1D8' }}>
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="px-2 py-0.5 rounded-full text-xs font-medium" style={{ backgroundColor: bg, color }}>{a.category}</span>
-                    <span className="text-xs flex items-center gap-1" style={{ color: '#9CA3AF' }}>
-                      <Clock className="w-3 h-3" /> {a.readTime}
-                    </span>
+      <div className="max-w-[900px] mx-auto px-6 py-14">
+        {/* Featured post — editorial style, no card chrome */}
+        {featured && (
+          <Link to={`/insights/${featured.slug}`} className="block mb-16 cursor-pointer group">
+            <article>
+              <div className="rounded-2xl overflow-hidden mb-6" style={{ border: '1px solid #E6E5E0' }}>
+                <img
+                  src={featured.image}
+                  alt={featured.title}
+                  className="w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                  style={{ height: '420px' }}
+                />
+              </div>
+
+              <div className="flex items-center gap-3 mb-4">
+                <span
+                  className="px-2.5 py-0.5 rounded-full text-xs font-semibold"
+                  style={{
+                    backgroundColor: categoryColorMap[featured.category]?.bg ?? 'rgba(0,0,0,0.05)',
+                    color: categoryColorMap[featured.category]?.text ?? '#111827',
+                  }}
+                >
+                  {featured.category}
+                </span>
+                <span className="text-xs font-bold uppercase tracking-widest" style={{ color: '#1DA54A' }}>
+                  Featured
+                </span>
+              </div>
+
+              <h2 className="font-display font-700 text-[clamp(1.75rem,3.5vw,2.75rem)] leading-tight mb-4 transition-colors duration-150 group-hover:text-[#1DA54A]" style={{ color: '#191919' }}>
+                {featured.title}
+              </h2>
+
+              <p className="text-lg leading-relaxed mb-6" style={{ color: '#545454' }}>
+                {featured.excerpt}
+              </p>
+
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <InitialsAvatar size="sm" />
+                  <div>
+                    <div className="text-sm font-medium" style={{ color: '#191919' }}>{featured.author}</div>
+                    <div className="flex items-center gap-2 text-xs" style={{ color: '#9CA3AF' }}>
+                      <span>{featured.date}</span>
+                      <span>·</span>
+                      <span className="flex items-center gap-1">
+                        <Clock className="w-3 h-3" /> {featured.readTime}
+                      </span>
+                    </div>
                   </div>
-                  <h3 className="font-display font-600 text-base leading-snug mb-3" style={{ color: '#111827' }}>{a.title}</h3>
-                  <p className="text-xs" style={{ color: '#9CA3AF' }}>{a.date}</p>
                 </div>
+                <span
+                  className="inline-flex items-center gap-1 text-sm font-semibold"
+                  style={{ color: '#1DA54A' }}
+                >
+                  Read Article <ArrowRight className="w-4 h-4" />
+                </span>
+              </div>
+            </article>
+          </Link>
+        )}
+
+        {/* Divider label */}
+        <div className="flex items-center gap-4 mb-10">
+          <span className="text-xs font-bold uppercase tracking-widest whitespace-nowrap" style={{ color: '#9CA3AF' }}>
+            Latest Articles
+          </span>
+          <div className="h-px w-full" style={{ backgroundColor: '#E6E5E0' }} />
+        </div>
+
+        {/* Article list — horizontal blog rows */}
+        {filtered.length === 0 ? (
+          <div className="text-center py-16">
+            <p className="text-sm" style={{ color: '#9CA3AF' }}>No articles in this category yet. Try a different filter.</p>
+          </div>
+        ) : (
+          <div className="flex flex-col">
+            {filtered.map((a, i) => {
+              const colors = categoryColorMap[a.category] ?? { bg: 'rgba(0,0,0,0.05)', text: '#111827' }
+              return (
+                <Link
+                  key={a.slug}
+                  to={`/insights/${a.slug}`}
+                  className="py-8 flex flex-col sm:flex-row gap-6 cursor-pointer group"
+                  style={{ borderTop: i === 0 ? 'none' : '1px solid #E6E5E0' }}
+                >
+                  <div className="sm:w-56 shrink-0 rounded-xl overflow-hidden" style={{ border: '1px solid #E6E5E0' }}>
+                    <img
+                      src={a.image}
+                      alt={a.title}
+                      className="w-full h-40 sm:h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
+                  </div>
+
+                  <div className="flex-1 flex flex-col justify-center">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="px-2 py-0.5 rounded-full text-xs font-medium" style={{ backgroundColor: colors.bg, color: colors.text }}>
+                        {a.category}
+                      </span>
+                      <span className="text-xs flex items-center gap-1" style={{ color: '#9CA3AF' }}>
+                        <Clock className="w-3 h-3" /> {a.readTime}
+                      </span>
+                    </div>
+
+                    <h3
+                      className="font-display font-700 text-xl leading-snug mb-2 transition-colors duration-150 group-hover:text-[#1DA54A]"
+                      style={{ color: '#191919' }}
+                    >
+                      {a.title}
+                    </h3>
+
+                    <p className="text-sm leading-relaxed mb-4 line-clamp-2" style={{ color: '#545454' }}>
+                      {a.excerpt}
+                    </p>
+
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <InitialsAvatar size="xs" />
+                        <span className="text-xs" style={{ color: '#545454' }}>{a.author}</span>
+                        <span className="text-xs" style={{ color: '#9CA3AF' }}>· {a.date}</span>
+                      </div>
+                      <span
+                        className="inline-flex items-center gap-1 text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-150"
+                        style={{ color: '#1DA54A' }}
+                      >
+                        Read <ArrowRight className="w-3 h-3" />
+                      </span>
+                    </div>
+                  </div>
+                </Link>
               )
             })}
           </div>
-        </div>
-      </section>
+        )}
+      </div>
     </div>
   )
 }

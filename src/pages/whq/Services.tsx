@@ -29,21 +29,21 @@ const services: {
     label: 'Training',
     icon: GraduationCap,
     description:
-      'Structured corporate training programs that build the skills your teams need to perform — from AI and automation to sales, communication, and performance management. Every program is practical, measurable, and built around real workplace outcomes.',
+      'We design structured corporate training programmes that build the skills your teams need — from AI and automation to sales, communication, and performance management. Every programme is practical, measurable, and tied to real workplace outcomes.',
   },
   {
     id: 'workshops',
     label: 'Workshops',
     icon: Users,
     description:
-      'Focused, hands-on sessions that move teams from knowing to doing. Delivered for teams of any size — every session ends with clear actions your people can implement immediately.',
+      'Focused, hands-on sessions that move teams from knowing to doing. We run workshops on AI tools, customer service, presentation skills, and automation for teams of any size — each one ending with clear, immediate actions.',
   },
   {
     id: 'consulting',
     label: 'Consulting',
     icon: Briefcase,
     description:
-      'We identify what is holding your teams back and build a clear plan to fix it. From performance systems to organisational structure and talent development — you leave with a roadmap, not just a conversation.',
+      'We work with business leaders to identify what is holding their teams back and build a clear plan to address it — spanning performance systems, organisational structure, and talent development. You leave with a roadmap, not just a conversation.',
   },
 ]
 
@@ -218,10 +218,10 @@ export default function WHQServices() {
             className="font-display font-700 text-[clamp(2.25rem,5vw,3.75rem)] leading-[1.08] tracking-tight mb-5"
             style={{ color: '#1A1A1A' }}
           >
-            What We Do
+            Everything your team needs to perform.
           </h1>
           <p className="text-base sm:text-lg leading-relaxed max-w-2xl mx-auto" style={{ color: '#4B4B4B' }}>
-            Structured programmes and consulting engagements built around real workplace outcomes.
+            WorkplaceHQ offers three core services, each designed to solve a specific problem inside your organisation: training your team, running a focused workshop, or getting strategic consulting support.
           </p>
         </div>
       </section>
@@ -523,14 +523,14 @@ export default function WHQServices() {
         <div className="max-w-[1100px] mx-auto">
           <div className="rounded-3xl p-10 sm:p-14 text-center" style={{ backgroundColor: '#0B3C2D' }}>
             <h2 className="font-display font-700 text-2xl sm:text-3xl lg:text-4xl text-white mb-4">
-              Ready to build a high-performing team?
+              Everything your team needs to perform.
             </h2>
             <Link
               to="/contact"
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-lg font-semibold text-sm cursor-pointer transition-all duration-200 hover:-translate-y-0.5"
               style={{ backgroundColor: '#1DA54A', color: '#0B3C2D', fontFamily: 'var(--font-display)' }}
             >
-              Talk to Our Team <ArrowRight className="w-4 h-4" />
+              Talk to us about training <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>

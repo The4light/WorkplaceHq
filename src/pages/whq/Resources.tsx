@@ -9,7 +9,7 @@ const resources = [
     tag: 'Whitepapers', 
     icon: FileText,
     desc: '48-page guide to enterprise AI integration, from readiness to ROI measurement.',
-    coverImage: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80',
+    coverImage: 'https://images.unsplash.com/photo-1573879404555-3f82d0582798?auto=format&fit=crop&w=600&q=80',
     type: 'E-BOOK / PDF'
   },
   { 
@@ -17,7 +17,7 @@ const resources = [
     tag: 'Toolkits', 
     icon: Wrench,
     desc: 'Templates, SOPs, and process maps for immediate deployment across ops teams.',
-    coverImage: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80',
+    coverImage: 'https://images.unsplash.com/photo-1744973149087-179e3ed54eae?auto=format&fit=crop&w=600&q=80',
     type: 'ZIP / TEMPLATES'
   },
   { 
@@ -25,7 +25,7 @@ const resources = [
     tag: 'Frameworks', 
     icon: BookOpen,
     desc: 'Complete OKR design system including goal hierarchy, scoring, and review cadences.',
-    coverImage: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80',
+    coverImage: 'https://images.unsplash.com/photo-1765648684630-ac9c15ac98d5?auto=format&fit=crop&w=600&q=80',
     type: 'GUIDE & SHEET'
   },
   { 
@@ -33,7 +33,7 @@ const resources = [
     tag: 'Reports', 
     icon: BarChart2,
     desc: 'Data from 120+ organizations on productivity, AI adoption, and talent metrics.',
-    coverImage: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=600&q=80',
+    coverImage: 'https://plus.unsplash.com/premium_photo-1707155466050-814d3feb2ba6?auto=format&fit=crop&w=600&q=80',
     type: 'ANNUAL REPORT'
   },
   { 
@@ -41,7 +41,7 @@ const resources = [
     tag: 'Frameworks', 
     icon: BookOpen,
     desc: 'Step-by-step framework for journey mapping, service design, and frontline training.',
-    coverImage: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=600&q=80',
+    coverImage: 'https://images.unsplash.com/photo-1775036760841-6c1854634646?auto=format&fit=crop&w=600&q=80',
     type: 'BLUEPRINT'
   },
   { 
@@ -49,7 +49,7 @@ const resources = [
     tag: 'Toolkits', 
     icon: Wrench,
     desc: 'Async communication structures, standups templates, and performance visibility systems.',
-    coverImage: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80',
+    coverImage: 'https://images.unsplash.com/photo-1655720352328-87e021d2a84e?auto=format&fit=crop&w=600&q=80',
     type: 'SYSTEM KIT'
   },
 ]

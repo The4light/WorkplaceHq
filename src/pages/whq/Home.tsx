@@ -1,4 +1,4 @@
-﻿import { useState } from 'react'
+﻿﻿import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, GraduationCap, Users, Briefcase, ChevronLeft, ChevronRight, Star, Zap, Sparkles } from 'lucide-react'
 
@@ -13,21 +13,21 @@ const services = [
   {
     icon: GraduationCap,
     title: 'Training',
-    desc: 'Seven focused programmes — from AI Transformation to Performance Tracking — that build the skills your teams need to perform.',
+    desc: 'We build structured training programmes around the skills your team is missing — AI and automation, sales, communication, performance management, whatever the gap is. No generic modules. Every session is practical and built to hold up once people are back at their desks.',
     colSpan: 'col-span-1 md:col-span-2',
     dark: true,
   },
   {
     icon: Users,
     title: 'Workshops',
-    desc: 'Hands-on, immersive sessions designed to deliver breakthroughs in a single sitting.',
+    desc: 'Workshops are where theory turns into action. We run focused sessions on AI tools, customer service, presentations, and automation — sized for teams big or small. Everyone leaves with something they can do on Monday, not just notes.',
     colSpan: 'col-span-1',
     dark: false,
   },
   {
     icon: Briefcase,
     title: 'Consulting',
-    desc: 'Direct advisory on performance management and recruitment, grounded in what actually works.',
+    desc: 'We sit with your leadership team and find what\'s really holding your people back — not the symptom, the cause. Then we build a plan around it: performance systems, structure, talent development, whatever it takes. You walk away with a roadmap, not another meeting.',
     colSpan: 'col-span-1',
     dark: false,
   },
@@ -134,12 +134,12 @@ export default function WHQHome() {
                 Enterprise Transformation Partners
               </div>
               <h1 className="font-display font-700 text-4xl sm:text-6xl md:text-7xl leading-[1.08] tracking-tight mb-6" style={{ color: '#111827' }}>
-                We Engineer<br />
-                <span style={{ color: '#0B3C2D' }}>How Teams</span><br />
-                Work.
+                We engineer<br />
+                <span style={{ color: '#0B3C2D' }}>how teams</span><br />
+                work.
               </h1>
               <p className="text-base sm:text-lg leading-relaxed mb-8 sm:mb-10 max-w-xl" style={{ color: '#6B7280' }}>
-                From AI integration to operational excellence — WorkplaceHQ partners with forward-thinking enterprises to build the systems, culture, and capabilities that drive compounding performance.
+                WorkplaceHQ helps African teams trade guesswork for a system that works — training, workshops, and consulting built around how your people actually get things done, not a template.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <button
@@ -147,14 +147,14 @@ export default function WHQHome() {
                   className="w-full sm:w-auto justify-center flex items-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-sm transition-all duration-200 hover:-translate-y-0.5"
                   style={{ backgroundColor: '#0B3C2D', color: '#FFFFFF', fontFamily: 'var(--font-display)', boxShadow: '0 4px 24px rgba(11,60,45,0.25)' }}
                 >
-                  Book Executive Consultation <ArrowRight className="w-4 h-4" />
+                  See what we do <ArrowRight className="w-4 h-4" />
                 </button>
                 <Link
                   to="/services"
                   className="w-full sm:w-auto justify-center flex items-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-sm transition-all duration-200 hover:-translate-y-0.5"
                   style={{ backgroundColor: 'transparent', color: '#0B3C2D', border: '1px solid #E5E1D8', fontFamily: 'var(--font-display)' }}
                 >
-                  Explore Services
+                  Talk to us
                 </Link>
               </div>
             </div>
@@ -204,8 +204,8 @@ export default function WHQHome() {
       <section className="px-4 sm:px-6 py-12 sm:py-20">
         <div className="max-w-[1440px] mx-auto">
           <div className="mb-8 sm:mb-10">
-            <h2 className="font-display font-700 text-2xl sm:text-4xl mb-2 sm:mb-3" style={{ color: '#111827' }}>Our Services</h2>
-            <p className="text-sm sm:text-base" style={{ color: '#6B7280' }}>Three core disciplines. One transformation partner.</p>
+            <h2 className="font-display font-700 text-2xl sm:text-4xl mb-2 sm:mb-3" style={{ color: '#111827' }}>For teams that are tired of winging it.</h2>
+            <p className="text-sm sm:text-base" style={{ color: '#6B7280' }}>Training, workshops, and consulting — every WorkplaceHQ service exists to close one gap: the distance between where your team is and where it needs to be. We work directly with the HR leaders, COOs, and business owners who carry that gap every day.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {services.map(s => {
@@ -242,9 +242,9 @@ export default function WHQHome() {
           <div className="rounded-2xl p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E1D8' }}>
             <div className="lg:col-span-6 space-y-4">
               <span className="text-xs font-bold tracking-wider uppercase" style={{ color: '#1DA54A' }}>Structured Systems</span>
-              <h2 className="font-display font-700 text-2xl sm:text-4xl" style={{ color: '#111827' }}>Building AI-Ready, High-Performing Workforce Architecture</h2>
+              <h2 className="font-display font-700 text-2xl sm:text-4xl" style={{ color: '#111827' }}>No fluff. No filler. Just training that works.</h2>
               <p className="text-sm sm:text-base leading-relaxed" style={{ color: '#6B7280' }}>
-                We provide the blueprint and execution layer for modern enterprise transformation. Every program is structured around real operational outputs, measurable efficiency gains, and sustained talent acceleration.
+                Practical — your team walks out able to use what they learned, not just talk about it. Structured — we don't guess and hope. We diagnose the problem, design for it, then deliver. Measurable — we track what changed, not just who showed up. Human — behind every performance problem is a person, and we start there.
               </p>
             </div>
             <div className="lg:col-span-6">
@@ -360,14 +360,14 @@ export default function WHQHome() {
             </div>
 
             <div className="relative z-10">
-              <h2 className="font-display font-700 text-2xl sm:text-4xl lg:text-5xl text-white mb-3 sm:mb-4">Ready to transform your organization?</h2>
+              <h2 className="font-display font-700 text-2xl sm:text-4xl lg:text-5xl text-white mb-3 sm:mb-4">Your team can do more than it's doing right now. Let's fix what's in the way.</h2>
               <p className="text-sm sm:text-base mb-6 sm:mb-8" style={{ color: 'rgba(255,255,255,0.7)' }}>Let's build the systems your next decade of growth depends on.</p>
               <button
                 onClick={openConsultationModal}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-lg font-semibold text-sm transition-all hover:-translate-y-0.5"
                 style={{ backgroundColor: '#1DA54A', color: '#0B3C2D', fontFamily: 'var(--font-display)' }}
               >
-                Book Executive Consultation <ArrowRight className="w-4 h-4" />
+                Let's build it <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           </div>
