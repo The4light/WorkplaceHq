@@ -2,18 +2,13 @@
 import { 
   ArrowRight, 
   Briefcase, 
-  Zap, 
   Building2, 
   TrendingUp, 
-  CheckCircle2,  
-  PlaneTakeoff, 
-  GraduationCap, 
   ShieldCheck,
   UserCheck,
-  PhoneCall,
-  FileText
+  FileText,
+  Sparkles
 } from 'lucide-react'
-
 
 const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
@@ -39,24 +34,24 @@ const navigationItems = [
     icon: Briefcase, 
     label: 'Job Listings', 
     desc: 'Explore verified Lagos roles', 
-    to: '/lagos-jobs' 
+    to: '/lagos-jobs/listings' 
   },
   { 
-    icon: PlaneTakeoff, 
-    label: 'Travel Advisory', 
-    desc: '1-on-1 migration consulting', 
-    to: '/lagos-jobs/services' 
-  },
-  { 
-    icon: GraduationCap, 
-    label: 'Study Abroad', 
-    desc: 'University & visa placement', 
+    icon: Sparkles, 
+    label: 'Personal Branding', 
+    desc: 'LinkedIn & professional positioning', 
     to: '/lagos-jobs/services' 
   },
   { 
     icon: FileText, 
     label: 'CV & Profile Audit', 
     desc: 'Human specialist review', 
+    to: '/lagos-jobs/services' 
+  },
+  { 
+    icon: UserCheck, 
+    label: 'Career Coaching', 
+    desc: '1-on-1 interview strategy', 
     to: '/lagos-jobs/services' 
   },
   { 
@@ -98,7 +93,7 @@ const stories = [
   { 
     name: 'Fatimah Y.', 
     role: 'Graduate → Marketing Lead, Sterling Bank', 
-    quote: 'The study abroad & career transition advisors gave me clarity on my visa pathway and next steps.',
+    quote: 'The personal branding and career strategy advisors gave me total clarity on my professional positioning and next steps.',
     image: 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?auto=format&fit=crop&w=200&q=80',
     badge: '120% Pay Boost'
   },
@@ -116,14 +111,14 @@ export default function LJHome() {
             {/* Hero Text */}
             <div className="lg:col-span-7">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-6" style={{ backgroundColor: 'rgba(23,178,106,0.12)', color: '#17B26A', border: '1px solid rgba(23,178,106,0.25)' }}>
-                <UserCheck className="w-3.5 h-3.5" /> Human-Led Advisory & Verified Roles
+                <UserCheck className="w-3.5 h-3.5" /> Human-Led Career Services & Verified Roles
               </div>
               <h1 className="font-lj-display font-700 text-4xl sm:text-6xl md:text-7xl leading-[1.08] tracking-tight mb-6" style={{ color: '#0D0D0D' }}>
                 Your Next Role<br />
                 Starts Here.
               </h1>
               <p className="text-base sm:text-lg leading-relaxed mb-8 sm:mb-10 max-w-xl" style={{ color: '#6B7280' }}>
-                From verified Lagos career opportunities to 1-on-1 migration and study abroad advisory — connect directly with specialists dedicated to advancing your goals.
+                From verified Lagos job opportunities to personal branding, CV optimization, and 1-on-1 career coaching — connect directly with specialists dedicated to accelerating your career.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <Link
@@ -131,7 +126,7 @@ export default function LJHome() {
                   className="w-full sm:w-auto justify-center flex items-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-sm text-white transition-all hover:-translate-y-0.5"
                   style={{ backgroundColor: '#17B26A', fontFamily: 'var(--font-lj-display)', boxShadow: '0 4px 24px rgba(23,178,106,0.35)' }}
                 >
-                  Explore Advisory Services <ArrowRight className="w-4 h-4" />
+                  Explore Career Services <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link
                   to="/lagos-jobs/listings"
@@ -143,13 +138,12 @@ export default function LJHome() {
               </div>
             </div>
 
-            {/* Modern Hero Image with Overflowing Badge Elements */}
+            {/* Hero Image */}
             <div className="lg:col-span-5 relative mt-6 lg:mt-0">
               <div className="relative mx-auto max-w-md lg:max-w-none">
                 
                 {/* Main Hero Image */}
                 <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
-                  {/* TODO: Replace with approved photography — all people shown must be Black/Nigerian, professional work or career settings only, no stock lifestyle imagery */}
                   <img
                     src="https://images.unsplash.com/photo-1653565685060-e15e492a7fda?auto=format&fit=crop&w=800&q=80"
                     alt="Nigerian professionals collaborating in a modern office"
@@ -164,7 +158,7 @@ export default function LJHome() {
                     <TrendingUp className="w-5 h-5" style={{ color: '#17B26A' }} />
                   </div>
                   <div>
-                    <div className="text-[10px] uppercase font-bold tracking-wider text-gray-400">Personalized Advisory</div>
+                    <div className="text-[10px] uppercase font-bold tracking-wider text-gray-400">Personalized Services</div>
                     <div className="font-lj-display font-700 text-sm" style={{ color: '#0D0D0D' }}>1-on-1 Consultations</div>
                   </div>
                 </div>
@@ -175,8 +169,8 @@ export default function LJHome() {
                     <ShieldCheck className="w-5 h-5 text-[#17B26A]" />
                   </div>
                   <div>
-                    <div className="text-xs font-semibold text-white">Verified Personnel</div>
-                    <div className="text-[11px] text-gray-300">Dedicated Service Managers</div>
+                    <div className="text-xs font-semibold text-white">Verified Specialists</div>
+                    <div className="text-[11px] text-gray-300">Dedicated Career Advisors</div>
                   </div>
                 </div>
 
@@ -197,15 +191,19 @@ export default function LJHome() {
         </div>
       </section>
 
-      {/* Services & Navigation Hub */}
+   {/* Services & Navigation Hub */}
       <section className="px-4 sm:px-6 py-12 sm:py-20">
         <div className="max-w-[1440px] mx-auto">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
             <div>
-              <h2 className="font-lj-display font-700 text-2xl sm:text-4xl mb-2" style={{ color: '#0D0D0D' }}>Advisory & Career Services</h2>
-              <p className="text-sm sm:text-base" style={{ color: '#6B7280' }}>Connect directly with verified personnel for travel, study, and recruitment.</p>
+              <h2 className="font-lj-display font-700 text-2xl sm:text-4xl mb-2" style={{ color: '#0D0D0D' }}>
+                Career Services
+              </h2>
+              <p className="text-sm sm:text-base max-w-2xl leading-relaxed" style={{ color: '#6B7280' }}>
+                Empowering job seekers and ambitious professionals with human-led guidance, strategic positioning, and direct access to top employers across Nigeria.
+              </p>
             </div>
-            <Link to="/lagos-jobs/services" className="inline-flex items-center gap-1.5 text-sm font-semibold" style={{ color: '#17B26A', fontFamily: 'var(--font-lj-display)' }}>
+            <Link to="/lagos-jobs/services" className="inline-flex items-center gap-1.5 text-sm font-semibold shrink-0" style={{ color: '#17B26A', fontFamily: 'var(--font-lj-display)' }}>
               View All Services <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -232,7 +230,6 @@ export default function LJHome() {
           </div>
         </div>
       </section>
-
       {/* Live Job Counter Widget */}
       <section className="px-4 sm:px-6 py-8 sm:py-10">
         <div className="max-w-[1440px] mx-auto">
@@ -293,14 +290,6 @@ export default function LJHome() {
         <div className="max-w-[1440px] mx-auto">
           <div className="relative p-8 sm:p-12 rounded-3xl overflow-hidden border" style={{ backgroundColor: '#0D0D0D', borderColor: 'rgba(16,185,129,0.2)' }}>
             
-            {/* Subtle Brand Ring Overlay */}
-            <div className="absolute -bottom-16 -right-16 w-80 h-80 pointer-events-none opacity-20 hidden sm:block">
-              <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="50" cy="50" r="44" stroke="#FFFFFF" strokeWidth="2" />
-                <circle cx="50" cy="50" r="14" fill="#FFFFFF" className="brand-dot-pulse" />
-              </svg>
-            </div>
-
             <div className="relative z-10 grid lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-8">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-4" style={{ backgroundColor: 'rgba(16,185,129,0.15)', color: '#10B981' }}>
@@ -327,7 +316,7 @@ export default function LJHome() {
                   className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider text-white border transition-all hover:bg-white/10" 
                   style={{ borderColor: 'rgba(255,255,255,0.25)', fontFamily: 'var(--font-lj-display)' }}
                 >
-                  Explore Advisory Services
+                  Explore Career Services
                 </Link>
               </div>
             </div>

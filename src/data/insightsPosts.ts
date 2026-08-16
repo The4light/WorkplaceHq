@@ -1,4 +1,5 @@
-export interface InsightsPost {
+export interface InsightPost {
+  id?: string
   slug: string
   category: string
   title: string
@@ -6,9 +7,11 @@ export interface InsightsPost {
   author: string
   date: string
   readTime: string
-  featured: boolean
+  featured?: boolean
+  isFeatured?: boolean
   image: string
-  body: string
+  body?: string
+  content?: string
 }
 
 export const categoryColorMap: Record<string, { bg: string; text: string }> = {
@@ -19,11 +22,13 @@ export const categoryColorMap: Record<string, { bg: string; text: string }> = {
   'Leadership':          { bg: 'rgba(139,92,246,0.1)', text: '#5B21B6' },
 }
 
-export const insightsPosts: InsightsPost[] = [
+export const insightsPosts: InsightPost[] = [
   {
+    id: 'static-1',
     slug: 'how-african-teams-are-adopting-ai-in-2025',
     category: 'AI Adoption',
     featured: true,
+    isFeatured: true,
     title: 'How African Teams Are Adopting AI in 2025',
     excerpt: 'Practical AI adoption looks different across industries — and most of what works in Silicon Valley does not translate. Here is what we are seeing on the ground across Lagos, Accra, and Nairobi.',
     author: 'WorkplaceHQ Team',
@@ -33,9 +38,11 @@ export const insightsPosts: InsightsPost[] = [
     body: 'This article is coming soon. WorkplaceHQ is documenting real AI adoption patterns across African enterprises — from pilot programs to full deployment. Check back for the full report.',
   },
   {
+    id: 'static-2',
     slug: 'the-hidden-cost-of-unstructured-teams',
     category: 'Productivity',
     featured: false,
+    isFeatured: false,
     title: 'The Hidden Cost of Unstructured Teams',
     excerpt: 'Most productivity problems are not about effort — they are about system design. Here is how to diagnose and fix the real issue.',
     author: 'WorkplaceHQ Team',
@@ -45,9 +52,11 @@ export const insightsPosts: InsightsPost[] = [
     body: 'Full article coming soon.',
   },
   {
+    id: 'static-3',
     slug: 'why-cx-training-fails',
     category: 'Customer Experience',
     featured: false,
+    isFeatured: false,
     title: 'Why CX Training Fails — and How to Fix It',
     excerpt: 'Training without follow-through produces nothing. Here is the framework that changes that.',
     author: 'WorkplaceHQ Team',
@@ -57,9 +66,11 @@ export const insightsPosts: InsightsPost[] = [
     body: 'Full article coming soon.',
   },
   {
+    id: 'static-4',
     slug: 'building-performance-systems-that-stick',
     category: 'Consulting',
     featured: false,
+    isFeatured: false,
     title: 'Building Performance Systems That Actually Stick',
     excerpt: 'Accountability structures are not a management problem. They are a design problem.',
     author: 'WorkplaceHQ Team',
@@ -69,9 +80,11 @@ export const insightsPosts: InsightsPost[] = [
     body: 'Full article coming soon.',
   },
   {
+    id: 'static-5',
     slug: 'manager-playbook-for-ai-augmented-teams',
     category: 'Leadership',
     featured: false,
+    isFeatured: false,
     title: 'The Manager Playbook for AI-Augmented Teams',
     excerpt: 'Your team is changing. Your management style needs to change with it.',
     author: 'WorkplaceHQ Team',
@@ -81,9 +94,11 @@ export const insightsPosts: InsightsPost[] = [
     body: 'Full article coming soon.',
   },
   {
+    id: 'static-6',
     slug: 'why-your-okrs-keep-failing',
     category: 'AI Adoption',
     featured: false,
+    isFeatured: false,
     title: 'Why Your OKRs Keep Failing',
     excerpt: 'OKRs are not a strategy problem — they are an execution problem. Here is what actually goes wrong.',
     author: 'WorkplaceHQ Team',
@@ -93,9 +108,11 @@ export const insightsPosts: InsightsPost[] = [
     body: 'Full article coming soon.',
   },
   {
+    id: 'static-7',
     slug: 'african-enterprises-outpacing-global-peers',
     category: 'Productivity',
     featured: false,
+    isFeatured: false,
     title: 'How African Enterprises Are Outpacing Global Peers',
     excerpt: 'A data-driven look at why African enterprise teams are closing the productivity gap.',
     author: 'WorkplaceHQ Team',

@@ -467,7 +467,7 @@ export default function ToolsHub() {
       <div className="px-6 py-8">
         <div className="max-w-[1440px] mx-auto">
           <ActiveComponent />
-        </div>
+        </div>  
       </div>
     </div>
   )

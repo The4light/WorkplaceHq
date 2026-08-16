@@ -129,11 +129,17 @@ export default function WHQHome() {
             
             {/* Left Content */}
             <div className="lg:col-span-7">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-6" style={{ backgroundColor: 'rgba(11,60,45,0.08)', color: '#0B3C2D', border: '1px solid #E5E1D8' }}>
+              <div
+                className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-6"
+                style={{ backgroundColor: 'rgba(11,60,45,0.08)', color: '#0B3C2D', border: '1px solid #E5E1D8' }}
+              >
                 <Zap className="w-3 h-3" style={{ color: '#1DA54A' }} />
                 Enterprise Transformation Partners
               </div>
-              <h1 className="font-display font-700 text-4xl sm:text-6xl md:text-7xl leading-[1.08] tracking-tight mb-6" style={{ color: '#111827' }}>
+              <h1
+                className="font-display font-700 text-4xl sm:text-6xl md:text-7xl leading-[1.08] tracking-tight mb-6"
+                style={{ color: '#111827' }}
+              >
                 We engineer<br />
                 <span style={{ color: '#0B3C2D' }}>how teams</span><br />
                 work.
@@ -142,20 +148,33 @@ export default function WHQHome() {
                 WorkplaceHQ helps African teams trade guesswork for a system that works — training, workshops, and consulting built around how your people actually get things done, not a template.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                <button
-                  onClick={openConsultationModal}
-                  className="w-full sm:w-auto justify-center flex items-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-sm transition-all duration-200 hover:-translate-y-0.5"
-                  style={{ backgroundColor: '#0B3C2D', color: '#FFFFFF', fontFamily: 'var(--font-display)', boxShadow: '0 4px 24px rgba(11,60,45,0.25)' }}
-                >
-                  See what we do <ArrowRight className="w-4 h-4" />
-                </button>
+                {/* 1. Explore Services */}
                 <Link
                   to="/services"
                   className="w-full sm:w-auto justify-center flex items-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-sm transition-all duration-200 hover:-translate-y-0.5"
-                  style={{ backgroundColor: 'transparent', color: '#0B3C2D', border: '1px solid #E5E1D8', fontFamily: 'var(--font-display)' }}
+                  style={{
+                    backgroundColor: '#0B3C2D',
+                    color: '#FFFFFF',
+                    fontFamily: 'var(--font-display)',
+                    boxShadow: '0 4px 24px rgba(11,60,45,0.25)',
+                  }}
                 >
-                  Talk to us
+                  See what we do <ArrowRight className="w-4 h-4" />
                 </Link>
+
+                {/* 2. Direct Action / Modal Trigger */}
+                <button
+                  onClick={openConsultationModal}
+                  className="w-full sm:w-auto justify-center flex items-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-sm transition-all duration-200 hover:-translate-y-0.5 cursor-pointer"
+                  style={{
+                    backgroundColor: 'transparent',
+                    color: '#0B3C2D',
+                    border: '1px solid #E5E1D8',
+                    fontFamily: 'var(--font-display)',
+                  }}
+                >
+                  Book a Consultation
+                </button>
               </div>
             </div>
 

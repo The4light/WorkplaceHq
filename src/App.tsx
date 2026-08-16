@@ -22,6 +22,11 @@ import LJListings from './pages/lj/Listings'
 import LJAbout from './pages/lj/About'
 import LJContact from './pages/lj/Contact'
 
+// Admin Imports
+import AdminLogin from './pages/admin/AdminLogin'
+import ProtectedRoute from './components/ProtectedRoute'
+import AdminDashboard from './pages/admin/AdminDashboard'
+
 import ScrollToTop from './components/ScrollToTop'
 
 function WHQLayout({ children }: { children: React.ReactNode }) {
@@ -77,6 +82,13 @@ export default function App() {
         <Route path="/lagos-jobs/listings" element={<LJLayout><LJListings /></LJLayout>} />
         <Route path="/lagos-jobs/about" element={<LJLayout><LJAbout /></LJLayout>} />
         <Route path="/lagos-jobs/contact" element={<LJLayout><LJContact /></LJLayout>} />
+       
+       
+        {/* Admin routes */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   )
