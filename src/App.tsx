@@ -84,7 +84,9 @@ export default function App() {
           <Route path="/lagos-jobs/about" element={<LJLayout><LJAbout /></LJLayout>} />
           <Route path="/lagos-jobs/contact" element={<LJLayout><LJContact /></LJLayout>} />
 
+          
           {/* Admin routes */}
+          <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/admin/dashboard" element={<AdminDashboard />} />

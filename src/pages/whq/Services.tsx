@@ -28,7 +28,7 @@ import {
   bentoCards,
   type ServiceId,
   type DrawerContent,
-} from '../../data/serviceData'
+} from '../../data/serviceData.ts'
 
 const panelVariants = {
   initial: { opacity: 0, y: 12 },
