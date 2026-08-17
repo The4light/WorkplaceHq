@@ -45,6 +45,8 @@ const itemVariants = {
   animate: { opacity: 1, y: 0, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] } },
 } satisfies Variants
 
+const SCROLL_ACTIVATION_THRESHOLD = 80
+
 export default function WHQServices() {
   const [searchParams, setSearchParams] = useSearchParams()
   const tabParam = searchParams.get('tab') as ServiceId | null
@@ -57,6 +59,37 @@ export default function WHQServices() {
 
   // Drawer state
   const [drawerData, setDrawerData] = useState<DrawerContent | null>(null)
+
+  // Scroll-driven navbar coordination
+  const [showNavbar, setShowNavbar] = useState(true)
+
+  useEffect(() => {
+    let lastScrollY = window.scrollY
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+      const scrolledPastThreshold = currentScrollY > SCROLL_ACTIVATION_THRESHOLD
+
+      if (!scrolledPastThreshold) {
+        setShowNavbar(true)
+      } else {
+        setShowNavbar(currentScrollY < lastScrollY)
+      }
+
+      lastScrollY = currentScrollY
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent('whq:navbar-visibility', { detail: { visible: showNavbar } }))
+    document.body.classList.toggle('whq-navbar-hidden', !showNavbar)
+    return () => {
+      document.body.classList.remove('whq-navbar-hidden')
+    }
+  }, [showNavbar])
 
   useEffect(() => {
     if (tabParam && ['training', 'workshops', 'consulting', 'business-branding'].includes(tabParam)) {
@@ -93,14 +126,18 @@ export default function WHQServices() {
         </div>
       </section>
 
-      {/* Selector */}
-      <section className="px-6">
-        <div className="max-w-[1100px] mx-auto">
+      {/* Category Navigation Bar - Adjusted sticky top position */}
+      <section 
+       className={`sticky z-40 px-4 sm:px-6 py-2.5 backdrop-blur-md bg-white/90 border-b border-[#E6E5E0] shadow-sm transition-[top] duration-300 ${
+            showNavbar ? 'top-16' : 'top-0'
+          }`}
+        >
+        <div className="max-w-7xl mx-auto">
+          {/* Desktop & Tablet Navigation Tabs */}
           <div
             role="tablist"
             aria-label="Service categories"
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 p-2 rounded-2xl"
-            style={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E5E0' }}
+            className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-2 p-1.5 rounded-2xl bg-white border border-[#E6E5E0]"
           >
             {services.map((s) => {
               const Icon = s.icon
@@ -111,7 +148,7 @@ export default function WHQServices() {
                   role="tab"
                   aria-selected={isActive}
                   onClick={() => handleTabChange(s.id as ServiceId)}
-                  className="flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl text-xs sm:text-sm font-semibold cursor-pointer transition-all duration-200"
+                  className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold cursor-pointer transition-all duration-200"
                   style={{
                     backgroundColor: isActive ? '#0B3C2D' : 'transparent',
                     color: isActive ? '#FFFFFF' : '#4B4B4B',
@@ -130,6 +167,45 @@ export default function WHQServices() {
               )
             })}
           </div>
+
+         {/* Mobile Native Dropdown Selector - Polished Version */}
+<div className="sm:hidden flex items-center justify-between gap-3 py-1">
+  <span 
+    className="text-xs font-bold uppercase tracking-wider text-[#0B3C2D]"
+    style={{ fontFamily: 'var(--font-display)' }}
+  >
+    Category:
+  </span>
+
+  <div className="relative flex-1">
+    <select
+      value={active}
+      onChange={(e) => handleTabChange(e.target.value as ServiceId)}
+      className="w-full appearance-none bg-[#0B3C2D] text-white text-xs font-semibold px-4 py-2.5 rounded-xl border border-[#0B3C2D] outline-none pr-9 cursor-pointer transition-all duration-200 focus:ring-2 focus:ring-[#1DA54A] shadow-sm active:scale-[0.99]"
+      style={{ fontFamily: 'var(--font-display)' }}
+    >
+      {services.map((s) => (
+        <option 
+          key={s.id} 
+          value={s.id} 
+          className="bg-[#0B3C2D] text-white py-2 px-3 text-xs font-medium"
+          style={{ 
+            backgroundColor: '#0B3C2D', 
+            color: '#FFFFFF',
+            fontFamily: 'var(--font-display)'
+          }}
+        >
+          {s.label}
+        </option>
+      ))}
+    </select>
+
+    {/* Custom Dropdown Indicator Arrow */}
+    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none flex items-center justify-center">
+      <ChevronRight className="w-4 h-4 text-[#1DA54A] rotate-90 transition-transform duration-200" />
+    </div>
+  </div>
+</div>
         </div>
       </section>
 
@@ -503,7 +579,7 @@ export default function WHQServices() {
                       }
                     >
                       <div className="absolute top-0 right-0 w-64 h-64 bg-[#1DA54A] opacity-10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none" />
-                      
+
                       <div>
                         <div className="flex items-center gap-2 mb-4">
                           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold" style={{ backgroundColor: 'rgba(29,165,74,0.2)', color: '#10B981' }}>

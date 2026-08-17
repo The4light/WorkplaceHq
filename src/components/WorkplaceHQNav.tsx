@@ -1,6 +1,6 @@
-import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, ArrowRight } from 'lucide-react'
+import { useState, useEffect } from 'react'
 
 const links = [
   { label: 'Home', to: '/' },
@@ -14,6 +14,18 @@ const links = [
 export default function WorkplaceHQNav() {
   const [open, setOpen] = useState(false)
   const { pathname } = useLocation()
+  const [visible, setVisible] = useState(true)
+
+   // 3. Add listener for the custom visibility event
+  useEffect(() => {
+    const handleVisibility = (e: Event) => {
+      const customEvent = e as CustomEvent<{ visible: boolean }>
+      setVisible(customEvent.detail.visible)
+    }
+
+    window.addEventListener('whq:navbar-visibility', handleVisibility)
+    return () => window.removeEventListener('whq:navbar-visibility', handleVisibility)
+  }, [])
 
   return (
     <>
@@ -24,6 +36,7 @@ export default function WorkplaceHQNav() {
         WebkitBackdropFilter: 'blur(16px) saturate(140%)',
         backgroundColor: 'rgba(244,243,239,0.9)',
         borderBottom: '1px solid #E6E5E0',
+        transform: visible ? 'translateY(0)' : 'translateY(-100%)', 
       }}
     >
       <div className="max-w-[1440px] mx-auto px-6 h-16 flex items-center justify-between gap-8">

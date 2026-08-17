@@ -18,7 +18,6 @@ import NotFound from './pages/NotFound'
 
 import LJHome from './pages/lj/Home'
 import LJServices from './pages/lj/Services'
-import ToolsHub from './pages/lj/ToolsHub'
 import LJListings from './pages/lj/Listings'
 import LJAbout from './pages/lj/About'
 import LJContact from './pages/lj/Contact'
@@ -79,12 +78,11 @@ export default function App() {
           {/* Lagos Job routes */}
           <Route path="/lagos-jobs" element={<LJLayout><LJHome /></LJLayout>} />
           <Route path="/lagos-jobs/services" element={<LJLayout><LJServices /></LJLayout>} />
-          <Route path="/lagos-jobs/tools" element={<LJLayout><ToolsHub /></LJLayout>} />
+          <Route path="/lagos-jobs/tools" element={<Navigate to="/lagos-jobs/services" replace />} />
           <Route path="/lagos-jobs/listings" element={<LJLayout><LJListings /></LJLayout>} />
           <Route path="/lagos-jobs/about" element={<LJLayout><LJAbout /></LJLayout>} />
           <Route path="/lagos-jobs/contact" element={<LJLayout><LJContact /></LJLayout>} />
 
-          
           {/* Admin routes */}
           <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
           <Route path="/admin/login" element={<AdminLogin />} />

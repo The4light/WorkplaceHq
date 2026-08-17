@@ -6,7 +6,7 @@ const navLinks = [
   { label: "Home", to: "/lagos-jobs" },
   { label: "Jobs", to: "/lagos-jobs/listings" },
   { label: "Services", to: "/lagos-jobs/services" },
-  { label: "Tools Hub", to: "/lagos-jobs/tools" },
+  { label: "About", to: "/lagos-jobs/about" },
   { label: "Contact", to: "/lagos-jobs/contact" },
 ];
 
