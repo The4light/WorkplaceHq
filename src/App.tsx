@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async'
 
 import WorkplaceHQNav from './components/WorkplaceHQNav'
 import LagosJobNav from './components/LagosJobNav'
@@ -55,41 +56,44 @@ function LJLayout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <Routes>
-        {/* WorkplaceHQ routes */}
-        <Route path="/" element={<WHQLayout><WHQHome /></WHQLayout>} />
-        <Route path="/about" element={<WHQLayout><WHQAbout /></WHQLayout>} />
-        <Route path="/services" element={<WHQLayout><WHQServices /></WHQLayout>} />
-        <Route path="/training" element={<Navigate to="/services" replace />} />
-        <Route path="/workshops" element={<Navigate to="/services" replace />} />
-        <Route path="/consulting" element={<Navigate to="/services" replace />} />
-        <Route path="/resources" element={<WHQLayout><WHQResources /></WHQLayout>} />
-        <Route path="/insights" element={<WHQLayout><WHQInsights /></WHQLayout>} />
-        <Route path="/insights/:slug" element={<WHQLayout><ArticlePage /></WHQLayout>} />
-        <Route path="/contact" element={<WHQLayout><WHQContact /></WHQLayout>} />
-        <Route path="/privacy" element={<WHQLayout><PrivacyPage /></WHQLayout>} />
-        <Route path="/terms" element={<WHQLayout><TermsPage /></WHQLayout>} />
-        <Route path="/security" element={<WHQLayout><SecurityPage /></WHQLayout>} />
-        <Route path="/lagos-jobs/workplace" element={<Navigate to="/" replace />} />
-        <Route path="*" element={<WHQLayout><NotFound /></WHQLayout>} />
+    <HelmetProvider>
+      <BrowserRouter>
+        <ScrollToTop />
+        <Routes>
+          {/* WorkplaceHQ routes */}
+          <Route path="/" element={<WHQLayout><WHQHome /></WHQLayout>} />
+          <Route path="/about" element={<WHQLayout><WHQAbout /></WHQLayout>} />
+          <Route path="/services" element={<WHQLayout><WHQServices /></WHQLayout>} />
+          <Route path="/training" element={<Navigate to="/services" replace />} />
+          <Route path="/workshops" element={<Navigate to="/services" replace />} />
+          <Route path="/consulting" element={<Navigate to="/services" replace />} />
+          <Route path="/resources" element={<WHQLayout><WHQResources /></WHQLayout>} />
+          <Route path="/insights" element={<WHQLayout><WHQInsights /></WHQLayout>} />
+          <Route path="/insights/:slug" element={<WHQLayout><ArticlePage /></WHQLayout>} />
+          <Route path="/contact" element={<WHQLayout><WHQContact /></WHQLayout>} />
+          <Route path="/privacy" element={<WHQLayout><PrivacyPage /></WHQLayout>} />
+          <Route path="/terms" element={<WHQLayout><TermsPage /></WHQLayout>} />
+          <Route path="/security" element={<WHQLayout><SecurityPage /></WHQLayout>} />
+          <Route path="/lagos-jobs/workplace" element={<Navigate to="/" replace />} />
 
-        {/* Lagos Job routes */}
-        <Route path="/lagos-jobs" element={<LJLayout><LJHome /></LJLayout>} />
-        <Route path="/lagos-jobs/services" element={<LJLayout><LJServices /></LJLayout>} />
-        <Route path="/lagos-jobs/tools" element={<LJLayout><ToolsHub /></LJLayout>} />
-        <Route path="/lagos-jobs/listings" element={<LJLayout><LJListings /></LJLayout>} />
-        <Route path="/lagos-jobs/about" element={<LJLayout><LJAbout /></LJLayout>} />
-        <Route path="/lagos-jobs/contact" element={<LJLayout><LJContact /></LJLayout>} />
-       
-       
-        {/* Admin routes */}
-        <Route path="/admin/login" element={<AdminLogin />} />
-        <Route element={<ProtectedRoute />}>
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+          {/* Lagos Job routes */}
+          <Route path="/lagos-jobs" element={<LJLayout><LJHome /></LJLayout>} />
+          <Route path="/lagos-jobs/services" element={<LJLayout><LJServices /></LJLayout>} />
+          <Route path="/lagos-jobs/tools" element={<LJLayout><ToolsHub /></LJLayout>} />
+          <Route path="/lagos-jobs/listings" element={<LJLayout><LJListings /></LJLayout>} />
+          <Route path="/lagos-jobs/about" element={<LJLayout><LJAbout /></LJLayout>} />
+          <Route path="/lagos-jobs/contact" element={<LJLayout><LJContact /></LJLayout>} />
+
+          {/* Admin routes */}
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          </Route>
+
+          {/* 404 Catch-All Route */}
+          <Route path="*" element={<WHQLayout><NotFound /></WHQLayout>} />
+        </Routes>
+      </BrowserRouter>
+    </HelmetProvider>
   )
 }

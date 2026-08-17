@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { Clock, ArrowLeft, ArrowRight } from 'lucide-react'
+import { Helmet } from 'react-helmet-async'
 import { insightsPosts, categoryColorMap, InsightPost } from '../../data/insightsPosts'
 import { supabase } from '../../lib/supabase'
 
@@ -83,6 +84,10 @@ export default function ArticlePage() {
         className="flex flex-col items-center justify-center gap-4 px-6"
         style={{ backgroundColor: 'var(--whq-bg)', minHeight: '100vh' }}
       >
+        <Helmet>
+          <title>Article Not Found | WorkplaceHQ</title>
+          <meta name="robots" content="noindex, follow" />
+        </Helmet>
         <h1 className="font-display font-semibold text-2xl" style={{ color: '#191919' }}>
           Article not found.
         </h1>
@@ -101,8 +106,63 @@ export default function ArticlePage() {
     text: '#191919',
   }
 
+  // Current page canonical URL build
+  const articleUrl = typeof window !== 'undefined' ? window.location.origin + window.location.pathname : ''
+
+  // ───────────────────── SCHEMA BUILDER FOR AI BOTS (AEO / BLOG POSTING) ─────────────────────
+  const articleSchemaMarkup = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    'mainEntityOfPage': {
+      '@type': 'WebPage',
+      '@id': articleUrl,
+    },
+    'headline': post.title,
+    'description': post.excerpt,
+    'image': post.image ? [post.image] : [],
+    'datePublished': post.date,
+    'author': {
+      '@type': 'Person',
+      'name': post.author,
+    },
+    'publisher': {
+      '@type': 'Organization',
+      'name': 'WorkplaceHQ',
+      'logo': {
+        '@type': 'ImageObject',
+        'url': typeof window !== 'undefined' ? `${window.location.origin}/logo.png` : '',
+      },
+    },
+    'articleSection': post.category,
+  }
+
   return (
     <div style={{ backgroundColor: 'var(--whq-bg)', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
+      {/* ───────────────────── SEO / AEO META INJECTION ───────────────────── */}
+      <Helmet>
+        <title>{`${post.title} | WorkplaceHQ Insights`}</title>
+        <meta name="description" content={post.excerpt} />
+        <link rel="canonical" href={articleUrl} />
+
+        {/* Open Graph / Facebook / LinkedIn / iMessage */}
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={post.title} />
+        <meta property="og:description" content={post.excerpt} />
+        <meta property="og:url" content={articleUrl} />
+        {post.image && <meta property="og:image" content={post.image} />}
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={post.title} />
+        <meta name="twitter:description" content={post.excerpt} />
+        {post.image && <meta name="twitter:image" content={post.image} />}
+
+        {/* Structured Data (JSON-LD) for Search Engine Crawlers & LLM Scrapers */}
+        <script type="application/ld+json">
+          {JSON.stringify(articleSchemaMarkup)}
+        </script>
+      </Helmet>
+
       <div className="max-w-[1440px] mx-auto px-6 pt-32 pb-20">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm mb-10" style={{ color: '#9CA3AF' }}>

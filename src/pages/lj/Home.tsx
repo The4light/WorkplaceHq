@@ -80,25 +80,24 @@ const stories = [
     name: 'Adaeze K.', 
     role: 'Product Designer → Senior PM, Flutterwave', 
     quote: 'Working directly with the career advisory team helped me reframe my experience. I landed 3 interviews in two weeks.',
-    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=200&q=80',
+    image: 'https://plus.unsplash.com/premium_photo-1661589836910-b3b0bf644bd5?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     badge: '3 Offers Landed'
   },
   { 
     name: 'Tunde B.', 
     role: 'Unemployed → Backend Engineer, MTN', 
     quote: 'The direct placement team connected me with an enterprise employer looking for my specific tech stack.',
-    image: 'https://images.unsplash.com/photo-1506634572416-48cdfe530110?auto=format&fit=crop&w=200&q=80',
+    image: 'https://plus.unsplash.com/premium_photo-1683140757395-ba8af5aa185f?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     badge: 'Hired in 14 Days'
   },
   { 
     name: 'Fatimah Y.', 
     role: 'Graduate → Marketing Lead, Sterling Bank', 
     quote: 'The personal branding and career strategy advisors gave me total clarity on my professional positioning and next steps.',
-    image: 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?auto=format&fit=crop&w=200&q=80',
+    image: 'https://images.unsplash.com/photo-1581464907815-29bdb6343d3c?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     badge: '120% Pay Boost'
   },
 ]
-
 export default function LJHome() {
   return (
     <div className="w-full overflow-x-hidden" style={{ backgroundColor: '#F4F5F7', minHeight: '100vh', fontFamily: 'var(--font-lj-body)' }}>
@@ -117,9 +116,9 @@ export default function LJHome() {
                 Your Next Role<br />
                 Starts Here.
               </h1>
-              <p className="text-base sm:text-lg leading-relaxed mb-8 sm:mb-10 max-w-xl" style={{ color: '#6B7280' }}>
-                From verified Lagos job opportunities to personal branding, CV optimization, and 1-on-1 career coaching — connect directly with specialists dedicated to accelerating your career.
-              </p>
+                <p className="text-base sm:text-lg leading-relaxed mb-8 sm:mb-10 max-w-xl" style={{ color: '#6B7280' }}>
+                  We connect you with real, verified jobs in Lagos and help you land them. From fixing your CV and optimizing your LinkedIn to 1-on-1 interview coaching, our career specialists guide you until you get hired.  
+                </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <Link
                   to="/lagos-jobs/services"
@@ -191,7 +190,7 @@ export default function LJHome() {
         </div>
       </section>
 
-   {/* Services & Navigation Hub */}
+      {/* Services & Navigation Hub */}
       <section className="px-4 sm:px-6 py-12 sm:py-20">
         <div className="max-w-[1440px] mx-auto">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
@@ -230,6 +229,7 @@ export default function LJHome() {
           </div>
         </div>
       </section>
+
       {/* Live Job Counter Widget */}
       <section className="px-4 sm:px-6 py-8 sm:py-10">
         <div className="max-w-[1440px] mx-auto">

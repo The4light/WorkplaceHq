@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Clock, ArrowRight, Sparkles, Filter, Newspaper } from 'lucide-react'
+import { Helmet } from 'react-helmet-async'
 import { insightsPosts, InsightPost } from '../../data/insightsPosts'
 import { supabase } from '../../lib/supabase'
 
@@ -85,6 +86,35 @@ export default function WHQInsights() {
   const featuredPost = posts.find((p) => p.isFeatured) || posts[0]
   const regularPosts = filteredPosts.filter((p) => p.id !== featuredPost?.id)
 
+  // ───────────────────── SCHEMA BUILDER FOR AI BOTS (AEO / COLLECTION PAGE) ─────────────────────
+  const collectionSchemaMarkup = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "WorkplaceHQ Insights & Perspectives",
+    "description": "Practical frameworks, strategic analysis, and executive guides on organizational transformation, enterprise AI adoption, and talent systems.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "WorkplaceHQ"
+    },
+    "mainEntity": {
+      "@type": "ItemList",
+      "itemListElement": posts.map((post, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "item": {
+          "@type": "BlogPosting",
+          "headline": post.title,
+          "description": post.excerpt,
+          "url": window.location.origin + `/insights/${post.slug}`,
+          "author": {
+            "@type": "Person",
+            "name": post.author
+          }
+        }
+      }))
+    }
+  }
+
   return (
     <div
       style={{
@@ -93,6 +123,24 @@ export default function WHQInsights() {
         fontFamily: 'var(--font-body, sans-serif)',
       }}
     >
+      {/* ───────────────────── SEO / AEO INJECTION ───────────────────── */}
+      <Helmet>
+        <title>Insights & Perspectives | WorkplaceHQ</title>
+        <meta
+          name="description"
+          content="Practical frameworks, strategic analysis, and executive guides on organizational transformation, enterprise AI adoption, and talent systems."
+        />
+        <meta property="og:title" content="Insights & Perspectives | WorkplaceHQ" />
+        <meta
+          property="og:description"
+          content="Practical frameworks, strategic analysis, and executive guides on organizational transformation, enterprise AI adoption, and talent systems."
+        />
+        <meta property="og:type" content="website" />
+        <script type="application/ld+json">
+          {JSON.stringify(collectionSchemaMarkup)}
+        </script>
+      </Helmet>
+
       {/* Header / Hero Section */}
       <section className="pt-32 pb-16 px-6 border-b border-gray-200">
         <div className="max-w-[1200px] mx-auto text-center">

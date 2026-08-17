@@ -145,9 +145,10 @@ export default function WHQHome() {
                 work.
               </h1>
               <p className="text-base sm:text-lg leading-relaxed mb-8 sm:mb-10 max-w-xl" style={{ color: '#6B7280' }}>
-                WorkplaceHQ helps African teams trade guesswork for a system that works — training, workshops, and consulting built around how your people actually get things done, not a template.
-              </p>
+                  WorkplaceHQ gives growing businesses in Africa everything their teams need to perform at their best. From practical employee training and hands-on workshops to business branding and strategic consulting, we help your workforce deliver real results.       
+             </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+
                 {/* 1. Explore Services */}
                 <Link
                   to="/services"
