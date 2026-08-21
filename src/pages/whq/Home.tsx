@@ -62,7 +62,7 @@ const testimonials = [
   },
 ]
 
-const clients = ['TresBonTech', 'Posh Accent', 'Nexbridge', 'Clearfield', 'VaultGroup', 'Meridian']
+const clients = ['TresBonTech', 'Posh Accent', 'Xymbolic', 'Yonsii', 'Satrop Schools']
 
 const consultationEmail = 'lagos@workplacehq.com'
 
