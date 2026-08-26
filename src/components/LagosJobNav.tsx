@@ -19,8 +19,8 @@ export default function LagosJobNav() {
   return (
     <>
       <nav
-        className="fixed top-0 left-0 right-0 z-50 w-full backdrop-blur-md border-b px-4 sm:px-6 py-4 transition-all"
-        style={{ backgroundColor: 'rgba(255,255,255,0.95)', borderColor: '#F4F5F7' }}
+        className="fixed left-0 right-0 z-50 w-full backdrop-blur-md border-b px-4 sm:px-6 py-4 transition-all"
+        style={{ top: 'var(--whq-countdown-h, 0px)', backgroundColor: 'rgba(255,255,255,0.95)', borderColor: '#F4F5F7' }}
       >
         <div className="max-w-[1440px] mx-auto flex items-center justify-between">
           {/* Left Side: Brand Logo */}
@@ -129,7 +129,7 @@ export default function LagosJobNav() {
       </nav>
 
       {/* Spacer to prevent page content from tucking under the fixed navbar */}
-      <div className="h-[73px]" />
+      <div style={{ height: 'calc(73px + var(--whq-countdown-h, 0px))' }} />
     </>
   );
 }

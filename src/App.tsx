@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 
 import WorkplaceHQNav from './components/WorkplaceHQNav'
+import LaunchCountdown from './components/LaunchCountdown'
 import LagosJobNav from './components/LagosJobNav'
 import Footer from './components/Footer'
 import LagosJobsFooter from './components/LagosJobsFooter'
@@ -57,6 +58,7 @@ export default function App() {
   return (
     <HelmetProvider>
       <BrowserRouter>
+        <LaunchCountdown />
         <ScrollToTop />
         <Routes>
           {/* WorkplaceHQ routes */}

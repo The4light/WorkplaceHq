@@ -30,13 +30,14 @@ export default function WorkplaceHQNav() {
   return (
     <>
     <header
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+      className="fixed left-0 right-0 z-50 transition-all duration-300"
       style={{
+        top: 'var(--whq-countdown-h, 0px)',
         backdropFilter: 'blur(16px) saturate(140%)',
         WebkitBackdropFilter: 'blur(16px) saturate(140%)',
         backgroundColor: 'rgba(244,243,239,0.9)',
         borderBottom: '1px solid #E6E5E0',
-        transform: visible ? 'translateY(0)' : 'translateY(-100%)', 
+        transform: visible ? 'translateY(0)' : 'translateY(-100%)',
       }}
     >
       <div className="max-w-[1440px] mx-auto px-6 h-16 flex items-center justify-between gap-8">
@@ -138,7 +139,7 @@ export default function WorkplaceHQNav() {
       )}
     </header>
     {/* Spacer to prevent page content from tucking under the fixed navbar */}
-    <div className="h-16" />
+    <div style={{ height: 'calc(4rem + var(--whq-countdown-h, 0px))' }} />
     </>
   )
 }
