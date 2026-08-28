@@ -13,31 +13,34 @@ const services = [
   {
     icon: GraduationCap,
     title: 'Training',
-    desc: 'We build structured training programmes around the skills your team is missing — AI and automation, sales, communication, performance management, whatever the gap is. No generic modules. Every session is practical and built to hold up once people are back at their desks.',
+    desc: 'We build structured training programmes around the skills your team is missing: AI and automation, sales, communication, performance management, whatever the gap is. No generic modules. Every session is practical and built to hold up once people are back at their desks.',
     colSpan: 'col-span-1 md:col-span-2',
     dark: true,
+    link: '/services?tab=training',
   },
   {
     icon: Users,
     title: 'Workshops',
-    desc: 'Workshops are where theory turns into action. We run focused sessions on AI tools, customer service, presentations, and automation — sized for teams big or small. Everyone leaves with something they can do on Monday, not just notes.',
+    desc: 'Workshops are where theory turns into action. We run focused sessions on AI tools, customer service, presentations, and automation, sized for teams big or small. Everyone leaves with something they can do on Monday, not just notes.',
     colSpan: 'col-span-1',
     dark: false,
+    link: '/services?tab=workshops',
   },
   {
     icon: Briefcase,
     title: 'Consulting',
-    desc: 'We sit with your leadership team and find what\'s really holding your people back — not the symptom, the cause. Then we build a plan around it: performance systems, structure, talent development, whatever it takes. You walk away with a roadmap, not another meeting.',
+    desc: 'We sit with your leadership team and find what is really holding your people back: not the symptom, the cause. Then we build a plan around it: performance systems, structure, talent development, whatever it takes. You walk away with a roadmap, not another meeting.',
     colSpan: 'col-span-1',
     dark: false,
+    link: '/services?tab=consulting',
   },
   {
     icon: Sparkles,
     title: 'Lagos Jobs',
-    desc: 'Verified local hiring, migration, and study abroad advisory — part of the WorkplaceHQ ecosystem.',
+    desc: 'Verified local hiring, migration, and study abroad advisory, part of the WorkplaceHQ ecosystem.',
     colSpan: 'col-span-1',
     dark: false,
-    isLagosJobs: true,
+    link: '/lagos-jobs',
   },
 ]
 
@@ -55,14 +58,20 @@ const testimonials = [
     rating: 5,
   },
   {
-    quote: "The consulting team doesn't just advise — they embed, build systems, and leave you with something that actually runs.",
+    quote: "The consulting team does not just advise: they embed, build systems, and leave you with something that actually runs.",
     author: 'Chisom Eze',
     role: 'CEO, Nexbridge Africa',
     rating: 5,
   },
 ]
 
-const clients = ['TresBonTech', 'Posh Accent', 'Xymbolic', 'Yonsii', 'Satrop Schools']
+const clients = [
+  { name: 'TresBonTech', logo: '/tresbontech-logo.png' },
+  { name: 'Posh Accent', logo: '/possaccent.png' },
+  { name: 'Xymbolic', logo: '/xymbolic.png' },
+  { name: 'Yonsii', logo: null }, // Ready for image addition later
+  { name: 'Satrop Schools', logo: '/satrop.png' },
+]
 
 const consultationEmail = 'lagos@workplacehq.com'
 
@@ -181,21 +190,16 @@ export default function WHQHome() {
 
             {/* Right Hero Image Frame */}
             <div className="lg:col-span-5 relative">
-              {/* Thin Brand Ring + Dot (System + Activation) placed BEHIND image card (z-0) & extending out of frame */}
               <div className="absolute -top-16 -right-16 w-64 h-64 pointer-events-none z-0 hidden sm:block">
                 <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  {/* Subtle thin Ring (System) */}
                   <circle cx="50" cy="50" r="44" stroke="#1DA54A" strokeWidth="2.5" />
-                  {/* Inner Dot (People Activation) */}
                   <circle cx="50" cy="50" r="14" fill="#1DA54A" className="brand-dot-pulse" />
                 </svg>
               </div>
 
-              {/* Main Image Grid sitting ABOVE the ring element (z-10) */}
               <div className="relative z-10 rounded-2xl overflow-hidden border" style={{ borderColor: '#E5E1D8', boxShadow: '0 20px 40px rgba(0,0,0,0.06)' }}>
-                {/* TODO: Replace with approved photography — all people shown must be Black, real work settings only (meetings, training rooms, laptops, collaboration), no lifestyle or abstract images */}
                 <img
-                  src="https://images.unsplash.com/photo-1655720357872-ce227e4164ba?auto=format&fit=crop&w=1200&q=80"
+                  src= "https://plus.unsplash.com/premium_photo-1742932625664-12b3f5519de6?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   alt="High performing Nigerian team collaborating in modern office"
                   className="w-full h-[420px] object-cover grayscale-[20%] contrast-[1.05]"
                 />
@@ -225,17 +229,15 @@ export default function WHQHome() {
         <div className="max-w-[1440px] mx-auto">
           <div className="mb-8 sm:mb-10">
             <h2 className="font-display font-700 text-2xl sm:text-4xl mb-2 sm:mb-3" style={{ color: '#111827' }}>For teams that are tired of winging it.</h2>
-            <p className="text-sm sm:text-base" style={{ color: '#6B7280' }}>Training, workshops, and consulting — every WorkplaceHQ service exists to close one gap: the distance between where your team is and where it needs to be. We work directly with the HR leaders, COOs, and business owners who carry that gap every day.</p>
+            <p className="text-sm sm:text-base" style={{ color: '#6B7280' }}>Training, workshops, and consulting: every WorkplaceHQ service exists to close one gap: the distance between where your team is and where it needs to be. We work directly with the HR leaders, COOs, and business owners who carry that gap every day.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {services.map(s => {
               const Icon = s.icon
-              const CardTag: any = s.isLagosJobs ? Link : 'div'
-              const cardProps = s.isLagosJobs ? { to: '/lagos-jobs' } : {}
               return (
-                <CardTag
+                <Link
                   key={s.title}
-                  {...cardProps}
+                  to={s.link}
                   className={`${s.colSpan} relative p-6 sm:p-7 rounded-2xl group cursor-pointer transition-all duration-300 hover:-translate-y-1 block`}
                   style={{
                     backgroundColor: s.dark ? '#0B3C2D' : '#FFFFFF',
@@ -249,7 +251,7 @@ export default function WHQHome() {
                   <h3 className="font-display font-600 text-lg mb-2" style={{ color: s.dark ? '#FFFFFF' : '#191919' }}>{s.title}</h3>
                   <p className="text-sm leading-relaxed mb-6 md:mb-0" style={{ color: s.dark ? 'rgba(255,255,255,0.65)' : '#545454' }}>{s.desc}</p>
                   <ArrowRight className="static sm:absolute sm:bottom-6 sm:right-6 w-4 h-4 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity mt-4 sm:mt-0" style={{ color: s.dark ? '#1DA54A' : '#0B3C2D' }} />
-                </CardTag>
+                </Link>
               )
             })}
           </div>
@@ -264,12 +266,11 @@ export default function WHQHome() {
               <span className="text-xs font-bold tracking-wider uppercase" style={{ color: '#1DA54A' }}>Structured Systems</span>
               <h2 className="font-display font-700 text-2xl sm:text-4xl" style={{ color: '#111827' }}>No fluff. No filler. Just training that works.</h2>
               <p className="text-sm sm:text-base leading-relaxed" style={{ color: '#6B7280' }}>
-                Practical — your team walks out able to use what they learned, not just talk about it. Structured — we don't guess and hope. We diagnose the problem, design for it, then deliver. Measurable — we track what changed, not just who showed up. Human — behind every performance problem is a person, and we start there.
+                Practical: your team walks out able to use what they learned, not just talk about it. Structured: we do not guess and hope. We diagnose the problem, design for it, then deliver. Measurable: we track what changed, not just who showed up. Human: behind every performance problem is a person, and we start there.
               </p>
             </div>
             <div className="lg:col-span-6">
               <div className="rounded-xl overflow-hidden border" style={{ borderColor: '#E5E1D8' }}>
-                {/* TODO: Replace with approved photography — all people shown must be Black, real work settings only (meetings, training rooms, laptops, collaboration), no lifestyle or abstract images */}
                 <img
                   src="https://plus.unsplash.com/premium_photo-1707155465527-c5a2935b21cc?auto=format&fit=crop&w=1000&q=80"
                   alt="Modern structured workplace execution session"
@@ -288,7 +289,6 @@ export default function WHQHome() {
             className="rounded-3xl p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden"
             style={{ backgroundColor: '#0F2C34', color: '#FFFFFF' }}
           >
-            {/* Background Accent Glows */}
             <div className="pointer-events-none absolute -top-24 -right-24 w-80 h-80 rounded-full" style={{ background: '#FF5A36', filter: 'blur(100px)', opacity: 0.2 }} />
 
             <div className="max-w-2xl relative z-10">
@@ -317,16 +317,37 @@ export default function WHQHome() {
       </section>
 
       {/* Client Trust Strip */}
-      <section className="px-4 sm:px-6 py-8 sm:py-12 border-y" style={{ borderColor: '#E5E1D8' }}>
-        <div className="max-w-[1440px] mx-auto">
-          <p className="text-xs tracking-widest uppercase mb-6 sm:mb-8 text-center" style={{ color: '#1A1A1A', fontWeight: 600 }}>Trusted by leading enterprises</p>
-          <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-12 md:gap-16">
-            {clients.map(c => (
-              <span key={c} className="font-display font-600 text-base sm:text-lg" style={{ color: '#545454' }}>{c}</span>
-            ))}
-          </div>
-        </div>
-      </section>
+        <section className="px-4 sm:px-6 py-8 sm:py-12 border-y" style={{ borderColor: '#E5E1D8' }}>
+              <div className="max-w-[1440px] mx-auto">
+                <p className="text-xs tracking-widest uppercase mb-6 sm:mb-8 text-center" style={{ color: '#1A1A1A', fontWeight: 600 }}>
+                  Trusted by leading enterprises
+                </p>
+                <div className="flex flex-wrap justify-center items-center gap-8 sm:gap-12 md:gap-16">
+                  {clients.map(client => (
+                    <div key={client.name} className="flex flex-col items-center justify-center gap-2">
+                      {client.logo ? (
+                        <img
+                          src={client.logo}
+                          alt={`${client.name} logo`}
+                          className="h-8 sm:h-10 md:h-12 w-auto object-contain transition-transform duration-200 hover:scale-105"
+                        />
+                      ) : (
+                        <div className="h-8 sm:h-10 md:h-12 flex items-center justify-center">
+                          <span className="font-display font-700 text-lg sm:text-xl tracking-tight" style={{ color: '#0D0D0D' }}>
+                            {client.name}
+                          </span>
+                        </div>
+                      )}
+                      
+                      {/* Client Name Label Underneath */}
+                      <span className="text-xs font-semibold tracking-wide" style={{ color: '#545454' }}>
+                        {client.name}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+        w </section>
 
       {/* Testimonials */}
       <section className="px-4 sm:px-6 py-12 sm:py-20">
@@ -371,7 +392,6 @@ export default function WHQHome() {
       <section className="px-4 sm:px-6 pb-12 sm:pb-20">
         <div className="max-w-[1440px] mx-auto">
           <div className="relative p-8 sm:p-12 rounded-2xl overflow-hidden text-center" style={{ backgroundColor: '#0B3C2D' }}>
-            {/* Out of frame subtle Ring graphic background */}
             <div className="absolute -bottom-16 -right-16 w-64 h-64 pointer-events-none opacity-20 hidden sm:block">
               <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="50" cy="50" r="44" stroke="#FFFFFF" strokeWidth="2.5" />
@@ -380,14 +400,14 @@ export default function WHQHome() {
             </div>
 
             <div className="relative z-10">
-              <h2 className="font-display font-700 text-2xl sm:text-4xl lg:text-5xl text-white mb-3 sm:mb-4">Your team can do more than it's doing right now. Let's fix what's in the way.</h2>
-              <p className="text-sm sm:text-base mb-6 sm:mb-8" style={{ color: 'rgba(255,255,255,0.7)' }}>Let's build the systems your next decade of growth depends on.</p>
+              <h2 className="font-display font-700 text-2xl sm:text-4xl lg:text-5xl text-white mb-3 sm:mb-4">Your team can do more than it is doing right now. Let us fix what is in the way.</h2>
+              <p className="text-sm sm:text-base mb-6 sm:mb-8" style={{ color: 'rgba(255,255,255,0.7)' }}>Let us build the systems your next decade of growth depends on.</p>
               <button
                 onClick={openConsultationModal}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-lg font-semibold text-sm transition-all hover:-translate-y-0.5"
                 style={{ backgroundColor: '#1DA54A', color: '#0B3C2D', fontFamily: 'var(--font-display)' }}
               >
-                Let's build it <ArrowRight className="w-4 h-4" />
+                Let us build it <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           </div>

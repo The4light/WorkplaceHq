@@ -1,4 +1,4 @@
-﻿import { Mail, MessageSquare } from 'lucide-react'
+﻿import { Mail, MessageSquare, Clock } from 'lucide-react'
 
 const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
@@ -48,7 +48,7 @@ export default function LJContact() {
       <div className="relative pt-32 pb-12 px-6 overflow-hidden">
         <div className="max-w-[1440px] mx-auto relative z-10">
           <h1 className="font-lj-display font-700 text-[clamp(2rem,4vw,3.5rem)] leading-tight mb-4" style={{ color: '#0D0D0D' }}>Contact LagosJobs</h1>
-          <p className="text-lg" style={{ color: '#6B7280' }}>Hiring partner inquiry, tool feedback, or general support — we're here.</p>
+          <p className="text-lg" style={{ color: '#6B7280' }}>Hiring partner inquiry, career support, or general inquiries — we're here.</p>
         </div>
       </div>
 
@@ -61,14 +61,14 @@ export default function LJContact() {
               <input className="px-4 py-3 text-sm outline-none" type="email" style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7' }} placeholder="Email Address" />
               <select className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7', color: '#6B7280' }}>
                 <option value="">Inquiry Type</option>
-                <option>Tool Feedback</option>
+                <option>Career Services / Support</option>
                 <option>Hiring Partner / Post a Job</option>
                 <option>Technical Issue</option>
                 <option>Partnership</option>
                 <option>General Inquiry</option>
               </select>
               <textarea className="px-4 py-3 text-sm outline-none resize-none h-32" style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7' }} placeholder="Describe your issue or inquiry..." />
-              <button className="w-full py-3.5 rounded-lg font-semibold text-sm text-white" style={{ backgroundColor: '#17B26A', fontFamily: 'var(--font-lj-display)' }}>
+              <button className="w-full py-3.5 rounded-lg font-semibold text-sm text-white transition-opacity hover:opacity-90" style={{ backgroundColor: '#17B26A', fontFamily: 'var(--font-lj-display)' }}>
                 Submit Ticket
               </button>
             </div>
@@ -80,24 +80,36 @@ export default function LJContact() {
                 <Mail className="w-5 h-5" style={{ color: '#17B26A' }} />
                 <span className="font-lj-display font-600 text-white">Email Support</span>
               </div>
-              <p className="text-sm mb-2" style={{ color: 'rgba(255,255,255,0.55)' }}>hello@lagosjob.ng</p>
-              <p className="text-xs" style={{ color: 'rgba(255,255,255,0.35)' }}>Replies within 4 business hours</p>
+              <p className="text-sm mb-2" style={{ color: 'rgba(255,255,255,0.85)' }}>
+                <a href="mailto:lagosjobsinfo@gmail.com" className="hover:underline">lagosjobsinfo@gmail.com</a>
+              </p>
+              <p className="text-xs" style={{ color: 'rgba(255,255,255,0.45)' }}>Replies within 4–8 business hours</p>
             </div>
+
             <div className="p-6 rounded-2xl" style={{ backgroundColor: '#FFFFFF', border: '1px solid #F4F5F7' }}>
               <div className="flex items-center gap-3 mb-3">
                 <MessageSquare className="w-5 h-5" style={{ color: '#17B26A' }} />
                 <span className="font-lj-display font-600" style={{ color: '#0D0D0D' }}>Hiring Partners</span>
               </div>
-              <p className="text-sm mb-2" style={{ color: '#6B7280' }}>Post jobs, access talent, and partner with LagosJobs to reach Africa's best candidates.</p>
-              <a href="mailto:partners@lagosjob.ng" className="text-sm font-semibold" style={{ color: '#17B26A' }}>partners@lagosjob.ng</a>
+              <p className="text-sm mb-2" style={{ color: '#6B7280' }}>Post jobs, access talent, and partner with LagosJobs to reach top candidates across Lagos.</p>
+              <a href="mailto:lagosjobsinfo@gmail.com" className="text-sm font-semibold hover:underline" style={{ color: '#17B26A' }}>lagosjobsinfo@gmail.com</a>
             </div>
+
             <div className="p-6 rounded-2xl" style={{ backgroundColor: '#FFFFFF', border: '1px solid #F4F5F7' }}>
-              <div className="font-lj-display font-600 text-base mb-2" style={{ color: '#0D0D0D' }}>Response Times</div>
-              <div className="flex flex-col gap-2">
-                {[['General inquiries', '4–8 hours'], ['Technical issues', '2–4 hours'], ['Hiring partnerships', '24 hours'], ['Tool feedback', '1–2 business days']].map(([type, time]) => (
-                  <div key={type} className="flex justify-between text-sm">
+              <div className="flex items-center gap-2 mb-2">
+                <Clock className="w-4 h-4 text-gray-500" />
+                <div className="font-lj-display font-600 text-base" style={{ color: '#0D0D0D' }}>Response Times</div>
+              </div>
+              <p className="text-xs text-gray-500 mb-3">Operating hours: Mon – Fri (Excludes weekends & public holidays)</p>
+              <div className="flex flex-col gap-2.5">
+                {[
+                  ['General & Support Inquiries', '4–8 business hours'],
+                  ['Technical Issues', '4–8 business hours'],
+                  ['Hiring & Partnerships', 'Within 24 business hours']
+                ].map(([type, time]) => (
+                  <div key={type} className="flex justify-between items-center text-sm pb-2 border-b border-gray-100 last:border-b-0 last:pb-0">
                     <span style={{ color: '#6B7280' }}>{type}</span>
-                    <span className="font-medium" style={{ color: '#0D0D0D' }}>{time}</span>
+                    <span className="font-semibold text-xs px-2 py-1 rounded bg-[#17B26A]/10 text-[#0D0D0D]">{time}</span>
                   </div>
                 ))}
               </div>
@@ -110,7 +122,6 @@ export default function LJContact() {
             <h3 className="font-lj-display font-600 text-base mb-4" style={{ color: '#0D0D0D' }}>Follow LagosJobs</h3>
             <div className="flex items-center gap-4">
               {socialLinks.map(({ label, Icon, href }) => (
-                // TODO: Add live social URLs
                 <a
                   key={label}
                   href={href}

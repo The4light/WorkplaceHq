@@ -1,5 +1,5 @@
 ﻿import { useState } from 'react'
-import { Search, MapPin, Clock, Mail, CheckCircle2, Sparkles, Building2, X, ArrowUpRight, Award, ShieldCheck, PhoneCall } from 'lucide-react'
+import { Search, MapPin, Clock, Mail, CheckCircle2, Sparkles, Building2, X, ArrowUpRight, Award, ShieldCheck, PhoneCall, Copy, Check } from 'lucide-react'
 
 const jobs = [
   {
@@ -200,17 +200,16 @@ export default function LJListings() {
 
       {/* Main Content Layout */}
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 py-6">
-        {/* items-stretch ensures left and right columns share the exact same height */}
         <div className="grid lg:grid-cols-12 gap-6 items-stretch">
           
-          {/* Left Feed Column - Matched height to right panel */}
+          {/* Left Feed Column */}
           <div className="lg:col-span-5 flex flex-col h-full min-h-0">
             <div className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3 flex justify-between items-center shrink-0">
               <span>Showing {filtered.length} Roles</span>
               <span className="text-[#17B26A]">Tap to inspect details</span>
             </div>
 
-            {/* Scrollable Feed List strictly bounded to panel height */}
+            {/* Scrollable Feed List */}
             <div className="space-y-3 overflow-y-auto pr-1 flex-1 min-h-0 scrollbar-thin scrollbar-thumb-gray-300">
               {filtered.map(j => {
                 const isSelected = selectedJob.id === j.id
@@ -305,10 +304,17 @@ export default function LJListings() {
 
 /* Detailed Inspection Card */
 function JobDetailPanel({ job }: { job: typeof jobs[0] }) {
+  const [copied, setCopied] = useState(false)
   const isPhone = job.contactType === 'phone'
   const actionHref = isPhone 
     ? `https://wa.me/${job.applyContact.replace(/[^0-9]/g, '')}`
     : `mailto:${job.applyContact}?subject=${encodeURIComponent(`Application for ${job.title}`)}`
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(job.applyContact)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
 
   return (
     <div className="bg-white rounded-3xl border border-gray-200 p-6 sm:p-8 shadow-lg relative overflow-hidden h-full">
@@ -341,21 +347,10 @@ function JobDetailPanel({ job }: { job: typeof jobs[0] }) {
           </span>
         </div>
 
-        <div className="p-4 rounded-2xl bg-[#0D0D0D] text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <div>
-            <div className="text-xs uppercase tracking-wider text-[#17B26A] font-bold">Monthly Compensation</div>
-            <div className="font-lj-display font-700 text-xl sm:text-2xl text-white">{job.salary}</div>
-          </div>
-          <a
-            href={actionHref}
-            target={isPhone ? "_blank" : "_self"}
-            rel="noreferrer"
-            className="w-full sm:w-auto px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider text-white transition-all hover:bg-[#17B26A]/90 flex items-center justify-center gap-2 shadow-md"
-            style={{ backgroundColor: '#17B26A', fontFamily: 'var(--font-lj-display)' }}
-          >
-            {isPhone ? <PhoneCall className="w-4 h-4" /> : <Mail className="w-4 h-4" />} 
-            {isPhone ? 'Apply via WhatsApp' : 'Apply Directly'}
-          </a>
+        {/* Clean Compensation Banner without top apply trigger */}
+        <div className="p-4 rounded-2xl bg-[#0D0D0D] text-white">
+          <div className="text-xs uppercase tracking-wider text-[#17B26A] font-bold">Monthly Compensation</div>
+          <div className="font-lj-display font-700 text-xl sm:text-2xl text-white mt-0.5">{job.salary}</div>
         </div>
       </div>
 
@@ -401,8 +396,8 @@ function JobDetailPanel({ job }: { job: typeof jobs[0] }) {
         </ul>
       </div>
 
-      {/* Application Instructions */}
-      <div className="p-5 rounded-2xl bg-[#17B26A]/10 border border-[#17B26A]/20 text-[#0D0D0D] flex flex-col sm:flex-row items-center justify-between gap-4">
+      {/* Application Instructions & Single Action Block */}
+      <div className="p-5 rounded-2xl bg-[#17B26A]/10 border border-[#17B26A]/20 text-[#0D0D0D] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <div className="font-bold text-sm text-[#0D0D0D]">Application Instructions</div>
           <div className="text-xs text-[#0D0D0D] mt-0.5">
@@ -413,16 +408,29 @@ function JobDetailPanel({ job }: { job: typeof jobs[0] }) {
             )}
           </div>
         </div>
-        <a
-          href={actionHref}
-          target={isPhone ? "_blank" : "_self"}
-          rel="noreferrer"
-          className="w-full sm:w-auto px-5 py-2.5 rounded-lg bg-[#0D0D0D] text-white font-bold text-xs uppercase tracking-wider hover:bg-black shrink-0 text-center"
-        >
-          {isPhone ? 'Open WhatsApp' : 'Send Email'}
-        </a>
+
+        <div className="flex items-center gap-2 w-full sm:w-auto shrink-0">
+          <button
+            type="button"
+            onClick={handleCopy}
+            className="flex-1 sm:flex-initial px-3.5 py-2.5 rounded-xl border border-gray-300 bg-white text-gray-800 font-bold text-xs uppercase tracking-wider hover:bg-gray-50 flex items-center justify-center gap-1.5 transition-all shadow-sm"
+          >
+            {copied ? <Check className="w-3.5 h-3.5 text-[#17B26A]" /> : <Copy className="w-3.5 h-3.5" />}
+            {copied ? 'Copied' : 'Copy mail'}
+          </button>
+
+          {/* <a
+            href={actionHref}
+            target={isPhone ? "_blank" : "_self"}
+            rel="noreferrer"
+            className="flex-1 sm:flex-initial px-5 py-2.5 rounded-xl bg-[#0D0D0D] text-white font-bold text-xs uppercase tracking-wider hover:bg-black text-center flex items-center justify-center gap-2 shadow-md transition-all"
+          >
+            {isPhone ? <PhoneCall className="w-3.5 h-3.5 text-[#17B26A]" /> : <Mail className="w-3.5 h-3.5 text-[#17B26A]" />}
+            {isPhone ? 'Open WhatsApp' : 'Send Email'}
+          </a> */}
+        </div>
       </div>
 
     </div>
   )
-} 
+}

@@ -3,7 +3,7 @@
 const principles = [
   { icon: Target, title: 'Precision Focus', desc: 'We diagnose before prescribing. Every engagement starts with forensic analysis of what\'s actually holding your organization back.' },
   { icon: Cpu, title: 'Systems Thinking', desc: 'People, process, and technology are inseparable. We design interventions that address all three simultaneously.' },
-  { icon: TrendingUp, title: 'Performance Culture', desc: 'We build cultures where high performance is the default — not the exception. Systems that reward output and enable growth.' },
+  { icon: TrendingUp, title: 'Performance Culture', desc: 'We build cultures where high performance is the default, not the exception. Systems that reward output and enable growth.' },
   { icon: RefreshCw, title: 'Continuous Adaptation', desc: 'Markets evolve. We embed the capability for your organization to evolve faster than your competition.' },
 ]
 
@@ -18,8 +18,8 @@ export default function WHQAbout() {
   return (
     <div style={{ backgroundColor: 'var(--whq-bg)', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
       
-      {/* Hero Section */}
-      <div className="relative pt-32 pb-20 px-6 overflow-hidden">
+        {/* Hero Section */}
+      <div className="relative pt-28 pb-20 px-6 overflow-hidden">
         {/* Subtle out-of-frame Thin Ring + Dot Graphic */}
         <div className="absolute -top-20 -right-20 w-80 h-80 pointer-events-none z-0 hidden sm:block">
           <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -29,14 +29,38 @@ export default function WHQAbout() {
         </div>
 
         <div className="max-w-[1440px] mx-auto relative z-10">
-          <div className="max-w-3xl">
-            <span className="text-xs font-bold tracking-wider uppercase mb-3 block" style={{ color: '#1DA54A' }}>Our Purpose</span>
-            <h1 className="font-display font-700 text-[clamp(2.25rem,4.5vw,3.75rem)] leading-tight mb-6" style={{ color: '#111827' }}>
-              Helping organisations build the teams they need to grow.
-            </h1>
-            <p className="text-lg leading-relaxed" style={{ color: '#6B7280' }}>
-              WorkplaceHQ was founded on one premise: an organisation's performance is a function of its people, not its plans. We are a workforce transformation company helping African organisations build AI-ready, high-performing teams. We design and deliver structured training, workshops, and consulting focused on productivity, operational excellence, customer experience, and AI adoption. We work with organisations that know their teams are capable of more and are ready to act on it.
-            </p>
+          <div className="grid lg:grid-cols-12 gap-12 items-center">
+            
+            {/* Left Content Column */}
+            <div className="lg:col-span-7">
+              <span className="text-xs font-bold tracking-wider uppercase mb-3 block" style={{ color: '#1DA54A' }}>
+                Our Purpose
+              </span>
+              <h1 className="font-display font-700 text-[clamp(2.25rem,4.5vw,3.75rem)] leading-tight mb-6" style={{ color: '#111827' }}>
+                Helping organisations build the teams they need to grow.
+              </h1>
+              <p className="text-lg leading-relaxed" style={{ color: '#6B7280' }}>
+                WorkplaceHQ was founded on one premise: an organisation's performance is a function of its people, not its plans. We are a workforce transformation company helping African organisations build AI-ready, high-performing teams. We design and deliver structured training, workshops, and consulting focused on productivity, operational excellence, customer experience, and AI adoption. We work with organisations that know their teams are capable of more and are ready to act on it.
+              </p>
+            </div>
+
+            {/* Right Hero Image Column */}
+            <div className="lg:col-span-5 relative">
+              <div className="relative z-10 rounded-3xl overflow-hidden shadow-2xl border border-gray-100">
+                <img
+                  src="https://images.unsplash.com/photo-1621570072965-b25917de6ec9?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="WorkplaceHQ Communication & Training Facilitator"
+                  className="w-full h-[440px] sm:h-[480px] object-cover object-center"
+                />
+              </div>
+
+              {/* Decorative Green Accent Outline behind card */}
+              <div 
+                className="absolute -bottom-4 -right-4 w-full h-full rounded-3xl border-2 pointer-events-none z-0 hidden sm:block" 
+                style={{ borderColor: '#1DA54A', opacity: 0.3 }} 
+              />
+            </div>
+
           </div>
         </div>
       </div>
@@ -72,10 +96,10 @@ export default function WHQAbout() {
           <div className="space-y-6">
             <h2 className="font-display font-700 text-2xl sm:text-3xl" style={{ color: '#111827' }}>Our origin story</h2>
             <p className="text-base leading-relaxed" style={{ color: '#6B7280' }}>
-              We help organisations build, retain, and develop the talent that drives results — through practical training, workshops, and consulting that create real workplace outcomes.
+              We help organisations build, retain, and develop the talent that drives results through practical training, workshops, and consulting that create real workplace outcomes.
             </p>
             <p className="text-base leading-relaxed" style={{ color: '#6B7280' }}>
-              To become Africa's most trusted partner for workplace learning and organisational performance — equipping companies with the skills, systems, and support they need to lead in a changing world of work.
+              To become Africa's most trusted partner for workplace learning and organisational performance: equipping companies with the skills, systems, and support they need to lead in a changing world of work.
             </p>
             
             {/* Contextual Team Photography */}
@@ -114,79 +138,79 @@ export default function WHQAbout() {
       </section>
 
       {/* Team */}
-<section className="px-6 py-16">
-      <div className="max-w-[1440px] mx-auto">
-        <h2 className="font-display font-700 text-[clamp(1.75rem,3vw,2.25rem)] mb-10" style={{ color: '#111827' }}>
-          The people behind WorkplaceHQ
-        </h2>
+      <section className="px-6 py-16">
+        <div className="max-w-[1440px] mx-auto">
+          <h2 className="font-display font-700 text-[clamp(1.75rem,3vw,2.25rem)] mb-10" style={{ color: '#111827' }}>
+            The people behind WorkplaceHQ
+          </h2>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {team.map((t) => (
-            <div 
-              key={t.name} 
-              className="p-6 rounded-2xl group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-emerald-900/5 relative overflow-hidden flex flex-col justify-between" 
-              style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E1D8' }}
-            >
-              <div>
-                {/* Header Row: Image & Name/Role */}
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="w-16 h-16 rounded-2xl overflow-hidden shrink-0 border" style={{ borderColor: 'rgba(11,60,45,0.12)' }}>
-                    {t.image ? (
-                      // TODO: Replace with approved photography — all people shown must be Black, real work settings only (meetings, training rooms, laptops, collaboration), no lifestyle or abstract images
-                      <img
-                        src={t.image} 
-                        alt={t.name} 
-                        className="w-full h-full object-cover grayscale-[20%] transition-all duration-300 group-hover:grayscale-0 group-hover:scale-105"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center font-display font-700 text-xl" style={{ backgroundColor: '#0B3C2D', color: '#1DA54A' }}>
-                        {t.name.split(' ').map(n => n[0]).join('')}
-                      </div>
-                    )}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {team.map((t) => (
+              <div 
+                key={t.name} 
+                className="p-6 rounded-2xl group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-emerald-900/5 relative overflow-hidden flex flex-col justify-between" 
+                style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E1D8' }}
+              >
+                <div>
+                  {/* Header Row: Image & Name/Role */}
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="w-16 h-16 rounded-2xl overflow-hidden shrink-0 border" style={{ borderColor: 'rgba(11,60,45,0.12)' }}>
+                      {t.image ? (
+                        // TODO: Replace with approved photography — all people shown must be Black, real work settings only (meetings, training rooms, laptops, collaboration), no lifestyle or abstract images
+                        <img
+                          src={t.image} 
+                          alt={t.name} 
+                          className="w-full h-full object-cover grayscale-[20%] transition-all duration-300 group-hover:grayscale-0 group-hover:scale-105"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center font-display font-700 text-xl" style={{ backgroundColor: '#0B3C2D', color: '#1DA54A' }}>
+                          {t.name.split(' ').map(n => n[0]).join('')}
+                        </div>
+                      )}
+                    </div>
+
+                    <div>
+                      <h3 className="font-display font-700 text-lg leading-snug" style={{ color: '#111827' }}>
+                        {t.name}
+                      </h3>
+                      <p className="text-sm font-semibold" style={{ color: '#0B3C2D' }}>
+                        {t.role}
+                      </p>
+                      {t.focus && (
+                        <span
+                          className="inline-block mt-1 px-2 py-0.5 rounded text-[11px] font-medium tracking-wide uppercase"
+                          style={{ backgroundColor: 'rgba(11,60,45,0.06)', color: '#0B3C2D' }}
+                        >
+                          {t.focus}
+                        </span>
+                      )}
+                    </div>
                   </div>
 
-                  <div>
-                    <h3 className="font-display font-700 text-lg leading-snug" style={{ color: '#111827' }}>
-                      {t.name}
-                    </h3>
-                    <p className="text-sm font-semibold" style={{ color: '#0B3C2D' }}>
-                      {t.role}
-                    </p>
-                    {t.focus && (
-                      <span
-                        className="inline-block mt-1 px-2 py-0.5 rounded text-[11px] font-medium tracking-wide uppercase"
-                        style={{ backgroundColor: 'rgba(11,60,45,0.06)', color: '#0B3C2D' }}
-                      >
-                        {t.focus}
-                      </span>
-                    )}
-                  </div>
+                  {/* Short Bio fill */}
+                  <p className="text-xs leading-relaxed mb-6" style={{ color: '#6B7280' }}>
+                    {t.bio}
+                  </p>
                 </div>
 
-                {/* Short Bio fill */}
-                <p className="text-xs leading-relaxed mb-6" style={{ color: '#6B7280' }}>
-                  {t.bio}
-                </p>
+                {/* Bottom Action / Link */}
+                <div className="pt-4 border-t flex items-center justify-between" style={{ borderColor: '#F3F0E6' }}>
+                  <span className="text-[11px] font-mono uppercase tracking-wider" style={{ color: '#9CA3AF' }}>
+                    HQ Executive
+                  </span>
+                  <a 
+                    href="#" 
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold transition-colors hover:text-[#0B3C2D]" 
+                    style={{ color: '#4B5563' }}
+                  >
+                    <Link2 className="w-3.5 h-3.5" /> LinkedIn
+                  </a>
+                </div>
               </div>
-
-              {/* Bottom Action / Link */}
-              <div className="pt-4 border-t flex items-center justify-between" style={{ borderColor: '#F3F0E6' }}>
-                <span className="text-[11px] font-mono uppercase tracking-wider" style={{ color: '#9CA3AF' }}>
-                  HQ Executive
-                </span>
-                <a 
-                  href="#" 
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold transition-colors hover:text-[#0B3C2D]" 
-                  style={{ color: '#4B5563' }}
-                >
-                  <Link2 className="w-3.5 h-3.5" /> LinkedIn
-                </a>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
     </div>
   )
 }

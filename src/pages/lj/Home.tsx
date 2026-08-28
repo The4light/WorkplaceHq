@@ -78,26 +78,27 @@ const stats = [
 const stories = [
   { 
     name: 'Adaeze K.', 
-    role: 'Product Designer → Senior PM, Flutterwave', 
+    role: 'Product Designer (Senior PM at Flutterwave)', 
     quote: 'Working directly with the career advisory team helped me reframe my experience. I landed 3 interviews in two weeks.',
     image: 'https://plus.unsplash.com/premium_photo-1661589836910-b3b0bf644bd5?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     badge: '3 Offers Landed'
   },
   { 
     name: 'Tunde B.', 
-    role: 'Unemployed → Backend Engineer, MTN', 
+    role: 'Graduate (Backend Engineer at MTN)', 
     quote: 'The direct placement team connected me with an enterprise employer looking for my specific tech stack.',
     image: 'https://plus.unsplash.com/premium_photo-1683140757395-ba8af5aa185f?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     badge: 'Hired in 14 Days'
   },
   { 
     name: 'Fatimah Y.', 
-    role: 'Graduate → Marketing Lead, Sterling Bank', 
+    role: 'Marketing Lead at Sterling Bank', 
     quote: 'The personal branding and career strategy advisors gave me total clarity on my professional positioning and next steps.',
     image: 'https://images.unsplash.com/photo-1581464907815-29bdb6343d3c?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     badge: '120% Pay Boost'
   },
 ]
+
 export default function LJHome() {
   return (
     <div className="w-full overflow-x-hidden" style={{ backgroundColor: '#F4F5F7', minHeight: '100vh', fontFamily: 'var(--font-lj-body)' }}>
@@ -116,9 +117,9 @@ export default function LJHome() {
                 Your Next Role<br />
                 Starts Here.
               </h1>
-                <p className="text-base sm:text-lg leading-relaxed mb-8 sm:mb-10 max-w-xl" style={{ color: '#6B7280' }}>
-                  We connect you with real, verified jobs in Lagos and help you land them. From fixing your CV and optimizing your LinkedIn to 1-on-1 interview coaching, our career specialists guide you until you get hired.  
-                </p>
+              <p className="text-base sm:text-lg leading-relaxed mb-8 sm:mb-10 max-w-xl" style={{ color: '#6B7280' }}>
+                We connect you with real, verified jobs in Lagos and help you land them. From fixing your CV and optimizing your LinkedIn to 1-on-1 interview coaching, our career specialists guide you until you get hired.  
+              </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <Link
                   to="/lagos-jobs/services"
@@ -299,7 +300,7 @@ export default function LJHome() {
                   Need Enterprise Consulting or Team Upskilling?
                 </h2>
                 <p className="text-sm sm:text-base leading-relaxed max-w-2xl" style={{ color: 'rgba(255,255,255,0.75)' }}>
-                  Lagos Jobs is built by <strong>WorkplaceHQ</strong> — Africa’s leading management consulting and organizational performance firm. We help enterprise teams redesign operations, implement AI frameworks, and train high-performing talent.
+                  Lagos Jobs is built by <strong>WorkplaceHQ</strong>, Africa’s leading management consulting and organizational performance firm. We help enterprise teams redesign operations, implement AI frameworks, and train high-performing talent.
                 </p>
               </div>
 

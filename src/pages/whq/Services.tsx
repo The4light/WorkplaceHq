@@ -47,6 +47,26 @@ const itemVariants = {
 
 const SCROLL_ACTIVATION_THRESHOLD = 80
 
+// Dynamic CTA labels for bottom section based on active tab
+const ctaLabels: Record<ServiceId, { title: string; buttonText: string }> = {
+  training: {
+    title: 'Transform your team with tailored training programs.',
+    buttonText: 'Talk to us about training',
+  },
+  workshops: {
+    title: 'Ready for hands-on, high-impact execution workshops?',
+    buttonText: 'Book a custom workshop',
+  },
+  consulting: {
+    title: 'Optimize your operational strategy and performance.',
+    buttonText: 'Schedule a consulting call',
+  },
+  'business-branding': {
+    title: 'Elevate your enterprise brand identity and market position.',
+    buttonText: 'Discuss your brand strategy',
+  },
+}
+
 export default function WHQServices() {
   const [searchParams, setSearchParams] = useSearchParams()
   const tabParam = searchParams.get('tab') as ServiceId | null
@@ -103,6 +123,7 @@ export default function WHQServices() {
   }
 
   const activeService = services.find(s => s.id === active)!
+  const activeCta = ctaLabels[active]
 
   const openRequestModal = (context: string) => {
     setModalContext(context)
@@ -126,7 +147,7 @@ export default function WHQServices() {
         </div>
       </section>
 
-      {/* Category Navigation Bar - Adjusted sticky top position */}
+      {/* Category Navigation Bar */}
       <section 
        className={`sticky z-40 px-4 sm:px-6 py-2.5 backdrop-blur-md bg-white/90 border-b border-[#E6E5E0] shadow-sm transition-[top] duration-300 ${
             showNavbar ? 'top-16' : 'top-0'
@@ -168,44 +189,43 @@ export default function WHQServices() {
             })}
           </div>
 
-         {/* Mobile Native Dropdown Selector - Polished Version */}
-<div className="sm:hidden flex items-center justify-between gap-3 py-1">
-  <span 
-    className="text-xs font-bold uppercase tracking-wider text-[#0B3C2D]"
-    style={{ fontFamily: 'var(--font-display)' }}
-  >
-    Category:
-  </span>
+          {/* Mobile Native Dropdown Selector */}
+          <div className="sm:hidden flex items-center justify-between gap-3 py-1">
+            <span 
+              className="text-xs font-bold uppercase tracking-wider text-[#0B3C2D]"
+              style={{ fontFamily: 'var(--font-display)' }}
+            >
+              Category:
+            </span>
 
-  <div className="relative flex-1">
-    <select
-      value={active}
-      onChange={(e) => handleTabChange(e.target.value as ServiceId)}
-      className="w-full appearance-none bg-[#0B3C2D] text-white text-xs font-semibold px-4 py-2.5 rounded-xl border border-[#0B3C2D] outline-none pr-9 cursor-pointer transition-all duration-200 focus:ring-2 focus:ring-[#1DA54A] shadow-sm active:scale-[0.99]"
-      style={{ fontFamily: 'var(--font-display)' }}
-    >
-      {services.map((s) => (
-        <option 
-          key={s.id} 
-          value={s.id} 
-          className="bg-[#0B3C2D] text-white py-2 px-3 text-xs font-medium"
-          style={{ 
-            backgroundColor: '#0B3C2D', 
-            color: '#FFFFFF',
-            fontFamily: 'var(--font-display)'
-          }}
-        >
-          {s.label}
-        </option>
-      ))}
-    </select>
+            <div className="relative flex-1">
+              <select
+                value={active}
+                onChange={(e) => handleTabChange(e.target.value as ServiceId)}
+                className="w-full appearance-none bg-[#0B3C2D] text-white text-xs font-semibold px-4 py-2.5 rounded-xl border border-[#0B3C2D] outline-none pr-9 cursor-pointer transition-all duration-200 focus:ring-2 focus:ring-[#1DA54A] shadow-sm active:scale-[0.99]"
+                style={{ fontFamily: 'var(--font-display)' }}
+              >
+                {services.map((s) => (
+                  <option 
+                    key={s.id} 
+                    value={s.id} 
+                    className="bg-[#0B3C2D] text-white py-2 px-3 text-xs font-medium"
+                    style={{ 
+                      backgroundColor: '#0B3C2D', 
+                      color: '#FFFFFF',
+                      fontFamily: 'var(--font-display)'
+                    }}
+                  >
+                    {s.label}
+                  </option>
+                ))}
+              </select>
 
-    {/* Custom Dropdown Indicator Arrow */}
-    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none flex items-center justify-center">
-      <ChevronRight className="w-4 h-4 text-[#1DA54A] rotate-90 transition-transform duration-200" />
-    </div>
-  </div>
-</div>
+              <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none flex items-center justify-center">
+                <ChevronRight className="w-4 h-4 text-[#1DA54A] rotate-90 transition-transform duration-200" />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -234,7 +254,6 @@ export default function WHQServices() {
               {/* Training */}
               {active === 'training' && (
                 <div className="flex flex-col gap-6">
-                  {/* Direct Distinction Banner */}
                   <div className="p-4 rounded-xl border" style={{ backgroundColor: 'rgba(11,60,45,0.03)', borderColor: 'rgba(11,60,45,0.12)' }}>
                     <div className="flex items-center gap-2 mb-1.5">
                       <span className="text-xs font-bold uppercase tracking-wider" style={{ color: '#0B3C2D' }}>
@@ -337,7 +356,7 @@ export default function WHQServices() {
                               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-semibold text-xs cursor-pointer transition-all duration-200"
                               style={{ backgroundColor: '#0B3C2D', color: '#FFFFFF', fontFamily: 'var(--font-display)' }}
                             >
-                              Request Deck
+                              Request Training Deck
                             </button>
                           </div>
                         </motion.div>
@@ -350,7 +369,6 @@ export default function WHQServices() {
               {/* Workshops */}
               {active === 'workshops' && (
                 <div className="flex flex-col gap-6">
-                  {/* Direct Distinction Banner */}
                   <div className="p-4 rounded-xl border" style={{ backgroundColor: 'rgba(217,119,6,0.05)', borderColor: 'rgba(217,119,6,0.2)' }}>
                     <div className="flex items-center gap-2 mb-1.5">
                       <span className="text-xs font-bold uppercase tracking-wider" style={{ color: '#92400E' }}>
@@ -442,7 +460,7 @@ export default function WHQServices() {
                               className="flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-xs cursor-pointer transition-all duration-200"
                               style={{ backgroundColor: '#0B3C2D', color: '#FFFFFF', fontFamily: 'var(--font-display)' }}
                             >
-                              Reserve Seat <ArrowRight className="w-3.5 h-3.5" />
+                              Reserve Workshop Seat <ArrowRight className="w-3.5 h-3.5" />
                             </button>
                           </div>
                         </div>
@@ -546,7 +564,7 @@ export default function WHQServices() {
                                     fontFamily: 'var(--font-display)',
                                   }}
                                 >
-                                  Request Consultation <ArrowRight className="w-3.5 h-3.5" />
+                                  Book Consultation <ArrowRight className="w-3.5 h-3.5" />
                                 </button>
                               </div>
                             </div>
@@ -622,7 +640,7 @@ export default function WHQServices() {
                             className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-semibold cursor-pointer"
                             style={{ backgroundColor: '#1DA54A', color: '#0B3C2D' }}
                           >
-                            Inquire Now <ArrowRight className="w-3.5 h-3.5" />
+                            Start Brand Sprint <ArrowRight className="w-3.5 h-3.5" />
                           </button>
                         </div>
                       </div>
@@ -746,7 +764,7 @@ export default function WHQServices() {
                           className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-all duration-200"
                           style={{ backgroundColor: '#0B3C2D', color: '#FFFFFF' }}
                         >
-                          Inquire Now <ArrowRight className="w-3 h-3" />
+                          Request Brand Proposal <ArrowRight className="w-3 h-3" />
                         </button>
                       </div>
                     </motion.div>
@@ -778,7 +796,6 @@ export default function WHQServices() {
       <AnimatePresence>
         {drawerData && (
           <div className="fixed inset-0 z-[120] flex justify-end">
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -788,7 +805,6 @@ export default function WHQServices() {
               onClick={() => setDrawerData(null)}
             />
 
-            {/* Slide-over Container */}
             <motion.div
               initial={{ x: '100%' }}
               animate={{ x: '0%' }}
@@ -798,7 +814,6 @@ export default function WHQServices() {
               style={{ backgroundColor: '#FFFFFF' }}
             >
               <div>
-                {/* Header */}
                 <div className="p-6 sm:p-8 border-b flex items-start justify-between" style={{ borderColor: '#E6E5E0' }}>
                   <div>
                     {drawerData.badge && (
@@ -821,7 +836,6 @@ export default function WHQServices() {
                   </button>
                 </div>
 
-                {/* Content */}
                 <div className="p-6 sm:p-8 flex flex-col gap-6">
                   <div>
                     <h4 className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: '#9CA3AF' }}>
@@ -832,7 +846,6 @@ export default function WHQServices() {
                     </p>
                   </div>
 
-                  {/* Who It's For */}
                   {drawerData.whoItsFor.length > 0 && (
                     <div>
                       <h4 className="text-xs font-semibold uppercase tracking-wider mb-3 flex items-center gap-1.5" style={{ color: '#0B3C2D' }}>
@@ -852,7 +865,6 @@ export default function WHQServices() {
                     </div>
                   )}
 
-                  {/* Core Deliverables */}
                   {drawerData.deliverables.length > 0 && (
                     <div>
                       <h4 className="text-xs font-semibold uppercase tracking-wider mb-3 flex items-center gap-1.5" style={{ color: '#0B3C2D' }}>
@@ -869,7 +881,6 @@ export default function WHQServices() {
                     </div>
                   )}
 
-                  {/* Expected Business Outcomes */}
                   {drawerData.outcomes.length > 0 && (
                     <div>
                       <h4 className="text-xs font-semibold uppercase tracking-wider mb-3 flex items-center gap-1.5" style={{ color: '#0B3C2D' }}>
@@ -887,7 +898,6 @@ export default function WHQServices() {
                 </div>
               </div>
 
-              {/* Action Footer */}
               <div className="p-6 sm:p-8 border-t flex items-center justify-between gap-4" style={{ borderColor: '#E6E5E0', backgroundColor: '#FFFFFF' }}>
                 <button
                   onClick={() => setDrawerData(null)}
@@ -905,7 +915,7 @@ export default function WHQServices() {
                   className="flex-1 py-2.5 px-4 rounded-lg font-semibold text-xs cursor-pointer flex items-center justify-center gap-2"
                   style={{ backgroundColor: '#0B3C2D', color: '#FFFFFF', fontFamily: 'var(--font-display)' }}
                 >
-                  Request Information <ArrowRight className="w-3.5 h-3.5" />
+                  Request Details <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               </div>
             </motion.div>
@@ -913,19 +923,19 @@ export default function WHQServices() {
         )}
       </AnimatePresence>
 
-      {/* Bottom CTA */}
+      {/* Dynamic Bottom CTA Section */}
       <section className="px-6 pb-20 sm:pb-28">
         <div className="max-w-[1100px] mx-auto">
           <div className="rounded-3xl p-10 sm:p-14 text-center" style={{ backgroundColor: '#0B3C2D' }}>
             <h2 className="font-display font-700 text-2xl sm:text-3xl lg:text-4xl text-white mb-4">
-              Everything your team needs to perform.
+              {activeCta.title}
             </h2>
             <Link
               to="/contact"
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-lg font-semibold text-sm cursor-pointer transition-all duration-200 hover:-translate-y-0.5"
               style={{ backgroundColor: '#1DA54A', color: '#0B3C2D', fontFamily: 'var(--font-display)' }}
             >
-              Talk to us about training <ArrowRight className="w-4 h-4" />
+              {activeCta.buttonText} <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
