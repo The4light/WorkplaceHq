@@ -3,20 +3,20 @@ import { useNavigate } from 'react-router-dom'
 import {
   LogOut, Plus, FileText, BookOpen, Trash2, Upload, CheckCircle2,
   AlertCircle, ExternalLink, Edit2, X, Image as ImageIcon, FileDown,
-  Sparkles, Search, Layers, LayoutGrid
+  Sparkles, Search, Layers, LayoutGrid, Users, Download, Award, Copy, Check
 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 
 export default function AdminDashboard() {
   const navigate = useNavigate()
-  const [activeTab, setActiveTab] = useState<'resources' | 'insights'>('resources')
+  const [activeTab, setActiveTab] = useState<'resources' | 'insights' | 'leads'>('resources')
   const [loading, setLoading] = useState(false)
 
   // Feedback Modal State
   const [modalFeedback, setModalFeedback] = useState<{ isOpen: boolean; type: 'success' | 'error'; title: string; message: string } | null>(null)
 
   // Delete Confirmation Modal State
-  const [deleteConfirm, setDeleteConfirm] = useState<{ isOpen: boolean; id: string; type: 'resources' | 'insights'; title: string } | null>(null)
+  const [deleteConfirm, setDeleteConfirm] = useState<{ isOpen: boolean; id: string; type: 'resources' | 'insights' | 'resource_leads'; title: string } | null>(null)
 
   // Search & Filter state
   const [searchQuery, setSearchQuery] = useState('')
@@ -28,6 +28,9 @@ export default function AdminDashboard() {
   // Edit Mode state
   const [editingResource, setEditingResource] = useState<any | null>(null)
   const [editingInsight, setEditingInsight] = useState<any | null>(null)
+
+  // Copy email state tracking
+  const [copiedEmail, setCopiedEmail] = useState<string | null>(null)
 
   // Resources form state
   const [resourcesList, setResourcesList] = useState<any[]>([])
@@ -52,9 +55,13 @@ export default function AdminDashboard() {
   const [insImageFile, setInsImageFile] = useState<File | null>(null)
   const [insImagePreview, setInsImagePreview] = useState<string | null>(null)
 
+  // Leads / Subscribers state
+  const [leadsList, setLeadsList] = useState<any[]>([])
+
   useEffect(() => {
     fetchResources()
     fetchInsights()
+    fetchLeads()
   }, [])
 
   const fetchResources = async () => {
@@ -67,9 +74,23 @@ export default function AdminDashboard() {
     if (!error && data) setInsightsList(data)
   }
 
+  const fetchLeads = async () => {
+    const { data, error } = await supabase.from('resource_leads').select('*').order('created_at', { ascending: false })
+    if (!error && data) setLeadsList(data)
+  }
+
   const handleLogout = async () => {
     await supabase.auth.signOut()
     navigate('/admin/login')
+  }
+
+  const handleCopyEmail = (email: string) => {
+    if (!email) return
+    navigator.clipboard.writeText(email)
+    setCopiedEmail(email)
+    setTimeout(() => {
+      setCopiedEmail(null)
+    }, 2000)
   }
 
   const handleResourceImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -231,7 +252,7 @@ export default function AdminDashboard() {
     }
   }
 
-  const promptDelete = (id: string, type: 'resources' | 'insights', title: string) => {
+  const promptDelete = (id: string, type: 'resources' | 'insights' | 'resource_leads', title: string) => {
     setDeleteConfirm({ isOpen: true, id, type, title })
   }
 
@@ -253,7 +274,8 @@ export default function AdminDashboard() {
       })
 
       if (type === 'resources') fetchResources()
-      else fetchInsights()
+      else if (type === 'insights') fetchInsights()
+      else fetchLeads()
     } catch (err: any) {
       setDeleteConfirm(null)
       setModalFeedback({
@@ -336,7 +358,24 @@ export default function AdminDashboard() {
     return i.title.toLowerCase().includes(searchQuery.toLowerCase()) || i.excerpt?.toLowerCase().includes(searchQuery.toLowerCase())
   })
 
-  const switchTab = (tab: 'resources' | 'insights') => {
+  const filteredLeads = leadsList.filter(l => {
+    return (
+      l.full_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      l.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      l.resource_title?.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+  })
+
+  // Metric calculation for bottom cards
+  const topResource = leadsList.reduce((acc: Record<string, number>, curr) => {
+    const title = curr.resource_title || 'Unknown Resource'
+    acc[title] = (acc[title] || 0) + 1
+    return acc
+  }, {})
+
+  const mostDownloadedTitle = Object.entries(topResource).sort((a, b) => b[1] - a[1])[0]?.[0] || 'N/A'
+
+  const switchTab = (tab: 'resources' | 'insights' | 'leads') => {
     setActiveTab(tab)
     setSearchQuery('')
     setSelectedTag('All')
@@ -395,6 +434,27 @@ export default function AdminDashboard() {
               {insightsList.length}
             </span>
           </button>
+
+          <p className="px-3 mt-4 mb-2 text-[10px] font-bold uppercase tracking-wider text-gray-400">Audience</p>
+
+          <button
+            onClick={() => switchTab('leads')}
+            className={`flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all ${
+              activeTab === 'leads' ? 'text-white shadow-sm' : 'text-gray-600 hover:bg-gray-100'
+            }`}
+            style={activeTab === 'leads' ? { backgroundColor: '#0B3C2D' } : undefined}
+          >
+            <span className="flex items-center gap-2.5">
+              <Users className="w-4 h-4" /> Subscribers
+            </span>
+            <span
+              className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${
+                activeTab === 'leads' ? 'bg-white/20 text-white' : 'bg-gray-100 text-gray-500'
+              }`}
+            >
+              {leadsList.length}
+            </span>
+          </button>
         </nav>
 
         <div className="p-3 border-t flex flex-col gap-1" style={{ borderColor: '#E5E1D8' }}>
@@ -434,10 +494,10 @@ export default function AdminDashboard() {
               </button>
             </div>
           </div>
-          <div className="flex px-3 pb-3 gap-2">
+          <div className="flex px-3 pb-3 gap-2 overflow-x-auto no-scrollbar">
             <button
               onClick={() => switchTab('resources')}
-              className={`flex-1 py-2 rounded-lg text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all ${
+              className={`flex-1 min-w-[100px] py-2 rounded-lg text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all ${
                 activeTab === 'resources' ? 'text-white shadow-xs' : 'text-gray-600 bg-gray-100'
               }`}
               style={activeTab === 'resources' ? { backgroundColor: '#0B3C2D' } : undefined}
@@ -447,13 +507,23 @@ export default function AdminDashboard() {
             </button>
             <button
               onClick={() => switchTab('insights')}
-              className={`flex-1 py-2 rounded-lg text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all ${
+              className={`flex-1 min-w-[100px] py-2 rounded-lg text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all ${
                 activeTab === 'insights' ? 'text-white shadow-xs' : 'text-gray-600 bg-gray-100'
               }`}
               style={activeTab === 'insights' ? { backgroundColor: '#0B3C2D' } : undefined}
             >
               <FileText className="w-3.5 h-3.5" />
               Insights ({insightsList.length})
+            </button>
+            <button
+              onClick={() => switchTab('leads')}
+              className={`flex-1 min-w-[100px] py-2 rounded-lg text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all ${
+                activeTab === 'leads' ? 'text-white shadow-xs' : 'text-gray-600 bg-gray-100'
+              }`}
+              style={activeTab === 'leads' ? { backgroundColor: '#0B3C2D' } : undefined}
+            >
+              <Users className="w-3.5 h-3.5" />
+              Leads ({leadsList.length})
             </button>
           </div>
         </header>
@@ -463,12 +533,14 @@ export default function AdminDashboard() {
           <div className="px-4 sm:px-6 lg:px-8 py-4 lg:py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
             <div>
               <h1 className="font-display font-bold text-lg sm:text-xl text-gray-900">
-                {activeTab === 'resources' ? 'Resources' : 'Insights'}
+                {activeTab === 'resources' ? 'Resources' : activeTab === 'insights' ? 'Insights' : 'Subscribers & Lead Activity'}
               </h1>
               <p className="text-xs text-gray-500 mt-0.5">
                 {activeTab === 'resources'
                   ? 'Whitepapers, toolkits, frameworks and reports served from the Resources Hub.'
-                  : 'Articles and perspectives published to the Insights feed.'}
+                  : activeTab === 'insights'
+                  ? 'Articles and perspectives published to the Insights feed.'
+                  : 'Track users who requested and downloaded resources.'}
               </p>
             </div>
 
@@ -484,14 +556,17 @@ export default function AdminDashboard() {
                   style={{ borderColor: '#E5E1D8' }}
                 />
               </div>
-              <button
-                onClick={openNewDrawer}
-                className="px-3.5 sm:px-4 py-2 rounded-xl font-bold text-xs uppercase tracking-wider text-white transition-all shadow-sm flex items-center justify-center gap-1.5 shrink-0"
-                style={{ backgroundColor: '#0B3C2D' }}
-              >
-                <Plus className="w-4 h-4" />
-                <span>New <span className="hidden xs:inline">{activeTab === 'resources' ? 'Resource' : 'Article'}</span></span>
-              </button>
+
+              {activeTab !== 'leads' && (
+                <button
+                  onClick={openNewDrawer}
+                  className="px-3.5 sm:px-4 py-2 rounded-xl font-bold text-xs uppercase tracking-wider text-white transition-all shadow-sm flex items-center justify-center gap-1.5 shrink-0"
+                  style={{ backgroundColor: '#0B3C2D' }}
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>New <span className="hidden xs:inline">{activeTab === 'resources' ? 'Resource' : 'Article'}</span></span>
+                </button>
+              )}
             </div>
           </div>
 
@@ -528,7 +603,6 @@ export default function AdminDashboard() {
                 </div>
               ) : (
                 <>
-                  {/* MOBILE RESOURCE CARDS (< md screen) */}
                   <div className="grid grid-cols-1 gap-3 md:hidden">
                     {filteredResources.map(r => (
                       <div key={r.id} className="bg-white rounded-2xl p-4 border shadow-xs flex flex-col gap-3" style={{ borderColor: '#E5E1D8' }}>
@@ -571,7 +645,6 @@ export default function AdminDashboard() {
                     ))}
                   </div>
 
-                  {/* DESKTOP RESOURCE TABLE (>= md screen) */}
                   <div className="hidden md:block bg-white rounded-2xl border shadow-xs overflow-hidden" style={{ borderColor: '#E5E1D8' }}>
                     <table className="w-full text-sm">
                       <thead>
@@ -642,7 +715,6 @@ export default function AdminDashboard() {
                 </div>
               ) : (
                 <>
-                  {/* MOBILE INSIGHT CARDS (< md screen) */}
                   <div className="grid grid-cols-1 gap-3 md:hidden">
                     {filteredInsights.map(a => (
                       <div key={a.id} className="bg-white rounded-2xl p-4 border shadow-xs flex flex-col gap-3" style={{ borderColor: '#E5E1D8' }}>
@@ -685,7 +757,6 @@ export default function AdminDashboard() {
                     ))}
                   </div>
 
-                  {/* DESKTOP INSIGHT TABLE (>= md screen) */}
                   <div className="hidden md:block bg-white rounded-2xl border shadow-xs overflow-hidden" style={{ borderColor: '#E5E1D8' }}>
                     <table className="w-full text-sm">
                       <thead>
@@ -734,6 +805,152 @@ export default function AdminDashboard() {
                                   <Trash2 className="w-4 h-4" />
                                 </button>
                               </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
+
+          {/* SUBSCRIBERS / LEADS TAB CONTENT */}
+          {activeTab === 'leads' && (
+            <div className="flex flex-col gap-6">
+              {/* Summary Metric Cards (Placed Above) */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="bg-white p-5 rounded-2xl border shadow-xs" style={{ borderColor: '#E5E1D8' }}>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="p-2 rounded-xl bg-emerald-50 text-[#0B3C2D]">
+                      <Users className="w-5 h-5" />
+                    </div>
+                    <span className="text-xs font-bold uppercase tracking-wider text-gray-400">Total Subscribers</span>
+                  </div>
+                  <p className="font-display font-bold text-2xl text-gray-900">{leadsList.length}</p>
+                </div>
+
+                <div className="bg-white p-5 rounded-2xl border shadow-xs" style={{ borderColor: '#E5E1D8' }}>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="p-2 rounded-xl bg-blue-50 text-blue-700">
+                      <Download className="w-5 h-5" />
+                    </div>
+                    <span className="text-xs font-bold uppercase tracking-wider text-gray-400">Total Downloads</span>
+                  </div>
+                  <p className="font-display font-bold text-2xl text-gray-900">{leadsList.length}</p>
+                </div>
+
+                <div className="bg-white p-5 rounded-2xl border shadow-xs" style={{ borderColor: '#E5E1D8' }}>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="p-2 rounded-xl bg-amber-50 text-amber-700">
+                      <Award className="w-5 h-5" />
+                    </div>
+                    <span className="text-xs font-bold uppercase tracking-wider text-gray-400">Top Resource</span>
+                  </div>
+                  <p className="font-display font-bold text-sm text-gray-900 truncate" title={mostDownloadedTitle}>
+                    {mostDownloadedTitle}
+                  </p>
+                </div>
+              </div>
+
+              {filteredLeads.length === 0 ? (
+                <div className="bg-white rounded-2xl border p-12 sm:p-16 text-center text-gray-400 flex flex-col items-center gap-2" style={{ borderColor: '#E5E1D8' }}>
+                  <Users className="w-8 h-8 text-gray-300" />
+                  <p className="text-sm font-medium">No subscribers or downloads logged yet.</p>
+                </div>
+              ) : (
+                <>
+                  {/* Mobile Leads List */}
+                  <div className="grid grid-cols-1 gap-3 md:hidden">
+                    {filteredLeads.map(lead => (
+                      <div key={lead.id} className="bg-white rounded-2xl p-4 border shadow-xs flex flex-col gap-2" style={{ borderColor: '#E5E1D8' }}>
+                        <div className="flex items-center justify-between">
+                          <h3 className="font-bold text-gray-900 text-sm">{lead.full_name || 'Anonymous User'}</h3>
+                          <span className="text-[10px] text-gray-400">
+                            {lead.created_at ? new Date(lead.created_at).toLocaleDateString() : 'N/A'}
+                          </span>
+                        </div>
+
+                        <div className="flex items-center justify-between gap-2">
+                          <p className="text-xs text-emerald-800 font-medium truncate">{lead.email}</p>
+                          <button
+                            onClick={() => handleCopyEmail(lead.email)}
+                            className="p-1.5 rounded-lg text-gray-500 hover:text-emerald-800 hover:bg-emerald-50 transition-colors shrink-0"
+                            title="Copy email"
+                          >
+                            {copiedEmail === lead.email ? (
+                              <Check className="w-3.5 h-3.5 text-emerald-600" />
+                            ) : (
+                              <Copy className="w-3.5 h-3.5" />
+                            )}
+                          </button>
+                        </div>
+
+                        <div className="bg-[#FAF9F6] p-2.5 rounded-xl border mt-1" style={{ borderColor: '#E5E1D8' }}>
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block mb-0.5">Downloaded Resource</span>
+                          <span className="text-xs font-semibold text-gray-800 line-clamp-1">{lead.resource_title || 'General Download'}</span>
+                        </div>
+                        <div className="flex justify-end pt-2">
+                          <button
+                            onClick={() => promptDelete(lead.id, 'resource_leads', lead.email)}
+                            className="px-2.5 py-1.5 rounded-lg text-xs font-medium text-red-600 bg-red-50 hover:bg-red-100 flex items-center gap-1"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" /> Delete Entry
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Desktop Leads Table */}
+                  <div className="hidden md:block bg-white rounded-2xl border shadow-xs overflow-hidden" style={{ borderColor: '#E5E1D8' }}>
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="text-left border-b bg-[#FAF9F6]" style={{ borderColor: '#E5E1D8' }}>
+                          <th className="px-5 py-3 text-[10px] font-bold uppercase tracking-wider text-gray-400">Subscriber Name</th>
+                          <th className="px-5 py-3 text-[10px] font-bold uppercase tracking-wider text-gray-400">Email Address</th>
+                          <th className="px-5 py-3 text-[10px] font-bold uppercase tracking-wider text-gray-400">Resource Downloaded</th>
+                          <th className="px-5 py-3 text-[10px] font-bold uppercase tracking-wider text-gray-400">Date</th>
+                          <th className="px-5 py-3 text-[10px] font-bold uppercase tracking-wider text-gray-400 text-right">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y" style={{ borderColor: '#E5E1D8' }}>
+                        {filteredLeads.map(lead => (
+                          <tr key={lead.id} className="hover:bg-[#FAF9F6] transition-colors align-middle" style={{ borderColor: '#E5E1D8' }}>
+                            <td className="px-5 py-3 font-semibold text-gray-900">{lead.full_name || 'Anonymous User'}</td>
+                            <td className="px-5 py-3">
+                              <div className="flex items-center gap-2">
+                                <span className="text-emerald-800 font-medium">{lead.email}</span>
+                                <button
+                                  onClick={() => handleCopyEmail(lead.email)}
+                                  className="p-1 rounded-md text-gray-400 hover:text-emerald-800 hover:bg-emerald-50 transition-colors"
+                                  title="Copy Email"
+                                >
+                                  {copiedEmail === lead.email ? (
+                                    <Check className="w-3.5 h-3.5 text-emerald-600" />
+                                  ) : (
+                                    <Copy className="w-3.5 h-3.5" />
+                                  )}
+                                </button>
+                              </div>
+                            </td>
+                            <td className="px-5 py-3 max-w-xs">
+                              <span className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-50 text-[#0B3C2D] border border-emerald-100 block truncate">
+                                {lead.resource_title || 'General Download'}
+                              </span>
+                            </td>
+                            <td className="px-5 py-3 text-xs text-gray-500">
+                              {lead.created_at ? new Date(lead.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'N/A'}
+                            </td>
+                            <td className="px-5 py-3 text-right">
+                              <button
+                                onClick={() => promptDelete(lead.id, 'resource_leads', lead.email)}
+                                className="p-2 rounded-lg text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                                title="Delete Lead"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </button>
                             </td>
                           </tr>
                         ))}

@@ -334,39 +334,38 @@ export default function WHQHome() {
         </div>
       </section>
 
-      {/* Client Trust Strip */}
-        <section className="px-4 sm:px-6 py-8 sm:py-12 border-y" style={{ borderColor: '#E5E1D8' }}>
-              <div className="max-w-[1440px] mx-auto">
-                <p className="text-xs tracking-widest uppercase mb-6 sm:mb-8 text-center" style={{ color: '#1A1A1A', fontWeight: 600 }}>
-                  Trusted by leading enterprises
-                </p>
-                <div className="flex flex-wrap justify-center items-center gap-8 sm:gap-12 md:gap-16">
-                  {clients.map(client => (
-                    <div key={client.name} className="flex flex-col items-center justify-center gap-2">
-                      {client.logo ? (
-                        <img
-                          src={client.logo}
-                          alt={`${client.name} logo`}
-                          className="h-8 sm:h-10 md:h-12 w-auto object-contain transition-transform duration-200 hover:scale-105"
-                        />
-                      ) : (
-                        <div className="h-8 sm:h-10 md:h-12 flex items-center justify-center">
-                          <span className="font-display font-700 text-lg sm:text-xl tracking-tight" style={{ color: '#0D0D0D' }}>
-                            {client.name}
-                          </span>
-                        </div>
-                      )}
-                      
-                      {/* Client Name Label Underneath */}
-                      <span className="text-xs font-semibold tracking-wide" style={{ color: '#545454' }}>
-                        {client.name}
-                      </span>
-                    </div>
-                  ))}
-                </div>
+    {/* Trusted Clients Banner */}
+      <section className="px-4 sm:px-6 py-10 sm:py-14" style={{ backgroundColor: '#0B3C2D' }}>
+        <div className="max-w-[1440px] mx-auto">
+          <p className="text-xs tracking-widest uppercase mb-8 text-center font-semibold" style={{ color: 'rgba(255,255,255,0.7)' }}>
+            Trusted by leading enterprises
+          </p>
+          <div className="flex flex-wrap justify-center items-center gap-8 sm:gap-12 md:gap-16">
+            {clients.map(client => (
+              <div key={client.name} className="flex flex-col items-center justify-center gap-2">
+                {client.logo ? (
+                  <img
+                    src={client.logo}
+                    alt={`${client.name} logo`}
+                    className="h-8 sm:h-10 md:h-12 w-auto object-contain transition-transform duration-200 hover:scale-105"
+                  />
+                ) : (
+                  <div className="h-8 sm:h-10 md:h-12 flex items-center justify-center">
+                    <span className="font-display font-700 text-lg sm:text-xl tracking-tight text-white">
+                      {client.name}
+                    </span>
+                  </div>
+                )}
+                
+                {/* Client Name Label Underneath */}
+                <span className="text-xs font-semibold tracking-wide text-white/80">
+                  {client.name}
+                </span>
               </div>
-        w </section>
-
+            ))}
+          </div>
+        </div>
+      </section>
       {/* Testimonials */}
       <section className="px-4 sm:px-6 py-12 sm:py-20">
         <div className="max-w-[1440px] mx-auto">

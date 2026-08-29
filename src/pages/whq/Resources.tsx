@@ -1,5 +1,5 @@
 ﻿import { useState, useEffect } from 'react'
-import { Download, FileText, Wrench, BarChart2, BookOpen, X, Loader2, CheckCircle2 } from 'lucide-react'
+import { Download, FileText, Wrench, BarChart2, BookOpen, X, Loader2, CheckCircle2, ArrowRight } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import SEO from '../../components/SEO'
 
@@ -32,8 +32,7 @@ export default function WHQResources() {
   // Form & submission states
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
-  const [submitting, setSubmitting] = useState(false)
-  const [submitted, setSubmitted] = useState(false)
+  const [downloadStep, setDownloadStep] = useState<'idle' | 'submitting' | 'preparing' | 'completed'>('idle')
   const [errorMessage, setErrorMessage] = useState('')
 
   useEffect(() => {
@@ -57,45 +56,48 @@ export default function WHQResources() {
     }
   }
 
+  const triggerFileDownload = (url: string, title: string) => {
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `${title}.pdf`
+    link.target = '_blank'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+
   const handleDownload = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!selectedResource?.file_url || submitting) return
+    if (!selectedResource?.file_url || downloadStep !== 'idle') return
 
-    setSubmitting(true)
+    setDownloadStep('submitting')
     setErrorMessage('')
 
     try {
-      // 1. Log lead to Supabase leads table (optional fallback tracking)
-      await supabase.from('resource_leads').insert([
+      // 1. Save lead to Supabase
+      const { error } = await supabase.from('resource_leads').insert([
         {
           full_name: fullName,
           email: email,
-          resource_id: selectedResource.id,
           resource_title: selectedResource.title,
         },
       ])
 
-      // 2. Call serverless route to deliver PDF via Resend
-      const response = await fetch('/api/send-resource', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: fullName,
-          email: email,
-          resourceId: selectedResource.id,
-        }),
-      })
+      if (error) throw error
 
-      if (!response.ok) {
-        throw new Error('Failed to send email. Please check your email address.')
-      }
+      // 2. Step: Show "Download Started!" confirmation modal FIRST
+      setDownloadStep('preparing')
 
-      setSubmitted(true)
+      // 3. Delay file download by 2 seconds so the user experiences the visual transition
+      setTimeout(() => {
+        triggerFileDownload(selectedResource.file_url, selectedResource.title)
+        setDownloadStep('completed')
+      }, 2000)
+
     } catch (err: any) {
       console.error('Error submitting resource request:', err)
       setErrorMessage(err.message || 'Something went wrong. Please try again.')
-    } finally {
-      setSubmitting(false)
+      setDownloadStep('idle')
     }
   }
 
@@ -103,7 +105,7 @@ export default function WHQResources() {
     setSelectedResource(null)
     setFullName('')
     setEmail('')
-    setSubmitted(false)
+    setDownloadStep('idle')
     setErrorMessage('')
   }
 
@@ -116,7 +118,8 @@ export default function WHQResources() {
         description="Free whitepapers, toolkits, frameworks, and reports from WorkplaceHQ to help your organization build stronger, AI-ready teams."
         path="/resources"
       />
-      {/* Header Section with Brand Ring Graphic */}
+      
+      {/* Header Section */}
       <div className="relative pt-32 pb-12 px-6 overflow-hidden">
         <div className="absolute -top-16 -right-16 w-80 h-80 pointer-events-none z-0 hidden sm:block">
           <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -173,6 +176,8 @@ export default function WHQResources() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filtered.map(r => {
                 const Icon = iconMap[r.tag] || FileText
+                const hasCover = Boolean(r.cover_image_url)
+
                 return (
                   <div
                     key={r.id}
@@ -180,42 +185,52 @@ export default function WHQResources() {
                     style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E1D8' }}
                   >
                     <div className="relative h-56 w-full overflow-hidden bg-[#07271D] flex items-center justify-center p-6">
-                      <img
-                        src={r.cover_image_url}
-                        alt={r.title}
-                        className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#0B3C2D] via-transparent to-black/30" />
+                      {hasCover ? (
+                        /* Standard Cover Photo View */
+                        <img
+                          src={r.cover_image_url}
+                          alt={r.title}
+                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      ) : (
+                        /* Fallback Floating Book View when no cover image exists */
+                        <>
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#0B3C2D] via-transparent to-black/30" />
+                          <div
+                            className="relative z-10 w-36 h-44 rounded-r-md rounded-l-xs shadow-2xl transition-transform duration-300 group-hover:rotate-2 group-hover:scale-105 flex flex-col justify-between p-3.5 border-l-4 border-[#1DA54A]"
+                            style={{ backgroundColor: '#0B3C2D', backgroundImage: 'linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.35) 100%)' }}
+                          >
+                            <div className="flex justify-between items-center">
+                              <span className="text-[9px] font-mono tracking-wider text-[#1DA54A] uppercase font-semibold">
+                                {r.resource_type}
+                              </span>
+                              <div className="w-2 h-2 rounded-full bg-amber-400" />
+                            </div>
 
+                            <div>
+                              <span className="text-[9px] font-bold tracking-widest text-white/50 block uppercase">WorkplaceHQ</span>
+                              <h4 className="font-display font-700 text-xs text-white leading-tight mt-1 line-clamp-3">
+                                {r.title}
+                              </h4>
+                            </div>
+
+                            <div className="pt-2 border-t border-white/10 flex justify-between items-center">
+                              <span className="text-[8px] text-white/60">Free Download</span>
+                              <span className="text-[8px] text-[#1DA54A] font-semibold">2026</span>
+                            </div>
+                          </div>
+                        </>
+                      )}
+
+                      {/* Icon badge */}
                       <div className="absolute top-4 left-4 z-20 w-9 h-9 rounded-xl flex items-center justify-center shadow-md" style={{ backgroundColor: '#FFFFFF' }}>
                         <Icon className="w-4 h-4" style={{ color: '#0B3C2D' }} />
                       </div>
 
+                      {/* Category tag badge */}
                       <span className="absolute top-4 right-4 z-20 px-2.5 py-1 rounded-full text-[11px] font-semibold tracking-wide uppercase shadow-sm" style={{ backgroundColor: 'rgba(217,119,6,0.18)', color: '#F59E0B', backdropFilter: 'blur(4px)' }}>
                         {r.tag}
                       </span>
-
-                      <div className="relative z-10 w-36 h-44 rounded-r-md rounded-l-xs shadow-2xl transition-transform duration-300 group-hover:rotate-2 group-hover:scale-105 flex flex-col justify-between p-3.5 border-l-4 border-[#1DA54A]"
-                           style={{ backgroundColor: '#0B3C2D', backgroundImage: 'linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.35) 100%)' }}>
-                        <div className="flex justify-between items-center">
-                          <span className="text-[9px] font-mono tracking-wider text-[#1DA54A] uppercase font-semibold">
-                            {r.resource_type}
-                          </span>
-                          <div className="w-2 h-2 rounded-full bg-amber-400" />
-                        </div>
-
-                        <div>
-                          <span className="text-[9px] font-bold tracking-widest text-white/50 block uppercase">WorkplaceHQ</span>
-                          <h4 className="font-display font-700 text-xs text-white leading-tight mt-1 line-clamp-3">
-                            {r.title}
-                          </h4>
-                        </div>
-
-                        <div className="pt-2 border-t border-white/10 flex justify-between items-center">
-                          <span className="text-[8px] text-white/60">Free Download</span>
-                          <span className="text-[8px] text-[#1DA54A] font-semibold">2026</span>
-                        </div>
-                      </div>
                     </div>
 
                     <div className="p-6 flex flex-col flex-grow justify-between">
@@ -244,36 +259,66 @@ export default function WHQResources() {
         </div>
       </section>
 
-      {/* Download Modal */}
+      {/* Download Modal with Progressive Step Flow */}
       {selectedResource && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" style={{ backgroundColor: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(4px)' }} onClick={closeModal}>
           <div className="w-full max-w-md p-8 rounded-2xl shadow-2xl relative" style={{ backgroundColor: '#FFFFFF' }} onClick={e => e.stopPropagation()}>
             <div className="flex justify-between items-center mb-4">
-              <h3 className="font-display font-700 text-xl" style={{ color: '#111827' }}>Download Resource</h3>
+              <h3 className="font-display font-700 text-xl" style={{ color: '#111827' }}>
+                {downloadStep === 'idle' || downloadStep === 'submitting' ? 'Download Resource' : 'Status'}
+              </h3>
               <button onClick={closeModal} className="p-1 rounded-lg hover:bg-gray-100">
                 <X className="w-4 h-4" style={{ color: '#9CA3AF' }} />
               </button>
             </div>
 
-            {submitted ? (
-              <div className="py-6 flex flex-col items-center text-center gap-3">
-                <CheckCircle2 className="w-12 h-12 text-emerald-600 animate-bounce" />
-                <h4 className="font-display font-700 text-lg" style={{ color: '#111827' }}>Check your inbox</h4>
-                <p className="text-xs leading-relaxed text-gray-500">
-                  We sent <strong style={{ color: '#0B3C2D' }}>{selectedResource.title}</strong> directly to <strong>{email}</strong>.
+            {/* STEP: Download Started (Pulsing / Preparing File) */}
+            {downloadStep === 'preparing' && (
+              <div className="py-6 flex flex-col items-center text-center gap-3 animate-in fade-in zoom-in duration-300">
+                <div className="w-14 h-14 rounded-full bg-emerald-50 text-[#1DA54A] flex items-center justify-center mb-1">
+                  <Loader2 className="w-8 h-8 animate-spin" />
+                </div>
+                <h4 className="font-display font-700 text-xl" style={{ color: '#111827' }}>Download Started!</h4>
+                <p className="text-xs leading-relaxed text-gray-500 max-w-xs">
+                  Your document <strong style={{ color: '#0B3C2D' }}>"{selectedResource.title}"</strong> is being generated and will open in a new tab shortly...
                 </p>
-                <button
-                  onClick={closeModal}
-                  className="mt-4 px-6 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider text-white"
-                  style={{ backgroundColor: '#0B3C2D' }}
-                >
-                  Done
-                </button>
               </div>
-            ) : (
+            )}
+
+            {/* STEP: Download Completed */}
+            {downloadStep === 'completed' && (
+              <div className="py-6 flex flex-col items-center text-center gap-3 animate-in fade-in zoom-in duration-300">
+                <div className="w-14 h-14 rounded-full bg-emerald-50 text-[#1DA54A] flex items-center justify-center mb-1">
+                  <CheckCircle2 className="w-8 h-8 text-[#1DA54A]" />
+                </div>
+                <h4 className="font-display font-700 text-xl" style={{ color: '#111827' }}>Download Ready</h4>
+                <p className="text-xs leading-relaxed text-gray-500 max-w-xs">
+                  Your document has opened in a new tab. Didn't open automatically?
+                </p>
+
+                <div className="flex flex-col sm:flex-row gap-2 mt-3 w-full">
+                  <button
+                    onClick={() => triggerFileDownload(selectedResource.file_url, selectedResource.title)}
+                    className="flex-1 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider border border-[#0B3C2D] text-[#0B3C2D] hover:bg-gray-50 flex items-center justify-center gap-1.5"
+                  >
+                    Re-open Link <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                  <button
+                    onClick={closeModal}
+                    className="flex-1 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider text-white"
+                    style={{ backgroundColor: '#0B3C2D' }}
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* STEP: Initial Form Entry */}
+            {(downloadStep === 'idle' || downloadStep === 'submitting') && (
               <>
                 <p className="text-xs leading-relaxed mb-6" style={{ color: '#6B7280' }}>
-                  Enter your details to receive <strong style={{ color: '#0B3C2D' }}>{selectedResource.title}</strong> directly in your email inbox.
+                  Enter your details for instant access to <strong style={{ color: '#0B3C2D' }}>{selectedResource.title}</strong>.
                 </p>
                 <form onSubmit={handleDownload} className="flex flex-col gap-3">
                   <input
@@ -298,16 +343,16 @@ export default function WHQResources() {
                   )}
                   <button
                     type="submit"
-                    disabled={submitting}
+                    disabled={downloadStep === 'submitting'}
                     className="w-full py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-opacity hover:opacity-95 mt-2 flex items-center justify-center gap-2"
                     style={{ backgroundColor: '#0B3C2D', color: '#FFFFFF', fontFamily: 'var(--font-display)' }}
                   >
-                    {submitting ? (
+                    {downloadStep === 'submitting' ? (
                       <>
-                        <Loader2 className="w-4 h-4 animate-spin" /> Sending to Inbox...
+                        <Loader2 className="w-4 h-4 animate-spin" /> Verifying...
                       </>
                     ) : (
-                      'Get Instant Access'
+                      'Download Now'
                     )}
                   </button>
                 </form>

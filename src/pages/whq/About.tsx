@@ -1,4 +1,4 @@
-﻿﻿import { Target, Cpu, TrendingUp, RefreshCw, Link2 } from 'lucide-react'
+import { Target, Cpu, TrendingUp, RefreshCw, UserCheck } from 'lucide-react'
 import SEO from '../../components/SEO'
 
 const principles = [
@@ -9,10 +9,21 @@ const principles = [
 ]
 
 const team = [
-  { name: 'Mrs. Oti Benson', role: 'TBC', focus: '', bio: 'Full details coming soon.', image: null },
-  { name: 'Mr. Oluwole Elvis Benson', role: 'TBC', focus: '', bio: 'Full details coming soon.', image: null },
-  { name: 'Ms. Glory', role: 'TBC', focus: '', bio: 'Full details coming soon.', image: null },
-  { name: 'Ms. Anna', role: 'TBC', focus: '', bio: 'Full details coming soon.', image: null },
+  { 
+    name: 'Mrs. Oti Benson', 
+    role: 'Leadership Team',
+    image: '/Otito-benson.jpg' 
+  },
+  { 
+    name: 'Ms. Glory', 
+    role: 'Leadership Team',
+    image: '/glory.jpeg' 
+  },
+  { 
+    name: 'Ms. Anna', 
+    role: 'Leadership Team',
+    image: '/annie.jpg' 
+  },
 ]
 
 export default function WHQAbout() {
@@ -109,7 +120,6 @@ export default function WHQAbout() {
             
             {/* Contextual Team Photography */}
             <div className="rounded-xl overflow-hidden border pt-2" style={{ borderColor: '#E5E1D8' }}>
-              {/* TODO: Replace with approved photography — all people shown must be Black, real work settings only (meetings, training rooms, laptops, collaboration), no lifestyle or abstract images */}
               <img
                 src="https://images.unsplash.com/photo-1785919000360-a9a042c31c06?auto=format&fit=crop&w=1000&q=80"
                 alt="WorkplaceHQ consultants collaborating"
@@ -142,74 +152,63 @@ export default function WHQAbout() {
         </div>
       </section>
 
-      {/* Team */}
-      <section className="px-6 py-16">
-        <div className="max-w-[1440px] mx-auto">
-          <h2 className="font-display font-700 text-[clamp(1.75rem,3vw,2.25rem)] mb-10" style={{ color: '#111827' }}>
-            The people behind WorkplaceHQ
-          </h2>
+     {/* Team Section */}
+      <section className="px-6 py-16 sm:py-20">
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-12 text-center">
+            <span className="text-xs font-bold tracking-wider uppercase block mb-2" style={{ color: '#1DA54A' }}>
+              Leadership & Team
+            </span>
+            <h2 className="font-display font-700 text-[clamp(1.75rem,3vw,2.25rem)]" style={{ color: '#111827' }}>
+              The people behind WorkplaceHQ
+            </h2>
+          </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Dynamic Grid: Auto-expands to fill the space evenly */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
             {team.map((t) => (
               <div 
                 key={t.name} 
-                className="p-6 rounded-2xl group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-emerald-900/5 relative overflow-hidden flex flex-col justify-between" 
+                className="w-full rounded-2xl group transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-emerald-950/10 overflow-hidden flex flex-col justify-between" 
                 style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E1D8' }}
               >
                 <div>
-                  {/* Header Row: Image & Name/Role */}
-                  <div className="flex items-start gap-4 mb-4">
-                    <div className="w-16 h-16 rounded-2xl overflow-hidden shrink-0 border" style={{ borderColor: 'rgba(11,60,45,0.12)' }}>
-                      {t.image ? (
-                        // TODO: Replace with approved photography — all people shown must be Black, real work settings only (meetings, training rooms, laptops, collaboration), no lifestyle or abstract images
-                        <img
-                          src={t.image} 
-                          alt={t.name} 
-                          className="w-full h-full object-cover grayscale-[20%] transition-all duration-300 group-hover:grayscale-0 group-hover:scale-105"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center font-display font-700 text-xl" style={{ backgroundColor: '#0B3C2D', color: '#1DA54A' }}>
+                  {/* Image Container - Big Focal Point */}
+                  <div className="w-full h-80 sm:h-96 overflow-hidden relative bg-[#0B3C2D]/5">
+                    {t.image ? (
+                      <img
+                        src={t.image} 
+                        alt={t.name} 
+                        className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex flex-col items-center justify-center gap-2" style={{ backgroundColor: '#0B3C2D' }}>
+                        <div className="w-16 h-16 rounded-full flex items-center justify-center font-display font-700 text-2xl text-white bg-white/10 border border-white/20">
                           {t.name.split(' ').map(n => n[0]).join('')}
                         </div>
-                      )}
-                    </div>
-
-                    <div>
-                      <h3 className="font-display font-700 text-lg leading-snug" style={{ color: '#111827' }}>
-                        {t.name}
-                      </h3>
-                      <p className="text-sm font-semibold" style={{ color: '#0B3C2D' }}>
-                        {t.role}
-                      </p>
-                      {t.focus && (
-                        <span
-                          className="inline-block mt-1 px-2 py-0.5 rounded text-[11px] font-medium tracking-wide uppercase"
-                          style={{ backgroundColor: 'rgba(11,60,45,0.06)', color: '#0B3C2D' }}
-                        >
-                          {t.focus}
-                        </span>
-                      )}
-                    </div>
+                        <span className="text-xs font-mono text-white/60">Photo Coming Soon</span>
+                      </div>
+                    )}
                   </div>
 
-                  {/* Short Bio fill */}
-                  <p className="text-xs leading-relaxed mb-6" style={{ color: '#6B7280' }}>
-                    {t.bio}
-                  </p>
+                  {/* Info Area */}
+                  <div className="p-6">
+                    <h3 className="font-display font-700 text-xl leading-snug mb-1" style={{ color: '#111827' }}>
+                      {t.name}
+                    </h3>
+                    <p className="text-xs font-semibold tracking-wide uppercase" style={{ color: '#1DA54A' }}>
+                      {t.role}
+                    </p>
+                  </div>
                 </div>
 
-                {/* Bottom Action / Link */}
-                <div className="pt-4 border-t flex items-center justify-between" style={{ borderColor: '#F3F0E6' }}>
-                  <span className="text-[11px] font-mono uppercase tracking-wider" style={{ color: '#9CA3AF' }}>
-                    HQ Executive
-                  </span>
-                  <a 
-                    href="#" 
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold transition-colors hover:text-[#0B3C2D]" 
-                    style={{ color: '#4B5563' }}
-                  >
-                    <Link2 className="w-3.5 h-3.5" /> LinkedIn
-                  </a>
+                {/* Footer Tag */}
+                <div className="px-6 pb-6 pt-2">
+                  <div className="pt-4 border-t flex items-center justify-between text-[11px] font-mono uppercase tracking-wider text-gray-400" style={{ borderColor: '#F3F0E6' }}>
+                    <span className="inline-flex items-center gap-1.5" style={{ color: '#6B7280' }}>
+                      <UserCheck className="w-3.5 h-3.5" style={{ color: '#0B3C2D' }} /> HQ Executive
+                    </span>
+                  </div>
                 </div>
               </div>
             ))}
