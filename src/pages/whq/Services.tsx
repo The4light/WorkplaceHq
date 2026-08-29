@@ -10,8 +10,6 @@ import {
   ChevronRight,
   Target,
   Award,
-  Zap,
-  Video,
   CheckCircle2,
   Sparkles,
   Compass,
@@ -29,6 +27,7 @@ import {
   type ServiceId,
   type DrawerContent,
 } from '../../data/serviceData'
+import SEO from '../../components/SEO'
 
 const panelVariants = {
   initial: { opacity: 0, y: 12 },
@@ -132,6 +131,11 @@ export default function WHQServices() {
 
   return (
     <div style={{ backgroundColor: 'var(--whq-bg)', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
+      <SEO
+        title="Services | Training, Workshops & Consulting | WorkplaceHQ"
+        description="Explore WorkplaceHQ's structured training programs, hands-on workshops, and advisory consulting built to close real skills gaps in your organization."
+        path="/services"
+      />
       {/* Hero */}
       <section className="px-6 pt-32 pb-14 sm:pt-36 sm:pb-16">
         <div className="max-w-[1100px] mx-auto text-center">

@@ -1,0 +1,35 @@
+# WorkplaceHQ
+
+> WorkplaceHQ helps organizations across Africa build AI-ready, high-performing teams through structured training programs, hands-on workshops, and advisory consulting. It also operates Lagos Jobs, a careers platform connecting job seekers with verified local job listings, migration advisory, and study-abroad support.
+
+WorkplaceHQ works with businesses on: diagnosing performance gaps, running practical training and workshops (AI/automation, sales, communication, performance management), and leadership/organizational consulting. Lagos Jobs is a separate but related product under the same company, focused on job seekers in Lagos, Nigeria.
+
+## Key pages
+
+- [Home](https://workplacehq.com/): overview of WorkplaceHQ's training, workshops, and consulting services.
+- [About](https://workplacehq.com/about): company approach, principles, and team.
+- [Services](https://workplacehq.com/services): detailed breakdown of training, workshop, and consulting offerings.
+- [Resources](https://workplacehq.com/resources): free whitepapers, toolkits, frameworks, and reports.
+- [Insights](https://workplacehq.com/insights): articles on team performance, training, and workplace trends.
+- [FAQ](https://workplacehq.com/faq): answers to common questions about services, resources, and data privacy.
+- [Contact](https://workplacehq.com/contact): consultation requests and general inquiries.
+
+## Lagos Jobs (careers product)
+
+- [Lagos Jobs Home](https://workplacehq.com/lagos-jobs): overview of the careers platform.
+- [Job Listings](https://workplacehq.com/lagos-jobs/listings): current verified job openings in Lagos.
+- [Career Tools](https://workplacehq.com/lagos-jobs/services): CV review, ATS scoring, and career support tools.
+- [About Lagos Jobs](https://workplacehq.com/lagos-jobs/about): product values and mission.
+- [Contact Lagos Jobs](https://workplacehq.com/lagos-jobs/contact): hiring partner and job seeker inquiries.
+
+## Policies
+
+- [Privacy Policy](https://workplacehq.com/privacy)
+- [Terms of Service](https://workplacehq.com/terms)
+- [Security Overview](https://workplacehq.com/security)
+
+## Notes for AI agents and crawlers
+
+- This is a JavaScript single-page application; pages render client-side. Meta tags, titles, and structured data are injected per-route via React Helmet.
+- A full URL list is available at [sitemap.xml](https://workplacehq.com/sitemap.xml).
+- Contact for business inquiries: info@workplacehq.com (WorkplaceHQ) / lagosjobsinfo@gmail.com (Lagos Jobs).

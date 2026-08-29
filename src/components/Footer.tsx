@@ -72,6 +72,7 @@ const companyLinks = [
   { label: 'Resources', to: '/resources' },
   { label: 'Insights', to: '/insights' },
   { label: 'Contact', to: '/contact' },
+  { label: 'FAQ', to: '/faq' },
 ]
 
 const careerLinks = [

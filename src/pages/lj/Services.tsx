@@ -1,6 +1,7 @@
 ﻿import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { FileText, Link2, Palette, Globe, User, ShieldCheck, Briefcase, CheckCircle } from 'lucide-react'
+import SEO from '../../components/SEO'
 
 function RequestReceived({ message, onReset }: { message: string; onReset: () => void }) {
   return (
@@ -948,6 +949,11 @@ export default function Services() {
 
   return (
     <div style={{ backgroundColor: '#F4F5F7', minHeight: '100vh', fontFamily: 'var(--font-lj-body)' }}>
+      <SEO
+        title="Career Tools & Services | Lagos Jobs"
+        description="CV review, ATS scoring, and career support tools from Lagos Jobs — built to help job seekers apply with confidence."
+        path="/lagos-jobs/services"
+      />
       <div className="relative pt-32 pb-6 px-6 overflow-hidden">
         <div className="max-w-[1440px] mx-auto">
           <h1 className="font-lj-display font-700 text-[clamp(2rem,4vw,3rem)] mb-2" style={{ color: '#0D0D0D' }}>

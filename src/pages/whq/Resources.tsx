@@ -1,6 +1,7 @@
 ﻿import { useState, useEffect } from 'react'
 import { Download, FileText, Wrench, BarChart2, BookOpen, X, Loader2, CheckCircle2 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
+import SEO from '../../components/SEO'
 
 const iconMap: Record<string, any> = {
   Whitepapers: FileText,
@@ -81,8 +82,7 @@ export default function WHQResources() {
         body: JSON.stringify({
           name: fullName,
           email: email,
-          resourceTitle: selectedResource.title,
-          fileUrl: selectedResource.file_url,
+          resourceId: selectedResource.id,
         }),
       })
 
@@ -111,6 +111,11 @@ export default function WHQResources() {
 
   return (
     <div style={{ backgroundColor: 'var(--whq-bg)', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
+      <SEO
+        title="Resources | Whitepapers, Toolkits & Frameworks | WorkplaceHQ"
+        description="Free whitepapers, toolkits, frameworks, and reports from WorkplaceHQ to help your organization build stronger, AI-ready teams."
+        path="/resources"
+      />
       {/* Header Section with Brand Ring Graphic */}
       <div className="relative pt-32 pb-12 px-6 overflow-hidden">
         <div className="absolute -top-16 -right-16 w-80 h-80 pointer-events-none z-0 hidden sm:block">

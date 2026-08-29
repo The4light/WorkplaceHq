@@ -9,6 +9,7 @@ import {
   FileText,
   Sparkles
 } from 'lucide-react'
+import SEO from '../../components/SEO'
 
 const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
@@ -102,7 +103,11 @@ const stories = [
 export default function LJHome() {
   return (
     <div className="w-full overflow-x-hidden" style={{ backgroundColor: '#F4F5F7', minHeight: '100vh', fontFamily: 'var(--font-lj-body)' }}>
-      
+      <SEO
+        title="Lagos Jobs | Verified Job Listings & Career Advisory"
+        description="Lagos Jobs connects job seekers with verified local hiring, migration, and study abroad advisory — part of the WorkplaceHQ ecosystem."
+        path="/lagos-jobs"
+      />
       {/* Hero Section */}
       <section className="relative flex flex-col justify-center px-4 sm:px-6 pt-10 sm:pt-8 pb-10 overflow-hidden" style={{ minHeight: 'calc(100vh - 73px)' }}>
         <div className="max-w-[1440px] mx-auto relative z-10 w-full">

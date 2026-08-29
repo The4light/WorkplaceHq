@@ -1,4 +1,5 @@
 ﻿import { Mail, MessageSquare, Clock } from 'lucide-react'
+import SEO from '../../components/SEO'
 
 const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
@@ -45,6 +46,11 @@ const socialLinks = [
 export default function LJContact() {
   return (
     <div style={{ backgroundColor: '#F4F5F7', minHeight: '100vh', fontFamily: 'var(--font-lj-body)' }}>
+      <SEO
+        title="Contact Lagos Jobs"
+        description="Reach the Lagos Jobs team for hiring partner inquiries, career support, or general questions."
+        path="/lagos-jobs/contact"
+      />
       <div className="relative pt-32 pb-12 px-6 overflow-hidden">
         <div className="max-w-[1440px] mx-auto relative z-10">
           <h1 className="font-lj-display font-700 text-[clamp(2rem,4vw,3.5rem)] leading-tight mb-4" style={{ color: '#0D0D0D' }}>Contact LagosJobs</h1>

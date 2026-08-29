@@ -1,4 +1,5 @@
 ﻿﻿import { Target, Cpu, TrendingUp, RefreshCw, Link2 } from 'lucide-react'
+import SEO from '../../components/SEO'
 
 const principles = [
   { icon: Target, title: 'Precision Focus', desc: 'We diagnose before prescribing. Every engagement starts with forensic analysis of what\'s actually holding your organization back.' },
@@ -17,7 +18,11 @@ const team = [
 export default function WHQAbout() {
   return (
     <div style={{ backgroundColor: 'var(--whq-bg)', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
-      
+      <SEO
+        title="About WorkplaceHQ | Enterprise Transformation & Career Services"
+        description="Learn how WorkplaceHQ diagnoses performance gaps and builds training, workshop, and consulting programs that turn teams into high-performing systems."
+        path="/about"
+      />
         {/* Hero Section */}
       <div className="relative pt-28 pb-20 px-6 overflow-hidden">
         {/* Subtle out-of-frame Thin Ring + Dot Graphic */}

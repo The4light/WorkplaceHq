@@ -14,6 +14,7 @@ import WHQResources from './pages/whq/Resources'
 import WHQInsights from './pages/whq/Insights'
 import ArticlePage from './pages/whq/ArticlePage'
 import WHQContact from './pages/whq/Contact'
+import FAQ from './pages/whq/FAQ'
 import { PrivacyPage, TermsPage, SecurityPage } from './pages/whq/LegalPages'
 import NotFound from './pages/NotFound'
 
@@ -35,7 +36,7 @@ function WHQLayout({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen flex flex-col justify-between">
       <div>
         <WorkplaceHQNav />
-        {children}
+        <main>{children}</main>
       </div>
       <Footer />
     </div>
@@ -47,7 +48,7 @@ function LJLayout({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen flex flex-col justify-between">
       <div>
         <LagosJobNav />
-        {children}
+        <main>{children}</main>
       </div>
       <LagosJobsFooter />
     </div>
@@ -72,6 +73,7 @@ export default function App() {
           <Route path="/insights" element={<WHQLayout><WHQInsights /></WHQLayout>} />
           <Route path="/insights/:slug" element={<WHQLayout><ArticlePage /></WHQLayout>} />
           <Route path="/contact" element={<WHQLayout><WHQContact /></WHQLayout>} />
+          <Route path="/faq" element={<WHQLayout><FAQ /></WHQLayout>} />
           <Route path="/privacy" element={<WHQLayout><PrivacyPage /></WHQLayout>} />
           <Route path="/terms" element={<WHQLayout><TermsPage /></WHQLayout>} />
           <Route path="/security" element={<WHQLayout><SecurityPage /></WHQLayout>} />

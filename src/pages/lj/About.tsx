@@ -1,5 +1,6 @@
 ﻿import { Link } from 'react-router-dom'
 import { ArrowRight, Sparkles } from 'lucide-react'
+import SEO from '../../components/SEO'
 
 const values = [
   { title: 'Speed Over Friction', desc: 'Every tool is zero-auth, zero-friction. You should be applying in minutes, not setting up accounts.' },
@@ -11,9 +12,14 @@ const values = [
 export default function LJAbout() {
   return (
     <div style={{ backgroundColor: '#F4F5F7', minHeight: '100vh', fontFamily: 'var(--font-lj-body)' }}>
+      <SEO
+        title="About Lagos Jobs"
+        description="Lagos Jobs is built for speed, transparency, and Africa-first design — connecting job seekers with verified listings and real career tools."
+        path="/lagos-jobs/about"
+      />
       <div className="relative pt-32 pb-20 px-6 overflow-hidden">
         <div className="max-w-[1440px] mx-auto relative z-10">
-          
+
           {/* Hero Section with Image */}
           <div className="grid lg:grid-cols-12 gap-12 items-center mb-16">
             {/* Left Hero Text */}

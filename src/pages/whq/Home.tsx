@@ -1,6 +1,18 @@
 ﻿﻿import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, GraduationCap, Users, Briefcase, ChevronLeft, ChevronRight, Star, Zap, Sparkles } from 'lucide-react'
+import SEO, { SITE_URL } from '../../components/SEO'
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'WorkplaceHQ',
+  url: SITE_URL,
+  logo: `${SITE_URL}/WorkplaceLogo.png`,
+  description:
+    'WorkplaceHQ helps organizations build AI-ready, high-performing teams across Africa through structured training, workshops, and consulting.',
+  sameAs: ['https://linkedin.com', 'https://twitter.com'],
+}
 
 const metrics = [
   { value: '98%', label: 'Efficiency Gain' },
@@ -131,6 +143,12 @@ export default function WHQHome() {
 
   return (
     <div style={{ backgroundColor: 'var(--whq-bg)', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
+      <SEO
+        title="WorkplaceHQ | Enterprise Transformation & Career Services"
+        description="WorkplaceHQ builds AI-ready, high-performing teams across Africa through structured training, workshops, and consulting — plus Lagos Jobs, our careers platform."
+        path="/"
+        structuredData={organizationSchema}
+      />
       {/* Hero Section */}
       <section className="relative flex flex-col justify-center px-4 sm:px-6 py-12 sm:py-16 overflow-hidden" style={{ minHeight: 'calc(100vh - 64px)' }}>
         <div className="max-w-[1440px] mx-auto relative z-10 w-full">

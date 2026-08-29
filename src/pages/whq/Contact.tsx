@@ -1,5 +1,6 @@
 ﻿﻿import { useState } from 'react'
 import { Mail, Clock, CheckCircle2 } from 'lucide-react'
+import SEO from '../../components/SEO'
 
 const contact = {
   email: 'info@workplacehq.com', // confirm with client
@@ -56,7 +57,11 @@ export default function WHQContact() {
 
   return (
     <div style={{ backgroundColor: 'var(--whq-bg)', minHeight: '100vh', fontFamily: 'var(--font-body)' }}>
-      
+      <SEO
+        title="Contact WorkplaceHQ | Book a Consultation"
+        description="Get in touch with WorkplaceHQ to request a consultation, ask about training and workshops, or start a conversation about your organization's needs."
+        path="/contact"
+      />
       {/* Hero Section with Brand Ring */}
       <div className="relative pt-32 pb-12 px-6 overflow-hidden">
         {/* Out-of-Frame Ring + Dot Pattern */}

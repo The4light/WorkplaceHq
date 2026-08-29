@@ -1,5 +1,6 @@
 ﻿import { useState } from 'react'
 import { Search, MapPin, Clock, Mail, CheckCircle2, Sparkles, Building2, X, ArrowUpRight, Award, ShieldCheck, PhoneCall, Copy, Check } from 'lucide-react'
+import SEO from '../../components/SEO'
 
 const jobs = [
   {
@@ -147,7 +148,11 @@ export default function LJListings() {
 
   return (
     <div style={{ backgroundColor: '#F4F5F7', minHeight: '100vh', fontFamily: 'var(--font-lj-body)' }}>
-      
+      <SEO
+        title="Job Listings | Lagos Jobs"
+        description="Browse verified job listings in Lagos with transparent salary ranges — filter by role, type, and location."
+        path="/lagos-jobs/listings"
+      />
       {/* Header Banner */}
       <div className="relative pt-28 pb-8 px-4 sm:px-6 overflow-hidden bg-[#0D0D0D]">
         <div className="max-w-[1440px] mx-auto relative z-10">
@@ -306,7 +311,7 @@ export default function LJListings() {
 function JobDetailPanel({ job }: { job: typeof jobs[0] }) {
   const [copied, setCopied] = useState(false)
   const isPhone = job.contactType === 'phone'
-  const actionHref = isPhone 
+  const actionHref = isPhone
     ? `https://wa.me/${job.applyContact.replace(/[^0-9]/g, '')}`
     : `mailto:${job.applyContact}?subject=${encodeURIComponent(`Application for ${job.title}`)}`
 
