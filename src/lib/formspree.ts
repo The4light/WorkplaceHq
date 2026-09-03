@@ -1,7 +1,7 @@
   // 1. Centralized Formspree IDs
   export const FORMSPREE_IDS = {
     WORKPLACE_HQ_RESOURCES: 'xdeozyqj',
-    WORKPLACE_HQ_CONTACT: 'xdeozyqj', // Swap when you create a dedicated contact form
+    WORKPLACE_HQ_CONTACT: 'xdeozyqj', 
     LAGOS_JOBS_CONTACT: 'xrpgkjde',
   } as const
 
