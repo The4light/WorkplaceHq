@@ -75,23 +75,30 @@ export default function WHQResources() {
     setErrorMessage('')
 
     try {
-      // 1. Save lead to Supabase (Database Backup)
-      const { error: dbError } = await supabase.from('resource_leads').insert([
+      // 1. Dispatch Formspree Email Notification First
+      const formspreePromise = sendFormspreeNotification(FORMSPREE_IDS.WORKPLACE_HQ_RESOURCES, {
+        name: fullName,
+        email: email,
+        resource_downloaded: selectedResource.title,
+        source_page: 'WorkplaceHQ Resources Hub',
+      })
+
+      // 2. Save lead to Supabase (Database Backup - Non-blocking)
+      const dbPromise = supabase.from('resource_leads').insert([
         {
           full_name: fullName,
           email: email,
           resource_title: selectedResource.title,
+          resource_id: selectedResource.id,
         },
       ])
 
-      if (dbError) throw dbError
+      // Run both operations concurrently
+      const [formspreeSuccess] = await Promise.all([formspreePromise, dbPromise])
 
-      // 2. Send email alert via central Formspree helper
-      await sendFormspreeNotification(FORMSPREE_IDS.WORKPLACE_HQ_RESOURCES, {
-        name: fullName,
-        email: email,
-        resource_downloaded: selectedResource.title,
-      })
+      if (!formspreeSuccess) {
+        console.warn('Formspree notification warning: Email might not have been dispatched.')
+      }
 
       // 3. Step: Show "Download Started!" confirmation modal
       setDownloadStep('preparing')
