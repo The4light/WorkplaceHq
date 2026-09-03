@@ -1,4 +1,6 @@
-﻿import { Mail, MessageSquare, Clock } from 'lucide-react'
+﻿import { useState } from 'react'
+import { Mail, MessageSquare, Clock, CheckCircle2, Loader2 } from 'lucide-react'
+import { sendFormspreeNotification, FORMSPREE_IDS } from '../../lib/formspree'
 import SEO from '../../components/SEO'
 
 const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -44,6 +46,42 @@ const socialLinks = [
 ]
 
 export default function LJContact() {
+  const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
+
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [inquiryType, setInquiryType] = useState('')
+  const [message, setMessage] = useState('')
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+    setErrorMessage('')
+
+    try {
+      const success = await sendFormspreeNotification(FORMSPREE_IDS.LAGOS_JOBS_CONTACT, {
+        name,
+        email,
+        inquiry_type: inquiryType,
+        message,
+        source_page: 'LagosJobs Contact',
+      })
+
+      if (!success) {
+        throw new Error('Failed to submit ticket. Please try again.')
+      }
+
+      setSubmitted(true)
+    } catch (err: any) {
+      console.error('Error submitting LagosJobs support ticket:', err)
+      setErrorMessage(err.message || 'Something went wrong. Please try again.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <div style={{ backgroundColor: '#F4F5F7', minHeight: '100vh', fontFamily: 'var(--font-lj-body)' }}>
       <SEO
@@ -62,22 +100,84 @@ export default function LJContact() {
         <div className="max-w-[1440px] mx-auto grid lg:grid-cols-2 gap-10">
           <div className="p-8 rounded-2xl" style={{ backgroundColor: '#FFFFFF', border: '1px solid #F4F5F7' }}>
             <h2 className="font-lj-display font-700 text-xl mb-6" style={{ color: '#0D0D0D' }}>Support Ticket</h2>
-            <div className="flex flex-col gap-4">
-              <input className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7' }} placeholder="Your Name" />
-              <input className="px-4 py-3 text-sm outline-none" type="email" style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7' }} placeholder="Email Address" />
-              <select className="px-4 py-3 text-sm outline-none" style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7', color: '#6B7280' }}>
-                <option value="">Inquiry Type</option>
-                <option>Career Services / Support</option>
-                <option>Hiring Partner / Post a Job</option>
-                <option>Technical Issue</option>
-                <option>Partnership</option>
-                <option>General Inquiry</option>
-              </select>
-              <textarea className="px-4 py-3 text-sm outline-none resize-none h-32" style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7' }} placeholder="Describe your issue or inquiry..." />
-              <button className="w-full py-3.5 rounded-lg font-semibold text-sm text-white transition-opacity hover:opacity-90" style={{ backgroundColor: '#17B26A', fontFamily: 'var(--font-lj-display)' }}>
-                Submit Ticket
-              </button>
-            </div>
+            
+            {submitted ? (
+              <div className="rounded-2xl border p-5 bg-[#F4FBF7] border-[#CFE9DB]">
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#17B26A]" />
+                  <div>
+                    <p className="text-sm font-semibold text-[#0D0D0D]">
+                      Ticket submitted successfully!
+                    </p>
+                    <p className="mt-2 text-sm text-[#6B7280]">
+                      Our support team will review your inquiry and get back to you shortly at{' '}
+                      <strong className="text-[#0D0D0D]">{email}</strong>.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+                <input
+                  required
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                  className="px-4 py-3 text-sm outline-none"
+                  style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7' }}
+                  placeholder="Your Name"
+                />
+                <input
+                  required
+                  type="email"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  className="px-4 py-3 text-sm outline-none"
+                  style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7' }}
+                  placeholder="Email Address"
+                />
+                <select
+                  required
+                  value={inquiryType}
+                  onChange={e => setInquiryType(e.target.value)}
+                  className="px-4 py-3 text-sm outline-none"
+                  style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7', color: inquiryType ? '#0D0D0D' : '#6B7280' }}
+                >
+                  <option value="">Inquiry Type</option>
+                  <option>Career Services / Support</option>
+                  <option>Hiring Partner / Post a Job</option>
+                  <option>Technical Issue</option>
+                  <option>Partnership</option>
+                  <option>General Inquiry</option>
+                </select>
+                <textarea
+                  required
+                  value={message}
+                  onChange={e => setMessage(e.target.value)}
+                  className="px-4 py-3 text-sm outline-none resize-none h-32"
+                  style={{ border: '1px solid #F4F5F7', borderRadius: '6px', backgroundColor: '#F4F5F7' }}
+                  placeholder="Describe your issue or inquiry..."
+                />
+
+                {errorMessage && (
+                  <p className="text-xs text-red-500 font-medium">{errorMessage}</p>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full py-3.5 rounded-lg font-semibold text-sm text-white transition-opacity hover:opacity-90 flex items-center justify-center gap-2"
+                  style={{ backgroundColor: '#17B26A', fontFamily: 'var(--font-lj-display)' }}
+                >
+                  {loading ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" /> Submitting...
+                    </>
+                  ) : (
+                    'Submit Ticket'
+                  )}
+                </button>
+              </form>
+            )}
           </div>
 
           <div className="flex flex-col gap-5">

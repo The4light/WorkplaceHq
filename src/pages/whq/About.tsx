@@ -24,6 +24,11 @@ const team = [
     role: 'Leadership Team',
     image: '/annie.jpg' 
   },
+  { 
+    name: 'Bibilomo George', 
+    role: 'Leadership Team',
+    image: '/Bibilomo.jpg' 
+  },
 ]
 
 export default function WHQAbout() {

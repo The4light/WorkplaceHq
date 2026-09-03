@@ -1,6 +1,7 @@
 ﻿import { useState, useEffect } from 'react'
 import { Download, FileText, Wrench, BarChart2, BookOpen, X, Loader2, CheckCircle2, ArrowRight } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
+import { sendFormspreeNotification, FORMSPREE_IDS } from '../../lib/formspree'
 import SEO from '../../components/SEO'
 
 const iconMap: Record<string, any> = {
@@ -74,8 +75,8 @@ export default function WHQResources() {
     setErrorMessage('')
 
     try {
-      // 1. Save lead to Supabase
-      const { error } = await supabase.from('resource_leads').insert([
+      // 1. Save lead to Supabase (Database Backup)
+      const { error: dbError } = await supabase.from('resource_leads').insert([
         {
           full_name: fullName,
           email: email,
@@ -83,12 +84,19 @@ export default function WHQResources() {
         },
       ])
 
-      if (error) throw error
+      if (dbError) throw dbError
 
-      // 2. Step: Show "Download Started!" confirmation modal FIRST
+      // 2. Send email alert via central Formspree helper
+      await sendFormspreeNotification(FORMSPREE_IDS.WORKPLACE_HQ_RESOURCES, {
+        name: fullName,
+        email: email,
+        resource_downloaded: selectedResource.title,
+      })
+
+      // 3. Step: Show "Download Started!" confirmation modal
       setDownloadStep('preparing')
 
-      // 3. Delay file download by 2 seconds so the user experiences the visual transition
+      // 4. Delay file download by 2 seconds so user experiences visual transition
       setTimeout(() => {
         triggerFileDownload(selectedResource.file_url, selectedResource.title)
         setDownloadStep('completed')
