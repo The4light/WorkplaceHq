@@ -758,7 +758,7 @@ export default function WHQServices() {
 
                       <div className="mt-6 pt-4 border-t flex flex-wrap items-center justify-between gap-3" style={{ borderColor: '#E6E5E0' }}>
                         <span className="text-xs font-semibold flex items-center gap-1" style={{ color: '#0B3C2D' }}>
-                          See More <ChevronRight className="w-3.5 h-3.5" />
+                          See Details <ChevronRight className="w-3.5 h-3.5" />
                         </span>
                         <button
                           onClick={(e) => {

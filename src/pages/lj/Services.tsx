@@ -1,17 +1,18 @@
 ﻿import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { FileText, Link2, Palette, Globe, User, ShieldCheck, Briefcase, CheckCircle } from 'lucide-react'
+import { FileText, Link2, Palette, Globe, User, ShieldCheck, Briefcase, CheckCircle, X, Sparkles, Layers, Shield, ChevronRight } from 'lucide-react'
 import SEO from '../../components/SEO'
+import { FORMSPREE_IDS, sendFormspreeNotification } from '../../lib/formspree'
 
 function RequestReceived({ message, onReset }: { message: string; onReset: () => void }) {
   return (
-    <div className="flex flex-col items-center justify-center text-center py-20 gap-5">
+    <div className="flex flex-col items-center justify-center text-center py-16 gap-5">
       <div className="w-14 h-14 rounded-full flex items-center justify-center" style={{ backgroundColor: 'rgba(23,178,106,0.12)' }}>
         <CheckCircle className="w-7 h-7" style={{ color: '#17B26A' }} />
       </div>
       <h3 className="font-display font-700 text-xl" style={{ color: '#0D0D0D' }}>Request received!</h3>
       <p className="text-sm max-w-sm leading-relaxed" style={{ color: '#6B7280' }}>{message}</p>
-      <button onClick={onReset} className="text-sm font-semibold" style={{ color: '#17B26A' }}>
+      <button onClick={onReset} className="text-sm font-semibold hover:underline" style={{ color: '#17B26A' }}>
         Submit another request
       </button>
     </div>
@@ -46,211 +47,373 @@ function WhatHappensNext({ steps }: { steps: { step: string; title: string; desc
 
 const fieldStyle = { border: '1px solid #E5E7EB', backgroundColor: '#F9FAFB' }
 
+// Modal Wrapper component for clean scalable interaction
+function StudioModal({
+  isOpen,
+  onClose,
+  title,
+  subtitle,
+  children,
+}: {
+  isOpen: boolean
+  onClose: () => void
+  title: string
+  subtitle?: string
+  children: React.ReactNode
+}) {
+  if (!isOpen) return null
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn">
+      <div className="bg-white w-full max-w-xl rounded-2xl p-6 relative shadow-2xl overflow-y-auto max-h-[90vh] border border-gray-100">
+        <button
+          onClick={onClose}
+          className="absolute top-5 right-5 p-2 rounded-full hover:bg-gray-100 transition-colors"
+        >
+          <X className="w-5 h-5 text-gray-500" />
+        </button>
+        <div className="mb-6">
+          <h3 className="font-display font-700 text-xl text-[#0D0D0D]">{title}</h3>
+          {subtitle && <p className="text-xs text-gray-500 mt-1">{subtitle}</p>}
+        </div>
+        {children}
+      </div>
+    </div>
+  )
+}
+
 // -- Brand Designers Service --
 function BrandDesigners() {
-  const [selectedDesigner, setSelectedDesigner] = useState<string | null>(null)
+  const [selectedStudio, setSelectedStudio] = useState<any | null>(null)
+  const [selectedPackage, setSelectedPackage] = useState<string>('')
   const [form, setForm] = useState({ name: '', email: '', phone: '', brandName: '', brief: '' })
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  const designers = [
+  const studios = [
     {
-      id: 'designer-1',
-      name: 'Designer 01',
-      title: 'Senior Brand & Identity Strategist',
-      services: ['Full Brand Identity', 'Logo Suite', 'Brand Guidelines & Design Systems'],
-      startingPrice: '₦150,000',
-      rateDetails: 'Includes 3 concepts, unlimited revisions during draft phase, and full brand book.',
+      id: 'doxa-studios',
+      name: 'Doxa Studios',
+      tagline: 'FAST & ACCESSIBLE',
+      badgeColor: '#EEF2FF',
+      badgeTextColor: '#4F46E5',
+      title: 'Affordable Brand Identity Package',
+      startingPrice: '₦80,000',
+      toolset: 'Canva & AI-Assisted Design Tools',
+      rateDetails: 'Practical visual identity tailored for small businesses, startups, and personal brands.',
+      icon: Sparkles,
+      layoutType: 'compact',
+      packages: [
+        {
+          name: 'Affordable Visual Identity',
+          price: '₦80,000',
+          items: [
+            'Creative Direction (Moodboard & visual references)',
+            'Primary Logo & basic variations',
+            'Basic Brand Guidelines (Colour palette, typography, usage)',
+            'Basic Brand Stationery (Business card, letterhead, or social assets)',
+          ],
+        },
+      ],
     },
     {
-      id: 'designer-2',
-      name: 'Designer 02',
-      title: 'Visual Identity & Product Designer',
-      services: ['Brand Revamp', 'Social Media Branding Kit', 'Packaging & Print Materials'],
-      startingPrice: '₦120,000',
-      rateDetails: 'Includes brand assets, social templates, vector export files (AI, SVG, PDF).',
+      id: 'hive-studio',
+      name: 'Hive Studio',
+      tagline: 'VECTOR PRECISION',
+      badgeColor: '#FEF3C7',
+      badgeTextColor: '#D97706',
+      title: 'Full Brand Identity Package',
+      startingPrice: '₦250,000 – ₦300,000',
+      toolset: 'Adobe Illustrator (100% Scalable Vector Artwork)',
+      rateDetails: 'Comprehensive strategic and visual foundation built for long-term brand growth.',
+      icon: Layers,
+      layoutType: 'standard',
+      packages: [
+        {
+          name: 'Full Identity Package',
+          price: '₦250,000 – ₦300,000',
+          items: [
+            'Comprehensive Creative Direction',
+            'Scalable Vector Logo Design',
+            'Complete Brand Guide System',
+            'Full Brand Stationery Suite',
+          ],
+        },
+      ],
     },
     {
-      id: 'designer-3',
-      name: 'Designer 03',
-      title: 'Creative Brand Specialist',
-      services: ['Custom Brand Identity', 'Marketing Collateral', 'Digital Brand Assets'],
-      startingPrice: 'Rate Card Pending',
-      rateDetails: 'Full details and rate card updating shortly.',
-      pending: true,
+      id: 'lemonayd-studios',
+      name: 'Lemonayd Studios',
+      tagline: 'FULL AGENCY CREATIVE',
+      badgeColor: '#ECFDF5',
+      badgeTextColor: '#059669',
+      title: 'Full-Scale Creative Brand Agency',
+      startingPrice: 'Starting from ₦120,000',
+      toolset: 'Professional Suite & Motion Workflows',
+      rateDetails: 'Flexible options ranging from starter identity suites to full video, motion, and web styling.',
+      icon: Shield,
+      layoutType: 'expansive',
+      packages: [
+        {
+          name: 'Brand Design (Starter)',
+          price: '₦150,000 – ₦180,000',
+          items: ['1 concept, 2 revisions, Basic suite, Simplified Guidelines Document'],
+        },
+        {
+          name: 'Brand Design (Standard)',
+          price: '₦300,000 – ₦450,000',
+          items: ['2 concepts, 2 revisions, Standard suite, Simplified Guidelines Document'],
+        },
+        {
+          name: 'Brand Design (Premium)',
+          price: '₦600,000 – ₦1,200,000',
+          items: ['3 concepts, 3 revisions, Premium suite, Full Guidelines Document'],
+        },
+        {
+          name: 'Logo Refresh / Refinement',
+          price: '₦120,000 – ₦250,000',
+          items: ['Modernising an existing logo'],
+        },
+        {
+          name: 'Social Media Brand Kit',
+          price: '₦150,000 – ₦220,000',
+          items: ['Templates for posts, stories & highlight covers'],
+        },
+        {
+          name: 'Website Brand Styling',
+          price: '₦300,000 – ₦500,000',
+          items: ['Visual direction & UI styling for a website build'],
+        },
+      ],
     },
   ]
 
   const update = (k: keyof typeof form, v: string) => setForm((f) => ({ ...f, [k]: v }))
 
+  const handleOpenBooking = (studio: any, pkgName?: string) => {
+    setSelectedStudio(studio)
+    setSelectedPackage(pkgName || studio.packages[0]?.name || 'General Inquiry')
+  }
+
   const handleSubmit = async () => {
-    if (!form.name || !form.email || !selectedDesigner) return
+    if (!form.name || !form.email || !selectedStudio) return
     setLoading(true)
-    await new Promise((r) => setTimeout(r, 1200))
+
+    await sendFormspreeNotification(FORMSPREE_IDS.LAGOS_JOBS_CONTACT, {
+      service: 'Lagos Jobs - Brand Designers',
+      studioName: selectedStudio?.name,
+      packageChoice: selectedPackage,
+      clientName: form.name,
+      clientEmail: form.email,
+      clientPhone: form.phone,
+      brandName: form.brandName,
+      brief: form.brief,
+      submittedAt: new Date().toISOString(),
+    })
+
     setLoading(false)
     setSubmitted(true)
   }
-
-  if (submitted) {
-    return (
-      <RequestReceived
-        message="Your request has been received. Our team and the selected brand designer will reach out with a detailed proposal and contract within 24 hours."
-        onReset={() => {
-          setSubmitted(false)
-          setSelectedDesigner(null)
-          setForm({ name: '', email: '', phone: '', brandName: '', brief: '' })
-        }}
-      />
-    )
-  }
-
-  const disabled = loading || !form.name || !form.email || !selectedDesigner
 
   return (
     <div className="flex flex-col gap-8">
       <div>
         <h3 className="font-display font-700 text-xl mb-1" style={{ color: '#0D0D0D' }}>
-          Vetted Brand Designers
+          Vetted Branding Partners & Studios
         </h3>
         <p className="text-sm" style={{ color: '#6B7280' }}>
-          Select a verified designer to review their services, rate cards, and request direct engagement.
+          Explore studio rate cards and directly request engagement with specialized creative partners.
         </p>
       </div>
 
-      {/* Designer Cards Grid */}
-      <div className="grid md:grid-cols-3 gap-6">
-        {designers.map((d) => {
-          const isSelected = selectedDesigner === d.id
+      {/* Brand Cards - Asymmetric Unique Layouts per Studio */}
+      <div className="flex flex-col gap-8">
+        {studios.map((s) => {
+          const IconComponent = s.icon
+          const isExpansive = s.layoutType === 'expansive'
+
           return (
             <div
-              key={d.id}
-              onClick={() => !d.pending && setSelectedDesigner(d.id)}
-              className={`p-6 rounded-2xl flex flex-col justify-between border transition-all duration-200 ${
-                d.pending ? 'opacity-70 cursor-not-allowed' : 'cursor-pointer hover:border-[#17B26A]'
-              }`}
-              style={{
-                backgroundColor: '#FFFFFF',
-                borderColor: isSelected ? '#17B26A' : '#E5E7EB',
-                boxShadow: isSelected ? '0 0 0 2px #17B26A' : 'none',
-              }}
+              key={s.id}
+              className="p-6 md:p-8 rounded-3xl bg-white border border-gray-200/80 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col gap-6"
             >
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#17B26A]">
-                    {d.pending ? 'Coming Soon' : 'Available'}
-                  </span>
-                  <Briefcase className="w-4 h-4 text-[#6B7280]" />
+              {/* Header section with brand personality */}
+              <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-gray-100">
+                <div className="flex items-center gap-3">
+                  <div
+                    className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                    style={{ backgroundColor: s.badgeColor, color: s.badgeTextColor }}
+                  >
+                    <IconComponent className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h4 className="font-display font-700 text-xl text-[#0D0D0D]">{s.name}</h4>
+                      <span
+                        className="text-[10px] font-bold px-2 py-0.5 rounded-full tracking-wider uppercase"
+                        style={{ backgroundColor: s.badgeColor, color: s.badgeTextColor }}
+                      >
+                        {s.tagline}
+                      </span>
+                    </div>
+                    <p className="text-xs text-gray-500 mt-0.5">{s.title}</p>
+                  </div>
                 </div>
-                <h4 className="font-display font-700 text-lg mb-1" style={{ color: '#0D0D0D' }}>
-                  {d.name}
-                </h4>
-                <p className="text-xs font-medium mb-4" style={{ color: '#6B7280' }}>
-                  {d.title}
-                </p>
 
-                <div className="border-t py-3 my-3" style={{ borderColor: '#F4F5F7' }}>
-                  <p className="text-xs font-semibold mb-2" style={{ color: '#0D0D0D' }}>
-                    Services Offered:
-                  </p>
-                  <ul className="flex flex-col gap-1.5">
-                    {d.services.map((s) => (
-                      <li key={s} className="text-xs flex items-center gap-1.5" style={{ color: '#6B7280' }}>
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#17B26A]" />
-                        {s}
-                      </li>
-                    ))}
-                  </ul>
+                <div className="flex items-center gap-4">
+                  <div className="text-right">
+                    <p className="text-[11px] text-gray-400 uppercase font-mono">Starting From</p>
+                    <p className="font-display font-700 text-base text-[#0D0D0D]">{s.startingPrice}</p>
+                  </div>
+                  <button
+                    onClick={() => handleOpenBooking(s)}
+                    className="px-5 py-2.5 rounded-xl font-semibold text-xs text-white bg-[#0D0D0D] hover:bg-[#17B26A] transition-colors flex items-center gap-1.5"
+                  >
+                    Request Booking <ChevronRight className="w-3.5 h-3.5" />
+                  </button>
                 </div>
               </div>
 
-              <div className="pt-3 border-t mt-3" style={{ borderColor: '#F4F5F7' }}>
-                <p className="text-xs text-[#6B7280] mb-1">Full Cost / Rates</p>
-                <p className="font-display font-700 text-base" style={{ color: '#0D0D0D' }}>
-                  {d.startingPrice}
+              {/* Sub-details */}
+              <div className="flex flex-wrap items-center gap-4 text-xs text-gray-600 bg-gray-50 p-3.5 rounded-xl">
+                <span className="font-mono bg-white px-2.5 py-1 rounded border border-gray-200 text-gray-700">
+                  Tooling: {s.toolset}
+                </span>
+                <span className="leading-relaxed">{s.rateDetails}</span>
+              </div>
+
+              {/* Package Display Grid */}
+              <div className="mt-1">
+                <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">
+                  Package Options ({s.packages.length})
                 </p>
-                <p className="text-[11px] mt-1 leading-snug" style={{ color: '#9CA3AF' }}>
-                  {d.rateDetails}
-                </p>
+
+                <div className={`grid gap-4 ${isExpansive ? 'sm:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
+                  {s.packages.map((pkg) => (
+                    <div
+                      key={pkg.name}
+                      onClick={() => handleOpenBooking(s, pkg.name)}
+                      className="p-4 rounded-2xl border border-gray-200 hover:border-[#17B26A] bg-white hover:bg-emerald-50/20 transition-all cursor-pointer flex flex-col justify-between group"
+                    >
+                      <div>
+                        <div className="flex items-center justify-between gap-2 mb-2">
+                          <span className="font-semibold text-sm text-[#0D0D0D] group-hover:text-[#17B26A] transition-colors">
+                            {pkg.name}
+                          </span>
+                          <span className="text-xs font-bold font-mono text-[#17B26A] shrink-0 bg-emerald-50 px-2 py-0.5 rounded">
+                            {pkg.price}
+                          </span>
+                        </div>
+                        <ul className="flex flex-col gap-1.5 my-3">
+                          {pkg.items.map((item, idx) => (
+                            <li key={idx} className="text-xs text-gray-600 flex items-start gap-2">
+                              <span className="w-1.5 h-1.5 rounded-full bg-[#17B26A] shrink-0 mt-1.5" />
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <span className="text-[11px] font-semibold text-[#17B26A] mt-2 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                        Select package & order &rarr;
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           )
         })}
       </div>
 
-      {/* Booking / Request Form */}
-      <div className="grid lg:grid-cols-2 gap-6 mt-4">
-        <div className="p-6 rounded-2xl flex flex-col gap-4" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E7EB' }}>
-          <div>
-            <h4 className="font-display font-700 text-lg mb-1" style={{ color: '#0D0D0D' }}>
-              Request Selected Designer
-            </h4>
-            <p className="text-sm" style={{ color: '#6B7280' }}>
-              {selectedDesigner
-                ? `You selected ${designers.find((d) => d.id === selectedDesigner)?.name}. Fill in your details below.`
-                : 'Please select a designer above to proceed with your booking request.'}
-            </p>
-          </div>
-
-          <input
-            className="px-4 py-3 text-sm outline-none w-full rounded-lg"
-            style={fieldStyle}
-            placeholder="Your Full Name *"
-            value={form.name}
-            onChange={(e) => update('name', e.target.value)}
-          />
-          <input
-            className="px-4 py-3 text-sm outline-none w-full rounded-lg"
-            style={fieldStyle}
-            placeholder="Email Address *"
-            type="email"
-            value={form.email}
-            onChange={(e) => update('email', e.target.value)}
-          />
-          <input
-            className="px-4 py-3 text-sm outline-none w-full rounded-lg"
-            style={fieldStyle}
-            placeholder="Phone / WhatsApp Number"
-            value={form.phone}
-            onChange={(e) => update('phone', e.target.value)}
-          />
-          <input
-            className="px-4 py-3 text-sm outline-none w-full rounded-lg"
-            style={fieldStyle}
-            placeholder="Business / Brand Name"
-            value={form.brandName}
-            onChange={(e) => update('brandName', e.target.value)}
-          />
-          <textarea
-            className="px-4 py-3 text-sm outline-none resize-none rounded-lg"
-            style={{ ...fieldStyle, minHeight: '100px' }}
-            placeholder="Brief description of what you need..."
-            value={form.brief}
-            onChange={(e) => update('brief', e.target.value)}
-          />
-
-          <button
-            onClick={handleSubmit}
-            disabled={disabled}
-            className="w-full py-3 rounded-lg font-semibold text-sm transition-all"
-            style={{
-              backgroundColor: disabled ? '#D1D5DB' : '#17B26A',
-              color: '#FFFFFF',
-              cursor: disabled ? 'not-allowed' : 'pointer',
-              fontFamily: 'var(--font-lj-display)',
+      {/* Scalable Modal Form */}
+      <StudioModal
+        isOpen={Boolean(selectedStudio)}
+        onClose={() => setSelectedStudio(null)}
+        title={submitted ? 'Request Received' : `Hire ${selectedStudio?.name}`}
+        subtitle={submitted ? undefined : 'Fill in your project scope details to initiate discovery.'}
+      >
+        {submitted ? (
+          <RequestReceived
+            message="Your request has been received. Our team and the selected branding studio will reach out with a detailed quote and discovery call booking within 24 hours."
+            onReset={() => {
+              setSubmitted(false)
+              setSelectedStudio(null)
+              setForm({ name: '', email: '', phone: '', brandName: '', brief: '' })
             }}
-          >
-            {loading ? 'Submitting…' : 'Hire / Request Designer'}
-          </button>
-        </div>
+          />
+        ) : (
+          <div className="flex flex-col gap-4">
+            {selectedStudio && (
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-semibold text-[#0D0D0D]">Package Choice *</label>
+                <select
+                  className="px-4 py-3 text-sm outline-none w-full rounded-lg"
+                  style={fieldStyle}
+                  value={selectedPackage}
+                  onChange={(e) => setSelectedPackage(e.target.value)}
+                >
+                  {selectedStudio.packages.map((pkg: any) => (
+                    <option key={pkg.name} value={pkg.name}>
+                      {pkg.name} ({pkg.price})
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
 
-        <WhatHappensNext
-          steps={[
-            { step: '01', title: 'Choose your designer', desc: 'Select from our vetted brand designers based on their rate cards and portfolio focus.' },
-            { step: '02', title: 'We align project scope', desc: 'Our team confirms scope, deliverables, timeline, and final payment structures.' },
-            { step: '03', title: 'Direct execution', desc: 'Kick off work directly with your chosen designer with guaranteed deliverable timelines.' },
-          ]}
-        />
-      </div>
+            <input
+              className="px-4 py-3 text-sm outline-none w-full rounded-lg"
+              style={fieldStyle}
+              placeholder="Your Full Name *"
+              value={form.name}
+              onChange={(e) => update('name', e.target.value)}
+            />
+            <input
+              className="px-4 py-3 text-sm outline-none w-full rounded-lg"
+              style={fieldStyle}
+              placeholder="Email Address *"
+              type="email"
+              value={form.email}
+              onChange={(e) => update('email', e.target.value)}
+            />
+            <input
+              className="px-4 py-3 text-sm outline-none w-full rounded-lg"
+              style={fieldStyle}
+              placeholder="Phone / WhatsApp Number"
+              value={form.phone}
+              onChange={(e) => update('phone', e.target.value)}
+            />
+            <input
+              className="px-4 py-3 text-sm outline-none w-full rounded-lg"
+              style={fieldStyle}
+              placeholder="Business / Brand Name"
+              value={form.brandName}
+              onChange={(e) => update('brandName', e.target.value)}
+            />
+            <textarea
+              className="px-4 py-3 text-sm outline-none resize-none rounded-lg"
+              style={{ ...fieldStyle, minHeight: '100px' }}
+              placeholder="Brief description of what your business does and your design timeline..."
+              value={form.brief}
+              onChange={(e) => update('brief', e.target.value)}
+            />
+
+            <button
+              onClick={handleSubmit}
+              disabled={loading || !form.name || !form.email}
+              className="w-full py-3 rounded-lg font-semibold text-sm transition-all mt-2"
+              style={{
+                backgroundColor: loading || !form.name || !form.email ? '#D1D5DB' : '#17B26A',
+                color: '#FFFFFF',
+                cursor: loading || !form.name || !form.email ? 'not-allowed' : 'pointer',
+                fontFamily: 'var(--font-lj-display)',
+              }}
+            >
+              {loading ? 'Submitting…' : 'Submit Direct Engagement Request'}
+            </button>
+          </div>
+        )}
+      </StudioModal>
     </div>
   )
 }
@@ -266,7 +429,18 @@ function CACRegistration() {
   const handleSubmit = async () => {
     if (!form.name || !form.email || !form.phone || !form.nameOption1) return
     setLoading(true)
-    await new Promise((r) => setTimeout(r, 1200))
+
+    await sendFormspreeNotification(FORMSPREE_IDS.LAGOS_JOBS_CONTACT, {
+      service: 'Lagos Jobs - CAC Registration',
+      fullName: form.name,
+      email: form.email,
+      phone: form.phone,
+      businessType: form.businessType,
+      proposedNameOption1: form.nameOption1,
+      proposedNameOption2: form.nameOption2,
+      submittedAt: new Date().toISOString(),
+    })
+
     setLoading(false)
     setSubmitted(true)
   }
@@ -372,7 +546,6 @@ function CACRegistration() {
   )
 }
 
-// Other Services retained from Tools Hub
 function CVOptimiser() {
   const [form, setForm] = useState({ name: '', email: '', role: '', years: '1-3', resume: '' })
   const [submitted, setSubmitted] = useState(false)
@@ -383,7 +556,17 @@ function CVOptimiser() {
   const handleSubmit = async () => {
     if (!form.name || !form.email || !form.role || !form.resume) return
     setLoading(true)
-    await new Promise((r) => setTimeout(r, 1200))
+
+    await sendFormspreeNotification(FORMSPREE_IDS.LAGOS_JOBS_CONTACT, {
+      service: 'Lagos Jobs - CV Optimiser',
+      fullName: form.name,
+      email: form.email,
+      targetRole: form.role,
+      yearsOfExperience: form.years,
+      resumeText: form.resume,
+      submittedAt: new Date().toISOString(),
+    })
+
     setLoading(false)
     setSubmitted(true)
   }
@@ -489,7 +672,18 @@ function LinkedInOptimiser() {
   const handleSubmit = async () => {
     if (!form.name || !form.email || !form.industry) return
     setLoading(true)
-    await new Promise((r) => setTimeout(r, 1200))
+
+    await sendFormspreeNotification(FORMSPREE_IDS.LAGOS_JOBS_CONTACT, {
+      service: 'Lagos Jobs - LinkedIn Optimiser',
+      fullName: form.name,
+      email: form.email,
+      industry: form.industry,
+      headline: form.headline,
+      about: form.about,
+      goals: form.goals,
+      submittedAt: new Date().toISOString(),
+    })
+
     setLoading(false)
     setSubmitted(true)
   }
@@ -607,7 +801,15 @@ function PortfolioCreator() {
   const handleSubmit = async () => {
     if (!name || !email || titled.length === 0) return
     setLoading(true)
-    await new Promise((r) => setTimeout(r, 1200))
+
+    await sendFormspreeNotification(FORMSPREE_IDS.LAGOS_JOBS_CONTACT, {
+      service: 'Lagos Jobs - Portfolio Creator',
+      fullName: name,
+      email,
+      projects: JSON.stringify(titled),
+      submittedAt: new Date().toISOString(),
+    })
+
     setLoading(false)
     setSubmitted(true)
   }
@@ -726,7 +928,19 @@ function WebsiteCreator() {
   const handleSubmit = async () => {
     if (!form.name || !form.email || !form.role) return
     setLoading(true)
-    await new Promise((r) => setTimeout(r, 1200))
+
+    await sendFormspreeNotification(FORMSPREE_IDS.LAGOS_JOBS_CONTACT, {
+      service: 'Lagos Jobs - Website Creator',
+      fullName: form.name,
+      email: form.email,
+      role: form.role,
+      bio: form.bio,
+      twitter: form.twitter,
+      github: form.github,
+      linkedin: form.linkedin,
+      submittedAt: new Date().toISOString(),
+    })
+
     setLoading(false)
     setSubmitted(true)
   }
@@ -833,7 +1047,17 @@ function BrandingGuide() {
   const handleSubmit = async () => {
     if (!form.name || !form.email || !form.industry) return
     setLoading(true)
-    await new Promise((r) => setTimeout(r, 1200))
+
+    await sendFormspreeNotification(FORMSPREE_IDS.LAGOS_JOBS_CONTACT, {
+      service: 'Lagos Jobs - Personal Branding Guide',
+      fullName: form.name,
+      email: form.email,
+      industry: form.industry,
+      strength: form.strength,
+      platform: form.platform,
+      submittedAt: new Date().toISOString(),
+    })
+
     setLoading(false)
     setSubmitted(true)
   }
