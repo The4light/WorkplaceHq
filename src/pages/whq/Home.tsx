@@ -85,7 +85,7 @@ const clients = [
   { name: 'Satrop Schools', logo: '/satrop.png' },
 ]
 
-const consultationEmail = 'lagos@workplacehq.com'
+const consultationEmail = 'lagosjobsinfo@gmail.com'
 
 type ConsultationFormData = {
   fullName: string
